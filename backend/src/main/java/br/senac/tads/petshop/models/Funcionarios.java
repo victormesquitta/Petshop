@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name="tb_administradores")
-public class Administradores {
+public class Funcionarios {
 
 
 }

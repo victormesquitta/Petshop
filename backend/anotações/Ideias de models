@@ -1,0 +1,193 @@
+Clientes
+1. **ID do Cliente**: Um identificador único para cada cliente, geralmente um número inteiro autoincrementável.
+2. **Nome**: O nome completo do cliente.
+3. **E-mail**: O endereço de e-mail do cliente, que também pode ser usado como nome de usuário para fazer login.
+4. **Senha**: A senha do cliente, geralmente armazenada de forma segura usando técnicas de hash e criptografia.
+5. **Endereço**: O endereço completo do cliente, incluindo rua, número, bairro, cidade, estado e CEP.
+6. **Telefone**: O número de telefone do cliente para contato.
+7. **Data de Nascimento**: A data de nascimento do cliente.
+8. **Gênero**: O gênero do cliente (opcional).
+9. **Data de Cadastro**: A data em que o cliente se cadastrou na plataforma.
+10. **Último Acesso**: A data e hora do último acesso do cliente ao sistema.
+11. **Status**: Um campo para indicar se a conta do cliente está ativa, inativa ou suspensa.
+12. **Prefêrencias**: Campos para armazenar preferências do cliente, como preferência de contato, preferência de idioma, etc.
+13. **Cartão de Crédito**: Se o cliente optar por salvar informações do cartão de crédito para compras futuras, você pode incluir campos para os dados do cartão (número, data de validade, etc.) - observe que essas informações devem ser armazenadas com segurança e conformidade com as normas de proteção de dados (como o PCI DSS).
+14. **Histórico de Pedidos**: Relacionamento com a tabela de pedidos para armazenar os IDs dos pedidos feitos pelo cliente.
+15. **Avaliações e Comentários**: Se a plataforma permitir que os clientes avaliem e comentem sobre produtos, você pode incluir campos para armazenar essas informações.
+
+
+Produtos
+1. **ID do Produto**: Um identificador único para cada produto, geralmente um número inteiro autoincrementável.
+2. **Nome**: O nome do produto.
+3. **Descrição**: Uma descrição detalhada do produto.
+4. **Preço**: O preço do produto.
+5. **Quantidade em Estoque**: A quantidade disponível do produto em estoque.
+6. **Categoria**: Uma referência à categoria à qual o produto pertence. Isso pode ser feito através de um ID que corresponde à categoria em outra tabela de categorias ou simplesmente uma string que indica a categoria.
+7. **Marca**: A marca ou fabricante do produto.
+8. **Imagem**: Uma referência à imagem associada ao produto, seja armazenando o caminho do arquivo da imagem ou um link para a imagem.
+9. **Disponibilidade**: Um campo para indicar se o produto está atualmente disponível para compra.
+10. **Data de Criação**: A data em que o produto foi adicionado ao sistema.
+11. **Data de Modificação**: A data da última modificação feita nas informações do produto.
+12. **Destaque**: Um campo booleano para indicar se o produto está em destaque ou não na loja.
+13. **Promoção**: Se o produto estiver em promoção, você pode ter um campo para indicar o preço promocional e as datas de início e término da promoção.
+14. **Avaliação Média**: Um campo para armazenar a média das avaliações dos clientes para o produto.
+15. **Número de Avaliações**: O número total de avaliações recebidas pelo produto.
+
+
+Categorias de Produtos
+1. **ID da Categoria**: Um identificador único para cada categoria, geralmente um número inteiro autoincrementável.
+2. **Nome**: O nome da categoria, que descreve o tipo de produtos agrupados nessa categoria (por exemplo, "Alimentos para Cães", "Brinquedos para Gatos", "Produtos de Higiene", etc.).
+3. **Descrição**: Uma descrição opcional da categoria, que pode fornecer mais detalhes sobre os produtos incluídos nela.
+4. **Categoria Pai**: Se sua loja tiver uma hierarquia de categorias (por exemplo, uma categoria "Alimentos" que contém subcategorias como "Alimentos para Cães" e "Alimentos para Gatos"), você pode incluir uma coluna para indicar a categoria pai a que essa categoria pertence.
+5. **Nível Hierárquico**: Um campo para indicar o nível hierárquico da categoria, útil se você estiver trabalhando com categorias aninhadas.
+6. **Imagem**: Uma referência à imagem associada à categoria, que pode ser usada para exibir um ícone representativo ou imagem de destaque para a categoria.
+7. **Destaque**: Um campo booleano para indicar se a categoria está em destaque na loja.
+8. **Ativa**: Um campo booleano para indicar se a categoria está ativa ou não, o que pode ser útil para gerenciar a visibilidade das categorias no site.
+9. **Data de Criação**: A data em que a categoria foi adicionada ao sistema.
+10. **Data de Modificação**: A data da última modificação feita nas informações da categoria.
+
+
+Pedidos
+1. **ID do Pedido**: Um identificador único para cada pedido, geralmente um número inteiro autoincrementável.
+2. **ID do Cliente**: Uma referência ao cliente que fez o pedido, relacionando-se com a tabela de Clientes.
+3. **Data do Pedido**: A data e hora em que o pedido foi feito.
+4. **Status do Pedido**: O estado atual do pedido (por exemplo, "Em processamento", "Enviado", "Entregue", etc.).
+5. **Endereço de Entrega**: O endereço para onde o pedido deve ser entregue.
+6. **Método de Pagamento**: O método de pagamento usado para o pedido (pode ser uma referência à tabela de Formas de Pagamento).
+7. **Total do Pedido**: O valor total do pedido, incluindo eventuais taxas de envio e descontos.
+8. **Taxas de Envio**: O valor das taxas de envio, se aplicável.
+9. **Cupom de Desconto**: Se o cliente usou um cupom de desconto, você pode armazenar o código do cupom aqui.
+10. **Data de Envio**: A data e hora em que o pedido foi enviado, se aplicável.
+11. **Data de Entrega**: A data e hora em que o pedido foi entregue, se aplicável.
+12. **Número de Rastreamento**: Se o envio do pedido for rastreável, você pode armazenar o número de rastreamento aqui.
+13. **Data de Criação**: A data e hora em que o registro do pedido foi criado no sistema.
+14. **Data de Modificação**: A data e hora da última modificação feita nas informações do pedido.
+
+
+Itens do Pedido
+1. **ID do Item do Pedido**: Um identificador único para cada item do pedido, geralmente um número inteiro autoincrementável.
+2. **ID do Pedido**: Uma referência ao pedido ao qual o item pertence, relacionando-se com a tabela de Pedidos.
+3. **ID do Produto**: Uma referência ao produto que foi comprado, relacionando-se com a tabela de Produtos.
+4. **Quantidade**: A quantidade do produto que foi comprada.
+5. **Preço Unitário**: O preço unitário do produto na época da compra.
+6. **Desconto**: Qualquer desconto aplicado ao preço unitário do produto para este item específico.
+7. **Subtotal**: O subtotal para este item do pedido (quantidade * preço unitário - desconto).
+8. **Status do Item**: O estado atual do item do pedido (por exemplo, "Em processamento", "Enviado", "Entregue", etc.). Isso pode ser útil para acompanhar o status de cada item em pedidos com vários itens.
+9. **Observações**: Um campo para armazenar observações adicionais relacionadas a este item do pedido, se necessário.
+10. **Data de Criação**: A data em que o registro do item do pedido foi criado no sistema.
+11. **Data de Modificação**: A data da última modificação feita nas informações do item do pedido.
+
+
+Carrinho de Compras
+1. **ID do Item do Carrinho**: Um identificador único para cada item no carrinho, geralmente um número inteiro autoincrementável.
+2. **ID do Cliente**: Uma referência ao cliente que possui o carrinho, relacionando-se com a tabela de Clientes.
+3. **ID do Produto**: Uma referência ao produto que está no carrinho, relacionando-se com a tabela de Produtos.
+4. **Quantidade**: A quantidade do produto no carrinho.
+5. **Preço Unitário**: O preço unitário do produto no momento em que foi adicionado ao carrinho.
+6. **Subtotal**: O subtotal para este item do carrinho (quantidade * preço unitário).
+7. **Data de Adição**: A data e hora em que o item foi adicionado ao carrinho.
+8. **Observações**: Um campo para armazenar observações adicionais relacionadas a este item no carrinho, se necessário.
+
+
+Formas de Pagamento
+1. **ID da Forma de Pagamento**: Um identificador único para cada forma de pagamento, geralmente um número inteiro autoincrementável.
+2. **Nome**: O nome ou descrição da forma de pagamento (por exemplo, "Cartão de Crédito", "Boleto Bancário", "Transferência Bancária", etc.).
+3. **Ativo**: Um campo booleano para indicar se a forma de pagamento está ativa ou não.
+4. **Taxa**: Uma coluna para armazenar eventuais taxas associadas a essa forma de pagamento.
+5. **Prazo de Pagamento**: Se aplicável, o prazo de pagamento associado a essa forma de pagamento (por exemplo, "À vista", "Parcelado em 3x sem juros", etc.).
+6. **Descrição**: Uma descrição mais detalhada da forma de pagamento, se necessário.
+7. **Ícone**: Um campo para armazenar o ícone ou imagem representativa da forma de pagamento.
+8. **Instruções de Pagamento**: Se necessário, espaço para armazenar instruções adicionais para o cliente sobre como proceder com essa forma de pagamento.
+9. **Data de Criação**: A data e hora em que a forma de pagamento foi adicionada ao sistema.
+10. **Data de Modificação**: A data e hora da última modificação feita nas informações da forma de pagamento.
+
+
+Avaliações e Comentários (separar em duas tabelas diferentes)
+1. **ID da Avaliação/Comentário**: Um identificador único para cada avaliação ou comentário, geralmente um número inteiro autoincrementável.
+2. **ID do Produto**: Uma referência ao produto que está sendo avaliado/comentado, relacionando-se com a tabela de Produtos.
+3. **ID do Cliente**: Uma referência ao cliente que fez a avaliação/comentário, relacionando-se com a tabela de Clientes.
+4. **Avaliação**: Uma classificação numérica ou estrelas atribuída ao produto pelo cliente (por exemplo, de 1 a 5 estrelas).
+5. **Comentário**: O texto do comentário deixado pelo cliente sobre o produto.
+6. **Data e Hora**: A data e hora em que a avaliação/comentário foi feito.
+7. **Aprovado**: Um campo booleano para indicar se a avaliação/comentário foi aprovado pela equipe da loja para ser exibido publicamente.
+8. **Data de Aprovação**: A data e hora em que a avaliação/comentário foi aprovado.
+9. **Resposta da Loja**: Se a loja permite, um campo para a resposta da equipe da loja ao comentário do cliente.
+10. **Data de Resposta**: A data e hora em que a resposta da loja foi feita.
+11. **Útil/Não Útil**: Se a loja permite, um contador de votos indicando se a avaliação/comentário foi útil ou não para outros clientes.
+12. **Data de Criação**: A data e hora em que o registro da avaliação/comentário foi criado no sistema.
+13. **Data de Modificação**: A data e hora da última modificação feita nas informações da avaliação/comentário.
+
+
+Funcionários
+1. **ID do Administrador**: Um identificador único para cada administrador, geralmente um número inteiro autoincrementável.
+2. **Nome de Usuário**: O nome de usuário usado para fazer login no sistema de administração.
+3. **Senha**: A senha do administrador, geralmente armazenada de forma segura usando técnicas de hash e criptografia.
+4. **Nome**: O nome completo do administrador.
+5. **E-mail**: O endereço de e-mail do administrador.
+6. **Cargo**: O cargo ou função do administrador na empresa (por exemplo, "Gerente", "Suporte ao Cliente", etc.).
+7. **Nível de Acesso**: Um indicador do nível de acesso do administrador no sistema (por exemplo, "Administrador total", "Moderador", etc.).
+8. **Ativo**: Um campo booleano para indicar se o administrador está ativo ou não no sistema.
+9. **Data de Criação**: A data e hora em que o registro do administrador foi criado no sistema.
+10. **Data de Modificação**: A data e hora da última modificação feita nas informações do administrador.
+
+
+Fornecedores
+1. **ID do Fornecedor**: Um identificador único para cada fornecedor, geralmente um número inteiro autoincrementável.
+2. **Nome**: O nome do fornecedor.
+3. **Endereço**: O endereço completo do fornecedor, incluindo rua, número, bairro, cidade, estado e CEP.
+4. **Telefone**: O número de telefone do fornecedor para contato.
+5. **E-mail**: O endereço de e-mail do fornecedor.
+6. **Descrição**: Uma descrição do fornecedor, que pode incluir informações sobre os produtos fornecidos, políticas de entrega, etc.
+7. **Produtos Fornecidos**: Se aplicável, uma lista dos produtos fornecidos pelo fornecedor, talvez referenciando IDs de produtos de uma tabela separada.
+8. **Data de Criação**: A data e hora em que o registro do fornecedor foi criado no sistema.
+9. **Data de Modificação**: A data e hora da última modificação feita nas informações do fornecedor.
+
+
+Promoções
+1. **ID da Promoção**: Um identificador único para cada promoção, geralmente um número inteiro autoincrementável.
+2. **Nome**: O nome da promoção.
+3. **Descrição**: Uma descrição da promoção, que pode incluir detalhes sobre os produtos ou serviços incluídos na promoção, o período de validade, as condições de elegibilidade, etc.
+4. **Tipo**: O tipo de promoção, como desconto percentual, desconto fixo, frete grátis, compre um leve outro, etc.
+5. **Valor**: O valor do desconto ou a condição específica da promoção, dependendo do tipo de promoção (por exemplo, 10% de desconto, R$ 20 de desconto, frete grátis para compras acima de R$ 100, etc.).
+6. **Data de Início**: A data e hora de início da promoção.
+7. **Data de Término**: A data e hora de término da promoção.
+8. **Ativa**: Um campo booleano para indicar se a promoção está ativa ou não.
+9. **Produtos Envolvidos**: Uma lista de produtos ou categorias de produtos que estão incluídos na promoção, possivelmente referenciando IDs de produtos ou categorias de uma tabela separada.
+10. **Cupom de Desconto**: Se a promoção requer um cupom de desconto específico, você pode armazenar o código do cupom aqui.
+11. **Data de Criação**: A data e hora em que o registro da promoção foi criado no sistema.
+12. **Data de Modificação**: A data e hora da última modificação feita nas informações da promoção.
+
+
+Lista de Desejos
+1. **ID da Lista de Desejos**: Um identificador único para cada lista de desejos, geralmente um número inteiro autoincrementável.
+2. **ID do Cliente**: Uma referência ao cliente que criou a lista de desejos, relacionando-se com a tabela de Clientes.
+3. **ID do Produto**: Uma referência ao produto que está na lista de desejos, relacionando-se com a tabela de Produtos.
+4. **Data de Adição**: A data e hora em que o produto foi adicionado à lista de desejos.
+5. **Ativo**: Um campo booleano para indicar se o produto ainda está na lista de desejos ou foi removido.
+6. **Data de Remoção**: Se o produto foi removido da lista de desejos, a data e hora em que foi removido.
+7. **Prioridade**: Um campo para permitir que os clientes classifiquem seus desejos por prioridade, se desejado.
+8. **Notas**: Um campo para que o cliente adicione notas ou comentários sobre o produto na lista de desejos, se necessário.
+9. **Data de Criação**: A data e hora em que o registro da lista de desejos foi criado no sistema.
+10. **Data de Modificação**: A data e hora da última modificação feita nas informações da lista de desejos.
+
+
+FAQ (Perguntas Frequentes)
+1. **ID da Pergunta**: Um identificador único para cada pergunta, geralmente um número inteiro autoincrementável.
+2. **Pergunta**: O texto da pergunta frequentemente feita pelos clientes.
+3. **Resposta**: O texto da resposta fornecida pela empresa para a pergunta.
+4. **Categoria**: Uma categoria que classifica a pergunta em um tema específico (por exemplo, "Entrega", "Pagamento", "Produtos", etc.).
+5. **Ordem**: Um número ou valor para ordenar as perguntas dentro de uma mesma categoria.
+6. **Ativa**: Um campo booleano para indicar se a pergunta e sua resposta estão ativas e visíveis para os clientes.
+7. **Data de Criação**: A data e hora em que o registro da pergunta foi criado no sistema.
+8. **Data de Modificação**: A data e hora da última modificação feita nas informações da pergunta.
+
+
+Regiões de Entrega
+1. **ID da Região de Entrega**: Um identificador único para cada região de entrega, geralmente um número inteiro autoincrementável.
+2. **Nome**: O nome ou descrição da região de entrega, que pode ser uma cidade, estado, país ou outra área geográfica específica.
+3. **Código Postal**: Se aplicável, o código postal ou faixa de códigos postais que correspondem à região de entrega.
+4. **Taxa de Entrega**: A taxa de entrega associada a essa região.
+5. **Tempo de Entrega Estimado**: Uma estimativa do tempo que leva para entregar pedidos nessa região.
+6. **Ativa**: Um campo booleano para indicar se a região de entrega está ativa ou não.
+7. **Data de Criação**: A data e hora em que o registro da região de entrega foi criado no sistema.
+8. **Data de Modificação**: A data e hora da última modificação feita nas informações da região de entrega.
