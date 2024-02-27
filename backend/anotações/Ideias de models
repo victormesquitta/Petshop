@@ -3,17 +3,14 @@ Clientes
 2. **Nome**: O nome completo do cliente.
 3. **E-mail**: O endereço de e-mail do cliente, que também pode ser usado como nome de usuário para fazer login.
 4. **Senha**: A senha do cliente, geralmente armazenada de forma segura usando técnicas de hash e criptografia.
-5. **Endereço**: O endereço completo do cliente, incluindo rua, número, bairro, cidade, estado e CEP.
+5. **codendereço**: O endereço completo do cliente, incluindo rua, número, bairro, cidade, estado e CEP.
 6. **Telefone**: O número de telefone do cliente para contato.
 7. **Data de Nascimento**: A data de nascimento do cliente.
 8. **Gênero**: O gênero do cliente (opcional).
 9. **Data de Cadastro**: A data em que o cliente se cadastrou na plataforma.
 10. **Último Acesso**: A data e hora do último acesso do cliente ao sistema.
 11. **Status**: Um campo para indicar se a conta do cliente está ativa, inativa ou suspensa.
-12. **Prefêrencias**: Campos para armazenar preferências do cliente, como preferência de contato, preferência de idioma, etc.
-13. **Cartão de Crédito**: Se o cliente optar por salvar informações do cartão de crédito para compras futuras, você pode incluir campos para os dados do cartão (número, data de validade, etc.) - observe que essas informações devem ser armazenadas com segurança e conformidade com as normas de proteção de dados (como o PCI DSS).
-14. **Histórico de Pedidos**: Relacionamento com a tabela de pedidos para armazenar os IDs dos pedidos feitos pelo cliente.
-15. **Avaliações e Comentários**: Se a plataforma permitir que os clientes avaliem e comentem sobre produtos, você pode incluir campos para armazenar essas informações.
+13. **codcartao**: Se o cliente optar por salvar informações do cartão de crédito para compras futuras, você pode incluir campos para os dados do cartão (número, data de validade, etc.) - observe que essas informações devem ser armazenadas com segurança e conformidade com as normas de proteção de dados (como o PCI DSS).
 
 
 Produtos
@@ -30,21 +27,22 @@ Produtos
 11. **Data de Modificação**: A data da última modificação feita nas informações do produto.
 12. **Destaque**: Um campo booleano para indicar se o produto está em destaque ou não na loja.
 13. **Promoção**: Se o produto estiver em promoção, você pode ter um campo para indicar o preço promocional e as datas de início e término da promoção.
-14. **Avaliação Média**: Um campo para armazenar a média das avaliações dos clientes para o produto.
-15. **Número de Avaliações**: O número total de avaliações recebidas pelo produto.
 
 
 Categorias de Produtos
 1. **ID da Categoria**: Um identificador único para cada categoria, geralmente um número inteiro autoincrementável.
 2. **Nome**: O nome da categoria, que descreve o tipo de produtos agrupados nessa categoria (por exemplo, "Alimentos para Cães", "Brinquedos para Gatos", "Produtos de Higiene", etc.).
 3. **Descrição**: Uma descrição opcional da categoria, que pode fornecer mais detalhes sobre os produtos incluídos nela.
-4. **Categoria Pai**: Se sua loja tiver uma hierarquia de categorias (por exemplo, uma categoria "Alimentos" que contém subcategorias como "Alimentos para Cães" e "Alimentos para Gatos"), você pode incluir uma coluna para indicar a categoria pai a que essa categoria pertence.
-5. **Nível Hierárquico**: Um campo para indicar o nível hierárquico da categoria, útil se você estiver trabalhando com categorias aninhadas.
-6. **Imagem**: Uma referência à imagem associada à categoria, que pode ser usada para exibir um ícone representativo ou imagem de destaque para a categoria.
 7. **Destaque**: Um campo booleano para indicar se a categoria está em destaque na loja.
 8. **Ativa**: Um campo booleano para indicar se a categoria está ativa ou não, o que pode ser útil para gerenciar a visibilidade das categorias no site.
 9. **Data de Criação**: A data em que a categoria foi adicionada ao sistema.
 10. **Data de Modificação**: A data da última modificação feita nas informações da categoria.
+
+
+Subcategoria
+1. codsubcategoria
+2. **Imagem**: Uma referência à imagem associada à categoria, que pode ser usada para exibir um ícone representativo ou imagem de destaque para a categoria.
+(ver dps como vai ficar a questão dos filtros e tudo mais)
 
 
 Pedidos
@@ -87,6 +85,11 @@ Carrinho de Compras
 6. **Subtotal**: O subtotal para este item do carrinho (quantidade * preço unitário).
 7. **Data de Adição**: A data e hora em que o item foi adicionado ao carrinho.
 8. **Observações**: Um campo para armazenar observações adicionais relacionadas a este item no carrinho, se necessário.
+9. pontospet
+10. valorfrete
+11. cupomdesconto
+12. quantidadeprodutos
+
 
 
 Formas de Pagamento
@@ -191,3 +194,39 @@ Regiões de Entrega
 6. **Ativa**: Um campo booleano para indicar se a região de entrega está ativa ou não.
 7. **Data de Criação**: A data e hora em que o registro da região de entrega foi criado no sistema.
 8. **Data de Modificação**: A data e hora da última modificação feita nas informações da região de entrega.
+
+Endereços
+1. codendereco
+2. codcliente
+3. cep
+4. endereco
+5. numero
+6. complemento
+7. bairro
+8. cidade
+9. uf
+10. pontoreferencia
+11. tipolocal (casa, trabalho, outro)
+
+Cartões
+1. codcartao
+2. codendereco
+3. numero
+4. validade
+5. nomecartao
+6. cvv
+7. cpf
+
+Pets
+1. codpet
+2. nome
+3. raca
+4. peso
+5. datanascimento
+6. sexo
+7. castrado
+8. pelagem
+9. temperamento
+10. imagem
+11. tipopet
+
