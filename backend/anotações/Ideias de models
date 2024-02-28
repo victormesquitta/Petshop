@@ -77,11 +77,10 @@ Itens do Pedido
 
 
 Carrinho de Compras
-1. **ID do Item do Carrinho**: Um identificador único para cada item no carrinho, geralmente um número inteiro autoincrementável.
+1. **idcarrinho**: Um identificador único para cada item no carrinho, geralmente um número inteiro autoincrementável.
 2. **ID do Cliente**: Uma referência ao cliente que possui o carrinho, relacionando-se com a tabela de Clientes.
 3. **ID do Produto**: Uma referência ao produto que está no carrinho, relacionando-se com a tabela de Produtos.
 4. **Quantidade**: A quantidade do produto no carrinho.
-5. **Preço Unitário**: O preço unitário do produto no momento em que foi adicionado ao carrinho.
 6. **Subtotal**: O subtotal para este item do carrinho (quantidade * preço unitário).
 7. **Data de Adição**: A data e hora em que o item foi adicionado ao carrinho.
 8. **Observações**: Um campo para armazenar observações adicionais relacionadas a este item no carrinho, se necessário.
@@ -90,6 +89,11 @@ Carrinho de Compras
 11. cupomdesconto
 12. quantidadeprodutos
 
+
+Itens do Carrinho
+1. coditemcarrinho
+2. quantidade (mostrar apenas os tipos de produtos e não somar literalmente tudo)
+3. **Preço Unitário**: O preço unitário do produto no momento em que foi adicionado ao carrinho.
 
 
 Formas de Pagamento
@@ -105,7 +109,7 @@ Formas de Pagamento
 10. **Data de Modificação**: A data e hora da última modificação feita nas informações da forma de pagamento.
 
 
-Avaliações e Comentários (separar em duas tabelas diferentes)
+Avaliações e Comentários
 1. **ID da Avaliação/Comentário**: Um identificador único para cada avaliação ou comentário, geralmente um número inteiro autoincrementável.
 2. **ID do Produto**: Uma referência ao produto que está sendo avaliado/comentado, relacionando-se com a tabela de Produtos.
 3. **ID do Cliente**: Uma referência ao cliente que fez a avaliação/comentário, relacionando-se com a tabela de Clientes.
@@ -119,6 +123,20 @@ Avaliações e Comentários (separar em duas tabelas diferentes)
 11. **Útil/Não Útil**: Se a loja permite, um contador de votos indicando se a avaliação/comentário foi útil ou não para outros clientes.
 12. **Data de Criação**: A data e hora em que o registro da avaliação/comentário foi criado no sistema.
 13. **Data de Modificação**: A data e hora da última modificação feita nas informações da avaliação/comentário.
+
+Perguntas (separar as perguntas com as respostas todas de uma vez em blocos)
+1. codpergunta
+2. codusuario
+3. pergunta
+4. datapergunta
+
+Respostas
+1. codresposta
+2. codusuario (ver se só o funcionário ou se os demais usuários tbm podem responder - petlove )
+3. resposta
+4. dataresposta
+5. likes
+6. deslikes
 
 
 Funcionários
@@ -134,7 +152,7 @@ Funcionários
 10. **Data de Modificação**: A data e hora da última modificação feita nas informações do administrador.
 
 
-Fornecedores
+Fornecedores (ver se precisa)
 1. **ID do Fornecedor**: Um identificador único para cada fornecedor, geralmente um número inteiro autoincrementável.
 2. **Nome**: O nome do fornecedor.
 3. **Endereço**: O endereço completo do fornecedor, incluindo rua, número, bairro, cidade, estado e CEP.
@@ -146,7 +164,7 @@ Fornecedores
 9. **Data de Modificação**: A data e hora da última modificação feita nas informações do fornecedor.
 
 
-Promoções
+Promoções ()
 1. **ID da Promoção**: Um identificador único para cada promoção, geralmente um número inteiro autoincrementável.
 2. **Nome**: O nome da promoção.
 3. **Descrição**: Uma descrição da promoção, que pode incluir detalhes sobre os produtos ou serviços incluídos na promoção, o período de validade, as condições de elegibilidade, etc.
@@ -229,4 +247,9 @@ Pets
 9. temperamento
 10. imagem
 11. tipopet
+
+loja pontos
+1. codprodutoponto
+2. custopontos
+3. codproduto
 
