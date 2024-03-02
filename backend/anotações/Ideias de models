@@ -1,3 +1,7 @@
+ ======================
+|        Modelos       |
+ ======================
+
 Clientes
 1. **ID do Cliente**: Um identificador único para cada cliente, geralmente um número inteiro autoincrementável.
 2. **Nome**: O nome completo do cliente.
@@ -50,7 +54,7 @@ Pedidos
 2. **ID do Cliente**: Uma referência ao cliente que fez o pedido, relacionando-se com a tabela de Clientes.
 3. **Data do Pedido**: A data e hora em que o pedido foi feito.
 4. **Status do Pedido**: O estado atual do pedido (por exemplo, "Em processamento", "Enviado", "Entregue", etc.).
-5. **Endereço de Entrega**: O endereço para onde o pedido deve ser entregue.
+5. **Endereço de Entrega**: O endereço para onde o pedido wdeve ser entregue.
 6. **Método de Pagamento**: O método de pagamento usado para o pedido (pode ser uma referência à tabela de Formas de Pagamento).
 7. **Total do Pedido**: O valor total do pedido, incluindo eventuais taxas de envio e descontos.
 8. **Taxas de Envio**: O valor das taxas de envio, se aplicável.
@@ -87,13 +91,11 @@ Carrinho de Compras
 9. pontospet
 10. valorfrete
 11. cupomdesconto
-12. quantidadeprodutos
 
 
 Itens do Carrinho
 1. coditemcarrinho
 2. quantidade (mostrar apenas os tipos de produtos e não somar literalmente tudo)
-3. **Preço Unitário**: O preço unitário do produto no momento em que foi adicionado ao carrinho.
 
 
 Formas de Pagamento
@@ -252,4 +254,8 @@ loja pontos
 1. codprodutoponto
 2. custopontos
 3. codproduto
+
+log atividades funcionários
+(a ideia é se relacionar com funcionários e gerar um textinho a cada atv que eel fizer no programa, por exemplo ele apagou algum produto ou adicionou um novo
+aí apareceria alguns dados para referenciá-lo e o que ele fez embaixo)
 
