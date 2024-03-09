@@ -47,6 +47,12 @@ public class ClienteController {
         return new ResponseEntity<>("Cliente atualizado com sucesso.", HttpStatus.OK);
     }
 
+    @PutMapping("/{id}/trocar-senha")
+    public ResponseEntity<Object> trocarSenha(@PathVariable Integer id, @RequestBody Cliente cliente) {
+        clienteService.trocarSenha(id, cliente);
+        return new ResponseEntity<>("Senha do cliente atualizada com sucesso.", HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> excluirCliente(@PathVariable Integer id) {
         clienteService.excluirCliente(id);
