@@ -19,8 +19,8 @@ public class Cliente {
     @Column(name = "codcliente")
     private Integer codCliente;
 
-    @Column(name="nome", nullable = false)
-    private String nome;
+    @Column(name="nomeCompleto", nullable = false)
+    private String nomeCompleto;
 
     @Column(name="usuario", nullable = false, unique = true, length = 50)
     private String usuario;

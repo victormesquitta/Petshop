@@ -13,7 +13,7 @@ public class ClienteDTO {
     private String usuario;
     private String email;
     private String cpf;
-    private String nome;
+    private String nomeCompleto;
     private String celular;
     private String celular2;
     private LocalDate dataNascimento;
