@@ -19,7 +19,7 @@ public class Cliente {
     @Column(name = "codcliente")
     private Integer codCliente;
 
-    @Column(name="nomeCompleto", nullable = false)
+    @Column(name="nomecompleto", nullable = false)
     private String nomeCompleto;
 
     @Column(name="usuario", nullable = false, unique = true, length = 50)
@@ -46,10 +46,10 @@ public class Cliente {
     private String celular2;
 
     @Column(name="dtnascimento")
-    private LocalDate dataNascimento;
+    private LocalDate dtNascimento;
 
     @Column(name="dtcadastro")
-    private LocalDate dataCadastro;
+    private LocalDate dtCadastro;
 
     // ver a necessidade dessa coluna
 //    @Column(name="dtultimoacesso")
@@ -61,4 +61,7 @@ public class Cliente {
 
     @Column(name="genero", nullable = false)
     private String genero;
+
+    @Column(name="prefmarketing")
+    private boolean prefMarketing;
 }

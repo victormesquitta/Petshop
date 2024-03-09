@@ -93,7 +93,7 @@ public class ClienteService {
     public void criarCliente(Cliente cliente){
         validarDadosDuplicados(cliente);
         //sobreescreve a data passada no json
-        cliente.setDataCadastro(LocalDate.now());
+        cliente.setDtCadastro(LocalDate.now());
         clienteRepository.save(cliente);
     }
 

@@ -16,8 +16,9 @@ public class ClienteDTO {
     private String nomeCompleto;
     private String celular;
     private String celular2;
-    private LocalDate dataNascimento;
-    private LocalDate dataCadastro;
+    private LocalDate dtNascimento;
+    private LocalDate dtCadastro;
     private String status;
     private String genero;
+    private boolean prefMarketing;
 }
