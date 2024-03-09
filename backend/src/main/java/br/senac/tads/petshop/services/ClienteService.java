@@ -54,17 +54,40 @@ public class ClienteService {
     }
 
     public Cliente obterClientePorId(Integer id){
-        System.out.println("teste 1");
         Optional<Cliente> clienteOptional = clienteRepository.findById(id);
         clienteExiste(clienteOptional);
         return clienteOptional.get();
     }
 
     public ClienteDTO obterClienteDTOPorId(Integer id){
-        System.out.println("teste 2");
         Optional<Cliente> clienteOptional = clienteRepository.findById(id);
         clienteExiste(clienteOptional);
         return clienteOptional.map(clienteDTOMapper::toDTO).orElse(null);
+    }
+
+    public Cliente obterClientePorCPF(String cpf){
+        try {
+            Cliente cliente = clienteRepository.findByCpf(cpf);
+            if (cliente == null) {
+                throw new RuntimeException("Cliente não encontrado para o CPF fornecido: " + cpf);
+            }
+            return cliente;
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar cliente por CPF: " + e.getMessage(), e);
+        }
+    }
+
+    public ClienteDTO obterClienteDTOPorCPF(String cpf){
+        try {
+            Cliente cliente = clienteRepository.findByCpf(cpf);
+            if (cliente == null) {
+                throw new RuntimeException("Cliente não encontrado para o CPF fornecido: " + cpf);
+            }
+            ClienteDTO clienteDTO = clienteDTOMapper.toDTO(cliente);
+            return clienteDTO;
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar cliente por CPF: " + e.getMessage(), e);
+        }
     }
 
     public void criarCliente(Cliente cliente){
@@ -76,15 +99,29 @@ public class ClienteService {
 
     public void atualizarCliente(Integer id, Cliente cliente){
         validarDadosDuplicados(cliente);
-        clienteExiste(id);
+        Cliente cliente1 = obterClientePorId(id);
         cliente.setCodCliente(id);
-        clienteRepository.save(cliente);
 
+        // não atualiza a senha junto, apenas o resto das outras infos
+        cliente.setSenha(cliente.getSenha());
+        clienteRepository.save(cliente);
     }
 
     public void excluirCliente(Integer id){
         clienteExiste(id);
         clienteRepository.deleteById(id);
+    }
+
+    public void trocarSenha(Integer id, Cliente cliente){
+        Cliente clienteBD = obterClientePorId(id);
+
+        // valida se a senha é igual a anterior
+        if(cliente.getSenha().equals(clienteBD.getSenha())){
+            throw new RuntimeException("A senha não pode ser igual a anterior.");
+        }
+
+        clienteBD.setSenha(cliente.getSenha());
+        clienteRepository.save(clienteBD);
     }
 
     public boolean cpfJaCadastrado(String cpf) {
@@ -138,7 +175,4 @@ public class ClienteService {
             }
         }
     }
-
-    // validar o que pode e o que não pode ser duplicado
-
 }

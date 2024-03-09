@@ -36,8 +36,13 @@ public class ClienteController {
 
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Object> obterClientePeloId(@PathVariable Integer id) {
-        System.out.println("teste controller");
         ClienteDTO clienteDTO = clienteService.obterClienteDTOPorId(id);
+        return ResponseEntity.ok(clienteDTO);
+    }
+
+    @GetMapping(value = "/cpf/{cpf}", produces = "application/json")
+    public ResponseEntity<Object> obterClientePeloCPF(@PathVariable String cpf) {
+        ClienteDTO clienteDTO = clienteService.obterClienteDTOPorCPF(cpf);
         return ResponseEntity.ok(clienteDTO);
     }
 
