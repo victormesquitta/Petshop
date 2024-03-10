@@ -1,10 +1,8 @@
 package br.senac.tads.petshop.services;
 
 import br.senac.tads.petshop.dtos.EnderecoDTO;
-import br.senac.tads.petshop.mappers.ClienteDTOMapper;
 import br.senac.tads.petshop.mappers.EnderecoDTOMapper;
 import br.senac.tads.petshop.models.Endereco;
-import br.senac.tads.petshop.repositories.ClienteRepository;
 import br.senac.tads.petshop.repositories.EnderecoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
