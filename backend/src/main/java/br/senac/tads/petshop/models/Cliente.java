@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -64,4 +67,10 @@ public class Cliente {
 
     @Column(name="prefmarketing")
     private boolean prefMarketing;
+
+    // evita problemas de recursividade no relacionamento
+
+//    @ToString.Exclude
+//    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+//    private List<Endereco> enderecos = new ArrayList<>();
 }

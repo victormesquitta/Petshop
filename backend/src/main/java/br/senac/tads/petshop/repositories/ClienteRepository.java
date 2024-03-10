@@ -13,7 +13,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     boolean existsByUsuario(String usuario);
     Cliente findByCpf(String cpf);
 
-
     // ver como isso será aplicado
 //    UserDetails findByUsuario(String usuario); //Metodo usado para consultar os usuarios
 }
