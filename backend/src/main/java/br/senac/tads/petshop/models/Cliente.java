@@ -1,5 +1,6 @@
 package br.senac.tads.petshop.models;
 
+import br.senac.tads.petshop.dtos.ClienteDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,21 @@ import java.util.List;
 @Entity
 @Table(name="t_cliente")
 public class Cliente {
+
+    public Cliente(ClienteDTO clienteDTO) {
+        this.usuario = clienteDTO.getUsuario();
+        this.email = clienteDTO.getEmail();
+        this.cpf = clienteDTO.getCpf();
+        this.nomeCompleto = clienteDTO.getNomeCompleto();
+        this.celular = clienteDTO.getCelular();
+        this.celular2 = clienteDTO.getCelular2();
+        this.dtNascimento = clienteDTO.getDtNascimento();
+        this.dtCadastro = clienteDTO.getDtCadastro();
+        this.status = clienteDTO.getStatus();
+        this.genero = clienteDTO.getGenero();
+        this.prefMarketing = clienteDTO.isPrefMarketing();
+        this.senha = clienteDTO.getSenha();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

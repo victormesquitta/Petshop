@@ -23,8 +23,8 @@ public class ClienteController {
     private ClienteDTOMapper clienteDTOMapper;
 
     @PostMapping()
-    public ResponseEntity<Object> criarCliente(@RequestBody Cliente cliente) {
-        clienteService.criarCliente(cliente);
+    public ResponseEntity<Object> criarCliente(@RequestBody ClienteDTO clienteDTO) {
+        clienteService.criarCliente(clienteDTO);
         return new ResponseEntity<>("Cliente criado com sucesso.", HttpStatus.CREATED);
     }
 
@@ -47,7 +47,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> atualizarCliente(@PathVariable Integer id, @RequestBody Cliente cliente) {
+    public ResponseEntity<Object> atualizarCliente(@PathVariable Integer id, @RequestBody ClienteDTO cliente) {
         clienteService.atualizarCliente(id, cliente);
         return new ResponseEntity<>("Cliente atualizado com sucesso.", HttpStatus.OK);
     }

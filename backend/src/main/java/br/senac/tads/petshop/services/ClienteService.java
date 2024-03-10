@@ -90,20 +90,23 @@ public class ClienteService {
         }
     }
 
-    public void criarCliente(Cliente cliente){
-        validarDadosDuplicados(cliente);
-        //sobreescreve a data passada no json
-        cliente.setDtCadastro(LocalDate.now());
+    public void criarCliente(ClienteDTO clienteDTO){
+        validarDadosDuplicados(clienteDTO);
+
+        Cliente cliente = new Cliente(clienteDTO);
+        // sobreescreve a data passada no json
+        clienteDTO.setDtCadastro(LocalDate.now());
         clienteRepository.save(cliente);
     }
 
-    public void atualizarCliente(Integer id, Cliente cliente){
-        validarDadosDuplicados(cliente);
+    public void atualizarCliente(Integer id, ClienteDTO clienteDTO){
+        validarDadosDuplicados(clienteDTO, id);
         Cliente cliente1 = obterClientePorId(id);
-        cliente.setCodCliente(id);
 
         // não atualiza a senha junto, apenas o resto das outras infos
-        cliente.setSenha(cliente.getSenha());
+        clienteDTO.setSenha(clienteDTO.getSenha());
+
+        Cliente cliente = new Cliente(clienteDTO);
         clienteRepository.save(cliente);
     }
 
@@ -140,18 +143,18 @@ public class ClienteService {
         return clienteRepository.existsByUsuario(usuario);
     }
 
-    private void validarDadosDuplicados(Cliente cliente){
+    private void validarDadosDuplicados(ClienteDTO clienteDTO){
         for(Cliente clienteBanco : clienteRepository.findAll()){
-            if(clienteBanco.getUsuario().equals(cliente.getUsuario())){
+            if(clienteBanco.getUsuario().equals(clienteDTO.getUsuario())){
                 throw new DataIntegrityViolationException("Usuário já em uso.");
             }
-            else if(clienteBanco.getCpf().equals(cliente.getCpf())){
+            else if(clienteBanco.getCpf().equals(clienteDTO.getCpf())){
                 throw new DataIntegrityViolationException("CPF pertence a uma outra conta.");
             }
-            else if(clienteBanco.getEmail().equals(cliente.getEmail())){
+            else if(clienteBanco.getEmail().equals(clienteDTO.getEmail())){
                 throw new DataIntegrityViolationException("Endereço de e-mail já em uso.");
             }
-            else if(clienteBanco.getCelular().equals(cliente.getCelular())){
+            else if(clienteBanco.getCelular().equals(clienteDTO.getCelular())){
                 throw new DataIntegrityViolationException("Celular já foi cadastrado em outra conta.");
             }
         }
