@@ -23,8 +23,8 @@ public class EnderecoController {
     private EnderecoDTOMapper enderecoDTOMapper;
 
     @PostMapping()
-    public ResponseEntity<Object> criarEndereco(@RequestBody Endereco endereco) {
-        enderecoService.criarEndereco(endereco);
+    public ResponseEntity<Object> criarEndereco(@RequestBody EnderecoDTO enderecoDTO) {
+        enderecoService.criarEndereco(enderecoDTO);
         return new ResponseEntity<>("Endereço criado com sucesso.", HttpStatus.CREATED);
     }
 
@@ -41,8 +41,8 @@ public class EnderecoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> atualizarEndereco(@PathVariable Integer id, @RequestBody Endereco endereco) {
-        enderecoService.atualizarEndereco(id, endereco);
+    public ResponseEntity<Object> atualizarEndereco(@PathVariable Integer id, @RequestBody EnderecoDTO enderecoDTO) {
+        enderecoService.atualizarEndereco(id, enderecoDTO);
         return new ResponseEntity<>("Endereco atualizado com sucesso.", HttpStatus.OK);
     }
 
