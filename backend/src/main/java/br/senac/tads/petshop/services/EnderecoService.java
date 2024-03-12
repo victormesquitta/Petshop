@@ -15,13 +15,16 @@ import java.util.stream.Collectors;
 @Service
 public class EnderecoService {
 
-    @Autowired
+
     private EnderecoRepository enderecoRepository;
     private EnderecoDTOMapper enderecoDTOMapper;
+    private ClienteService clienteService;
 
-    public EnderecoService(EnderecoRepository enderecoRepository, EnderecoDTOMapper enderecoDTOMapper) {
+    @Autowired
+    public EnderecoService(EnderecoRepository enderecoRepository, EnderecoDTOMapper enderecoDTOMapper, ClienteService clienteService) {
         this.enderecoRepository = enderecoRepository;
         this.enderecoDTOMapper = enderecoDTOMapper;
+        this.clienteService = clienteService;
     }
 
     public List<Endereco> listarEnderecos() {
@@ -44,7 +47,7 @@ public class EnderecoService {
 
     public void enderecoExiste(Integer id){
         Optional<Endereco> enderecoOptional = enderecoRepository.findById(id);
-        if(!enderecoOptional.isPresent()){
+        if(enderecoOptional.isEmpty()){
             throw new EntityNotFoundException("Nenhum endereço encontrado para o ID fornecido.");
         }
     }
@@ -61,13 +64,14 @@ public class EnderecoService {
         return enderecoOptional.map(enderecoDTOMapper::toDTO).orElse(null);
     }
 
-    public void criarEndereco(Endereco endereco) {
+    public void criarEndereco(EnderecoDTO enderecoDTO) {
+        Endereco endereco = enderecoDTOMapper.toEntity(enderecoDTO);
         enderecoRepository.save(endereco);
     }
 
-    public void atualizarEndereco(Integer id, Endereco endereco) {
-        Endereco endereco1 = obterEnderecoPorId(id);
-        endereco.setCodEndereco(id);
+    public void atualizarEndereco(Integer id, EnderecoDTO enderecoDTO) {
+        enderecoExiste(id);
+        Endereco endereco = enderecoDTOMapper.toEntity(enderecoDTO, id);
         enderecoRepository.save(endereco);
     }
 
