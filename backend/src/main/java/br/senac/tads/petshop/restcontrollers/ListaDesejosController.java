@@ -15,16 +15,17 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("/api/listadesejos")
 public class ListaDesejosController {
-
+    private final ListaDesejosService listaDesejosService;
+    private final ListaDesejosDTOMapper listaDesejosDTOMapper;
     @Autowired
-    private ListaDesejosService listaDesejosService;
-
-    @Autowired
-    private ListaDesejosDTOMapper listaDesejosDTOMapper;
+    public ListaDesejosController(ListaDesejosService listaDesejosService, ListaDesejosDTOMapper listaDesejosDTOMapper) {
+        this.listaDesejosService = listaDesejosService;
+        this.listaDesejosDTOMapper = listaDesejosDTOMapper;
+    }
 
     @PostMapping()
-    public ResponseEntity<Object> criarListaDesejos(@RequestBody ListaDesejos listaDesejos) {
-        listaDesejosService.criarListaDesejos(listaDesejos);
+    public ResponseEntity<Object> criarListaDesejos(@RequestBody ListaDesejosDTO listaDesejosDTO) {
+        listaDesejosService.criarListaDesejos(listaDesejosDTO);
         return new ResponseEntity<>("Lista de desejos criada com sucesso.", HttpStatus.CREATED);
     }
 
@@ -41,8 +42,8 @@ public class ListaDesejosController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> atualizarListaDesejos(@PathVariable Integer id, @RequestBody ListaDesejos listaDesejos) {
-        listaDesejosService.atualizarListaDesejos(id, listaDesejos);
+    public ResponseEntity<Object> atualizarListaDesejos(@PathVariable Integer id, @RequestBody ListaDesejosDTO listaDesejosDTO) {
+        listaDesejosService.atualizarListaDesejos(id, listaDesejosDTO);
         return new ResponseEntity<>("Lista de desejos atualizada com sucesso.", HttpStatus.OK);
     }
 

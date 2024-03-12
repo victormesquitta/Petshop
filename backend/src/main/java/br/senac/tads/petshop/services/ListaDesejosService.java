@@ -2,7 +2,6 @@ package br.senac.tads.petshop.services;
 
 import br.senac.tads.petshop.dtos.ListaDesejosDTO;
 import br.senac.tads.petshop.mappers.ListaDesejosDTOMapper;
-import br.senac.tads.petshop.models.Endereco;
 import br.senac.tads.petshop.models.ListaDesejos;
 import br.senac.tads.petshop.repositories.ListaDesejosRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -15,14 +14,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class ListaDesejosService {
-
-    @Autowired
     private ListaDesejosRepository listaDesejosRepository;
     private ListaDesejosDTOMapper listaDesejosDTOMapper;
-
-    public ListaDesejosService(ListaDesejosRepository listaDesejosRepository, ListaDesejosDTOMapper listaDesejosDTOMapper){
+    private ClienteService clienteService;
+    @Autowired
+    public ListaDesejosService(ListaDesejosRepository listaDesejosRepository, ListaDesejosDTOMapper listaDesejosDTOMapper, ClienteService clienteService){
         this.listaDesejosRepository = listaDesejosRepository;
         this.listaDesejosDTOMapper = listaDesejosDTOMapper;
+        this.clienteService = clienteService;
     }
 
     public List<ListaDesejos> listarListaDesejos(){
@@ -62,12 +61,14 @@ public class ListaDesejosService {
         return listaDesejosOptional.map(listaDesejosDTOMapper::toDTO).orElse(null);
     }
 
-    public void criarListaDesejos(ListaDesejos listaDesejos){
+    public void criarListaDesejos(ListaDesejosDTO listaDesejosDTO){
+        ListaDesejos listaDesejos = listaDesejosDTOMapper.toEntity(listaDesejosDTO);
         listaDesejosRepository.save(listaDesejos);
     }
 
-    public void atualizarListaDesejos(Integer id, ListaDesejos listaDesejos){
-        ListaDesejos listaDesejos1 = obterListaDesejosPorId(id);
+    public void atualizarListaDesejos(Integer id, ListaDesejosDTO listaDesejosDTO){
+        listaDesejosExiste(id);
+        ListaDesejos listaDesejos = listaDesejosDTOMapper.toEntity(listaDesejosDTO);
         listaDesejos.setCodListaDesejos(id);
         listaDesejosRepository.save(listaDesejos);
     }

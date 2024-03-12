@@ -2,22 +2,25 @@ package br.senac.tads.petshop.mappers;
 
 import br.senac.tads.petshop.dtos.ListaDesejosDTO;
 import br.senac.tads.petshop.models.ListaDesejos;
+import br.senac.tads.petshop.services.ClienteService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ListaDesejosDTOMapper {
-
-    @Autowired
     private final ModelMapper modelMapper;
-
-    public ListaDesejosDTOMapper(ModelMapper modelMapper) {
+    private final ClienteService clienteService;
+    @Autowired
+    public ListaDesejosDTOMapper(ModelMapper modelMapper, ClienteService clienteService) {
         this.modelMapper = modelMapper;
+        this.clienteService = clienteService;
     }
 
     public ListaDesejos toEntity(ListaDesejosDTO listaDesejosDTO) {
-        return modelMapper.map(listaDesejosDTO, ListaDesejos.class);
+        ListaDesejos listaDesejos = modelMapper.map(listaDesejosDTO, ListaDesejos.class);
+        listaDesejos.setCliente(clienteService.obterClientePorId(listaDesejosDTO.getCodCliente()));
+        return listaDesejos;
     }
     public ListaDesejosDTO toDTO(ListaDesejos listaDesejos) {
         return modelMapper.map(listaDesejos, ListaDesejosDTO.class);
