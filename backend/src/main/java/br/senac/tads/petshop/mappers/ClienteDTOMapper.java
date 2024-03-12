@@ -19,6 +19,14 @@ public class ClienteDTOMapper {
     public Cliente toEntity(ClienteDTO clienteDTO) {
         return modelMapper.map(clienteDTO, Cliente.class);
     }
+
+    public Cliente toEntity(ClienteDTO clienteDTO, Integer id) {
+        Cliente cliente = modelMapper.map(clienteDTO, Cliente.class);
+        cliente.setCodCliente(id);
+        return cliente;
+    }
+
+
     public ClienteDTO toDTO(Cliente cliente) {
         return modelMapper.map(cliente, ClienteDTO.class);
     }

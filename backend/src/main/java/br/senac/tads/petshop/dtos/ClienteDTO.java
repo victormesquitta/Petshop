@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class ClienteDTO {
     private String usuario;
 
-    // pra ignorar no get e ao mesmo tempo conseguir setar no post
+    // permite apenas a escrita do atributo
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
@@ -24,7 +24,12 @@ public class ClienteDTO {
     private String celular;
     private String celular2;
     private LocalDate dtNascimento;
+
+
+    // permite apenas a leitura do atributo
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate dtCadastro;
+
     private String status;
     private String genero;
     private boolean prefMarketing;

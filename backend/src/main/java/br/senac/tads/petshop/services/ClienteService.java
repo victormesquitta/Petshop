@@ -48,7 +48,7 @@ public class ClienteService {
     // utilizado nos métodos de post/put/delete
     public void clienteExiste(Integer id){
         Optional<Cliente> clienteOptional = clienteRepository.findById(id);
-        if(!clienteOptional.isPresent()){
+        if(clienteOptional.isEmpty()){
             throw new EntityNotFoundException("Nenhum usuário encontrado para o ID fornecido.");
         }
     }
@@ -92,8 +92,7 @@ public class ClienteService {
 
     public void criarCliente(ClienteDTO clienteDTO){
         validarDadosDuplicados(clienteDTO);
-
-        Cliente cliente = new Cliente(clienteDTO);
+        Cliente cliente = clienteDTOMapper.toEntity(clienteDTO);
         // sobreescreve a data passada no json
         clienteDTO.setDtCadastro(LocalDate.now());
         clienteRepository.save(cliente);
@@ -101,12 +100,10 @@ public class ClienteService {
 
     public void atualizarCliente(Integer id, ClienteDTO clienteDTO){
         validarDadosDuplicados(clienteDTO, id);
-        Cliente cliente1 = obterClientePorId(id);
-
+        clienteExiste(id);
+        Cliente cliente = clienteDTOMapper.toEntity(clienteDTO, id);
         // não atualiza a senha junto, apenas o resto das outras infos
         clienteDTO.setSenha(clienteDTO.getSenha());
-
-        Cliente cliente = new Cliente(clienteDTO);
         clienteRepository.save(cliente);
     }
 
@@ -115,16 +112,25 @@ public class ClienteService {
         clienteRepository.deleteById(id);
     }
 
-    public void trocarSenha(Integer id, Cliente cliente){
-        Cliente clienteBD = obterClientePorId(id);
+    public void trocarSenha(Integer id, ClienteDTO clienteDTO){
+        Cliente cliente = obterClientePorId(id);
 
         // valida se a senha é igual a anterior
-        if(cliente.getSenha().equals(clienteBD.getSenha())){
+        if(clienteDTO.getSenha().equals(cliente.getSenha())){
             throw new RuntimeException("A senha não pode ser igual a anterior.");
         }
 
-        clienteBD.setSenha(cliente.getSenha());
-        clienteRepository.save(clienteBD);
+        cliente.setSenha(cliente.getSenha());
+        clienteRepository.save(cliente);
+    }
+
+    public void alterarStatus(Integer id, ClienteDTO clienteDTO){
+        Cliente cliente = obterClientePorId(id);
+
+        // depois fazer validação com security
+
+        cliente.setStatus(clienteDTO.getStatus());
+        clienteRepository.save(cliente);
     }
 
     public boolean cpfJaCadastrado(String cpf) {

@@ -53,8 +53,14 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}/trocar-senha")
-    public ResponseEntity<Object> trocarSenha(@PathVariable Integer id, @RequestBody Cliente cliente) {
-        clienteService.trocarSenha(id, cliente);
+    public ResponseEntity<Object> trocarSenha(@PathVariable Integer id, @RequestBody ClienteDTO clienteDTO) {
+        clienteService.trocarSenha(id, clienteDTO);
+        return new ResponseEntity<>("Senha do cliente atualizada com sucesso.", HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/alterar-status")
+    public ResponseEntity<Object> alterarStatus(@PathVariable Integer id, @RequestBody ClienteDTO clienteDTO) {
+        clienteService.alterarStatus(id, clienteDTO);
         return new ResponseEntity<>("Senha do cliente atualizada com sucesso.", HttpStatus.OK);
     }
 
