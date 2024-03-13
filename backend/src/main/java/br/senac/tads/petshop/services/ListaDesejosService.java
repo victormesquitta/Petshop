@@ -37,14 +37,14 @@ public class ListaDesejosService {
     }
 
     public void listaDesejosExiste(Optional<ListaDesejos> listaDesejosOptional){
-        if(!listaDesejosOptional.isPresent()){
+        if(listaDesejosOptional.isEmpty()){
             throw new EntityNotFoundException("Nenhuma Lista de Desejos encontrada para o ID fornecido.");
         }
     }
 
     public void listaDesejosExiste(Integer id){
         Optional<ListaDesejos> listaDesejosOptional = listaDesejosRepository.findById(id);
-        if(!listaDesejosOptional.isPresent()){
+        if(listaDesejosOptional.isEmpty()){
             throw new EntityNotFoundException("Nenhuma Lista de Desejos encontrada para o ID fornecido.");
         }
     }
@@ -68,8 +68,7 @@ public class ListaDesejosService {
 
     public void atualizarListaDesejos(Integer id, ListaDesejosDTO listaDesejosDTO){
         listaDesejosExiste(id);
-        ListaDesejos listaDesejos = listaDesejosDTOMapper.toEntity(listaDesejosDTO);
-        listaDesejos.setCodListaDesejos(id);
+        ListaDesejos listaDesejos = listaDesejosDTOMapper.toEntity(listaDesejosDTO, id);
         listaDesejosRepository.save(listaDesejos);
     }
 
