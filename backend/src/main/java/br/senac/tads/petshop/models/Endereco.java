@@ -14,18 +14,6 @@ import org.hibernate.annotations.Comment;
 @Table(name = "t_endereco")
 public class Endereco {
 
-    public Endereco(EnderecoDTO enderecoDTO) {
-        this.cep = enderecoDTO.getCep();
-        this.endereco = enderecoDTO.getEndereco();
-        this.numero = enderecoDTO.getNumero();
-        this.complemento = enderecoDTO.getComplemento();
-        this.bairro = enderecoDTO.getBairro();
-        this.cidade = enderecoDTO.getCidade();
-        this.uf = enderecoDTO.getUf();
-        this.pontoReferencia = enderecoDTO.getPontoReferencia();
-        this.tipoLocal = enderecoDTO.getTipoLocal();
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codendereco")
