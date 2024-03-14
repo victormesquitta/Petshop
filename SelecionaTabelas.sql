@@ -1,5 +1,11 @@
 select * from t_cliente;
 select * from t_endereco;
-SHOW FULL COLUMNS FROM t_endereco;
+select * from t_listadesejos;
 
-SHOW DATABASES;
+
+
+/*
+	SHOW FULL COLUMNS FROM t_endereco;
+	DESC t_cliente;
+	SHOW DATABASES;
+*/
