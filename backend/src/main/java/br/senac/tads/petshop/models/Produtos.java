@@ -45,10 +45,10 @@ public class Produtos{
     private boolean disponivel;
 
     @Column (name = "dt_criacao")
-    private DateTime dt_criacao;
+    private LocalDate dt_criacao;
 
     @Column (name = "dt_modificacao")
-    private DateTime dt_modificacao;
+    private LocalDate dt_modificacao;
 
     @Column (name = "destaque")
     private boolean destaque;
