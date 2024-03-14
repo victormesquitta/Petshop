@@ -1,6 +1,5 @@
 package br.senac.tads.petshop.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +23,6 @@ public class ClienteDTO {
     private String celular;
     private String celular2;
     private LocalDate dtNascimento;
-
 
     // permite apenas a leitura do atributo
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

@@ -69,11 +69,11 @@ public class ClienteService {
         try {
             Cliente cliente = clienteRepository.findByCpf(cpf);
             if (cliente == null) {
-                throw new RuntimeException("Cliente não encontrado para o CPF fornecido: " + cpf);
+                throw new EntityNotFoundException("Cliente não encontrado para o CPF fornecido: " + cpf);
             }
             return cliente;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao buscar cliente por CPF: " + e.getMessage(), e);
+            throw new EntityNotFoundException("Erro ao buscar cliente por CPF: " + e.getMessage(), e);
         }
     }
 
@@ -81,12 +81,12 @@ public class ClienteService {
         try {
             Cliente cliente = clienteRepository.findByCpf(cpf);
             if (cliente == null) {
-                throw new RuntimeException("Cliente não encontrado para o CPF fornecido: " + cpf);
+                throw new EntityNotFoundException("Cliente não encontrado para o CPF fornecido: " + cpf);
             }
             ClienteDTO clienteDTO = clienteDTOMapper.toDTO(cliente);
             return clienteDTO;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao buscar cliente por CPF: " + e.getMessage(), e);
+            throw new EntityNotFoundException("Erro ao buscar cliente por CPF: " + e.getMessage(), e);
         }
     }
 

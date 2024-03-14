@@ -22,8 +22,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensagemErro);
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<String> handleRuntimeException(DataIntegrityViolationException e) {
+    public ResponseEntity<String> handleDataIntegratityException(DataIntegrityViolationException e) {
         String mensagemErro = "Erro de integridade de dados: " + e.getMessage();
         return new ResponseEntity<>(mensagemErro, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<String> handleEntityNotFound(EntityNotFoundException e) {
+        String mensagemErro = "Entidade não encontrada: " + e.getMessage();
+        return new ResponseEntity<>(mensagemErro, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }
