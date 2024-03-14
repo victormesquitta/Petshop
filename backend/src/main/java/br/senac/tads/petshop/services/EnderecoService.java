@@ -16,15 +16,14 @@ import java.util.stream.Collectors;
 public class EnderecoService {
 
 
-    private EnderecoRepository enderecoRepository;
-    private EnderecoDTOMapper enderecoDTOMapper;
-    private ClienteService clienteService;
+    private final EnderecoRepository enderecoRepository;
+    private final EnderecoDTOMapper enderecoDTOMapper;
+
 
     @Autowired
-    public EnderecoService(EnderecoRepository enderecoRepository, EnderecoDTOMapper enderecoDTOMapper, ClienteService clienteService) {
+    public EnderecoService(EnderecoRepository enderecoRepository, EnderecoDTOMapper enderecoDTOMapper) {
         this.enderecoRepository = enderecoRepository;
         this.enderecoDTOMapper = enderecoDTOMapper;
-        this.clienteService = clienteService;
     }
 
     public List<Endereco> listarEnderecos() {
@@ -40,7 +39,7 @@ public class EnderecoService {
     }
 
     public void enderecoExiste(Optional<Endereco> enderecoOptional){
-        if(!enderecoOptional.isPresent()){
+        if(enderecoOptional.isEmpty()){
             throw new EntityNotFoundException("Nenhum endereço encontrado para o ID fornecido.");
         }
     }

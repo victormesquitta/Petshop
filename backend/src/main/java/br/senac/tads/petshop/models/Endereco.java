@@ -1,6 +1,5 @@
 package br.senac.tads.petshop.models;
 
-import br.senac.tads.petshop.dtos.EnderecoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
