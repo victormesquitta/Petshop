@@ -14,6 +14,8 @@ import ImgFrontLine from "../../assets/images/ImgFrontLine.png";
 import ImgWhiskas from "../../assets/images/ImgWhiskas.png";
 import ImgPetSociety from "../../assets/images/ImgPetSociety.png";
 import ImgRoyalCanin from "../../assets/images/ImgRoyalCanin.png";
+import { RodapeComponent } from "../../components/RodapeComponent/RodapeComponent";
+import { FaHeart, FaMedal } from "react-icons/fa";
 
 export function Home() {
     return (
@@ -32,32 +34,47 @@ export function Home() {
                     <div className="DivCards">
                         <section>
                             <img src={Card} />
-                            <h3>DOG CHOW SACHÊ FRANGO MINI 100G
-                                <p className="TextoRiscado">R$ 2,99</p>
-                                <p>R$ 2,49</p>
-                            </h3>
-                        </section>
-                        <section>
-                            <img src={Card} />
-                            <h3>DOG CHOW SACHÊ FRANGO MINI 100G
-                                <p className="TextoRiscado">R$ 2,99</p>
-                                <p>R$ 2,49</p>
-                            </h3>
-                        </section>
-                        <section>
-                            <img src={Card} />
-                            <h3>DOG CHOW SACHÊ FRANGO MINI 100G
-                                <p className="TextoRiscado">R$ 2,99</p>
-                                <p>R$ 2,49</p>
-                            </h3>
-                        </section>
-                        <section>
-                            <img src={Card} />
-                            <h3>DOG CHOW SACHÊ FRANGO MINI 100G
-                                <p className="TextoRiscado">R$ 2,99</p>
-                                <p>R$ 2,49</p>
+                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao"/></p>
+                            <h3>DOG CHOW SACHÊ FRANGO MINI 100G</h3>
+                                <p className="PrecoRiscado">R$ 2,99</p>
+                                <p className="PrecoNormal">R$ 2,49</p>
 
-                            </h3>
+                                <p className="MimuPoints"><FaMedal/> Ganhe 200 Mimu points com essa compra</p>
+                                <button>Adicionar ao Carrinho</button>
+                            
+                        </section>
+                        <section>
+                            <img src={Card} />
+                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao"/></p>
+                            <h3>DOG CHOW SACHÊ FRANGO MINI 100G</h3>
+                                <p className="PrecoRiscado">R$ 2,99</p>
+                                <p className="PrecoNormal">R$ 2,49</p>
+
+                                <p className="MimuPoints"><FaMedal/> Ganhe 200 Mimu points com essa compra</p>
+                                <button>Adicionar ao Carrinho</button>
+                            
+                        </section>
+                        <section>
+                            <img src={Card} />
+                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao"/></p>
+                            <h3>DOG CHOW SACHÊ FRANGO MINI 100G </h3>
+                                <p className="PrecoRiscado">R$ 2,99</p>
+                                <p className="PrecoNormal">R$ 2,49</p>
+
+                                <p className="MimuPoints"><FaMedal/> Ganhe 200 Mimu points com essa compra</p>
+                                <button>Adicionar ao Carrinho</button>
+                           
+                        </section>
+                        <section>
+                            <img src={Card} />
+                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao"/></p>
+                            <h3>DOG CHOW SACHÊ FRANGO MINI 100G </h3>
+                                <p className="PrecoRiscado">R$ 2,99</p>
+                                <p className="PrecoNormal">R$ 2,49</p>
+                           
+                                <p className="MimuPoints"><FaMedal/> Ganhe 200 Mimu points com essa compra</p>
+                                <button>Adicionar ao Carrinho</button>
+                           
                         </section>
 
                     </div>
@@ -84,6 +101,7 @@ export function Home() {
                         <img src={ ImgElanco } className="ImgElano"/>
                     </section>
                 </S.ContainerMarcas>
+                <RodapeComponent/>
             </S.ContainerPai>
         </>
     )

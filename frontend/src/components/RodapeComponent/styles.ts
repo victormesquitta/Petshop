@@ -36,6 +36,8 @@ display: flex;
 align-items: center;
 justify-content: space-around;
 
+z-index:-1;
+
     div{
         background-color: #88CE08;
         height: 100%;
@@ -84,6 +86,8 @@ justify-content: space-around;
 
         padding-right: 2rem;
 
+        display: block;
+
         .BotaoSeuPet{
         border: 1px solid;
         border-radius: 15px;
@@ -95,35 +99,35 @@ justify-content: space-around;
         background-color: white;
 
         position: static;
-        z-index: 1;
+        z-index: 2;
 
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         
     }
 
     .dropdown-menu{
-        width: 12.2%;
+        width: 80%;
 
-        position: absolute;
-        flex-direction: column;
-        display: flex;
-        align-items: center;
+        position: relative;
+       
+        top: -.2rem;
 
         color:black;
         background-color: white;
 
-        top: 2.5rem;
-        padding-top: 1.3rem;
-
         border-color: #88CE08;
         border-radius: 15px;
+
+        z-index: 1;
 
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
         li{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
             border-radius: 15px;
-
-            margin-top: .3rem;
 
             list-style: none;
 

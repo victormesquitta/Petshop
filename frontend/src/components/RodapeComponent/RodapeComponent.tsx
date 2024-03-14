@@ -6,7 +6,6 @@ import GoogleNavegacaoSegura from "../../assets/images/GoogleNavegacaoSegura.png
 import GoogleSafeBrowsing from "../../assets/images/GoogleSafeBrowsing.png"
 import PremioEpoca from "../../assets/images/PremioEpoca.png";
 import { Link } from "react-router-dom";
-import { RegistrarConta } from "../../pages/RegistrarConta/RegistrarConta";
 
 export function RodapeComponent() {
     const [isOpen, setIsOpen] = useState(false);
@@ -69,11 +68,11 @@ export function RodapeComponent() {
                     </div>
 
                     <div className="DivRedesSociais">
-                    <h3>Redes Sociais</h3>
+                        <h3>Redes Sociais</h3>
                         <div className="RedesSociais">
-                            <FaWhatsapp className="ImgWhatsapp"/>
-                            <FaInstagram className="ImgInstagram"/>
-                            <FaFacebookSquare className="ImgFacebook"/>
+                            <FaWhatsapp className="ImgWhatsapp" />
+                            <FaInstagram className="ImgInstagram" />
+                            <FaFacebookSquare className="ImgFacebook" />
                         </div>
                     </div>
                 </S.ContainerInformacoesSite>

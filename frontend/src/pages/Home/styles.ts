@@ -57,44 +57,91 @@ flex-direction: column;
         border-radius: 25px;
 
         width: 22%;
-        height: 18rem;
+        height: 27rem;
 
-        padding: 2.5rem;
+        padding: 2rem;
         margin-top: 3.5rem;
-
+        
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         
         img{
             width: 80%;
             height: 11rem;
-            
+
         }
 
         h3{
-            margin-top: 1rem; 
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            margin-top: .5rem; 
+            padding-left: .7rem;
 
             font-size: 1vw;
-            
-            p{
-            margin-top: .5rem;
-    
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          
-            width: 100%;
-            font-size: 1.2vw;
-
-            }
-            .TextoRiscado{
-                text-decoration: line-through;
-            }
         }  
+
+        .IconCoracao{
+            position: relative;
+            left: 7rem;
+
+            color: red;
+
+            width: 20%;
+            height: 1.7rem;
+
+            cursor: pointer;
+        }
+        .Pedigree{
+            font-size: .9vw;
+            color: lightslategray;
+
+            width: 100%;
+
+            align-items: start;
+
+            margin-top: .7rem;
+
+        }
+            .PrecoRiscado{
+                text-decoration: line-through;
+
+                font-size: .8vw;
+                color: lightslategray;
+
+                margin-top: 1rem;
+
+                position: relative;
+                right: 2rem;
+            }
+            .PrecoNormal{
+                font-size: 1.5vw;
+                font-weight: 800;
+                
+            }
+            .MimuPoints{
+                color: gold;
+                font-size: .9vw;
+
+                margin-top: 1rem;
+            }
+
+            button{    
+                margin-top: 1rem;
+                                
+                    align-items: center;
+                    justify-content: center;
+
+                    font-weight: 600;
+
+                    border: none;
+                    border-radius: 15px;
+                    border-color: #073950;
+
+                    width: 100%;
+                    height: 2.5rem;
+
+                    background-color: #073950;
+                    color: white;  
+
+                    
+            }
     }
 }
 .ParaPrincipaisMarcas{
@@ -114,7 +161,7 @@ flex-direction: column;
 
 padding-top: 1.5rem;
 padding-bottom: 1.5rem;
-background-color:  #88CE08 ;
+background-color: #073950;
 
 section{
     display: flex;
