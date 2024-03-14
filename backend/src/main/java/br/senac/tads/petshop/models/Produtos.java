@@ -1,11 +1,11 @@
 package br.senac.tads.petshop.models;
 
-import br.senac.tads.petshop.dtos.EnderecoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Comment;
+
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
