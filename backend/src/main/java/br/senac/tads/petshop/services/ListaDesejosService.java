@@ -62,7 +62,7 @@ public class ListaDesejosService {
     }
 
     public void criarListaDesejos(ListaDesejosDTO listaDesejosDTO){
-        if(listaDesejosRepository.existsByCodCliente(listaDesejosDTO.getCodCliente())){
+        if(listaDesejosRepository.existsByCliente_CodCliente(listaDesejosDTO.getCodCliente())){
             throw new RuntimeException("Cliente já possui uma lista de desejos.");
         }
         ListaDesejos listaDesejos = listaDesejosDTOMapper.toEntity(listaDesejosDTO);

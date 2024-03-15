@@ -1,8 +1,6 @@
 package br.senac.tads.petshop.restcontrollers;
 
 import br.senac.tads.petshop.dtos.ListaDesejosDTO;
-import br.senac.tads.petshop.mappers.ListaDesejosDTOMapper;
-import br.senac.tads.petshop.models.ListaDesejos;
 import br.senac.tads.petshop.services.ListaDesejosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,13 +13,13 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("/api/listadesejos")
 public class ListaDesejosController {
-    private final ListaDesejosService listaDesejosService;
-    private final ListaDesejosDTOMapper listaDesejosDTOMapper;
     @Autowired
-    public ListaDesejosController(ListaDesejosService listaDesejosService, ListaDesejosDTOMapper listaDesejosDTOMapper) {
+    private final ListaDesejosService listaDesejosService;
+
+    public ListaDesejosController(ListaDesejosService listaDesejosService) {
         this.listaDesejosService = listaDesejosService;
-        this.listaDesejosDTOMapper = listaDesejosDTOMapper;
     }
+
 
     @PostMapping()
     public ResponseEntity<Object> criarListaDesejos(@RequestBody ListaDesejosDTO listaDesejosDTO) {
