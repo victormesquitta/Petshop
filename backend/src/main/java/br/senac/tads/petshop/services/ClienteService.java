@@ -99,7 +99,7 @@ public class ClienteService {
     }
 
     public void atualizarCliente(Integer id, ClienteDTO clienteDTO){
-        validarDadosDuplicados(clienteDTO, id);
+        validarDadosDuplicados(clienteDTO);
         clienteExiste(id);
         Cliente cliente = clienteDTOMapper.toEntity(clienteDTO, id);
         // não atualiza a senha junto, apenas o resto das outras infos
@@ -150,38 +150,50 @@ public class ClienteService {
     }
 
     private void validarDadosDuplicados(ClienteDTO clienteDTO){
-        for(Cliente clienteBanco : clienteRepository.findAll()){
-            if(clienteBanco.getUsuario().equals(clienteDTO.getUsuario())){
-                throw new DataIntegrityViolationException("Usuário já em uso.");
-            }
-            else if(clienteBanco.getCpf().equals(clienteDTO.getCpf())){
-                throw new DataIntegrityViolationException("CPF pertence a uma outra conta.");
-            }
-            else if(clienteBanco.getEmail().equals(clienteDTO.getEmail())){
-                throw new DataIntegrityViolationException("Endereço de e-mail já em uso.");
-            }
-            else if(clienteBanco.getCelular().equals(clienteDTO.getCelular())){
-                throw new DataIntegrityViolationException("Celular já foi cadastrado em outra conta.");
-            }
+        if(usuarioJaCadastrado(clienteDTO.getUsuario())){
+            throw new DataIntegrityViolationException("Usuário já em uso.");
+        }
+        else if(cpfJaCadastrado(clienteDTO.getCpf())){
+            throw new DataIntegrityViolationException("CPF pertence a uma outra conta.");
+        }
+        else if(emailJaCadastrado(clienteDTO.getEmail())){
+            throw new DataIntegrityViolationException("Endereço de e-mail já em uso.");
         }
     }
 
-    private void validarDadosDuplicados(ClienteDTO clienteDTO, Integer id) {
-        for(Cliente cliente : clienteRepository.findAll()){
-            if(!(id.equals(cliente.getCodCliente()))){
-                if(cliente.getUsuario().equals(clienteDTO.getUsuario())){
-                    throw new DataIntegrityViolationException("Usuário já em uso.");
-                }
-                else if(cliente.getCpf().equals(clienteDTO.getCpf())){
-                    throw new DataIntegrityViolationException("CPF pertence a uma outra conta.");
-                }
-                else if(cliente.getEmail().equals(clienteDTO.getEmail())){
-                    throw new DataIntegrityViolationException("Endereço de e-mail já em uso.");
-                }
-                else if(cliente.getCelular().equals(clienteDTO.getCelular())){
-                    throw new DataIntegrityViolationException("Celular já foi cadastrado em outra conta.");
-                }
-            }
-        }
-    }
+//    private void validarDadosDuplicados(ClienteDTO clienteDTO){
+//        for(Cliente clienteBanco : clienteRepository.findAll()){
+//            if(clienteBanco.getUsuario().equals(clienteDTO.getUsuario())){
+//                throw new DataIntegrityViolationException("Usuário já em uso.");
+//            }
+//            else if(clienteBanco.getCpf().equals(clienteDTO.getCpf())){
+//                throw new DataIntegrityViolationException("CPF pertence a uma outra conta.");
+//            }
+//            else if(clienteBanco.getEmail().equals(clienteDTO.getEmail())){
+//                throw new DataIntegrityViolationException("Endereço de e-mail já em uso.");
+//            }
+//            else if(clienteBanco.getCelular().equals(clienteDTO.getCelular())){
+//                throw new DataIntegrityViolationException("Celular já foi cadastrado em outra conta.");
+//            }
+//        }
+//    }
+//
+//    private void validarDadosDuplicados(ClienteDTO clienteDTO, Integer id) {
+//        for(Cliente cliente : clienteRepository.findAll()){
+//            if(!(id.equals(cliente.getCodCliente()))){
+//                if(cliente.getUsuario().equals(clienteDTO.getUsuario())){
+//                    throw new DataIntegrityViolationException("Usuário já em uso.");
+//                }
+//                else if(cliente.getCpf().equals(clienteDTO.getCpf())){
+//                    throw new DataIntegrityViolationException("CPF pertence a uma outra conta.");
+//                }
+//                else if(cliente.getEmail().equals(clienteDTO.getEmail())){
+//                    throw new DataIntegrityViolationException("Endereço de e-mail já em uso.");
+//                }
+//                else if(cliente.getCelular().equals(clienteDTO.getCelular())){
+//                    throw new DataIntegrityViolationException("Celular já foi cadastrado em outra conta.");
+//                }
+//            }
+//        }
+//    }
 }
