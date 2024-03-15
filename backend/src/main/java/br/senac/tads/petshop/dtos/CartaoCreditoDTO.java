@@ -17,4 +17,5 @@ public class CartaoCreditoDTO {
     private String nomeCartao;
     private String cvv;
     private String cpf;
+    private Integer codCliente;
 }

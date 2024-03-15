@@ -66,7 +66,7 @@ public class CartaoCreditoService {
 
     public void atualizarCartaoCredito(Integer id, CartaoCreditoDTO cartaoCreditoDTO) {
         cartaoCreditoExiste(id);
-        CartaoCredito cartaoCredito = cartaoCreditoDTOMapper.toEntity(cartaoCreditoDTO);
+        CartaoCredito cartaoCredito = cartaoCreditoDTOMapper.toEntity(cartaoCreditoDTO, id);
         cartaoCreditoRepository.save(cartaoCredito);
     }
 

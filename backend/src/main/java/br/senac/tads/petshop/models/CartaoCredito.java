@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "t_cartoescredito")
+@Table(name = "t_cartaocredito")
 public class CartaoCredito {
 
     @Id
@@ -37,5 +37,10 @@ public class CartaoCredito {
 
     @Column(name="cpf")
     private String cpf;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "codcliente", referencedColumnName = "codcliente",
+            foreignKey = @ForeignKey(name = "fk_t_cartaocredito_t_cliente1"))
+    private Cliente cliente;
 
 }
