@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import br.senac.tads.petshop.models.Produto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.senac.tads.petshop.dtos.ProdutosDTO;
+import br.senac.tads.petshop.dtos.ProdutoDTO;
 import br.senac.tads.petshop.mappers.ProdutosDTOMapper;
-import br.senac.tads.petshop.models.Produtos;
 import br.senac.tads.petshop.repositories.ProdutosRepository;
 
 @Service
@@ -26,20 +26,20 @@ public class ProdutosService {
         this.produtosMapper = produtosMapper;
     }
 
-    public List<Produtos> listarProdutos(){
-        List<Produtos> produtos = produtosRepository.findAll();
+    public List<Produto> listarProdutos(){
+        List<Produto> produtos = produtosRepository.findAll();
         return produtos;
     }
 
-    public List<ProdutosDTO> listarProdutosDTOs(){
-        List<Produtos> produtos = produtosRepository.findAll();
+    public List<ProdutoDTO> listarProdutosDTOs(){
+        List<Produto> produtos = produtosRepository.findAll();
         return produtos.stream()
                     .map(produtosMapper::toDTO)
                     .collect(Collectors.toList());        
     }
 
-    public Produtos obterProdutoPorId(Integer id){
-        Optional<Produtos> produtoOptional = produtosRepository.findById(id);
+    public Produto obterProdutoPorId(Integer id){
+        Optional<Produto> produtoOptional = produtosRepository.findById(id);
 
         if (produtoOptional.isEmpty()) {
             throw new IllegalArgumentException("O produto não existe");
@@ -48,25 +48,25 @@ public class ProdutosService {
         return produtoOptional.get();
     }
 
-    public ProdutosDTO obterProdutoDTOporId(Integer id){
-        Optional<Produtos> produtoOptional = produtosRepository.findById(id);
+    public ProdutoDTO obterProdutoDTOporId(Integer id){
+        Optional<Produto> produtoOptional = produtosRepository.findById(id);
         return produtoOptional.map(produtosMapper::toDTO).orElse(null);
     }
 
-    public void criarProduto(ProdutosDTO produtoDTO){
-        Produtos produto = produtosMapper.toEntity(produtoDTO);
+    public void criarProduto(ProdutoDTO produtoDTO){
+        Produto produto = produtosMapper.toEntity(produtoDTO);
         produto.setDt_criacao(LocalDate.now());
         produto.setDt_modificacao(null);
         produtosRepository.save(produto);
     }
 
-    public void atualizarProduto(Integer id, ProdutosDTO produtoDTO){
-        Produtos produto = produtosMapper.toEntity(produtoDTO, id);
+    public void atualizarProduto(Integer id, ProdutoDTO produtoDTO){
+        Produto produto = produtosMapper.toEntity(produtoDTO, id);
         produto.setDt_modificacao(LocalDate.now());
         produtosRepository.save(produto);
     }
 
-    public void excluirProduto(Integer id, ProdutosDTO produtoDTO){
+    public void excluirProduto(Integer id, ProdutoDTO produtoDTO){
         produtosRepository.deleteById(id);
     }
 

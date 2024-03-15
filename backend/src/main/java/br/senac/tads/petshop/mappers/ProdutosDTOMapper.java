@@ -1,7 +1,7 @@
 package br.senac.tads.petshop.mappers;
 
-import br.senac.tads.petshop.dtos.ProdutosDTO;
-import br.senac.tads.petshop.models.Produtos;
+import br.senac.tads.petshop.dtos.ProdutoDTO;
+import br.senac.tads.petshop.models.Produto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,19 +16,19 @@ public class ProdutosDTOMapper {
         this.modelMapper = modelMapper;
     }
 
-    public Produtos toEntity(ProdutosDTO ProdutosDTO) {
-        return modelMapper.map(ProdutosDTO, Produtos.class);
+    public Produto toEntity(ProdutoDTO ProdutoDTO) {
+        return modelMapper.map(ProdutoDTO, Produto.class);
     }
 
-    public Produtos toEntity(ProdutosDTO ProdutosDTO, Integer id) {
-        Produtos Produtos = modelMapper.map(ProdutosDTO, Produtos.class);
-        Produtos.setCodprodutos(id);
-        return Produtos;
+    public Produto toEntity(ProdutoDTO ProdutoDTO, Integer id) {
+        Produto Produto = modelMapper.map(ProdutoDTO, Produto.class);
+        Produto.setCodprodutos(id);
+        return Produto;
     }
 
 
-    public ProdutosDTO toDTO(Produtos Produtos) {
-        return modelMapper.map(Produtos, ProdutosDTO.class);
+    public ProdutoDTO toDTO(Produto Produto) {
+        return modelMapper.map(Produto, ProdutoDTO.class);
     }
 
 }
