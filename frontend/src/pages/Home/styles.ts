@@ -26,8 +26,9 @@ flex-direction: column;
     align-items: center;
     
     gap: 3.5rem;
+
     img{
-        width: 70%;
+        width: 60%;
         background-color: white;
     }
 
@@ -84,7 +85,7 @@ flex-direction: column;
             color: red;
 
             width: 20%;
-            height: 1.7rem;
+            height: 1.3rem;
 
             cursor: pointer;
         }
@@ -125,20 +126,20 @@ flex-direction: column;
             button{    
                 margin-top: 1rem;
                                 
-                    align-items: center;
-                    justify-content: center;
+                align-items: center;
+                justify-content: center;
 
-                    font-weight: 600;
+                font-weight: 600;
 
-                    border: none;
-                    border-radius: 15px;
-                    border-color: #073950;
+                border: none;
+                border-radius: 15px;
+                border-color: #073950;
 
-                    width: 100%;
-                    height: 2.5rem;
+                width: 100%;
+                height: 2.5rem;
 
-                    background-color: #073950;
-                    color: white;  
+                background-color: #073950;
+                color: white;  
 
                     
             }
@@ -149,10 +150,10 @@ flex-direction: column;
     margin-bottom: 3rem;
 
     .PrincipaisMarcasTitulo{
-    font-size: 1.4vw;
-    letter-spacing: .1rem;
+        font-size: 1.4vw;
+        letter-spacing: .1rem;
 
-}
+    }
 }
     
 `

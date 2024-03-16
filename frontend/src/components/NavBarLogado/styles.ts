@@ -31,7 +31,6 @@ export const NavBarLogado = styled.nav`
 
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-
         }
         &:first-child{
         padding-left: 6rem;
@@ -94,13 +93,17 @@ export const NavBarLogado = styled.nav`
                 width: 10%;
 
                 color: #88CE08;
+
+                cursor: pointer;
             }
 
             .IconCarrinho{
                 height: 4.5vh;
                 width: 10%;
 
-                color: #88CE08;           
+                color: #88CE08;      
+                
+                cursor: pointer;
             }
             }  
             .BotaoFimTela{
@@ -131,6 +134,7 @@ export const NavBarLogado = styled.nav`
                         display: flex;
                         justify-content: center;
                         align-items: center;
+                        
                     }
             }
     }
