@@ -12,7 +12,6 @@ public class EnderecoDTO {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer codCliente;
-
     private String cep;
     private String endereco;
     private Integer numero;
