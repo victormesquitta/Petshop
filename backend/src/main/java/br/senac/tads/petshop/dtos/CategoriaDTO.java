@@ -13,12 +13,18 @@ public class CategoriaDTO {
     
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer codProduto;
+
     private String nome;
+
     private String descricao;
+
     private boolean destaque;
+    
     private boolean ativa;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate dtCriacao;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate dtModificacao;
 }

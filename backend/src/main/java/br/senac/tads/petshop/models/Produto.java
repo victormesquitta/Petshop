@@ -31,10 +31,6 @@ public class Produto {
     @Column(name = "qtd_estoque")
     private int qtd_estoque;
 
-    /* por hora string, depois id de outra categoria */
-    @Column(name = "categoria")
-    private String categoria;
-
     @Column (name = "marca")
     private String marca;
 

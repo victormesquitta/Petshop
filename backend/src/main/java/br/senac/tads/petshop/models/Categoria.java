@@ -22,14 +22,19 @@ public class Categoria {
     @Column(name="nome")
     private String nome;
 
+    @Column(name="descricao")
     private String descricao;
 
+    @Column(name="destaque")
     private boolean destaque;
 
+    @Column(name="ativa")
     private boolean ativa;
 
+    @Column(name="dtcriacao")
     private LocalDate dtCriacao;
 
+    @Column(name="dtmodificacao")
     private LocalDate dtModificacao;
 
     @ManyToOne(cascade = CascadeType.MERGE)
