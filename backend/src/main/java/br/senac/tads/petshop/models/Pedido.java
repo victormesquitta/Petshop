@@ -22,12 +22,6 @@ public class Pedido {
     @Column(name = "dtpedido")
     private LocalDate dtPedido;
 
-    @Column(name = "dtcriacao")
-    private LocalDate dtCriacao;
-
-    @Column(name = "dtmodificacao")
-    private LocalDate dtModificacao;
-
     @Column(name = "dtentrega")
     private LocalDate dtEntrega;
 

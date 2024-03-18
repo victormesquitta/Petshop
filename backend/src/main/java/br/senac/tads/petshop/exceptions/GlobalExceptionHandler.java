@@ -15,12 +15,6 @@ public class GlobalExceptionHandler {
         String mensagemErro = "Erro durante a execução: " + e.getMessage();
         return new ResponseEntity<>(mensagemErro, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Object> handlerError404(EntityNotFoundException e) {
-        String mensagemErro = "Erro 404: " + e.getMessage();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensagemErro);
-    }
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handleDataIntegratityException(DataIntegrityViolationException e) {
         String mensagemErro = "Erro de integridade de dados: " + e.getMessage();
@@ -30,7 +24,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> handleEntityNotFound(EntityNotFoundException e) {
         String mensagemErro = "Entidade não encontrada: " + e.getMessage();
-        return new ResponseEntity<>(mensagemErro, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(mensagemErro, HttpStatus.NOT_FOUND);
     }
 
 }
