@@ -51,7 +51,7 @@ public class CategoriaService {
         categoriaRepository.save(Categoria);
     }
 
-    public void excluirCategoria(Integer id, CategoriaDTO categoriaDTO){
+    public void excluirCategoria(Integer id){
         categoriaRepository.deleteById(id);
     }
 }

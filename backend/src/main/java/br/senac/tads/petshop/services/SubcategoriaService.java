@@ -40,6 +40,10 @@ public class SubcategoriaService {
 
     public void criarSubcategoria(SubcategoriaDTO subcategoriaDTO){
         Subcategoria subcategoria = subcategoriaMapper.toEntity(subcategoriaDTO);
+/*
+testar isso aqui 
+ Categoria categoria = categoriaRepository.findById(subcategoriaDTO.getCodcategorias()).orElseThrow(() -> new IllegalArgumentException("A Categoria com ID " + subcategoriaDTO.getCodcategorias() + " não existe."));
+ */
         subcategoria.setDtCriacao(LocalDate.now());
         subcategoria.setDtModificacao(null);
         subcategoriaRepository.save(subcategoria);
@@ -51,7 +55,7 @@ public class SubcategoriaService {
         subcategoriaRepository.save(subcategoria);
     }
 
-    public void excluirSubcategoria(Integer id, SubcategoriaDTO subcategoriaDTO){
+    public void excluirSubcategoria(Integer id){
         subcategoriaRepository.deleteById(id);
     }
 }

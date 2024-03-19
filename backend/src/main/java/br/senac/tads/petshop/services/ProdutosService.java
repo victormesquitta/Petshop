@@ -66,7 +66,7 @@ public class ProdutosService {
         produtosRepository.save(produto);
     }
 
-    public void excluirProduto(Integer id, ProdutoDTO produtoDTO){
+    public void excluirProduto(Integer id){
         produtosRepository.deleteById(id);
     }
 
