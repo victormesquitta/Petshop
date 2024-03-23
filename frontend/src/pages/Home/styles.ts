@@ -58,7 +58,7 @@ flex-direction: column;
         border-radius: 25px;
 
         width: 22%;
-        height: 27rem;
+        height: 30rem;
 
         padding: 2rem;
         margin-top: 3.5rem;
@@ -135,8 +135,8 @@ flex-direction: column;
                 border-radius: 15px;
                 border-color: #073950;
 
-                width: 100%;
-                height: 2.5rem;
+                width: 80%;
+                height: 2.2rem;
 
                 background-color: #073950;
                 color: white;  

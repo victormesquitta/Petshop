@@ -29,6 +29,24 @@ min-width: 100vw;
 
     height: 20vh;
 }
+
+@media (max-width: 1024px){
+    .ImgLogo{
+        height: 18vh;
+    }
+}
+
+    @media (max-width: 768px){
+    .ImgLogo{
+        height: 16vh;
+    }
+}
+
+@media (max-width: 480px){
+    .ImgLogo{
+        height: 14vh;
+    }
+}
 `
 
 export const FormularioLogin = styled.form` 
@@ -48,6 +66,21 @@ export const FormularioLogin = styled.form`
     font-size: 1vw;;
     font-family: 'Roboto', sans-serif;
 
+@media (max-width: 1024px){
+    width: 45%;
+    height: 60%;
+    
+}
+
+@media (max-width: 768px){
+    width: 50%;
+    height: 58%;
+}
+
+@media (max-width: 480px){
+    width: 60%;
+    height: 55%;
+}
 `;
 
 export const Inputs = styled.div`
@@ -101,6 +134,45 @@ input {
                 }
             }
         }
+
+    @media (max-width: 1024px){
+        h1{
+        font-size: 3.5vw;
+    }
+
+    input{
+        width: 60%;
+        height: 3.2rem;
+
+        font-size: 2vw;
+    }
+    }
+
+    @media (max-width: 768px){
+        h1{
+            font-size: 4vw;
+
+            margin-top: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        input{
+            font-size: 2.4vw;
+        }
+    }
+
+    @media (max-width: 480px){
+        h1{
+            font-size: 5vw;
+
+            margin-top: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        input{
+            font-size: 3vw;
+        }
+    }
 `;
 
 export const NaoTemConta = styled.div`
@@ -111,7 +183,7 @@ align-items: center;
 
 width: 100%;
 
-div.divButton{
+.divButton{
     display: flex;
     position: relative;
     flex-direction: row;
@@ -150,7 +222,56 @@ button{
             padding-left: 1.5rem;
             padding-right: 1.5rem; 
      } 
-    
+@media (max-width: 1024px){
+    .divButton{
+        button{
+            margin-top: 3rem;
+            
+            width: 30%;
+
+            font-size: 2.3vw;
+        }
+    }
+
+    div{
+        margin-bottom: .5rem;
+    }
+
+    .LogarCom{
+        font-size: 2.3vw;
+        
+    }
+}    
+
+@media (max-width: 768px){
+    .divButton{
+        button{
+            font-size: 2.5vw;
+        }
+    }
+
+    .LogarCom{
+        font-size: 2.5vw;
+    }
+}
+
+@media (max-width: 480px){
+    .divButton{
+        button{
+            width: 35%;
+
+            font-size: 3.5vw;
+
+            margin-top: 3rem;
+            margin-bottom: .5rem;
+        }
+    }
+
+    .LogarCom{
+        font-size: 3.5vw;
+        
+    }
+}
 `;
 
 export const ImgsLogos = styled.div`
@@ -229,4 +350,29 @@ export const ImgsLogos = styled.div`
 
         }
     }
-}`;
+}
+
+@media (max-width: 1024px){
+    margin-top: .7rem;
+
+    div{
+        width: 27%;
+    }
+}
+
+@media (max-width: 768px){
+    margin-top: 1rem;
+
+    div{
+        width: 27%;
+    }
+}
+
+@media (max-width: 480px){
+    margin-top: 1.5rem;
+    
+    div{
+        width: 27%;
+    }
+}
+`;

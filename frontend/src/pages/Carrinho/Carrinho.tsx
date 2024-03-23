@@ -3,8 +3,11 @@ import * as S from "./styles";
 import ImgLogo from "../../assets/images/ImgLogo.svg";
 import ImgCard from "../../assets/images/Card.png";
 import { FaTicket } from "react-icons/fa6";
+import { CarouselComponent } from "../../components/CarouselComponent/CarouselComponent";
+
 
 export function Carrinho() {
+
     return (
         <>
             <S.ContainerPai>
@@ -35,7 +38,7 @@ export function Carrinho() {
 
                         <section className="SecInfoPrecos">
                             <div>
-                                <p>Produtos</p>
+                                <p>Produtos(1)</p>
                                 <p>R$ 29,99</p>
                             </div>
 
@@ -53,7 +56,7 @@ export function Carrinho() {
 
                     <div className="DivFretePrazo">
                         <h3>Frete e Prazo</h3>
-                        <h3>Cupom de desconto <FaTicket className="TicketIcon"/></h3>
+                        <h3>Cupom de desconto <FaTicket className="TicketIcon" /></h3>
                     </div>
 
                     <div className="DivCupomFrete">
@@ -65,10 +68,12 @@ export function Carrinho() {
                         <section>
                             <input type="text" placeholder="Insira seu cupom" />
                             <button className="CupomDesconto">Aplicar </button>
-                        </section>   
-                    </div> 
+                        </section>
+                    </div>
                     <h3 className="TituloPodeInteressar">Também pode te interessar</h3>
                 </S.ContainerMain>
+
+                <CarouselComponent />
             </S.ContainerPai>
         </>
     );

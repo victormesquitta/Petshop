@@ -21,13 +21,10 @@ export function Login() {
                     <CheckedBoxComponent />
 
                     <S.NaoTemConta>
-                        <div className="divButton">
-                            <button type="submit" onClick={false} value="Acessar">Logar</button>
-                        </div>
                         <div>
-                            <p>Não tem uma conta?<Link to={"/RegistrarConta"}> Crie uma conta.</Link></p>
+                            <p className="Links">Não tem uma conta?<Link to={"/RegistrarConta"} className="Links"> Crie uma conta.</Link></p>
 
-                            <Link to={""}>Esqueci minha senha.</Link>
+                            <Link to={""} className="Links">Esqueci minha senha.</Link>
                         </div>
                         <p>______________ <span className="LogarCom">Logar Com</span> ______________</p>
                         

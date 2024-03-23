@@ -29,6 +29,11 @@ min-width: 100vw;
 
     height: 20vh;
 }
+@media (max-width: 480px){
+    .ImgLogo{
+        height: 15vh;
+    }
+}
 `
 
 export const FormularioLogin = styled.form` 
@@ -45,9 +50,36 @@ export const FormularioLogin = styled.form`
     border-radius:25px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
-    font-size: 1vw;;
+    font-size: 1vw;
     font-family: 'Roboto', sans-serif;
 
+
+
+
+
+@media (max-width: 1024px){
+    height: 80%;
+    width: 50%;
+
+    margin-top: 5rem;
+}
+@media (max-width: 768px){
+    width: 60%;
+    height: 70%;
+
+    margin-top: 8rem;
+}
+
+@media (max-width: 480px) {
+    width: 80%;
+    height: 68%;
+
+    margin-top: 5rem;
+
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+}
 `;
 
 export const Inputs = styled.div`
@@ -64,6 +96,24 @@ h1{
 }
 
 
+@media (max-width: 1024px){
+    h1{
+        font-size: 4vw;
+    }
+}
+
+@media (max-width: 768px){
+    h1{
+        font-size: 5vw;
+    }
+}
+
+@media (max-width: 480px) {
+    h1{
+        font-size: 6.5vw;
+
+    }
+}
 `;
 
 export const NaoTemConta = styled.div`
@@ -73,29 +123,6 @@ flex-direction: column;
 align-items: center;
 
 width: 100%;
-
-div.divButton{
-    display: flex;
-    position: relative;
-    flex-direction: row;
-    justify-content: center;
-
-    width: 100%;
-
-button{
-        background-color: #1976D2;
-        color: white;
-    
-        border: none;
-        border-radius: 15px;
-    
-        width: 30%;
-        height: 2.7rem;
-        
-        margin-top: .5rem;
-    }
-
-} 
 
     div{
         width:59%;
@@ -114,6 +141,50 @@ button{
             padding-right: 1.5rem; 
      } 
 
+     @media (max-width:1024px){
+
+    .Links{
+        font-size: 2vw;
+
+        margin-top: .5rem;
+    }
+
+    .LogarCom{
+        font-size: 2.5vw;  
+        
+    }
+}
+
+@media (max-width: 768px){
+    .Links{
+        font-size: 3vw;
+
+        margin-top: 1rem;
+    }
+
+    .LogarCom{
+        font-size: 3vw;  
+        
+    }
+}
+
+@media (max-width: 480px) {
+    
+    div{
+        gap:1.5rem;
+
+
+    }
+
+    .Links{
+        font-size: 4vw;
+    }
+
+    .LogarCom{
+        font-size: 5.5vw;  
+        
+    }
+}
 `;
 
 export const ImgsLogos = styled.div`
@@ -192,4 +263,32 @@ export const ImgsLogos = styled.div`
 
         }
     }
-}`;
+}
+
+@media (max-width: 1024px){
+    div{
+        height: 3.3rem;
+        width: 28%;
+
+        margin-top: 1.5rem;
+    }
+}
+
+@media (max-width: 768px){
+    div{
+        height: 3.3rem;
+        width: 28%;
+
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 480px){
+
+div{
+    height: 2.8rem;
+    width: 28.5%;
+}
+}
+`;
+

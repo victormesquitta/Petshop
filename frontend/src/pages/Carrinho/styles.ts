@@ -85,7 +85,7 @@ margin-right: 2rem;
 
     width: 60%;
 
-    margin-top: 1rem;
+    margin-top: 2rem;
     padding-left: 2.5rem;
 
     align-items: center;
@@ -106,7 +106,8 @@ margin-right: 2rem;
     align-items: center;
     justify-content: space-around;
 
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+    margin-left: .7rem;
     
     .SecInfoProduto{
     display: flex;
@@ -155,10 +156,10 @@ margin-right: 2rem;
         position: absolute;
 
         width: 10%;
-        height: 1.5rem;
+        height: 1.3rem;
 
-        right: 28rem;
-        top: 13rem;
+        right: 32rem;
+        top: 15.5rem;
 
         cursor: pointer;
     }
@@ -207,7 +208,7 @@ margin-right: 2rem;
         color: white;
 
         height: 2rem;
-        width: 70%;
+        width: 60%;
 
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
@@ -226,8 +227,8 @@ margin-right: 2rem;
     justify-content: space-between;
     width: 60%;
 
-    margin-left: 1.5rem;
-    margin-top: 1.5rem;
+    margin-top: 3rem;
+    margin-left: 1.6rem;
 
     h3{
         font-size: 1.5vw;
@@ -246,6 +247,8 @@ margin-right: 2rem;
     align-items: center;
     justify-content: start;
     gap: 8rem;
+
+    margin-left: 1.5rem;
 
     section{
         border: 1px solid;
@@ -289,7 +292,11 @@ margin-right: 2rem;
 }
 
 .TituloPodeInteressar{
-    margin-top: 1rem;
+    font-size: 1.5vw;
+
+    margin-left: 1.5rem;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
 }
 
 `;

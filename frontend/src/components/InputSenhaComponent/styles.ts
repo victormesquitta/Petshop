@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const InputSenha = styled.div`
+export const InputSenha = styled.form`
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -29,18 +29,91 @@ width: 100%;
             .divOlhoAbertoOuFechado {
                 width: 100%;
                 
+                margin-left: 1.1rem;
                 display: flex;
                 justify-content: center;
 
-             &:last-child{
-                position: relative;               
-
                 .OlhoAbertoOuFechado {
-                position: absolute;
-                top: 50%;
-                left: 70%;
-                transform: translate(-50%, -50%);
+                position: relative;
+                
+                right: 3rem;
+                top: .7rem;
 
+                }
+            
+        }
+        .divButton{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+
+    width: 100%;
+
+button{
+        background-color: #1976D2;
+        color: white;
+    
+        border: none;
+        border-radius: 15px;
+    
+        width: 25%;
+        height: 2.7rem;
+        
+        margin-top: .5rem;
+        
+
+    }
+
+} 
+        @media (max-width: 1024px){
+            gap: 2rem;
+
+            input{
+                width: 70%;
+                height: 3.5rem;
+
+                font-size: 2.3vw;
+            }
+
+            .divButton{
+                button{
+                    font-size: 2.2vw;
+                }
+            }
+        }
+
+        @media (max-width: 768px){
+            gap: 2rem;
+
+            input{
+                width: 70%;
+                height: 3.8rem;
+
+                font-size: 3vw;
+            }
+
+            .divButton{
+                button{
+                    font-size: 3vw;
+                }
+            }
+        }
+
+        @media (max-width: 480px) {
+            gap: 2rem;
+
+            input{
+                width: 70%;
+                height: 3rem;
+
+                font-size: 3.5vw;
+
+            }
+
+            .divButton{
+                button{
+                    font-size: 4vw;
                 }
             }
         }

@@ -15,12 +15,6 @@ export function AdminLogin() {
                         <p>Informe seu usuario e senha de administrador.</p>
                         <InputSenhaComponent />
                     </S.Inputs>
-
-                    <S.NaoTemConta>
-                        <div className="divButton">
-                            <button type="submit" onClick={false} value="Acessar">Logar</button>
-                        </div>
-                    </S.NaoTemConta>
                 </S.FormularioLogin>
             </S.ContainerPai>
         </>

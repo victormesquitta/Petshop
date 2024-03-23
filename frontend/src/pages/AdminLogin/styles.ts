@@ -32,6 +32,27 @@ height: 100vh; /* 100% da altura da viewport */
     border-radius: 70px;
 
 }
+@media (max-width: 1024px){
+    .ImgLogo{
+        top: 7.5rem;
+    }
+}
+
+@media (max-width: 768px){
+    .ImgLogo{
+        height: 13vh;
+
+        top: 15rem;
+    }
+}
+
+@media (max-width: 480px){
+        .ImgLogo{
+            height: 11vh;
+
+            top: 16rem;
+        }
+    }
 `
 
 export const FormularioLogin = styled.form` 
@@ -53,6 +74,19 @@ export const FormularioLogin = styled.form`
     font-size: 1vw;;
     font-family: 'Roboto', sans-serif;
 
+    @media (max-width: 1024px){
+        width: 55%;
+        height: 55%;
+    }
+
+    @media (max-width: 768px){
+        width: 60%;
+        height: 45%;
+    }
+@media (max-width: 480px){
+    width: 70%;
+    height: 45%;
+}
 `;
 
 export const Inputs = styled.div`
@@ -73,33 +107,49 @@ export const Inputs = styled.div`
         line-height: 2rem;
         margin-bottom: 2rem;
     }
-`;
-export const NaoTemConta = styled.div`
-    display: flex;
-    position: relative;
-    flex-direction: column;    
-    align-items: center;
-
+@media (max-width: 1024px){
     width: 100%;
 
-    div.divButton{
-        display: flex;
-        position: relative;
-        flex-direction: row;
-        justify-content: center;
-
+    h1{
+        margin-top: 4rem;
+        font-size: 4vw;
+    }
+    p{
+        margin-top: .5rem;
+        margin-bottom: 3rem;
+        font-size: 2vw;
+    }
+}
+    @media (max-width: 768px){
         width: 100%;
 
-    button{
-            background-color: #1976D2;
-            color: white;
-        
-            border: none;
-            border-radius: 15px;
-        
-            width: 30%;
-            height: 2.7rem;
+        h1{
+            margin-top: 4rem;
+            font-size: 4.5vw;
+        }
+
+        p{
+            margin-top: .5rem;
+            font-size: 2.3vw;
             
         }
-    } 
+    }
+
+    @media (max-width: 480px){
+        width: 100%;
+
+        h1{
+            margin-top: 4rem;
+            font-size: 5.5vw;
+        }
+
+        p{
+            margin-top: .5rem;
+            font-size: 3vw;
+
+            margin-bottom: 3.5rem;
+            
+        }
+    }
 `;
+
