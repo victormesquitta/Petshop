@@ -19,11 +19,11 @@ public class CategoriaService {
     private CategoriaRepository categoriaRepository;
 
     @Autowired
-    private CategoriaDTOMapper categoriaMapper;
+    private CategoriaDTOMapper categoriaDTOMapper;
 
-    public CategoriaService(CategoriaRepository categoriaRepository, CategoriaDTOMapper categoriaMapper){
+    public CategoriaService(CategoriaRepository categoriaRepository, CategoriaDTOMapper categoriaDTOMapper){
         this.categoriaRepository = categoriaRepository;
-        this.categoriaMapper = categoriaMapper;
+        this.categoriaDTOMapper = categoriaDTOMapper;
     }
 
     public List<Categoria> listarCategorias(){
@@ -34,19 +34,19 @@ public class CategoriaService {
     public List<CategoriaDTO> listarCategoriasDTOs(){
         List<Categoria> categorias = categoriaRepository.findAll();
         return categorias.stream()
-                    .map(categoriaMapper::toDTO)
+                    .map(categoriaDTOMapper::toDTO)
                     .collect(Collectors.toList());        
     }
 
     public void criarCategoria(CategoriaDTO CategoriaDTO){
-        Categoria Categoria = categoriaMapper.toEntity(CategoriaDTO);
+        Categoria Categoria = categoriaDTOMapper.toEntity(CategoriaDTO);
         Categoria.setDtCriacao(LocalDate.now());
         Categoria.setDtModificacao(null);
         categoriaRepository.save(Categoria);
     }
 
     public void atualizarCategoria(Integer id, CategoriaDTO CategoriaDTO){
-        Categoria Categoria = categoriaMapper.toEntity(CategoriaDTO, id);
+        Categoria Categoria = categoriaDTOMapper.toEntity(CategoriaDTO, id);
         Categoria.setDtModificacao(LocalDate.now());
         categoriaRepository.save(Categoria);
     }
