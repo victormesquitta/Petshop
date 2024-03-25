@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.senac.tads.petshop.dtos.CategoriaDTO;
 import br.senac.tads.petshop.models.Categoria;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CategoriaDTOMapper {
     
     private final ModelMapper modelMapper;

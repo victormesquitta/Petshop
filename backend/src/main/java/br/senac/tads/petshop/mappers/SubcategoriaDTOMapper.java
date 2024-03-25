@@ -1,11 +1,12 @@
 package br.senac.tads.petshop.mappers;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import br.senac.tads.petshop.dtos.SubcategoriaDTO;
 import br.senac.tads.petshop.models.Subcategoria;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SubcategoriaDTOMapper {
     
     private final ModelMapper modelMapper;
