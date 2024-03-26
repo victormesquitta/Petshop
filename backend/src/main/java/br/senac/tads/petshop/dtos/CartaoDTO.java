@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartaoDTO {
-
+    private String tipoCartao;
     private String numero;
     private LocalDate dtValidade;
     private String apelido;

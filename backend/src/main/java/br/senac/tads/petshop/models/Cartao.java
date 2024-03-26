@@ -19,6 +19,9 @@ public class Cartao {
     @Column(name="codcartaocredito")
     private Integer codCartaoCredito;
 
+    @Column(name="tipocartao")
+    private String tipoCartao;
+
     @Column(name="numero")
     private String numero;
 
