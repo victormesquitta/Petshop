@@ -3,6 +3,7 @@ package br.senac.tads.petshop.restcontrollers;
 import br.senac.tads.petshop.dtos.ClienteDTO;
 import br.senac.tads.petshop.mappers.ClienteDTOMapper;
 import br.senac.tads.petshop.models.Cliente;
+import br.senac.tads.petshop.services.CarrinhoComprasService;
 import br.senac.tads.petshop.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,11 +21,18 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @Autowired
+    private CarrinhoComprasService carrinhoComprasService;
+
+    @Autowired
     private ClienteDTOMapper clienteDTOMapper;
+
 
     @PostMapping()
     public ResponseEntity<Object> criarCliente(@RequestBody ClienteDTO clienteDTO) {
-        clienteService.criarCliente(clienteDTO);
+        // cria o cliente
+        Cliente cliente = clienteService.criarCliente(clienteDTO);
+        // vincula o novo carrinho com o cliente que acabamos de criar
+        carrinhoComprasService.criarCarrinhoCompras(cliente);
         return new ResponseEntity<>("Cliente criado com sucesso.", HttpStatus.CREATED);
     }
 

@@ -90,12 +90,14 @@ public class ClienteService {
         }
     }
 
-    public void criarCliente(ClienteDTO clienteDTO){
+    // retorna cliente para vincular o carrinho de compras logo em seguida
+    public Cliente criarCliente(ClienteDTO clienteDTO){
         validarDadosDuplicados(clienteDTO);
         Cliente cliente = clienteDTOMapper.toEntity(clienteDTO);
         // sobreescreve a data passada no json
-        clienteDTO.setDtCadastro(LocalDate.now());
+        cliente.setDtCadastro(LocalDate.now());
         clienteRepository.save(cliente);
+        return cliente;
     }
 
     public void atualizarCliente(Integer id, ClienteDTO clienteDTO){

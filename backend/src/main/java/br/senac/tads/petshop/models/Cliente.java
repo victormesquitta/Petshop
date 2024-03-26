@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -68,6 +70,25 @@ public class Cliente {
     // evita problemas de recursividade no relacionamento
 
 //    @ToString.Exclude
-//    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-//    private List<Endereco> enderecos = new ArrayList<>();
+    // pra permitir a remoção dos pais e apagar os filhos em cascata
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Endereco> enderecos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Pedido> pedidos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<CarrinhoCompras> carrinhosCompras = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+//    private List<Pedido> pedidos = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+//    private List<Pedido> pedidos = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+//    private List<Pedido> pedidos = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+//    private List<Pedido> pedidos = new ArrayList<>();
 }
