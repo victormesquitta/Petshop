@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProdutosDTOMapper {
+public class ProdutoDTOMapper {
 
     @Autowired
     private final ModelMapper modelMapper;
 
-    public ProdutosDTOMapper(ModelMapper modelMapper) {
+    public ProdutoDTOMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 

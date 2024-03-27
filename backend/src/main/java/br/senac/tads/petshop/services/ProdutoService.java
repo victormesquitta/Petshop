@@ -10,18 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.senac.tads.petshop.dtos.ProdutoDTO;
-import br.senac.tads.petshop.mappers.ProdutosDTOMapper;
+import br.senac.tads.petshop.mappers.ProdutoDTOMapper;
 import br.senac.tads.petshop.repositories.ProdutosRepository;
 
 @Service
-public class ProdutosService {
+public class ProdutoService {
     @Autowired
     private ProdutosRepository produtosRepository;
     
     @Autowired
-    private ProdutosDTOMapper produtosMapper;
+    private ProdutoDTOMapper produtosMapper;
 
-    public ProdutosService(ProdutosRepository produtosRepository, ProdutosDTOMapper produtosMapper){
+    public ProdutoService(ProdutosRepository produtosRepository, ProdutoDTOMapper produtosMapper){
         this.produtosRepository = produtosRepository;
         this.produtosMapper = produtosMapper;
     }
@@ -48,7 +48,7 @@ public class ProdutosService {
         return produtoOptional.get();
     }
 
-    public ProdutoDTO obterProdutoDTOporId(Integer id){
+    public ProdutoDTO obterProdutoDTOPorId(Integer id){
         Optional<Produto> produtoOptional = produtosRepository.findById(id);
         return produtoOptional.map(produtosMapper::toDTO).orElse(null);
     }
