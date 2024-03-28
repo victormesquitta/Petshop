@@ -57,4 +57,9 @@ public class Produto {
 
     @Column (name = "nm_avaliacao")
     private int nm_avaliacao;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "codcategoria", referencedColumnName = "codcategoria",
+            foreignKey = @ForeignKey(name = "fk_t_produto_t_categoria1"))
+    private Categoria categoria;
 }

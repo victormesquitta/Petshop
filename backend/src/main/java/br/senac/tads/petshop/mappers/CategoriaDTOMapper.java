@@ -23,7 +23,7 @@ public class CategoriaDTOMapper {
 
     public Categoria toEntity(CategoriaDTO CategoriaDTO, Integer id) {
         Categoria Categoria = modelMapper.map(CategoriaDTO, Categoria.class);
-        Categoria.setCodCategorias(id);
+        Categoria.setCodCategoria(id);
         return Categoria;
     }
 

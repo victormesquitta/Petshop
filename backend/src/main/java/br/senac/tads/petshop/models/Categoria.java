@@ -1,6 +1,8 @@
 package br.senac.tads.petshop.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,8 +18,8 @@ public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="codcategorias")
-    private Integer codCategorias;
+    @Column(name="codcategoria")
+    private Integer codCategoria;
 
     @Column(name="nome")
     private String nome;
@@ -37,10 +39,8 @@ public class Categoria {
     @Column(name="dtmodificacao")
     private LocalDate dtModificacao;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "codprodutos", referencedColumnName = "codprodutos",
-            foreignKey = @ForeignKey(name = "fk_t_categorias_t_produtos"))
-    private Produto produto;
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    private List<Produto> produtos = new ArrayList<>();
 
 
 
