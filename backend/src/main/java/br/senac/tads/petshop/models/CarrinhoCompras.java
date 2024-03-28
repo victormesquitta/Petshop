@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,4 +30,7 @@ public class CarrinhoCompras {
     @JoinColumn(name = "codcliente", referencedColumnName = "codcliente",
             foreignKey = @ForeignKey(name = "fk_t_carrinhocompras_t_cliente1"))
     private Cliente cliente;
+
+    @OneToMany(cascade = CascadeType.MERGE)
+    private List<ItemCarrinho> itensCarrinho = new ArrayList<>();
 }

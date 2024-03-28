@@ -76,6 +76,8 @@ public class CarrinhoComprasService {
         if(carrinhoExistente != null){
             throw new RuntimeException("Cliente já possui um carrinho de compras.");
         }
+
+        // atribui valores iniciais zerados para o novo carrinho
         CarrinhoCompras carrinhoCompras = new CarrinhoCompras();
         carrinhoCompras.setCliente(cliente);
         carrinhoCompras.setSubtotal(0.0);
