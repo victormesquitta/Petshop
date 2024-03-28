@@ -11,17 +11,17 @@ import org.springframework.stereotype.Service;
 
 import br.senac.tads.petshop.dtos.ProdutoDTO;
 import br.senac.tads.petshop.mappers.ProdutoDTOMapper;
-import br.senac.tads.petshop.repositories.ProdutosRepository;
+import br.senac.tads.petshop.repositories.ProdutoRepository;
 
 @Service
 public class ProdutoService {
     @Autowired
-    private ProdutosRepository produtosRepository;
+    private ProdutoRepository produtosRepository;
     
     @Autowired
     private ProdutoDTOMapper produtosMapper;
 
-    public ProdutoService(ProdutosRepository produtosRepository, ProdutoDTOMapper produtosMapper){
+    public ProdutoService(ProdutoRepository produtosRepository, ProdutoDTOMapper produtosMapper){
         this.produtosRepository = produtosRepository;
         this.produtosMapper = produtosMapper;
     }
@@ -53,11 +53,12 @@ public class ProdutoService {
         return produtoOptional.map(produtosMapper::toDTO).orElse(null);
     }
 
-    public void criarProduto(ProdutoDTO produtoDTO){
+    public Produto criarProduto(ProdutoDTO produtoDTO){
         Produto produto = produtosMapper.toEntity(produtoDTO);
         produto.setDt_criacao(LocalDate.now());
         produto.setDt_modificacao(null);
         produtosRepository.save(produto);
+        return produto;
     }
 
     public void atualizarProduto(Integer id, ProdutoDTO produtoDTO){

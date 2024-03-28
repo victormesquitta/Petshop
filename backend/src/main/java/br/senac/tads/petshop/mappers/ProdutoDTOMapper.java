@@ -22,7 +22,7 @@ public class ProdutoDTOMapper {
 
     public Produto toEntity(ProdutoDTO ProdutoDTO, Integer id) {
         Produto Produto = modelMapper.map(ProdutoDTO, Produto.class);
-        Produto.setCodprodutos(id);
+        Produto.setCodProduto(id);
         return Produto;
     }
 
