@@ -14,6 +14,8 @@ display: flex;
 align-items: center;
 justify-content: center;
 
+box-sizing: border-box;
+
 background-image: url(${ImgCaesFundo});
 background-size: cover;
 background-repeat: no-repeat;
@@ -45,6 +47,8 @@ export const FormularioLogin = styled.form`
     align-items: center;
     justify-content:center;
 
+    box-sizing: border-box;
+
     border: .5px solid;
     border-color: rgba(200, 200, 200, 0.5);
     border-radius:25px;
@@ -52,10 +56,6 @@ export const FormularioLogin = styled.form`
 
     font-size: 1vw;
     font-family: 'Roboto', sans-serif;
-
-
-
-
 
 @media (max-width: 1024px){
     height: 80%;

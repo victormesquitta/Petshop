@@ -118,9 +118,7 @@ z-index: 2;
 
   border-radius: 10px;
 
-  width: 60%;
-
-  box-shadow: 10px 1px 10px rgba(0, 0, 0, 0.25);
+  width: 75%;
 
 }
 `

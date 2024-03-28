@@ -30,7 +30,7 @@ export function NavBarLogado() {
                 </div>
 
                 <div className="DivBotoesDepartamentos">
-                    <button className="ButtonDepartamentos"><FaBars/> Departamentos</button>
+                    <button className="ButtonDepartamentos"><FaBars /> Departamentos</button>
                     <button> <img src={ImgCachorro}/> Cachorro</button>
                     <button> <img src={ImgGato}/> Gato</button>
                     <button> <img src={ImgPassaro}/> Pássaro</button>

@@ -156,6 +156,35 @@ flex-direction: column;
     }
 }
     
+    @media (max-width: 1024px){
+        .DivImgTransition{
+            h2{ 
+                font-size: 2.5vw;
+            }
+        }    
+
+        .DivCards{
+            section{
+                height: 20rem;
+
+                img{
+                    width: 60%;
+                }
+
+                h3{
+                    font-size: 1.3vw;
+                }
+
+                .IconCoracao{
+                    left: 5.5rem;
+                }
+
+                p{
+                    font-size: 1vw;
+                }
+            }
+        }
+    }
 `
 export const ContainerMarcas = styled.section`
 flex-direction: column;

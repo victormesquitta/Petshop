@@ -166,4 +166,54 @@ export const NavBarLogado = styled.nav`
                     color: white;
                 }
             }
+@media (max-width: 1024px) {
+    .SectionBarraDePesquisa{
+        input{
+            font-size: 2vw;
+        }
+    }
+div{
+    .SectionIcons{
+    .IconFavoritos{
+        width: 20%;
+        height: 2rem;
+    }
+
+    .IconCarrinho{
+        width: 20%;
+        height: 1.7rem;
+    }
+}
+
+.BotaoFimTela{
+    width: 16%;
+
+    font-size: 1.7vw;
+
+    .IconAdmin{
+        height: 1.5rem;
+
+        padding-right: 1rem;
+    }
+
+}
+
+}
+
+.DivBotoesDepartamentos{
+    button{
+        width: 12.5%;
+        height: 2.2rem;
+
+        font-size: 1.6vw;
+
+        img{
+            display: none;
+        }
+    }
+        .ButtonDepartamentos{
+            padding: .5rem;
+        }
+}
+}
 `

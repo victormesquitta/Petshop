@@ -5,8 +5,10 @@ import { InputSenhaComponent } from "../../components/InputSenhaComponent/InputS
 import { CheckedBoxComponent } from "../../components/CheckBoxComponent/CheckBoxComponent";
 import ImgLogo from "../../assets/images/ImgLogo.svg";
 import { FaApple, FaFacebook } from "react-icons/fa";
+import { AuthService } from "../../services/AuthService";
 
 export function Login() {
+
     return (
         <>
             <S.ContainerPai>
@@ -15,7 +17,7 @@ export function Login() {
 
                     <S.Inputs>
                         <h1>Acesse sua Conta</h1>
-                        <InputSenhaComponent />
+                        <InputSenhaComponent authService={new AuthService} />
                     </S.Inputs>
 
                     <CheckedBoxComponent />
@@ -27,13 +29,13 @@ export function Login() {
                             <Link to={""} className="Links">Esqueci minha senha.</Link>
                         </div>
                         <p>______________ <span className="LogarCom">Logar Com</span> ______________</p>
-                        
+
                     </S.NaoTemConta>
 
                     <S.ImgsLogos>
-                        <div className="divFacebook"><FaFacebook className="ImgFacebook"/> </div>
+                        <div className="divFacebook"><FaFacebook className="ImgFacebook" /> </div>
                         <div className="divGoogle"><img className="ImgGoogle" src={ImgGoogle} /></div>
-                        <div className="divApple"><FaApple className="ImgApple"/></div>
+                        <div className="divApple"><FaApple className="ImgApple" /></div>
 
                     </S.ImgsLogos>
 

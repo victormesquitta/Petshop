@@ -40,7 +40,6 @@ width: 100%;
                 top: .7rem;
 
                 }
-            
         }
         .divButton{
     display: flex;
@@ -66,6 +65,11 @@ button{
     }
 
 } 
+
+.ErroMessage{
+    width: 100%;
+    background-color: red;
+}
         @media (max-width: 1024px){
             gap: 2rem;
 
