@@ -2,9 +2,10 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import * as S from "./styles";
 import { useState } from 'react';
 import ValidationError from "../validation-error/ValidationError";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthService } from "../../services/AuthService";
 import { Loading } from "../Loading/Loading";
+import { CheckedBoxComponent } from "../CheckBoxComponent/CheckBoxComponent";
 
 type LoginPageProps = {
   authService: AuthService;
@@ -15,8 +16,9 @@ export function InputSenhaComponent(props: LoginPageProps) {
   const [email, setEmail] = useState('');
   const [error, setError] = useState(null as any);
   const [showLoading, setShowLoading] = useState(false);
+  const [showRecoverPasswordMessage, setShowRecoverPasswordMessage] = useState(false);
   const navigate = useNavigate();
-  
+
   const [form, setForm] = useState({
     email: {
       hasChanged: false,
@@ -30,7 +32,7 @@ export function InputSenhaComponent(props: LoginPageProps) {
 
   const login = () => {
     setShowLoading(true);
-    
+
     props.authService.login(
       form.email.value, form.password.value
     ).then(() => {
@@ -38,12 +40,26 @@ export function InputSenhaComponent(props: LoginPageProps) {
       navigate('/');
     }).catch(error => {
       setShowLoading(false);
+
       setError(error);
     });
   }
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  function recoverPassword() {
+    setShowLoading(true);
+    props.authService.recoverPassword(
+      form.email.value
+    ).then(() => {
+      setShowRecoverPasswordMessage(true);
+      setShowLoading(false);
+    }).catch(error => {
+      setError(error);
+      setShowLoading(false);
+    })
+  }
 
   return (
     <S.InputSenha>
@@ -72,21 +88,34 @@ export function InputSenhaComponent(props: LoginPageProps) {
       <div className="divOlhoAbertoOuFechado">
         <input type={showPassword ? 'text' : 'password'}
           placeholder="Informe sua senha" value={form.password.value}
-          onChange={event => setForm({...form, password: {
-            hasChanged: true, value: event.target.value
-          }})}/>
+          onChange={event => setForm({
+            ...form, password: {
+              hasChanged: true, value: event.target.value
+            }
+          })} />
         <div onClick={togglePasswordVisibility} className="OlhoAbertoOuFechado">
           {showPassword ? <FaEye size={20} color="gray" /> : <FaEyeSlash size={20} color="white" />}
         </div>
       </div>
 
-      { error && <div className="error">{error.message}</div>}
+      {error && <div className="error">{"ERRO!! Usuario ou Senha Incorretos."}</div>}
 
       <div className="divButton">
         <button type="button" onClick={login}>Logar</button>
       </div>
-      {showLoading && <Loading />}
 
-    </S.InputSenha>
+      <CheckedBoxComponent />
+
+      <Link to={""} className="Links" onClick={recoverPassword}>Esqueci minha senha.</Link>
+
+      {showLoading && <Loading />}
+      {
+        showRecoverPasswordMessage &&
+        <div>
+          Verifique sua caixa de email
+        </div>
+      }
+
+    </S.InputSenha >
   )
 }

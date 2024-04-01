@@ -2,7 +2,6 @@ import * as S from "./styles";
 import { Link } from "react-router-dom";
 import ImgGoogle from "../../assets/images/ImgGoogle.png";
 import { InputSenhaComponent } from "../../components/InputSenhaComponent/InputSenhaComponent";
-import { CheckedBoxComponent } from "../../components/CheckBoxComponent/CheckBoxComponent";
 import ImgLogo from "../../assets/images/ImgLogo.svg";
 import { FaApple, FaFacebook } from "react-icons/fa";
 import { AuthService } from "../../services/AuthService";
@@ -20,13 +19,10 @@ export function Login() {
                         <InputSenhaComponent authService={new AuthService} />
                     </S.Inputs>
 
-                    <CheckedBoxComponent />
-
                     <S.NaoTemConta>
                         <div>
                             <p className="Links">Não tem uma conta?<Link to={"/RegistrarConta"} className="Links"> Crie uma conta.</Link></p>
 
-                            <Link to={""} className="Links">Esqueci minha senha.</Link>
                         </div>
                         <p>______________ <span className="LogarCom">Logar Com</span> ______________</p>
 

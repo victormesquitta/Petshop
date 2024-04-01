@@ -16,12 +16,17 @@ import ImgPetSociety from "../../assets/images/ImgPetSociety.png";
 import ImgRoyalCanin from "../../assets/images/ImgRoyalCanin.png";
 import { RodapeComponent } from "../../components/RodapeComponent/RodapeComponent";
 import { FaHeart, FaMedal } from "react-icons/fa";
+import { AuthService } from "../../services/AuthService";
 
-export function Home() {
+type HomeProps = {
+    authService: AuthService;
+  }
+  
+export function Home(props: HomeProps) {
     return (
         <>
             <S.ContainerPai>
-                <NavBarLogado />
+                <NavBarLogado authService={props.authService}/>
 
                 <S.DivMain>
 
