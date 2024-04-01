@@ -19,8 +19,6 @@ public class ProdutoDTO {
 
     private int qt_estoque;
 
-    private String categoria;
-
     private String marca;
 
     private byte[] imagem;

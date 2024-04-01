@@ -14,7 +14,7 @@ public class Subcategoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="codsubcategorias")
+    @Column(name="codsubcategoria")
     private Integer codsubCategoria;
 
     @Column (name = "imagem")
@@ -39,7 +39,7 @@ public class Subcategoria {
     private LocalDate dtModificacao;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "codcategorias", referencedColumnName = "codcategorias",
+    @JoinColumn(name = "codcategoria", referencedColumnName = "codcategoria",
             foreignKey = @ForeignKey(name = "fk_t_subcategorias_t_categorias"))
     private Categoria categoria;
 
