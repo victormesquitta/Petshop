@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -62,4 +64,9 @@ public class Produto {
     @JoinColumn(name = "codcategoria", referencedColumnName = "codcategoria",
             foreignKey = @ForeignKey(name = "fk_t_produto_t_categoria1"))
     private Categoria categoria;
+
+    @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL)
+    private List<Avaliacao> avaliacoes = new ArrayList<>();
+
+
 }

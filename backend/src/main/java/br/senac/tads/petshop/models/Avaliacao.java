@@ -24,8 +24,10 @@ public class Avaliacao {
     @Column(name="comentario")
     private String comentario;
 
-    @Column(name="dtavaliacao")
-    private LocalDate dtAvaliacao;
+    /*
+     @Column(name="dtavaliacao")
+     private LocalDate dtAvaliacao;
+    */
 
     @Column(name="aprovado")
     private boolean aprovado;
@@ -41,4 +43,9 @@ public class Avaliacao {
 
     @Column(name="dtmodificacao")
     private LocalDate dtModificacao;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "codproduto", referencedColumnName = "codproduto",
+            foreignKey = @ForeignKey(name = "fk_t_avaliacao_t_produto1"))
+    private Produto produto;
 }
