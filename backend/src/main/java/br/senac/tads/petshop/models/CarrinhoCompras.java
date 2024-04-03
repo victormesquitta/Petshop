@@ -26,11 +26,11 @@ public class CarrinhoCompras {
     @Column(name = "subtotal")
     private Double subtotal;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "codcliente", referencedColumnName = "codcliente",
             foreignKey = @ForeignKey(name = "fk_t_carrinhocompras_t_cliente1"))
     private Cliente cliente;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "carrinhoCompras", cascade = CascadeType.ALL)
     private List<ItemCarrinho> itensCarrinho = new ArrayList<>();
 }

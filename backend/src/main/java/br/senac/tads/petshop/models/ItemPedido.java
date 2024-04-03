@@ -47,4 +47,9 @@ public class ItemPedido {
     @JoinColumn(name = "codpedido", referencedColumnName = "codpedido",
             foreignKey = @ForeignKey(name = "fk_t_itempedido_t_pedido1"))
     private Pedido pedido;
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "codproduto", referencedColumnName = "codproduto",
+            foreignKey = @ForeignKey(name = "fk_t_itempedido_t_produto1"))
+    private Produto produto;
 }

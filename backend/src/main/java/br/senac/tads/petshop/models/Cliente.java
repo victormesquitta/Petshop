@@ -77,8 +77,8 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Pedido> pedidos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<CarrinhoCompras> carrinhosCompras = new ArrayList<>();
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private CarrinhoCompras carrinhoCompras;
 
 //    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 //    private List<Pedido> pedidos = new ArrayList<>();

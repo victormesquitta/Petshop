@@ -65,7 +65,7 @@ public class Produto {
             foreignKey = @ForeignKey(name = "fk_t_produto_t_categoria1"))
     private Categoria categoria;
 
-    @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<Avaliacao> avaliacoes = new ArrayList<>();
 
 

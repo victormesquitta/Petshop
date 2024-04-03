@@ -27,7 +27,7 @@ public class ItemCarrinho {
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "codproduto", referencedColumnName = "codproduto",
-            foreignKey = @ForeignKey(name = "fk_t_carrinhocompras_t_cliente1"))
+            foreignKey = @ForeignKey(name = "fk_t_itemcarrinho_t_produto1"))
     private Produto produto;
 
 }
