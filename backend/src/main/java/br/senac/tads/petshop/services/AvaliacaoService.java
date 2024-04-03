@@ -2,6 +2,7 @@ package br.senac.tads.petshop.services;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class AvaliacaoService {
         return avaliacoes.stream()
                     .map(avaliacaoDTOMapper::toDTO)
                     .collect(Collectors.toList());        
+    }
+
+    public AvaliacaoDTO obterAvaliacaoDTOPorId(Integer id){
+        Optional<Avaliacao> avaliacaoOptional = avaliacaoRepository.findById(id);
+        return avaliacaoOptional.map(avaliacaoDTOMapper::toDTO).orElse(null);
     }
 
     public void criarAvaliacao(AvaliacaoDTO avaliacaoDTO){

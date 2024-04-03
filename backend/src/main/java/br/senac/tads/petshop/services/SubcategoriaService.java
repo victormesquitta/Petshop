@@ -2,6 +2,7 @@ package br.senac.tads.petshop.services;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class SubcategoriaService {
         return subcategorias.stream()
                     .map(subcategoriaMapper::toDTO)
                     .collect(Collectors.toList());        
+    }
+
+    public SubcategoriaDTO obterSubcategoriaDTOPorId(Integer id){
+        Optional<Subcategoria> subcategoriaOptional = subcategoriaRepository.findById(id);
+        return subcategoriaOptional.map(subcategoriaMapper::toDTO).orElse(null);
     }
 
     public void criarSubcategoria(SubcategoriaDTO subcategoriaDTO){

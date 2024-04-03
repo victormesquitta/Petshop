@@ -1,7 +1,7 @@
 package br.senac.tads.petshop.restcontrollers;
 
 import br.senac.tads.petshop.dtos.ProdutoDTO;
-import br.senac.tads.petshop.mappers.ProdutoDTOMapper;
+// import br.senac.tads.petshop.mappers.ProdutoDTOMapper;
 import br.senac.tads.petshop.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +18,8 @@ public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
 
-    @Autowired
-    private ProdutoDTOMapper produtoDTOMapper;
+    // @Autowired
+    // private ProdutoDTOMapper produtoDTOMapper;
 
     @GetMapping()
     public ResponseEntity<Object> listarProdutos() {
