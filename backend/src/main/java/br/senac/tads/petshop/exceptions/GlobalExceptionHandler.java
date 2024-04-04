@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.mail.internet.AddressException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -22,9 +24,16 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<String> handleEntityNotFound(EntityNotFoundException e) {
+    public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException e) {
         String mensagemErro = "Entidade não encontrada: " + e.getMessage();
         return new ResponseEntity<>(mensagemErro, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AddressException.class)
+    public ResponseEntity<String> handleAddressException(AddressException e){
+        String mensagemErro = "Email inválido: " + e.getMessage();
+        return new ResponseEntity<>(mensagemErro, HttpStatus.BAD_REQUEST);
+
     }
 
 }

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +26,17 @@ public class ClienteService {
     public ClienteService(ClienteRepository clienteRepository, ClienteDTOMapper clienteDTOMapper) {
         this.clienteRepository = clienteRepository;
         this.clienteDTOMapper = clienteDTOMapper;
+    }
+
+    public boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
     }
 
     public List<Cliente> listarClientes(){
@@ -92,6 +105,7 @@ public class ClienteService {
 
     // retorna cliente para vincular o carrinho de compras logo em seguida
     public Cliente criarCliente(ClienteDTO clienteDTO){
+        isValidEmailAddress(clienteDTO.getEmail());
         validarDadosDuplicados(clienteDTO);
         Cliente cliente = clienteDTOMapper.toEntity(clienteDTO);
         // sobreescreve a data passada no json
