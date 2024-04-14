@@ -4,10 +4,16 @@ import ImgLogo from "../../assets/images/ImgLogo.svg";
 import ImgCard from "../../assets/images/Card.png";
 import { FaTicket } from "react-icons/fa6";
 import { CarouselComponent } from "../../components/CarouselComponent/CarouselComponent";
+import { AuthService } from "../../services/AuthService";
+import { auth } from "../../FirebaseConfig";
 
-
-export function Carrinho() {
-
+ type CarrinhoProps = {
+        authService: AuthService;
+    }
+    
+export function Carrinho(props: CarrinhoProps) {
+    const currentUser = auth.currentUser;
+   
     return (
         <>
             <S.ContainerPai>
@@ -15,7 +21,7 @@ export function Carrinho() {
                     <div>
                         <img src={ImgLogo} />
 
-                        <button className="BotaoFimTela"><FaUserAstronaut className="IconAdmin" />Olá, João Gabriel</button>
+                        <button className="BotaoFimTela"><FaUserAstronaut className="IconAdmin" />{currentUser && extractNameFromEmail(currentUser.email)}</button>
                     </div>
                 </S.NavBar>
 
@@ -78,3 +84,12 @@ export function Carrinho() {
         </>
     );
 }
+function extractNameFromEmail(email: string): string | null{
+    // Regular expression to extract name from email
+    email = email!.trim();
+    const nameRegex = /^(?<name>[^\s]+)\@[\w\d.-]+\.[a-z]{2,}$/;
+    const match = email.match(nameRegex);
+  
+    // Return extracted name or empty string if no match
+    return match ? match.groups!.name : "";
+  }

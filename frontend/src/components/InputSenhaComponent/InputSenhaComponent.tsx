@@ -30,20 +30,25 @@ export function InputSenhaComponent(props: LoginPageProps) {
     }
   })
 
-  const login = () => {
-    setShowLoading(true);
+  const login = async () => {
+  // Exibe o indicador de carregamento
+  setShowLoading(true);
 
-    props.authService.login(
-      form.email.value, form.password.value
-    ).then(() => {
-      setShowLoading(false);
-      navigate('/');
-    }).catch(error => {
-      setShowLoading(false);
+  try {
+    // Tenta realizar o login
+    await props.authService.login(form.email.value, form.password.value);
 
-      setError(error);
-    });
-  }
+    // Oculta o indicador de carregamento e redireciona para a home
+    setShowLoading(false);
+    navigate('/');
+  } catch (error) {
+    // Oculta o indicador de carregamento
+    setShowLoading(false);
+
+    // Define a mensagem de erro (específica ou genérica)
+    setError(error || 'Ocorreu um erro durante o login.');
+  }
+};
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };

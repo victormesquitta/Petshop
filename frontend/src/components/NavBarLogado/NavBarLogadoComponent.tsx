@@ -11,6 +11,7 @@ import { AuthService } from "../../services/AuthService";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../Loading/Loading";
+import { auth } from "../../FirebaseConfig";
 
 type HomePageProps = {
     authService: AuthService;
@@ -20,14 +21,35 @@ export function NavBarLogado(props: HomePageProps) {
 
     const navigate = useNavigate();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
+    const [isFakeLoggingOut, setIsFakeLoggingOut] = useState(false);
+    const currentUser = auth.currentUser;
 
     const logout = () => {
         setIsLoggingOut(true);
+        setIsFakeLoggingOut(true);
         props.authService.logout().then(() => {
-            setIsLoggingOut(false);
-            navigate('/home');
+            setIsFakeLoggingOut(false);
+            //navigate('/login');
         })
     }
+
+    const login = () => {
+        navigate('/login');
+    }
+
+    const favoritos = () => {
+        navigate('/favoritos');
+    }
+
+    const carrinho = () => {
+        navigate('/carrinho');
+    }
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
 
     return (
         <>
@@ -41,35 +63,50 @@ export function NavBarLogado(props: HomePageProps) {
                     </section>
 
                     <section className="SectionIcons">
-                        <FaHeart className="IconFavoritos" />
-                        <FaCartShopping className="IconCarrinho" />
+                        <FaHeart className="IconFavoritos" onClick={favoritos} />
+                        <FaCartShopping className="IconCarrinho" onClick={carrinho} />
                     </section>
 
-                    {isLoggingOut ? (
-                        <button>Logar</button>
+                    {!currentUser ? (
+                        <button className="BotaoLogin" onClick={login}>Logar</button>
                     ) :
                         (
-                        <><button className="BotaoFimTela"><FaUserAstronaut className="IconAdmin" /> Olá, João</button>
-                        <button className="BotaoLogout" onClick={logout} >Sair</button>
-                        </>
+                            <>
+                                <button className="BotaoFimTela"><FaUserAstronaut className="IconAdmin" />{currentUser && extractNameFromEmail(currentUser.email)} </button>
+                                <button className="BotaoLogout" onClick={logout} >Sair</button>
+                            </>
 
-                )
+                        )
                     }
+                </div>
 
-
-            </div>
-
-            <div className="DivBotoesDepartamentos">
-                <button className="ButtonDepartamentos"><FaBars /> Departamentos</button>
-                <button> <img src={ImgCachorro} /> Cachorro</button>
-                <button> <img src={ImgGato} /> Gato</button>
-                <button> <img src={ImgPassaro} /> Pássaro</button>
-                <button> <img src={ImgPeixe} /> Peixe</button>
-                <button><img src={ImgOutros} /> Outros Pets</button>
-            </div>
-        </S.NavBarLogado >
-            { isLoggingOut && <Loading />
-}
+                <div className="DivBotoesDepartamentos">
+                    <div className="Dropdown">
+                        <button onClick={toggleDropdown} className="ButtonDepartamentos"><FaBars /> Departamentos</button>
+                        {isOpen && (
+                            <ul className="dropdown-menu">
+                                <button> <img src={ImgCachorro} /> Cachorro</button>
+                                <button> <img src={ImgGato} /> Gato</button>
+                                <button> <img src={ImgPassaro} /> Pássaro</button>
+                                <button> <img src={ImgPeixe} /> Peixe</button>
+                                <button> <img src={ImgOutros} /> Outros Pets</button>
+                            </ul>
+                        )}
+                    </div>
+                </div>
+            </S.NavBarLogado >
+            {isFakeLoggingOut && <Loading />
+            }
         </>
     );
+}
+
+function extractNameFromEmail(email: string): string | null {
+    // Regular expression to extract name from email
+    email = email!.trim();
+    const nameRegex = /^(?<name>[^\s]+)\@[\w\d.-]+\.[a-z]{2,}$/;
+    const match = email.match(nameRegex);
+
+    // Return extracted name or empty string if no match
+    return match ? match.groups!.name : "";
 }

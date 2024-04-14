@@ -4,12 +4,17 @@ import ImgCard from "../../assets/images/Card.png";
 import { FaStar, FaStarHalf } from "react-icons/fa";
 import { FaStarHalfStroke } from "react-icons/fa6";
 import { CarouselComponent } from "../../components/CarouselComponent/CarouselComponent";
+import { AuthService } from "../../services/AuthService";
 
-export function Produto() {
+type ProdutoProps = {
+    authService: AuthService;
+  }
+
+export function Produto(props: ProdutoProps) {
     return (
         <>
             <S.ContainerPai>
-                <NavBarLogado />
+                <NavBarLogado authService={props.authService} />
                 <S.ContainerMain>
                     <img src={ImgCard} />
 

@@ -10,6 +10,8 @@ import { Carrinho } from "./pages/Carrinho/Carrinho";
 import { Produto } from "./pages/Produto/Produto";
 import { RegistrarConta } from "./pages/RegistrarConta/RegistrarConta";
 import { Login } from "./pages/Login/Login";
+import { Favoritos } from "./pages/Favoritos/Favoritos";
+import { MeusPedidos } from "./pages/MeusPedidos/MeusPedidos";
 
 type AppProps = {
   authService: AuthService;
@@ -26,6 +28,7 @@ export function App(props: AppProps) {
         setUser(user);
       })
       .catch(error => {
+        console.log(error);
         setIsLoadingLoggedUser(false);
       })
   }, []);
@@ -37,19 +40,14 @@ export function App(props: AppProps) {
         !isLoadingLoggedUser &&
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={
-              !user ?
-                <Login /> : <Navigate to={'/home'} />
-            } />
-            <Route path="/home" element={
-              user ? <Home authService={props.authService} /> : <Navigate to={'/'} />
-            } />
+            <Route path="/" element={<Home authService={props.authService} />} />
+            <Route path="/login" element={<Login />} />
             <Route path='/adminlogin' element={<AdminLogin />} />
             <Route path="/cadastrafuncionario" element={<CadastraFuncionario />} />
-            <Route path="/carrinho" element={<Carrinho />} />
-            <Route path="/home" element={<Home authService={props.authService} />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/produto" element={<Produto />} />
+            <Route path="/carrinho" element={<Carrinho authService={props.authService}/>} />
+            <Route path="/favoritos" element={<Favoritos authService={props.authService}/>} />
+            <Route path="/meuspedidos" element={<MeusPedidos authService={props.authService}/>} />
+            <Route path="/produto" element={<Produto authService={props.authService}/>} />
             <Route path="/registrarconta" element={<RegistrarConta />} />
           </Routes>
         </BrowserRouter>
