@@ -168,7 +168,6 @@ export const NavBarLogado = styled.nav`
     width: 100%;
     height: 3rem;
 
-
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -185,7 +184,7 @@ export const NavBarLogado = styled.nav`
       justify-content: flex-start;
 
       position: relative;
-        bottom: .5rem;
+      bottom: 0.5rem;
       .ButtonDepartamentos {
         display: block;
 
@@ -218,7 +217,6 @@ export const NavBarLogado = styled.nav`
         z-index: 1;
 
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
       }
     }
   }

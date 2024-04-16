@@ -28,10 +28,10 @@ export const ContainerMain = styled.main`
       display: flex;
     }
 
-    h1{
-        color: lightgreen;
+    h1 {
+      color: lightgreen;
 
-        font-size: 2vw;
+      font-size: 2vw;
     }
 
     section {

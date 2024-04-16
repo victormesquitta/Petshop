@@ -1,7 +1,7 @@
 import ImgLogo from "../../assets/images/ImgLogo.svg";
 import ImgCard from "../../assets/images/Card.png";
 import * as S from './styles';
-import { motion} from "framer-motion";
+import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from 'react';
 import { FaHeart, FaMedal } from "react-icons/fa";
 
@@ -13,7 +13,7 @@ export function CarouselComponent() {
     const inner = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if(inner.current) {
+        if (inner.current) {
             setWidth(inner.current.scrollWidth - inner.current.offsetWidth);
         }
     }, [inner])
@@ -22,7 +22,7 @@ export function CarouselComponent() {
         <S.ContainerCarousel>
             <motion.div className='carousel' whileTap={{ cursor: "grabbing" }}>
                 <motion.div className='inner' drag='x' ref={inner}
-                    dragConstraints={{ left: -width, right: 0}}
+                    dragConstraints={{ left: -width, right: 0 }}
                     initial={{ x: 100 }} animate={{ x: 0 }} transition={{ duration: 0.8 }}>
 
                     {images.map(image => (
@@ -33,7 +33,7 @@ export function CarouselComponent() {
                             <p className="PrecoRiscado">R$ 2,99</p>
                             <p className="PrecoNormal">R$ 2,49</p>
 
-                           {/*<p className="MimuPoints"><FaMedal /> Ganhe 200 Mimu points com essa compra</p>*/}
+                            {/*<p className="MimuPoints"><FaMedal /> Ganhe 200 Mimu points com essa compra</p>*/}
                             <button>Adicionar ao Carrinho</button>
                         </motion.div>
                     ))}

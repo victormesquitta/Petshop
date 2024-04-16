@@ -31,24 +31,24 @@ export function InputSenhaComponent(props: LoginPageProps) {
   })
 
   const login = async () => {
-  // Exibe o indicador de carregamento
-  setShowLoading(true);
+    // Exibe o indicador de carregamento
+    setShowLoading(true);
 
-  try {
-    // Tenta realizar o login
-    await props.authService.login(form.email.value, form.password.value);
+    try {
+      // Tenta realizar o login
+      await props.authService.login(form.email.value, form.password.value);
 
-    // Oculta o indicador de carregamento e redireciona para a home
-    setShowLoading(false);
-    navigate('/');
-  } catch (error) {
-    // Oculta o indicador de carregamento
-    setShowLoading(false);
+      // Oculta o indicador de carregamento e redireciona para a home
+      setShowLoading(false);
+      navigate('/');
+    } catch (error) {
+      // Oculta o indicador de carregamento
+      setShowLoading(false);
 
-    // Define a mensagem de erro (específica ou genérica)
-    setError(error || 'Ocorreu um erro durante o login.');
-  }
-};
+      // Define a mensagem de erro (específica ou genérica)
+      setError(error || 'Ocorreu um erro durante o login.');
+    }
+  };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };

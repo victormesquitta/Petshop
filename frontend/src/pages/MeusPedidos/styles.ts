@@ -84,7 +84,6 @@ export const ContainerMain = styled.main`
             width: 120%;
 
             margin-bottom: 1rem;
-
           }
 
           h3 {

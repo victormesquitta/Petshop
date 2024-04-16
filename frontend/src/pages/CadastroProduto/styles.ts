@@ -115,39 +115,56 @@ export const ContainerPai = styled.main`
       }
     }
 
-    .section2 {
-      width: 90%;
-      height: 40%;
+    div {
+        width: 100%;
+        height: 100%;
 
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
+        display: flex;
+        align-items: start;
+        justify-content: space-around;
 
-      h1{
-        font-size: 2.2vw;
-      }
+      .section2 {
+       width: 45%;
+       height: 100%;
 
-      label {
-        margin-top: 2rem;
-      }
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
 
-      input {
-        border-radius: 10px;
-        border: 1px solid;
-        border-color: lightgray;
+        h1 {
+          font-size: 2.2vw;
+        }
 
-        width: 30%;
-        height: 15%;
+        label {
+          margin-top: 2rem;
+        }
 
-        margin-top: 0.4rem;
-        padding-left: 1rem;
-        padding-right: 2rem;
+        input {
+          border-radius: 10px;
+          border: 1px solid;
+          border-color: lightgray;
 
-        &:focus {
-          background: #f5f5f5;
-          border: 0.1px solid lightgray;
-          outline: none !important;
+          width: 40%;
+          height: 7%;
+
+          margin-top: 0.4rem;
+          padding-left: 1rem;
+          padding-right: 2rem;
+
+          &:focus {
+            background: #f5f5f5;
+            border: 0.1px solid lightgray;
+            outline: none !important;
+          }
+        }
+
+        .LabelPrecoProd{
+            margin-top: 4rem;
+        }
+
+        .InputDescriProd{
+            border-radius: 10px;
         }
       }
     }

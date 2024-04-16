@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import ValidationError from './ValidationError';
 
 describe('ValidationError', () => {
@@ -62,6 +61,6 @@ describe('ValidationError', () => {
         />);
 
         expect(screen.queryByTestId('error')).toBeNull();
-    })
+    })
 
 })

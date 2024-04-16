@@ -12,6 +12,7 @@ import { RegistrarConta } from "./pages/RegistrarConta/RegistrarConta";
 import { Login } from "./pages/Login/Login";
 import { Favoritos } from "./pages/Favoritos/Favoritos";
 import { MeusPedidos } from "./pages/MeusPedidos/MeusPedidos";
+import { CadastroProduto } from "./pages/CadastroProduto/CadastroProduto";
 
 type AppProps = {
   authService: AuthService;
@@ -44,10 +45,11 @@ export function App(props: AppProps) {
             <Route path="/login" element={<Login />} />
             <Route path='/adminlogin' element={<AdminLogin />} />
             <Route path="/cadastrafuncionario" element={<CadastraFuncionario />} />
-            <Route path="/carrinho" element={<Carrinho authService={props.authService}/>} />
-            <Route path="/favoritos" element={<Favoritos authService={props.authService}/>} />
-            <Route path="/meuspedidos" element={<MeusPedidos authService={props.authService}/>} />
-            <Route path="/produto" element={<Produto authService={props.authService}/>} />
+            <Route path="/cadastroproduto" element={<CadastroProduto />} />
+            <Route path="/carrinho" element={<Carrinho authService={props.authService} />} />
+            <Route path="/favoritos" element={<Favoritos authService={props.authService} />} />
+            <Route path="/meuspedidos" element={<MeusPedidos authService={props.authService} />} />
+            <Route path="/produto" element={<Produto authService={props.authService} />} />
             <Route path="/registrarconta" element={<RegistrarConta />} />
           </Routes>
         </BrowserRouter>
