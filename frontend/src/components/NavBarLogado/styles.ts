@@ -174,17 +174,19 @@ export const NavBarLogado = styled.nav`
     justify-content: center;
 
     .Dropdown {
-      width: 15%;
-      height: 2rem;
+      width: 25%;
+      height: 2.7rem;
 
-      padding: 1rem;
+      padding-top: 0.4rem;
 
-      display: flex;
+      display: block;
       flex-direction: column;
       justify-content: flex-start;
 
-      position: relative;
-      bottom: 0.5rem;
+      .dropdown-menu{
+        display: block;
+      }
+
       .ButtonDepartamentos {
         display: block;
 
@@ -194,11 +196,17 @@ export const NavBarLogado = styled.nav`
         width: 80%;
         height: 2rem;
 
-        background-color: white;
+        background-color: #073950;
+        color: white;
 
         z-index: 2;
 
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+        .iconDepartamento {
+          margin-right: 0.3rem;
+          margin-top: 0.3rem;
+        }
       }
 
       .dropdown-menu {
@@ -206,17 +214,44 @@ export const NavBarLogado = styled.nav`
 
         position: relative;
 
-        top: -0.2rem;
+        top: -.1rem;
 
-        color: black;
+        color: #073950;
         background-color: white;
 
-        border-color: #88ce08;
+        border-color: none;
         border-radius: 15px;
 
         z-index: 1;
 
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     
+        button{
+          background-color: white;
+          color: #073950;
+
+          width: 100%;
+          height: 3rem;
+          
+          display: flex;
+          align-items: center;
+
+          border: none;
+          border-radius: 5px;
+
+          &:hover {
+          box-shadow: inset 0 0 5px #073950;
+
+      }
+
+          img{
+            width: 22%;
+            height: 70%;
+
+            margin-right: .5rem;
+            margin-left: .5rem;
+          }
+        }
       }
     }
   }

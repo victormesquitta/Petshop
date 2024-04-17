@@ -82,7 +82,7 @@ export function NavBarLogado(props: HomePageProps) {
 
                 <div className="DivBotoesDepartamentos">
                     <div className="Dropdown">
-                        <button onClick={toggleDropdown} className="ButtonDepartamentos"><FaBars /> Departamentos</button>
+                        <button onClick={toggleDropdown} className="ButtonDepartamentos"><FaBars className="iconDepartamento" /> Departamentos</button>
                         {isOpen && (
                             <ul className="dropdown-menu">
                                 <button> <img src={ImgCachorro} /> Cachorro</button>
@@ -95,8 +95,7 @@ export function NavBarLogado(props: HomePageProps) {
                     </div>
                 </div>
             </S.NavBarLogado >
-            {isFakeLoggingOut && <Loading />
-            }
+            {isFakeLoggingOut && <Loading />}
         </>
     );
 }

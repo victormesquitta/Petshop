@@ -43,18 +43,15 @@ export const ContainerPai = styled.main`
       display: flex;
       align-items: center;
 
-      width: 99%;
+      width: 100%;
       height: 10%;
 
       padding-left: 3rem;
 
       &:hover {
-        outline: 2px solid white;
-      }
-      &:focus {
-        outline: none;
-      }
+        box-shadow: inset 0 0 10px white;
 
+      }
       .icons {
         margin-right: 1rem;
       }
@@ -124,7 +121,7 @@ export const ContainerPai = styled.main`
       align-items: flex-start;
       justify-content: flex-start;
 
-      h1{
+      h1 {
         font-size: 2.2vw;
       }
 

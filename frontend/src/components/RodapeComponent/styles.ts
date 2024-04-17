@@ -46,8 +46,6 @@ export const ContainerNav = styled.section`
     align-items: center;
     justify-content: space-evenly;
 
-    padding: 1rem 0rem 1rem 2rem;
-
     line-height: 3.5vh;
     color: white;
 
@@ -99,6 +97,9 @@ export const ContainerNav = styled.section`
       position: static;
       z-index: 2;
 
+      margin-top: 1.1rem;
+      margin-left: 2rem;
+
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
 
@@ -108,6 +109,7 @@ export const ContainerNav = styled.section`
       position: relative;
 
       top: -0.2rem;
+      left: 2rem;
 
       color: black;
       background-color: white;

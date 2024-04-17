@@ -43,16 +43,14 @@ export const ContainerPai = styled.main`
       display: flex;
       align-items: center;
 
-      width: 99%;
+      width: 100%;
       height: 10%;
 
       padding-left: 3rem;
 
       &:hover {
-        outline: 2px solid white;
-      }
-      &:focus {
-        outline: none;
+        box-shadow: inset 0 0 10px white;
+        
       }
 
       .icons {
@@ -116,16 +114,16 @@ export const ContainerPai = styled.main`
     }
 
     div {
-        width: 100%;
-        height: 100%;
+      width: 100%;
+      height: 100%;
 
-        display: flex;
-        align-items: start;
-        justify-content: space-around;
+      display: flex;
+      align-items: start;
+      justify-content: space-around;
 
       .section2 {
-       width: 45%;
-       height: 100%;
+        width: 45%;
+        height: 100%;
 
         display: flex;
         flex-direction: column;
@@ -159,12 +157,24 @@ export const ContainerPai = styled.main`
           }
         }
 
-        .LabelPrecoProd{
-            margin-top: 4rem;
+        .LabelPrecoProd {
+          margin-top: 4rem;
         }
 
-        .InputDescriProd{
-            border-radius: 10px;
+        .InputDescriProd {
+          border-radius: 10px;
+
+          padding-left: 1rem;
+          padding-right: 1rem;
+          padding-top: .5rem;
+          padding-bottom: .5rem;
+
+          &:focus {
+            background: #f5f5f5;
+            border: 0.1px solid lightgray;
+            outline: none !important;
+
+          }
         }
       }
     }
