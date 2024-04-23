@@ -1,6 +1,7 @@
 import { NavBarLogado } from "../../components/NavBarLogado/NavBarLogadoComponent";
 import * as S from "./styles";
-import ImgHomeTransition from "../../assets/images/ImgHomeTransition.png";
+import ImgHomeTransition1 from "../../assets/images/ImgHomeTransition1.png";
+import ImgHomeTransition2 from "../../assets/images/ImgHomeTransition2.png";
 import Card from "../../assets/images/Card.png";
 import ImgPedigree from "../../assets/images/ImgPedigree.png";
 import ImgZeedog from "../../assets/images/ImgZeedog.png";
@@ -17,69 +18,92 @@ import ImgRoyalCanin from "../../assets/images/ImgRoyalCanin.png";
 import { RodapeComponent } from "../../components/RodapeComponent/RodapeComponent";
 import { FaHeart, FaMedal } from "react-icons/fa";
 import { AuthService } from "../../services/AuthService";
+import { useEffect, useState } from "react";
+import { ImageSlider } from "../../components/ImageSlider/ImageSlider";
 
 type HomeProps = {
     authService: AuthService;
-  }
-  
+}
+
 export function Home(props: HomeProps) {
+   /* const [imagens, setImagens] = useState([
+        { src: ImgHomeTransition1, alt: 'Imagem 1' },
+        { src: ImgHomeTransition2, alt: 'Imagem 2' },
+        { src: ImgHomeTransition1, alt: 'Imagem 1' },
+
+    ]);
+
+    const [indiceImagemAtual, setIndiceImagemAtual] = useState(0);
+
+    useEffect(() => {
+        const intervalo = setInterval(() => {
+            const novoIndice = indiceImagemAtual + 1;
+            setIndiceImagemAtual(novoIndice);
+
+            if (novoIndice >= imagens.length) {
+                setIndiceImagemAtual(0);
+            }
+        }, 3);
+
+        return () => clearInterval(intervalo);
+    }, [imagens]); */
+
     return (
         <>
             <S.ContainerPai>
-                <NavBarLogado authService={props.authService}/>
+                <NavBarLogado authService={props.authService} />
 
                 <S.DivMain>
 
                     <div className="DivImgTransition">
-                        <img src={ImgHomeTransition} />
-
+                    <ImageSlider />
                         <h2>OS MELHORES PRODUTOS PARA CÃES</h2>
                     </div>
 
                     <div className="DivCards">
                         <section>
                             <img src={Card} />
-                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao"/></p>
+                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao" /></p>
                             <h3>DOG CHOW SACHÊ FRANGO MINI 100G</h3>
-                                <p className="PrecoRiscado">R$ 2,99</p>
-                                <p className="PrecoNormal">R$ 2,49</p>
+                            <p className="PrecoRiscado">R$ 2,99</p>
+                            <p className="PrecoNormal">R$ 2,49</p>
 
-                                <p className="MimuPoints"><FaMedal/> Ganhe 200 Mimu points com essa compra</p>
-                                <button>Adicionar ao Carrinho</button>
-                            
+                            <p className="MimuPoints"><FaMedal /> Ganhe 200 Mimu points com essa compra</p>
+                            <button>Adicionar ao Carrinho</button>
+
                         </section>
                         <section>
                             <img src={Card} />
-                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao"/></p>
+                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao" /></p>
                             <h3>DOG CHOW SACHÊ FRANGO MINI 100G</h3>
-                                <p className="PrecoRiscado">R$ 2,99</p>
-                                <p className="PrecoNormal">R$ 2,49</p>
+                            <p className="PrecoRiscado">R$ 2,99</p>
+                            <p className="PrecoNormal">R$ 2,49</p>
 
-                                <p className="MimuPoints"><FaMedal/> Ganhe 200 Mimu points com essa compra</p>
-                                <button>Adicionar ao Carrinho</button>
-                            
+                            <p className="MimuPoints"><FaMedal /> Ganhe 200 Mimu points com essa compra</p>
+                            <button>Adicionar ao Carrinho</button>
+
                         </section>
                         <section>
                             <img src={Card} />
-                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao"/></p>
+                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao" /></p>
                             <h3>DOG CHOW SACHÊ FRANGO MINI 100G </h3>
-                                <p className="PrecoRiscado">R$ 2,99</p>
-                                <p className="PrecoNormal">R$ 2,49</p>
+                            <p className="PrecoRiscado">R$ 2,99</p>
+                            <p className="PrecoNormal">R$ 2,49</p>
 
-                                <p className="MimuPoints"><FaMedal/> Ganhe 200 Mimu points com essa compra</p>
-                                <button>Adicionar ao Carrinho</button>
-                           
+                            <p className="MimuPoints"><FaMedal /> Ganhe 200 Mimu points com essa compra</p>
+                            <button>Adicionar ao Carrinho</button>
+
                         </section>
                         <section>
                             <img src={Card} />
-                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao"/></p>
+                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao" /></p>
                             <h3>DOG CHOW SACHÊ FRANGO MINI 100G </h3>
-                                <p className="PrecoRiscado">R$ 2,99</p>
-                                <p className="PrecoNormal">R$ 2,49</p>
-                           
-                                <p className="MimuPoints"><FaMedal/> Ganhe 200 Mimu points com essa compra</p>
-                                <button>Adicionar ao Carrinho</button>
-                           
+                            <p className="PrecoRiscado">R$ 2,99</p>
+                            <p className="PrecoNormal">R$ 2,49</p>
+
+                            <p className="MimuPoints"><FaMedal /> Ganhe 200 Mimu points com essa compra</p>
+                            <button>Adicionar ao Carrinho</button>
+
                         </section>
 
                     </div>
@@ -89,24 +113,24 @@ export function Home(props: HomeProps) {
 
                 <S.ContainerMarcas>
                     <section>
-                        <img src={ ImgPedigree } />
-                        <img src={ ImgZeedog } />
-                        <img src={ ImgNeD } />
-                        <img src={ ImgPurina } />
-                        <img src={ ImgPremieR } />
-                        <img src={ ImgSuperSecao } />
+                        <img src={ImgPedigree} />
+                        <img src={ImgZeedog} />
+                        <img src={ImgNeD} />
+                        <img src={ImgPurina} />
+                        <img src={ImgPremieR} />
+                        <img src={ImgSuperSecao} />
                     </section>
 
                     <section className="SectionImgs">
-                        <img src={ ImgRoyalCanin } />
-                        <img src={ ImgPetSociety } />
-                        <img src={ ImgWhiskas } />
-                        <img src={ ImgFrontLine } />
-                        <img src={ ImgFerplast } />
-                        <img src={ ImgElanco } className="ImgElano"/>
+                        <img src={ImgRoyalCanin} />
+                        <img src={ImgPetSociety} />
+                        <img src={ImgWhiskas} />
+                        <img src={ImgFrontLine} />
+                        <img src={ImgFerplast} />
+                        <img src={ImgElanco} className="ImgElano" />
                     </section>
                 </S.ContainerMarcas>
-                <RodapeComponent/>
+                <RodapeComponent />
             </S.ContainerPai>
         </>
     )

@@ -4,7 +4,7 @@ export const InputSenha = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   width: 100%;
 
   input {
@@ -37,12 +37,13 @@ export const InputSenha = styled.form`
 
       right: 3rem;
       top: 0.7rem;
+      
     }
   }
+
   .divButton {
     display: flex;
     position: relative;
-    flex-direction: row;
     justify-content: center;
 
     width: 100%;
@@ -55,10 +56,17 @@ export const InputSenha = styled.form`
       border-radius: 15px;
 
       width: 25%;
-      height: 2.7rem;
+      height: 2.5rem;
 
-      margin-top: 0.5rem;
+      margin-top: 1rem;
+
     }
+  }
+
+  .Links{
+    margin-bottom: 2rem;
+    margin-right: 6.5rem;
+
   }
 
   .ErroMessage {

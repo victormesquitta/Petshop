@@ -1,18 +1,26 @@
 import styled from "styled-components";
 
 export const SaveLogin = styled.div`
-  margin-top: 1.2rem;
-  margin-bottom: 1.5rem;
   width: 55%;
+  height: 4%;
 
   display: flex;
+  align-items: center ;
+
+  margin-top: 1rem;
+
+  input {
+    margin-left: 1rem;
+    margin-right: .7rem;
+    width: 6%;
+  }
 
   label {
     cursor: pointer;
 
-    input {
-      margin-right: 0.5rem;
-    }
+    width: 100%;
+
+    display: flex;
   }
 
   @media (max-width: 1024px) {

@@ -99,7 +99,7 @@ export function InputSenhaComponent(props: LoginPageProps) {
             }
           })} />
         <div onClick={togglePasswordVisibility} className="OlhoAbertoOuFechado">
-          {showPassword ? <FaEye size={20} color="gray" /> : <FaEyeSlash size={20} color="white" />}
+          {showPassword ? <FaEye size={20} color="gray" /> : <FaEyeSlash size={20} color="black" />}
         </div>
       </div>
 

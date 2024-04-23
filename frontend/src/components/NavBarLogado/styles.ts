@@ -196,10 +196,12 @@ export const NavBarLogado = styled.nav`
         width: 80%;
         height: 2rem;
 
+        padding-bottom: .2rem;
+
         background-color: #073950;
         color: white;
 
-        z-index: 2;
+        z-index: 1;
 
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
@@ -214,7 +216,7 @@ export const NavBarLogado = styled.nav`
 
         position: relative;
 
-        top: -.1rem;
+        top: 0rem;
 
         color: #073950;
         background-color: white;
@@ -222,7 +224,7 @@ export const NavBarLogado = styled.nav`
         border-color: none;
         border-radius: 15px;
 
-        z-index: 1;
+        z-index: 0;
 
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      

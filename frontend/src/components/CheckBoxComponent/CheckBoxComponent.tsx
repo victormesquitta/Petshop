@@ -12,14 +12,10 @@ export function CheckedBoxComponent() {
     return (
         <>
             <SaveLogin>
+                <input type="checkbox" checked={isChecked} onChange={handleCheckBoxChange} />
 
-                <label><input
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={handleCheckBoxChange}
-                />Mantenha-se Logado</label>
+                <label>Mantenha-se logado</label>
             </SaveLogin>
-
         </>
     );
 }
