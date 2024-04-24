@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.senac.tads.petshop.dtos.FuncionarioDTO;
-import br.senac.tads.petshop.dtos.ProdutoDTO;
 import br.senac.tads.petshop.mappers.FuncionarioDTOMapper;
 import br.senac.tads.petshop.models.Funcionario;
-import br.senac.tads.petshop.models.Produto;
 import br.senac.tads.petshop.repositories.FuncionarioRepository;
 
 @Service

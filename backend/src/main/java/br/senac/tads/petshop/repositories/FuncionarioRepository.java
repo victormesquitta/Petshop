@@ -1,9 +1,9 @@
 package br.senac.tads.petshop.repositories;
 
-import br.senac.tads.petshop.models.Funcionarios;
+import br.senac.tads.petshop.models.Funcionario;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-    public interface FuncionariosRepository extends JpaRepository<Funcionarios, Integer> {
+    public interface FuncionarioRepository extends JpaRepository<Funcionario, Integer> {
 
 }

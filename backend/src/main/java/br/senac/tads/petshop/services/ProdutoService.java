@@ -63,6 +63,7 @@ public class ProdutoService {
 
     public void atualizarProduto(Integer id, ProdutoDTO produtoDTO){
         Produto produto = produtosMapper.toEntity(produtoDTO, id);
+        produto.setDt_criacao(produto.getDt_criacao());
         produto.setDt_modificacao(LocalDate.now());
         produtosRepository.save(produto);
     }

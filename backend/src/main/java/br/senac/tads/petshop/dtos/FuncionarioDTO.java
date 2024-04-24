@@ -9,7 +9,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FuncionariosDTO {
+public class FuncionarioDTO {
     
     private Integer codFuncionario;
 

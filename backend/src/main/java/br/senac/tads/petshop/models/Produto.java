@@ -30,8 +30,8 @@ public class Produto {
     @Column(name = "preco")
     private double preco;
 
-    @Column(name = "qtd_estoque")
-    private int qtd_estoque;
+    @Column(name = "qt_estoque")
+    private int qt_estoque;
 
     @Column (name = "marca")
     private String marca;
