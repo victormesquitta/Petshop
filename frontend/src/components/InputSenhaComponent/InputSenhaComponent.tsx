@@ -105,21 +105,19 @@ export function InputSenhaComponent(props: LoginPageProps) {
 
       {error && <div className="error">{"ERRO!! Usuario ou Senha Incorretos."}</div>}
 
+      <CheckedBoxComponent />
+
       <div className="divButton">
         <button type="button" onClick={login}>Logar</button>
       </div>
-
-      <CheckedBoxComponent />
 
       <Link to={""} className="Links" onClick={recoverPassword}>Esqueci minha senha.</Link>
 
       {showLoading && <Loading />}
       {
         showRecoverPasswordMessage &&
-        <div>
-          Verifique sua caixa de email
-        </div>
-      }
+
+        !error && window.alert("Verifique seu email!!")}
 
     </S.InputSenha >
   )

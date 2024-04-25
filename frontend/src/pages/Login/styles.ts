@@ -127,6 +127,20 @@ export const NaoTemConta = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
+    .NaoTemConta{
+      margin-left: 1rem;
+
+      .Links{
+        margin-left: .5rem;
+
+        text-decoration: none;
+
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
   }
 
   .LogarCom {

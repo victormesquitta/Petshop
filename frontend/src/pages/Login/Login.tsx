@@ -21,7 +21,7 @@ export function Login() {
 
                     <S.NaoTemConta>
                         <div>
-                            <p className="Links">Não tem uma conta?<Link to={"/RegistrarConta"} className="Links"> Crie uma conta.</Link></p>
+                            <p className="NaoTemConta">Não tem uma conta?<Link to={"/RegistrarConta"} className="Links">Crie uma conta.</Link></p>
 
                         </div>
                         <p>______________ <span className="LogarCom">Logar Com</span> ______________</p>

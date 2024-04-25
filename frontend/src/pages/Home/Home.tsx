@@ -18,36 +18,14 @@ import ImgRoyalCanin from "../../assets/images/ImgRoyalCanin.png";
 import { RodapeComponent } from "../../components/RodapeComponent/RodapeComponent";
 import { FaHeart, FaMedal } from "react-icons/fa";
 import { AuthService } from "../../services/AuthService";
-import { useEffect, useState } from "react";
-import { ImageSlider } from "../../components/ImageSlider/ImageSlider";
+import ImageSlider from "../../components/ImageSlider/ImageSlider";
 
 type HomeProps = {
     authService: AuthService;
 }
 
 export function Home(props: HomeProps) {
-   /* const [imagens, setImagens] = useState([
-        { src: ImgHomeTransition1, alt: 'Imagem 1' },
-        { src: ImgHomeTransition2, alt: 'Imagem 2' },
-        { src: ImgHomeTransition1, alt: 'Imagem 1' },
-
-    ]);
-
-    const [indiceImagemAtual, setIndiceImagemAtual] = useState(0);
-
-    useEffect(() => {
-        const intervalo = setInterval(() => {
-            const novoIndice = indiceImagemAtual + 1;
-            setIndiceImagemAtual(novoIndice);
-
-            if (novoIndice >= imagens.length) {
-                setIndiceImagemAtual(0);
-            }
-        }, 3);
-
-        return () => clearInterval(intervalo);
-    }, [imagens]); */
-
+ 
     return (
         <>
             <S.ContainerPai>

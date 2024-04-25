@@ -19,7 +19,6 @@ const ImageSlider = () => {
     <S.ContainerPai>
       <Fade
         arrows={false} 
-        dots={true} 
       >
         {slideImages.map((image, index) => (
           <div key={index} className="image-container">

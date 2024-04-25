@@ -114,14 +114,16 @@ export const ContainerNav = styled.section`
       color: black;
       background-color: white;
 
-      border-color: #88ce08;
       border-radius: 15px;
+      border: 1px solid;
+      border-color: #88ce08;
 
       z-index: 1;
 
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
       li {
+
         display: flex;
         align-items: center;
         justify-content: center;
@@ -133,11 +135,14 @@ export const ContainerNav = styled.section`
         width: 100%;
         height: 2.5rem;
 
+        z-index: 2;
+
         cursor: pointer;
 
-        &:last-child {
-          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        &:hover {
+          box-shadow: inset 0 0 5px #88ce08;
         }
+      
       }
     }
   }

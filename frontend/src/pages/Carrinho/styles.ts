@@ -126,6 +126,10 @@ export const ContainerMain = styled.section`
 
         font-size: 1.3vw;
         font-weight: 600;
+
+        &:hover{
+          text-decoration: underline;
+        }
       }
 
       input {

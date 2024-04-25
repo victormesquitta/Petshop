@@ -4,6 +4,8 @@ import { NavBarLogado } from '../../components/NavBarLogado/NavBarLogadoComponen
 import { RodapeComponent } from '../../components/RodapeComponent/RodapeComponent';
 import { AuthService } from '../../services/AuthService';
 import * as S from './styles';
+import { Link } from 'react-router-dom';
+import { InformacoesComponent } from '../../components/InformacoesComponent/InformacoesComponent';
 
 type FavoritosProps = {
     authService: AuthService;
@@ -15,19 +17,11 @@ export function Favoritos(props: FavoritosProps) {
             <S.ContainerPai>
                 <NavBarLogado authService={props.authService} />
                 <S.ContainerMain>
-                    <section className='SectionInformacoes'>
-                        <h1>Olá Victor</h1>
-
-                        <p>Dados Pessoais</p>
-                        <p>Meus Pedidos</p>
-                        <p>Favoritos</p>
-                        <p>Meus Cartões</p>
-                        <p>Meus Pets</p>
-                    </section>
+                    
+                   <InformacoesComponent/>
 
                     <div className='DivFavoritos'>
                         <h1>Favoritos</h1>
-
                         <div>
                             <section >
                                 <img src={Card} />

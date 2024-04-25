@@ -9,11 +9,10 @@ export const ContainerMain = styled.main`
   display: flex;
   align-items: center;
 
-  margin-left: 2rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  padding: 4rem;
 
-  height: 90%;
+  height: 100%;
+  width: 100%;
 
   .DivFavoritos {
     width: 100%;
@@ -24,14 +23,20 @@ export const ContainerMain = styled.main`
 
     margin-left: 5rem;
 
+    height: 100%;
+
     div {
       display: flex;
     }
 
     h1 {
-      color: lightgreen;
+      color: #88ce08;
 
       font-size: 2vw;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     section {
@@ -41,19 +46,25 @@ export const ContainerMain = styled.main`
       justify-content: space-evenly;
 
       border: 1.5px solid;
-      border-color: lightgray;
+      border-color: #88ce08;
       border-radius: 25px;
 
       width: 25%;
+      height: 95%;
 
       padding: 2rem;
+      padding-top: 1rem;
+      padding-bottom: 1.4rem;
+
       margin-top: 1.5rem;
       margin-left: 3rem;
 
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
       img {
-        width: 80%;
+        width: 70%;
+
+        margin-top: .5rem;
       }
 
       h3 {
@@ -61,11 +72,16 @@ export const ContainerMain = styled.main`
         padding-left: 0.7rem;
 
         font-size: 1vw;
+
+        &:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
       }
 
       .IconCoracao {
         position: relative;
-        left: 7rem;
+        left: 6rem;
 
         color: red;
 
@@ -84,7 +100,7 @@ export const ContainerMain = styled.main`
 
         align-items: start;
 
-        margin-top: 0.7rem;
+        margin-top: 0.5rem;
       }
       .PrecoRiscado {
         text-decoration: line-through;
@@ -98,7 +114,7 @@ export const ContainerMain = styled.main`
         right: 2rem;
       }
       .PrecoNormal {
-        font-size: 1.5vw;
+        font-size: 1.3vw;
         font-weight: 800;
       }
       .MimuPoints {
@@ -106,6 +122,12 @@ export const ContainerMain = styled.main`
         font-size: 0.9vw;
 
         margin-top: 1rem;
+
+        &:hover {
+          text-decoration: underline;
+
+          cursor: pointer;
+        }
       }
 
       button {
@@ -114,6 +136,7 @@ export const ContainerMain = styled.main`
         align-items: center;
         justify-content: center;
 
+        font-size: .8vw;
         font-weight: 600;
 
         border: none;
@@ -121,42 +144,11 @@ export const ContainerMain = styled.main`
         border-color: #073950;
 
         width: 80%;
-        height: 2.2rem;
+        height: 2rem;
 
         background-color: #073950;
         color: white;
       }
-    }
-  }
-
-  .SectionInformacoes {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: start;
-
-    border: 1.5px solid;
-    border-color: lightgreen;
-    border-radius: 15px;
-
-    width: 22%;
-
-    padding: 2rem;
-
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-    height: 80%;
-
-    h1 {
-      margin-bottom: 1rem;
-
-      color: lightgreen;
-    }
-
-    p {
-      margin-top: 1rem;
-
-      color: lightgreen;
     }
   }
 `;

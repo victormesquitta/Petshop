@@ -183,10 +183,6 @@ export const NavBarLogado = styled.nav`
       flex-direction: column;
       justify-content: flex-start;
 
-      .dropdown-menu{
-        display: block;
-      }
-
       .ButtonDepartamentos {
         display: block;
 
@@ -226,6 +222,8 @@ export const NavBarLogado = styled.nav`
 
         z-index: 0;
 
+        cursor: pointer;
+
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      
         button{
@@ -240,6 +238,8 @@ export const NavBarLogado = styled.nav`
 
           border: none;
           border-radius: 5px;
+
+          cursor: pointer;
 
           &:hover {
           box-shadow: inset 0 0 5px #073950;

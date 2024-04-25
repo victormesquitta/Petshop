@@ -17,7 +17,7 @@ export const DivMain = styled.div`
   .DivImgTransition {
     margin-top: 3rem;
 
-    width: 100%;
+    width: 50%;
 
     display: flex;
     flex-direction: column;
@@ -63,6 +63,10 @@ export const DivMain = styled.div`
 
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
+      p:hover{
+        text-decoration: underline;
+      }
+
       img {
         width: 80%;
         height: 11rem;
@@ -73,6 +77,10 @@ export const DivMain = styled.div`
         padding-left: 0.7rem;
 
         font-size: 1vw;
+
+        &:hover{
+          text-decoration: underline;
+        }
       }
 
       .IconCoracao {

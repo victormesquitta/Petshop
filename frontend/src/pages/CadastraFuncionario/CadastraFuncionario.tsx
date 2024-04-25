@@ -1,6 +1,6 @@
 import * as S from './styles';
 import ImgLogo from '../../assets/images/ImgLogo.svg';
-import ImgPerfilDog from '../../assets/images/ImgPerfilDog.png';
+import ImgPerfilFuncionario from '../../assets/images/ImgPerfilFuncionario.png';
 import { Link } from 'react-router-dom';
 import { FaList, FaObjectGroup, FaSearch, FaUserAlt } from 'react-icons/fa';
 
@@ -24,7 +24,7 @@ export function CadastraFuncionario() {
                         <input placeholder='Pesquisar' className='InputPesquisar' />
                         <FaSearch className="IconLupa" />
 
-                        <img src={ImgPerfilDog} />
+                        <img src={ImgPerfilFuncionario} />
                     </section>
 
                     <section className='section2'>

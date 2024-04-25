@@ -37,7 +37,6 @@ export const InputSenha = styled.form`
 
       right: 3rem;
       top: 0.7rem;
-      
     }
   }
 
@@ -57,22 +56,31 @@ export const InputSenha = styled.form`
 
       width: 25%;
       height: 2.5rem;
-
-      margin-top: 1rem;
-
     }
   }
 
-  .Links{
-    margin-bottom: 2rem;
-    margin-right: 6.5rem;
+  .Links {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 
+    padding-right: 10rem;
+
+    text-decoration: none;
+
+    &:hover{
+      text-decoration: underline;
+    }
   }
 
   .ErroMessage {
     width: 100%;
     background-color: red;
   }
+
+  .RecuperaSenha{
+    position: sticky;
+  }
+
   @media (max-width: 1024px) {
     gap: 2rem;
 

@@ -7,10 +7,8 @@ export const SaveLogin = styled.div`
   display: flex;
   align-items: center ;
 
-  margin-top: 1rem;
-
   input {
-    margin-left: 1rem;
+    margin-left: .5rem;
     margin-right: .7rem;
     width: 6%;
   }

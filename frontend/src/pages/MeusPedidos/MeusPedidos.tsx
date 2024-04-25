@@ -6,6 +6,7 @@ import { AuthService } from '../../services/AuthService';
 import * as S from './styles';
 import { width } from '@fortawesome/free-regular-svg-icons/faAddressBook';
 import { motion } from 'framer-motion';
+import { InformacoesComponent } from '../../components/InformacoesComponent/InformacoesComponent';
 
 type MeusPedidosProps = {
     authService: AuthService;
@@ -29,16 +30,7 @@ export function MeusPedidos(props: MeusPedidosProps) {
             <S.ContainerPai>
                 <NavBarLogado authService={props.authService} />
                 <S.ContainerMain>
-                    <section className='SectionInformacoes'>
-                        <h1>Olá Victor</h1>
-
-                        <p>Dados Pessoais</p>
-                        <p>Meus Pedidos</p>
-                        <p>Favoritos</p>
-                        <p>Meus Cartões</p>
-                        <p>Meus Pets</p>
-                    </section>
-
+                    <InformacoesComponent />
                     <div className='DivFavoritos'>
                         <h1 className='MeusPedidos'>Meus Pedidos</h1>
                         <h3 className='ConfiraPedidos'>Confira todos seus pedidos aqui</h3>
