@@ -5,6 +5,7 @@ import br.senac.tads.petshop.mappers.ClienteDTOMapper;
 import br.senac.tads.petshop.models.Cliente;
 import br.senac.tads.petshop.services.CarrinhoComprasService;
 import br.senac.tads.petshop.services.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,18 +18,22 @@ import java.util.List;
 @RequestMapping("/api/clientes")
 public class ClienteController {
 
-    @Autowired
-    private ClienteService clienteService;
 
-    @Autowired
+    private ClienteService clienteService;
     private CarrinhoComprasService carrinhoComprasService;
 
-    @Autowired
     private ClienteDTOMapper clienteDTOMapper;
+
+    @Autowired
+    public ClienteController(ClienteService clienteService, CarrinhoComprasService carrinhoComprasService, ClienteDTOMapper clienteDTOMapper) {
+        this.clienteService = clienteService;
+        this.carrinhoComprasService = carrinhoComprasService;
+        this.clienteDTOMapper = clienteDTOMapper;
+    }
 
 
     @PostMapping()
-    public ResponseEntity<Object> criarCliente(@RequestBody ClienteDTO clienteDTO) {
+    public ResponseEntity<Object> criarCliente(@RequestBody @Valid ClienteDTO clienteDTO) {
         // cria o cliente
         Cliente cliente = clienteService.criarCliente(clienteDTO);
         // vincula o novo carrinho com o cliente que acabamos de criar
@@ -69,7 +74,7 @@ public class ClienteController {
     @PutMapping("/{id}/alterar-status")
     public ResponseEntity<Object> alterarStatus(@PathVariable Integer id, @RequestBody ClienteDTO clienteDTO) {
         clienteService.alterarStatus(id, clienteDTO);
-        return new ResponseEntity<>("Senha do cliente atualizada com sucesso.", HttpStatus.OK);
+        return new ResponseEntity<>("Status do cliente atualizada com sucesso.", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

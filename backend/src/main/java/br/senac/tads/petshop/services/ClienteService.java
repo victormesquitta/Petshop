@@ -19,9 +19,10 @@ import java.util.stream.Collectors;
 @Service
 public class ClienteService {
 
-    @Autowired
+
     private final ClienteRepository clienteRepository;
     private final ClienteDTOMapper clienteDTOMapper;
+    @Autowired
 
     public ClienteService(ClienteRepository clienteRepository, ClienteDTOMapper clienteDTOMapper) {
         this.clienteRepository = clienteRepository;
