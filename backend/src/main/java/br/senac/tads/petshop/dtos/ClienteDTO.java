@@ -5,6 +5,8 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.NumberFormat;
 
 import java.time.LocalDate;
 
@@ -25,11 +27,12 @@ public class ClienteDTO {
     @Email(message = "O campo 'email' deve ser um endereço de e-mail válido")
     private String email;
 
-
+    @CPF
     private String cpf;
     private String nomeCompleto;
 
     // só aceita números
+    @NumberFormat
     private String celular;
     private String celular2;
 
@@ -39,6 +42,7 @@ public class ClienteDTO {
     // permite apenas a leitura do atributo
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate dtCadastro;
+
 
     private String status;
     private String genero;

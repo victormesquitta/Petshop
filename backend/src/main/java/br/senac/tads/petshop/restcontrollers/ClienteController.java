@@ -22,13 +22,11 @@ public class ClienteController {
     private ClienteService clienteService;
     private CarrinhoComprasService carrinhoComprasService;
 
-    private ClienteDTOMapper clienteDTOMapper;
 
     @Autowired
-    public ClienteController(ClienteService clienteService, CarrinhoComprasService carrinhoComprasService, ClienteDTOMapper clienteDTOMapper) {
+    public ClienteController(ClienteService clienteService, CarrinhoComprasService carrinhoComprasService) {
         this.clienteService = clienteService;
         this.carrinhoComprasService = carrinhoComprasService;
-        this.clienteDTOMapper = clienteDTOMapper;
     }
 
 
