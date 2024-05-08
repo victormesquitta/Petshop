@@ -82,7 +82,7 @@ export const FormularioLogin = styled.form`
   }
 `;
 
-export const Inputs = styled.div`
+export const Inputs = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
