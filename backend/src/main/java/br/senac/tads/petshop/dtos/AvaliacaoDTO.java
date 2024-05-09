@@ -24,6 +24,8 @@ public class AvaliacaoDTO {
     private boolean aprovado;
     private String respostaLoja;
 
+    private Integer codproduto;
+
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate dtResposta;
 

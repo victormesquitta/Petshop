@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EnderecoDTO {
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer codCliente;
     private String cep;
     private String endereco;

@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 public class SubcategoriaDTO {
     
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer codcategorias;
 
     private String nome;
