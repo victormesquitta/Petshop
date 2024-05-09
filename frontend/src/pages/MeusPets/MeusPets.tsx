@@ -24,6 +24,7 @@ export function MeusPets(props: MeusPetsProps) {
                             <h1>Meus Pets</h1>
 
                             <button>Cadastrar novo pet</button>
+                            
                         </div>
 
                         <div className='divInformacoes'>
