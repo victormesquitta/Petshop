@@ -30,35 +30,30 @@ public class Produto {
     @Column(name = "preco")
     private double preco;
 
-    @Column(name = "qt_estoque")
-    private int qt_estoque;
+    @Column(name = "qtdestoque")
+    private int qtdEstoque;
 
     @Column (name = "marca")
     private String marca;
 
-    @Column (name = "imagem")
-    private byte[] imagem;
+//    @Column (name = "imagem")
+//    private byte[] imagem;
 
     @Column (name = "disponivel")
     private boolean disponivel;
 
-    @Column (name = "dt_criacao")
-    private LocalDate dt_criacao;
+    @Column (name = "dtcriacao")
+    private LocalDate dtCriacao;
 
-    @Column (name = "dt_modificacao")
-    private LocalDate dt_modificacao;
-
+    /* Se vai aparecer na página de destaque (home) */
     @Column (name = "destaque")
     private boolean destaque;
 
-    @Column (name = "promocao")
-    private boolean promocao;
+//    @Column (name = "avaliacao")
+//    private double avaliacao;
 
-    @Column (name = "avaliacao")
-    private double avaliacao;
-
-    @Column (name = "nm_avaliacao")
-    private int nm_avaliacao;
+//    @Column (name = "numeroavaliacao")
+//    private int numeroAvaliacao;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "codcategoria", referencedColumnName = "codcategoria",

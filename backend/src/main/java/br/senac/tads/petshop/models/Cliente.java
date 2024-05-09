@@ -1,5 +1,6 @@
 package br.senac.tads.petshop.models;
 
+import br.senac.tads.petshop.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,26 +22,22 @@ public class Cliente {
     @Column(name="codcliente")
     private Integer codCliente;
 
-    @Column(name="nomecompleto", nullable = false)
-    private String nomeCompleto;
-
     @Column(name="usuario", nullable = false, unique = true, length = 50)
     private String usuario;
-
-    @Column(name="senha", nullable = false, length = 255)
-    private String senha;
 
     @Column(name="email", nullable = false, unique = true, length = 255)
     private String email;
 
-    @Column(name="cpf", unique = true, nullable = false)
-    private String cpf;
+    @Column(name="senha", nullable = false, length = 255)
+    private String senha;
 
-//    @Lob
+    @Column(name="nomecompleto", nullable = false)
+    private String nomeCompleto;
+
+    //    @Lob
 //    @Column(columnDefinition = "LONGBLOB", name="foto", nullable = false)
 //    private byte[] foto;
-
-    // ver se celular vira único ou não
+// ver se celular vira único ou não
     @Column(name="celular", nullable = false)
     private String celular;
 
@@ -50,22 +47,27 @@ public class Cliente {
     @Column(name="dtnascimento")
     private LocalDate dtNascimento;
 
+    // conta ativa, inativa ou suspensa
+    @Column(name="status", nullable = false)
+    private Status status;
+
+    // ver a necessidade desse campo no projeto
+//    @Column(name="genero", nullable = false)
+//    private String genero;
+
     @Column(name="dtcadastro")
     private LocalDate dtCadastro;
+
+    @Column(name="cpf", unique = true, nullable = false)
+    private String cpf;
+
+    @Column(name="prefmarketing")
+    private boolean prefMarketing;
 
     // ver a necessidade dessa coluna
 //    @Column(name="dtultimoacesso")
 //    private LocalDate dtUltimoAcesso;
 
-    // conta ativa, inativa ou suspensa
-    @Column(name="status", nullable = false)
-    private String status;
-
-    @Column(name="genero", nullable = false)
-    private String genero;
-
-    @Column(name="prefmarketing")
-    private boolean prefMarketing;
 
     // evita problemas de recursividade no relacionamento
 

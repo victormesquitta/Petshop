@@ -19,8 +19,8 @@ import java.util.List;
 public class ClienteController {
 
 
-    private ClienteService clienteService;
-    private CarrinhoComprasService carrinhoComprasService;
+    private final ClienteService clienteService;
+    private final CarrinhoComprasService carrinhoComprasService;
 
 
     @Autowired
@@ -63,17 +63,33 @@ public class ClienteController {
         return new ResponseEntity<>("Cliente atualizado com sucesso.", HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/trocar-senha")
+    /* Ver a validação disso usando spring security - auth2.0 */
+    @PutMapping("/desativar-conta/{id}")
+    public ResponseEntity<Object> desativarConta(@PathVariable Integer id, @RequestBody ClienteDTO cliente) {
+        clienteService.atualizarCliente(id, cliente);
+        return new ResponseEntity<>("Conta ativada com sucesso.", HttpStatus.OK);
+    }
+
+    /* Ver a validação disso usando spring security - auth2.0 */
+    @PutMapping("/ativar-conta/{id}")
+    public ResponseEntity<Object> ativarConta(@PathVariable Integer id, @RequestBody ClienteDTO cliente) {
+        clienteService.atualizarCliente(id, cliente);
+        return new ResponseEntity<>("Conta desativada com sucesso.", HttpStatus.OK);
+    }
+
+
+
+    @PutMapping("/trocar-senha/{id}")
     public ResponseEntity<Object> trocarSenha(@PathVariable Integer id, @RequestBody ClienteDTO clienteDTO) {
         clienteService.trocarSenha(id, clienteDTO);
         return new ResponseEntity<>("Senha do cliente atualizada com sucesso.", HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/alterar-status")
-    public ResponseEntity<Object> alterarStatus(@PathVariable Integer id, @RequestBody ClienteDTO clienteDTO) {
-        clienteService.alterarStatus(id, clienteDTO);
-        return new ResponseEntity<>("Status do cliente atualizada com sucesso.", HttpStatus.OK);
-    }
+//    @PutMapping("/alterar-status/{id}")
+//    public ResponseEntity<Object> alterarStatus(@PathVariable Integer id, @RequestBody ClienteDTO clienteDTO) {
+//        clienteService.alterarStatus(id, clienteDTO);
+//        return new ResponseEntity<>("Status do cliente atualizada com sucesso.", HttpStatus.OK);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> excluirCliente(@PathVariable Integer id) {

@@ -1,6 +1,7 @@
 package br.senac.tads.petshop.services;
 
 import br.senac.tads.petshop.dtos.ClienteDTO;
+import br.senac.tads.petshop.enums.Status;
 import br.senac.tads.petshop.mappers.ClienteDTOMapper;
 import br.senac.tads.petshop.models.Cliente;
 import br.senac.tads.petshop.repositories.ClienteRepository;
@@ -141,41 +142,47 @@ public class ClienteService {
         clienteRepository.save(cliente);
     }
 
-    public void alterarStatus(Integer id, ClienteDTO clienteDTO){
+//    public void alterarStatus(Integer id, ClienteDTO clienteDTO){
+//        Cliente cliente = obterClientePorId(id);
+//
+//        // depois fazer validação com security
+//
+//        cliente.setStatus(clienteDTO.getStatus());
+//        clienteRepository.save(cliente);
+//    }
+
+    public void desativarConta(Integer id){
         Cliente cliente = obterClientePorId(id);
-
-        // depois fazer validação com security
-
-        cliente.setStatus(clienteDTO.getStatus());
-        clienteRepository.save(cliente);
+        if (cliente.getStatus() == Status.ATIVADO) {
+            cliente.setStatus(Status.DESATIVADO);
+        } else {
+            throw new RuntimeException("A conta já está DESATIVADA.");
+        }
     }
 
-    public boolean cpfJaCadastrado(String cpf) {
-        return clienteRepository.existsByCpf(cpf);
-    }
-
-    public boolean emailJaCadastrado(String email) {
-        return clienteRepository.existsByEmail(email);
-    }
-
-    public boolean celularJaCadastrado(String celular) {
-        return clienteRepository.existsByCelular(celular);
-    }
-
-    public boolean usuarioJaCadastrado(String usuario) {
-        return clienteRepository.existsByUsuario(usuario);
+    public void ativarConta(Integer id){
+        Cliente cliente = obterClientePorId(id);
+        if (cliente.getStatus() == Status.DESATIVADO) {
+            cliente.setStatus(Status.ATIVADO);
+        } else {
+            throw new RuntimeException("A conta já está ATIVADA.");
+        }
     }
 
     private void validarDadosDuplicados(ClienteDTO clienteDTO){
-        if(usuarioJaCadastrado(clienteDTO.getUsuario())){
+        if(clienteRepository.existsByUsuario(clienteDTO.getUsuario())){
             throw new DataIntegrityViolationException("Usuário já em uso.");
         }
-        else if(cpfJaCadastrado(clienteDTO.getCpf())){
+        else if(clienteRepository.existsByCpf(clienteDTO.getCpf())){
             throw new DataIntegrityViolationException("CPF pertence a uma outra conta.");
         }
-        else if(emailJaCadastrado(clienteDTO.getEmail())){
+        else if(clienteRepository.existsByEmail(clienteDTO.getEmail())){
             throw new DataIntegrityViolationException("Endereço de e-mail já em uso.");
         }
+        /* Validar se pode ter mais de uma conta com o mesmo celular. */
+//        else if(clienteRepository.existsByCelular(clienteDTO.getCelular())){
+//            throw new DataIntegrityViolationException("Número de celular já cadastrado.");
+//        }
     }
 
 //    private void validarDadosDuplicados(ClienteDTO clienteDTO){

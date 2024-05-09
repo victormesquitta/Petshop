@@ -15,12 +15,13 @@ import br.senac.tads.petshop.repositories.ProdutoRepository;
 
 @Service
 public class ProdutoService {
-    @Autowired
-    private ProdutoRepository produtosRepository;
-    
-    @Autowired
-    private ProdutoDTOMapper produtosMapper;
 
+    private final ProdutoRepository produtosRepository;
+    
+
+    private final ProdutoDTOMapper produtosMapper;
+
+    @Autowired
     public ProdutoService(ProdutoRepository produtosRepository, ProdutoDTOMapper produtosMapper){
         this.produtosRepository = produtosRepository;
         this.produtosMapper = produtosMapper;
@@ -55,16 +56,16 @@ public class ProdutoService {
 
     public Produto criarProduto(ProdutoDTO produtoDTO){
         Produto produto = produtosMapper.toEntity(produtoDTO);
-        produto.setDt_criacao(LocalDate.now());
-        produto.setDt_modificacao(null);
+        produto.setDtCriacao(LocalDate.now());
+        produto.setDtModificacao(null);
         produtosRepository.save(produto);
         return produto;
     }
 
     public void atualizarProduto(Integer id, ProdutoDTO produtoDTO){
         Produto produto = produtosMapper.toEntity(produtoDTO, id);
-        produto.setDt_criacao(produto.getDt_criacao());
-        produto.setDt_modificacao(LocalDate.now());
+        produto.setDtCriacao(produto.getDtCriacao());
+        produto.setDtModificacao(LocalDate.now());
         produtosRepository.save(produto);
     }
 
