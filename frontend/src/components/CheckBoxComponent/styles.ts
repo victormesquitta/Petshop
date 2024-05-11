@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const SaveLogin = styled.div`
   width: 55%;
   height: 4%;
+  margin-bottom: .5rem;
 
   display: flex;
   align-items: center ;

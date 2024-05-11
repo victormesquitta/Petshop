@@ -9,7 +9,7 @@ export const InputSenha = styled.form`
 
   input {
     width: 55%;
-    height: 2.7rem;
+    height: 5vh;
 
     border-radius: 15px;
     border: 1.5px solid;
@@ -53,17 +53,19 @@ export const InputSenha = styled.form`
 
       border: none;
       border-radius: 15px;
+      margin-top: 2.5rem;
 
-      width: 25%;
-      height: 2.5rem;
+      width: 30%;
+      height: 3.5rem;
     }
   }
 
   .Links {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     margin-bottom: 1rem;
+    allign-items: center;
 
-    padding-right: 10rem;
+    
 
     text-decoration: none;
 
@@ -94,6 +96,11 @@ export const InputSenha = styled.form`
     .divButton {
       button {
         font-size: 2.2vw;
+      }
+    }
+    @media (max-width: 1032px) {
+      .Links {
+        font-size: 2vw;
       }
     }
   }

@@ -33,7 +33,7 @@ export const ContainerPai = styled.div`
   }
   @media (max-width: 480px) {
     .ImgLogo {
-      height: 15vh;
+      height: 10vh;
     }
   }
 `;
@@ -58,7 +58,7 @@ export const FormularioLogin = styled.form`
   font-family: "Roboto", sans-serif;
 
   @media (max-width: 1024px) {
-    height: 80%;
+    height: 90%;
     width: 50%;
 
     margin-top: 5rem;
@@ -205,7 +205,7 @@ export const ImgsLogos = styled.div`
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 
-    width: 20%;
+    width: 12%;
     height: 2.5rem;
 
     border-radius: 20px;
