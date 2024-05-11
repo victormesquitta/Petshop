@@ -18,9 +18,6 @@ public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
 
-    // @Autowired
-    // private ProdutoDTOMapper produtoDTOMapper;
-
     @GetMapping()
     public ResponseEntity<Object> listarProdutos() {
         List<ProdutoDTO> listarProdutoDTO = produtoService.listarProdutosDTOs();
@@ -34,7 +31,7 @@ public class ProdutoController {
     }
 
     @PostMapping()
-    public ResponseEntity<Object> criarProduto(@RequestBody ProdutoDTO produtoDTO) {
+    public ResponseEntity<Object> cadastrarProduto(@RequestBody ProdutoDTO produtoDTO) {
         produtoService.criarProduto(produtoDTO);
         return new ResponseEntity<>("Produto criado com sucesso.", HttpStatus.CREATED);
     }

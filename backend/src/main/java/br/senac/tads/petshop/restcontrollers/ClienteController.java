@@ -31,7 +31,7 @@ public class ClienteController {
 
 
     @PostMapping()
-    public ResponseEntity<Object> criarCliente(@RequestBody @Valid ClienteDTO clienteDTO) {
+    public ResponseEntity<Object> insereCliente(@RequestBody @Valid ClienteDTO clienteDTO) {
         // cria o cliente
         Cliente cliente = clienteService.criarCliente(clienteDTO);
         // vincula o novo carrinho com o cliente que acabamos de criar
@@ -76,8 +76,6 @@ public class ClienteController {
         clienteService.atualizarCliente(id, cliente);
         return new ResponseEntity<>("Conta desativada com sucesso.", HttpStatus.OK);
     }
-
-
 
     @PutMapping("/trocar-senha/{id}")
     public ResponseEntity<Object> trocarSenha(@PathVariable Integer id, @RequestBody ClienteDTO clienteDTO) {

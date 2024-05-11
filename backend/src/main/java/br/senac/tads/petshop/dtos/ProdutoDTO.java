@@ -38,10 +38,6 @@ public class ProdutoDTO {
 //    @PastOrPresent(message = "A data de criação não pode ser posterior à atual.")
     private LocalDate dt_criacao;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-//    @PastOrPresent(message = "A data de criação não pode ser posterior à atual.")
-    private LocalDate dt_modificacao;
-
     private boolean promocao;
 
     //

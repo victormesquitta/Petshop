@@ -57,7 +57,6 @@ public class ProdutoService {
     public Produto criarProduto(ProdutoDTO produtoDTO){
         Produto produto = produtosMapper.toEntity(produtoDTO);
         produto.setDtCriacao(LocalDate.now());
-        produto.setDtModificacao(null);
         produtosRepository.save(produto);
         return produto;
     }
@@ -65,7 +64,6 @@ public class ProdutoService {
     public void atualizarProduto(Integer id, ProdutoDTO produtoDTO){
         Produto produto = produtosMapper.toEntity(produtoDTO, id);
         produto.setDtCriacao(produto.getDtCriacao());
-        produto.setDtModificacao(LocalDate.now());
         produtosRepository.save(produto);
     }
 

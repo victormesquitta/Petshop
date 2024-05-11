@@ -29,20 +29,17 @@ public class Avaliacao {
      private LocalDate dtAvaliacao;
     */
 
-    @Column(name="aprovado")
-    private boolean aprovado;
+//    @Column(name="aprovado")
+//    private boolean aprovado;
 
-    @Column(name="respostaloja")
-    private String respostaLoja;
+//    @Column(name="respostaloja")
+//    private String respostaLoja;
 
-    @Column(name="dtresposta")
-    private LocalDate dtResposta;
+//    @Column(name="dtresposta")
+//    private LocalDate dtResposta;
 
-    @Column(name="dtcriacao")
-    private LocalDate dtCriacao;
-
-    @Column(name="dtmodificacao")
-    private LocalDate dtModificacao;
+    @Column(name="dtavaliacao")
+    private LocalDate dtAvaliacao;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "codproduto", referencedColumnName = "codproduto",

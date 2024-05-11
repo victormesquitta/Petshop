@@ -24,8 +24,5 @@ public class CategoriaDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate dtCriacao;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDate dtModificacao;
-
     private List<Integer> Codprodutos = new ArrayList<>();
 }

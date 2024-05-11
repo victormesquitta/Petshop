@@ -13,6 +13,7 @@ import java.time.LocalDate;
 public class AvaliacaoDTO {
 
     private int qtdEstrelas;
+
     private String comentario;
 
     /*
@@ -20,18 +21,16 @@ public class AvaliacaoDTO {
      @JsonProperty(access = JsonProperty.Access.READ_ONLY)
      private LocalDate dtAvaliacao;
     */
-
-    private boolean aprovado;
-    private String respostaLoja;
+//
+//    private boolean aprovado;
+//    private String respostaLoja;
 
     private Integer codproduto;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDate dtResposta;
+//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+//    private LocalDate dtResposta;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDate dtCriacao;
+    private LocalDate dtAvaliacao;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDate dtModificacao;
 }

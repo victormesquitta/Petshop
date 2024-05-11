@@ -25,6 +25,4 @@ public class SubcategoriaDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate dtCriacao;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDate dtModificacao;
 }

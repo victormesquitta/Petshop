@@ -35,8 +35,6 @@ public class Subcategoria {
     @Column(name="dtcriacao")
     private LocalDate dtCriacao;
 
-    @Column(name="dtmodificacao")
-    private LocalDate dtModificacao;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "codcategoria", referencedColumnName = "codcategoria",
