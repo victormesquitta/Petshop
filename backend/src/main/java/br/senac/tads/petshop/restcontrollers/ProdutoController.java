@@ -1,7 +1,6 @@
 package br.senac.tads.petshop.restcontrollers;
 
 import br.senac.tads.petshop.dtos.ProdutoDTO;
-// import br.senac.tads.petshop.mappers.ProdutoDTOMapper;
 import br.senac.tads.petshop.services.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
