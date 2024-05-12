@@ -51,13 +51,11 @@ testar isso aqui
  Categoria categoria = categoriaRepository.findById(subcategoriaDTO.getCodcategorias()).orElseThrow(() -> new IllegalArgumentException("A Categoria com ID " + subcategoriaDTO.getCodcategorias() + " não existe."));
  */
         subcategoria.setDtCriacao(LocalDate.now());
-        subcategoria.setDtModificacao(null);
         subcategoriaRepository.save(subcategoria);
     }
 
     public void atualizarSubcategoria(Integer id, SubcategoriaDTO subcategoriaDTO){
         Subcategoria subcategoria = subcategoriaMapper.toEntity(subcategoriaDTO, id);
-        subcategoria.setDtModificacao(LocalDate.now());
         subcategoriaRepository.save(subcategoria);
     }
 

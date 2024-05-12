@@ -47,13 +47,11 @@ public class CategoriaService {
     public void criarCategoria(CategoriaDTO CategoriaDTO){
         Categoria Categoria = categoriaDTOMapper.toEntity(CategoriaDTO);
         Categoria.setDtCriacao(LocalDate.now());
-        Categoria.setDtModificacao(null);
         categoriaRepository.save(Categoria);
     }
 
     public void atualizarCategoria(Integer id, CategoriaDTO CategoriaDTO){
         Categoria Categoria = categoriaDTOMapper.toEntity(CategoriaDTO, id);
-        Categoria.setDtModificacao(LocalDate.now());
         categoriaRepository.save(Categoria);
     }
 

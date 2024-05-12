@@ -46,15 +46,13 @@ public class AvaliacaoService {
 
     public void criarAvaliacao(AvaliacaoDTO avaliacaoDTO){
         Avaliacao avaliacao = avaliacaoDTOMapper.toEntity(avaliacaoDTO);
-        avaliacao.setDtCriacao(LocalDate.now());
-        avaliacao.setDtModificacao(null);
-        avaliacao.setDtResposta(null);
+//        avaliacao.setDtCriacao(LocalDate.now());
+//        avaliacao.setDtResposta(null);
         avaliacaoRepository.save(avaliacao);
     }
 
     public void atualizarAvaliacao(Integer id, AvaliacaoDTO avaliacaoDTO){
         Avaliacao avaliacao = avaliacaoDTOMapper.toEntity(avaliacaoDTO, id);
-        avaliacao.setDtModificacao(LocalDate.now());
         avaliacaoRepository.save(avaliacao);
     }
 

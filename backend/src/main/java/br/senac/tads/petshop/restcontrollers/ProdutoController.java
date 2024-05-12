@@ -3,6 +3,7 @@ package br.senac.tads.petshop.restcontrollers;
 import br.senac.tads.petshop.dtos.ProdutoDTO;
 // import br.senac.tads.petshop.mappers.ProdutoDTOMapper;
 import br.senac.tads.petshop.services.ProdutoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class ProdutoController {
     }
 
     @PostMapping()
-    public ResponseEntity<Object> cadastrarProduto(@RequestBody ProdutoDTO produtoDTO) {
+    public ResponseEntity<Object> cadastrarProduto(@RequestBody @Valid ProdutoDTO produtoDTO) {
         produtoService.criarProduto(produtoDTO);
         return new ResponseEntity<>("Produto criado com sucesso.", HttpStatus.CREATED);
     }
