@@ -13,6 +13,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ProdutoDTO {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Integer codProduto;
+
     @NotBlank(message = "O nome do produto não pode estar em branco.")
     private String nome;
 
