@@ -5,7 +5,6 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -41,7 +40,6 @@ public class ProdutoDTO {
 
     private boolean disponivel;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
 //    @PastOrPresent(message = "A data de criação não pode ser posterior à atual.")
     private LocalDate dtCriacao;
