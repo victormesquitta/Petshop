@@ -8,13 +8,10 @@ import { width } from '@fortawesome/free-regular-svg-icons/faAddressBook';
 import { motion } from 'framer-motion';
 import { InformacoesComponent } from '../../components/InformacoesComponent/InformacoesComponent';
 
-type MeusPedidosProps = {
-    authService: AuthService;
-}
 
 const images = [Card, Card, Card, Card, Card, Card, Card, Card];
 
-export function MeusPedidos(props: MeusPedidosProps) {
+export function MeusPedidos(props) {
 
     const inner = useRef<HTMLDivElement>(null);
     const [width, setWidth] = useState(0);

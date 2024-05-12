@@ -2,16 +2,10 @@ import Card from '../../assets/images/Card.png';
 import { FaHeart, FaMedal } from 'react-icons/fa';
 import { NavBarLogado } from '../../components/NavBarLogado/NavBarLogadoComponent';
 import { RodapeComponent } from '../../components/RodapeComponent/RodapeComponent';
-import { AuthService } from '../../services/AuthService';
 import * as S from './styles';
-import { Link } from 'react-router-dom';
 import { InformacoesComponent } from '../../components/InformacoesComponent/InformacoesComponent';
 
-type FavoritosProps = {
-    authService: AuthService;
-}
-
-export function Favoritos(props: FavoritosProps) {
+export function Favoritos(props) {
     return (
         <>
             <S.ContainerPai>

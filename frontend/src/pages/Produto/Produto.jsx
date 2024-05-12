@@ -6,11 +6,8 @@ import { FaStarHalfStroke } from "react-icons/fa6";
 import { CarouselComponent } from "../../components/CarouselComponent/CarouselComponent";
 import { AuthService } from "../../services/AuthService";
 
-type ProdutoProps = {
-    authService: AuthService;
-  }
 
-export function Produto(props: ProdutoProps) {
+export function Produto(props) {
     return (
         <>
             <S.ContainerPai>

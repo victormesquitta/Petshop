@@ -4,11 +4,6 @@ import ImgLogo from "../../assets/images/ImgLogo.svg";
 import { FaApple, FaEye, FaEyeSlash, FaFacebook } from "react-icons/fa";
 import { useState } from "react";
 
-interface User {
-    email: string;
-    password: string;
-    displayName?: string;
-}
 
 export function RegistrarConta() {
     const [showPassword, setShowPassword] = useState(false);

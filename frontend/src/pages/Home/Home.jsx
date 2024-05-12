@@ -20,11 +20,8 @@ import { FaHeart, FaMedal } from "react-icons/fa";
 import { AuthService } from "../../services/AuthService";
 import ImageSlider from "../../components/ImageSlider/ImageSlider";
 
-type HomeProps = {
-    authService: AuthService;
-}
 
-export function Home(props: HomeProps) {
+export function Home(props) {
  
     return (
         <>

@@ -5,6 +5,7 @@ import ImgPerfilDog from '../../assets/images/ImgPerfilDog.png';
 import * as S from './styles';
 
 export function CadastroProduto() {
+  
     return (
         <>
             <S.ContainerPai>
@@ -13,8 +14,8 @@ export function CadastroProduto() {
 
                     <h1>DashBoard</h1>
 
-                    <Link to={''} className='Link'><FaUserAlt className='icons' />Funcionario</Link>
-                    <Link to={''} className='Link'><FaObjectGroup className='icons' /> Produtos</Link>
+                    <Link to={'/cadastrafuncionario'} className='Link'><FaUserAlt className='icons' />Funcionario</Link>
+                    <Link to={'/cadastroproduto'} className='Link'><FaObjectGroup className='icons' /> Produtos</Link>
                     <Link to={''} className='Link'><FaList className='icons' /> Categoria</Link>
 
                 </div>

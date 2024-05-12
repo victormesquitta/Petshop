@@ -14,14 +14,12 @@ import { Favoritos } from "./pages/Favoritos/Favoritos";
 import { MeusPedidos } from "./pages/MeusPedidos/MeusPedidos";
 import { CadastroProduto } from "./pages/CadastroProduto/CadastroProduto";
 import { MeusPets } from "./pages/MeusPets/MeusPets";
+import { Estoque } from "./pages/Estoque/Estoque";
 
-type AppProps = {
-  authService: AuthService;
-}
 
-export function App(props: AppProps) {
+export function App(props) {
   const [isLoadingLoggedUser, setIsLoadingLoggedUser] = useState(true);
-  const [user, setUser] = useState(null as any);
+  const [user, setUser] = useState();
 
   useEffect(() => {
     props.authService.getLoggedUser()
@@ -48,6 +46,7 @@ export function App(props: AppProps) {
             <Route path="/cadastrafuncionario" element={<CadastraFuncionario />} />
             <Route path="/cadastroproduto" element={<CadastroProduto />} />
             <Route path="/carrinho" element={<Carrinho authService={props.authService} />} />
+            <Route path="/estoque" element={<Estoque authService={props.authService} />} />
             <Route path="/favoritos" element={<Favoritos authService={props.authService} />} />
             <Route path="/meuspedidos" element={<MeusPedidos authService={props.authService} />} />
             <Route path="/meuspets" element={<MeusPets authService={props.authService}/>} />

@@ -6,11 +6,7 @@ import { AuthService } from "../../services/AuthService";
 import { InformacoesComponent } from '../../components/InformacoesComponent/InformacoesComponent';
 
 
-type MeusCartoesProps = {
-    authService: AuthService;
-}
-
-export function MeusCartoes(props: MeusCartoesProps) {
+export function MeusCartoes(props) {
  
     return (
         <>

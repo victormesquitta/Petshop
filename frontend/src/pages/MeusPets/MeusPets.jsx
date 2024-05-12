@@ -6,11 +6,8 @@ import ImgPerfilDog from '../../assets/images/ImgPerfilDog.png'
 import * as S from './styles';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 
-type MeusPetsProps = {
-    authService: AuthService;
-}
 
-export function MeusPets(props: MeusPetsProps) {
+export function MeusPets(props) {
     return (
         <>
             <S.ContainerPai>

@@ -6,12 +6,8 @@ import { FaTicket } from "react-icons/fa6";
 import { CarouselComponent } from "../../components/CarouselComponent/CarouselComponent";
 import { AuthService } from "../../services/AuthService";
 import { auth } from "../../FirebaseConfig";
-
- type CarrinhoProps = {
-        authService: AuthService;
-    }
     
-export function Carrinho(props: CarrinhoProps) {
+export function Carrinho(props) {
     const currentUser = auth.currentUser;
    
     return (
@@ -84,12 +80,11 @@ export function Carrinho(props: CarrinhoProps) {
         </>
     );
 }
-function extractNameFromEmail(email: string): string | null{
+function extractNameFromEmail(email) {
     // Regular expression to extract name from email
-    email = email!.trim();
     const nameRegex = /^(?<name>[^\s]+)\@[\w\d.-]+\.[a-z]{2,}$/;
     const match = email.match(nameRegex);
   
     // Return extracted name or empty string if no match
-    return match ? match.groups!.name : "";
+    return match ? match.groups.name : ""; 
   }
