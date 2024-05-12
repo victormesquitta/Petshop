@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class Produto {
     @Column (name = "disponivel")
     private boolean disponivel;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column (name = "dtcriacao")
     private LocalDate dtCriacao;
 
