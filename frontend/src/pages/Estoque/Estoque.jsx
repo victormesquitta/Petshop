@@ -4,46 +4,58 @@ import { produtoService } from '../../services/produto.service';
 
 export function Estoque() {
     const [produtos, setProdutos] = useState([]);
-    const [carregando, setCarregando] = useState(true);
-    const [erro, setErro] = useState(null);
+    const [exibirProdutos, setExibirProdutos] = useState(false); // Estado para controlar a exibição
+    const [idProduto, setIdProduto] = useState('');
 
-    useEffect(() => {
-        const buscarProdutos = async () => {
-            try {
-                const data = await produtoService.findAllProducts();
-                setProdutos(data);
-
-            } catch (error) {
-                setErro(error);
-            } finally {
-                setCarregando(false);
-            }
-        };
-
-        buscarProdutos();
-    }, []);
-
-    if (carregando) {
-        return <div>Carregando produtos...</div>;
+    async function buscarProdutoPorId(id) {
+        try {
+            const produto = await produtoService.findById(id);
+            console.log(`Produto com ID ${id}:`, produto);
+            setProdutos([produto]); // Define o array de produtos com o produto encontrado
+            setExibirProdutos(true); // Exibe os produtos
+        } catch (error) {
+            console.error(`Erro ao buscar produto com ID ${id}:`, error);
+        }
     }
+
+    async function buscarProdutos() {
+        try {
+            const data = await produtoService.findAllProducts();
+            setProdutos(data);
+            setExibirProdutos(true); // Exibe os produtos
+        } catch (error) {
+            console.error('Erro ao buscar produtos:', error);
+        }
+    };
 
     return (
         <S.ContainerPai>
             <h1>Produtos</h1>
 
-            <ul>
-                {Array.isArray(produtos) && produtos.map((produto) => (
-                    <li key={produto.id}> {/* Adicione a key aqui */}
-                        <h2>Nome do Produto: {produto.nome}</h2>
-                        <p>Descrição do Produto: {produto.descricao} </p>
-                        <p>Preço do Produto: {produto.preco}</p>
-                        <p>Quantidade em Estoque: {produto.qtdEstoque}</p>
-                        <p>Marca do Produto: {produto.marca}</p>
-                        <p>Disponivel: {produto.disponivel ? 'Sim' : 'Não'}</p>
-                        <p>Promoção: {produto.promocao ? 'Sim' : 'Não'}</p>
-                    </li>
-                ))}
-            </ul>
+            {exibirProdutos && ( // Renderiza a lista somente se exibirProdutos for true
+                <ul>
+                    {Array.isArray(produtos) && produtos.map((produto) => (
+                        <li key={produto.id}>
+                            <p>Codigo do Produto: {produto.codProduto}</p>
+                            <p>Nome do Produto: {produto.nome}</p>
+                            <p>Descrição do Produto: {produto.descricao} </p>
+                            <p>Preço do Produto: {produto.preco}</p>
+                            <p>Quantidade em Estoque: {produto.qtdEstoque}</p>
+                            <p>Marca do Produto: {produto.marca}</p>
+                            <p>Disponivel: {produto.disponivel ? 'Sim' : 'Não'}</p>
+                            <p>Codigo da Categoria: {produto.cod}</p>
+                            <p>Promoção: {produto.promocao ? 'Sim' : 'Não'}</p>
+                        </li>
+                    ))}
+                </ul>
+            )}
+
+            <button type='button' onClick={buscarProdutos} >Buscar Todos</button>
+
+            <input type='number' placeholder='ID do Produto' value={idProduto} onChange={e => setIdProduto(e.target.value)} />
+            <button type='button' onClick={() => buscarProdutoPorId(idProduto)} >Buscar por ID</button>
+
         </S.ContainerPai>
     );
 }
+

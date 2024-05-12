@@ -13,4 +13,8 @@ align-items: center;
 justify-content: center;
 
 gap: 1rem;
+
+li{
+    margin-top: 2rem;
+}
 `

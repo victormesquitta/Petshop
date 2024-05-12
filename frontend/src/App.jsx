@@ -15,6 +15,7 @@ import { MeusPedidos } from "./pages/MeusPedidos/MeusPedidos";
 import { CadastroProduto } from "./pages/CadastroProduto/CadastroProduto";
 import { MeusPets } from "./pages/MeusPets/MeusPets";
 import { Estoque } from "./pages/Estoque/Estoque";
+import { MeusCartoes } from "./pages/MeusCartoes/MeusCartoes";
 
 
 export function App(props) {
@@ -43,15 +44,18 @@ export function App(props) {
             <Route path="/" element={<Home authService={props.authService} />} />
             <Route path="/login" element={<Login />} />
             <Route path='/adminlogin' element={<AdminLogin />} />
-            <Route path="/cadastrafuncionario" element={<CadastraFuncionario />} />
-            <Route path="/cadastroproduto" element={<CadastroProduto />} />
             <Route path="/carrinho" element={<Carrinho authService={props.authService} />} />
             <Route path="/estoque" element={<Estoque authService={props.authService} />} />
             <Route path="/favoritos" element={<Favoritos authService={props.authService} />} />
             <Route path="/meuspedidos" element={<MeusPedidos authService={props.authService} />} />
+            <Route path="/meuscartoes" element={<MeusCartoes authService={props.authService}/>} />
             <Route path="/meuspets" element={<MeusPets authService={props.authService}/>} />
             <Route path="/produto" element={<Produto authService={props.authService} />} />
             <Route path="/registrarconta" element={<RegistrarConta />} />
+
+            <Route path="/cadastroproduto" element={<CadastroProduto />} />
+            <Route path="/cadastrafuncionario" element={<CadastraFuncionario />} />
+
           </Routes>
         </BrowserRouter>
       }

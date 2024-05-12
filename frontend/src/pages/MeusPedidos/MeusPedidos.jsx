@@ -4,7 +4,6 @@ import { NavBarLogado } from '../../components/NavBarLogado/NavBarLogadoComponen
 import { RodapeComponent } from '../../components/RodapeComponent/RodapeComponent';
 import { AuthService } from '../../services/AuthService';
 import * as S from './styles';
-import { width } from '@fortawesome/free-regular-svg-icons/faAddressBook';
 import { motion } from 'framer-motion';
 import { InformacoesComponent } from '../../components/InformacoesComponent/InformacoesComponent';
 
