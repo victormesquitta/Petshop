@@ -11,14 +11,7 @@ export class FuncionarioService {
         }
     }
 
-    /*async createFuncionario(novoFuncionario) {
-        return new Promise((resolve, reject) => {
-            backend.post("/funcionario", novoFuncionario).then(() => {
-                resolve();
-            }).catch((error) => reject(error));
-        })
-    }
-*/
+
     async  createFuncionario(novoFuncionario) {
         try {
           const response = await backend.post(`${'http://localhost:8080/api'}/funcionario`, novoFuncionario);

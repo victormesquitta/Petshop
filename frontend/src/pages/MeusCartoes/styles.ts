@@ -16,7 +16,7 @@ export const ContainerMain = styled.main`
   width: 100%;
 
   
-}
+
 
     .DivTitle{
        
@@ -163,12 +163,6 @@ export const ContainerMain = styled.main`
         }
       }
       
-
-    
-    
-
-
-  }
 
        
 
