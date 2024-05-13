@@ -83,84 +83,55 @@ export const ContainerMain = styled.main`
     }
         .section{
 
-            .InputCVC {
-                border-radius: 10px;
-                border: 1px solid;
-                border-color: lightgray;
-
-                width: 40%;
-                height: 7%;
-
-                margin-top: 0.4rem;
-                padding-left: 1rem;
-                padding-right: 2rem;
-
-                &:focus {
-                background: #f5f5f5;
-                border: 0.1px solid lightgray;
-                outline: none !important;
-                }
-            }
-            .InputData {
-                border-radius: 10px;
-                border: 1px solid;
-                border-color: lightgray;
-                
-                width: 40%;
-                height: 7%;
-
-                margin-top: 0.4rem;
-                padding-left: 1rem;
-                padding-right: 2rem;
-
-                &:focus {
-                background: #f5f5f5;
-                border: 0.1px solid lightgray;
-                outline: none !important;
-                }
-            }
-            .InputNumCard {
-                border-radius: 10px;
-                border: 1px solid;
-                border-color: lightgray;
-                
-                width: 40%;
-                height: 7%;
-
-                margin-top: 0.4rem;
-                padding-left: 1rem;
-                padding-right: 2rem;
-
-                &:focus {
-                background: #f5f5f5;
-                border: 0.1px solid lightgray;
-                outline: none !important;
-                }
-            }
-            .InputNome{
-                border-radius: 10px;
-                border: 1px solid;
-                border-color: lightgray;
-                
-                width: 40%;
-                height: 7%;
-
-                margin-top: 0.4rem;
-                padding-left: 1rem;
-                padding-right: 2rem;
-
-                &:focus {
-                background: #f5f5f5;
-                border: 0.1px solid lightgray;
-                outline: none !important;
-                }
+            width: 100%;
+            height: 100%;
+    
+            display: flex;
+            margin-left:5rem;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+    
+    
+            label {
+                margin-top: 2rem;
             }
             
+    
+            input {
+                border-radius: 10px;
+                border: 1px solid;
+                border-color: lightgray;
+    
+                width: 40%;
+                height: 10%;
+    
+                margin-top: 0.4rem;
+                padding-left: 1rem;
+                padding-right: 2rem;
+    
+                &:focus {
+                background: #f5f5f5;
+                border: 0.1px solid lightgray;
+                outline: none !important;
+                }
+            }
+    
+            .Cadastro{
+                display: block;
+                margin:auto;
+                padding: 10px 30px;
+                border-radius: 10px;
+                margin-top:3rem;
+                border-color: rgba(7, 57, 80,1);
+                background: white;
+                
+                
+                font-size: 16px;
+            }
+        
         }
-        .Cadastro{
-            display: block;
-            margin:auto;
-        }
+        
       }
       
 
