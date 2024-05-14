@@ -45,7 +45,7 @@ export class ProdutoService {
 
   async create(produto) {
     try {
-      const response = await backend.post("/produtos", produto);
+      const response = await backend.post(`${'http://localhost:8080/api'}/produtos`, produto);
       return response.data;
     } catch (error) {
       console.error('Erro ao criar produto:', error);

@@ -8,6 +8,12 @@ export const ContainerPai = styled.main`
   align-items: center;
   justify-content: center;
 
+  .toastContainer {
+    width: 20%;
+
+    margin-top: 3.5rem;
+  }
+
   .divDashBoard {
     width: 20%;
     height: 100%;
@@ -50,7 +56,6 @@ export const ContainerPai = styled.main`
 
       &:hover {
         box-shadow: inset 0 0 10px white;
-        
       }
 
       .icons {
@@ -66,8 +71,6 @@ export const ContainerPai = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    gap: 6rem;
 
     .section1 {
       width: 85%;
@@ -115,11 +118,13 @@ export const ContainerPai = styled.main`
 
     div {
       width: 100%;
-      height: 100%;
+      height: 70%;
 
       display: flex;
       align-items: start;
-      justify-content: space-around;
+      justify-content: center;
+
+      margin-top: 3rem;
 
       .section2 {
         width: 45%;
@@ -130,12 +135,16 @@ export const ContainerPai = styled.main`
         align-items: flex-start;
         justify-content: flex-start;
 
+        padding-left: 2rem;
+
         h1 {
           font-size: 2.2vw;
+
+          margin-bottom: 1rem;
         }
 
         label {
-          margin-top: 2rem;
+          margin-top: 1rem;
         }
 
         input {
@@ -143,12 +152,12 @@ export const ContainerPai = styled.main`
           border: 1px solid;
           border-color: lightgray;
 
-          width: 40%;
-          height: 7%;
+          width: 50%;
+          height: 9%;
 
           margin-top: 0.4rem;
           padding-left: 1rem;
-          padding-right: 2rem;
+          padding-right: 1rem;
 
           &:focus {
             background: #f5f5f5;
@@ -166,16 +175,48 @@ export const ContainerPai = styled.main`
 
           padding-left: 1rem;
           padding-right: 1rem;
-          padding-top: .5rem;
-          padding-bottom: .5rem;
+          padding-top: 0.5rem;
+          padding-bottom: 0.5rem;
 
           &:focus {
             background: #f5f5f5;
             border: 0.1px solid lightgray;
             outline: none !important;
-
           }
         }
+      }
+    }
+    .section3 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-top: 0.5rem;
+
+      height: 4%;
+
+      input {
+        border-radius: 10px;
+        border: 1px solid;
+        border-color: gray;
+
+        width: 25%;
+        height: 100%;
+
+        padding-left: 0.5rem;
+      }
+
+      button {
+        border: 1px solid;
+        border-color: gray;
+        border-radius: 10px;
+
+        height: 100%;
+
+        background-color: white;
+
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
       }
     }
   }

@@ -1,61 +1,84 @@
 import * as S from './styles';
 import React, { useState, useEffect } from 'react';
 import { produtoService } from '../../services/produto.service';
+import { toast, ToastContainer } from 'react-toastify'; // Importe o toast
+import 'react-toastify/dist/ReactToastify.css'; // Importe o CSS do toast
+function Estoque() {
+  const [produtos, setProdutos] = useState([]);
+  const [exibirProdutos, setExibirProdutos] = useState(false);
+  const [idProduto, setIdProduto] = useState('');
+  const [showModal, setShowModal] = useState(false); 
 
-export function Estoque() {
-    const [produtos, setProdutos] = useState([]);
-    const [exibirProdutos, setExibirProdutos] = useState(false); // Estado para controlar a exibição
-    const [idProduto, setIdProduto] = useState('');
+  const buscarProdutos = async () => {
+    // Lógica para buscar todos os produtos (substitua com sua implementação)
+    const produtos = await fetch('https://api.example.com/produtos').then(res => res.json());
+    setProdutos(produtos);
+    setExibirProdutos(true);
+    setShowModal(true); 
+  };
 
-    async function buscarProdutoPorId(id) {
-        try {
-            const produto = await produtoService.findById(id);
-            console.log(`Produto com ID ${id}:`, produto);
-            setProdutos([produto]); // Define o array de produtos com o produto encontrado
-            setExibirProdutos(true); // Exibe os produtos
-        } catch (error) {
-            console.error(`Erro ao buscar produto com ID ${id}:`, error);
-        }
-    }
+  const buscarProdutoPorId = async () => {
+    // Lógica para buscar um produto por ID (substitua com sua implementação)
+    const produto = await fetch(`https://api.example.com/produtos/${idProduto}`).then(res => res.json());
+    setProdutos([produto]); // Define um array com o produto encontrado
+    setExibirProdutos(true);
+    setShowModal(true); 
+  };
 
-    async function buscarProdutos() {
-        try {
-            const data = await produtoService.findAllProducts();
-            setProdutos(data);
-            setExibirProdutos(true); // Exibe os produtos
-        } catch (error) {
-            console.error('Erro ao buscar produtos:', error);
-        }
-    };
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
-    return (
-        <S.ContainerPai>
-            <h1>Produtos</h1>
+  return (
+    <S.ContainerPai>
+      <ToastContainer />
+      <h1>Produtos</h1>
 
-            {exibirProdutos && ( // Renderiza a lista somente se exibirProdutos for true
-                <ul>
-                    {Array.isArray(produtos) && produtos.map((produto) => (
-                        <li key={produto.id}>
-                            <p>Codigo do Produto: {produto.codProduto}</p>
-                            <p>Nome do Produto: {produto.nome}</p>
-                            <p>Descrição do Produto: {produto.descricao} </p>
-                            <p>Preço do Produto: {produto.preco}</p>
-                            <p>Quantidade em Estoque: {produto.qtdEstoque}</p>
-                            <p>Marca do Produto: {produto.marca}</p>
-                            <p>Disponivel: {produto.disponivel ? 'Sim' : 'Não'}</p>
-                            <p>Codigo da Categoria: {produto.cod}</p>
-                            <p>Promoção: {produto.promocao ? 'Sim' : 'Não'}</p>
-                        </li>
-                    ))}
-                </ul>
+      <S.Botoes>
+        <S.Botao type="button" onClick={buscarProdutos} >Buscar Todos</S.Botao>
+        <S.Input type="number" placeholder="ID do Produto" value={idProduto} onChange={e => setIdProduto(e.target.value)} />
+        <S.Botao type="button" onClick={() => buscarProdutoPorId(idProduto)} >Buscar por ID</S.Botao>
+      </S.Botoes>
+
+      {showModal && (
+        <S.Modal className={showModal ? 'show' : ''}>
+          <S.ModalContent>
+            <S.CloseButton onClick={closeModal}>×</S.CloseButton>
+            {exibirProdutos && (
+              <S.Tabela>
+                <S.CabecalhoTabela>
+                  <S.LinhaTabela>
+                    <th>Código do Produto</th>
+                    <th>Nome do Produto</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Quantidade em Estoque</th>
+                    <th>Marca</th>
+                    <th>Disponível</th>
+                    <th>Código da Categoria</th>
+                    <th>Promoção</th>
+                  </S.LinhaTabela>
+                </S.CabecalhoTabela>
+                <tbody>
+                  {Array.isArray(produtos) && produtos.map((produto) => (
+                    <S.LinhaTabela key={produto.id}>
+                      <td>{produto.codProduto}</td>
+                      <td>{produto.nome}</td>
+                      <td>{produto.descricao}</td>
+                      <td>{produto.preco}</td>
+                      <td>{produto.qtdEstoque}</td>
+                      <td>{produto.marca}</td>
+                      <td>{produto.disponivel ? 'Sim' : 'Não'}</td>
+                      <td>{produto.cod}</td>
+                      <td>{produto.promocao ? 'Sim' : 'Não'}</td>
+                    </S.LinhaTabela>
+                  ))}
+                </tbody>
+              </S.Tabela>
             )}
-
-            <button type='button' onClick={buscarProdutos} >Buscar Todos</button>
-
-            <input type='number' placeholder='ID do Produto' value={idProduto} onChange={e => setIdProduto(e.target.value)} />
-            <button type='button' onClick={() => buscarProdutoPorId(idProduto)} >Buscar por ID</button>
-
-        </S.ContainerPai>
-    );
+          </S.ModalContent>
+        </S.Modal>
+      )}
+    </S.ContainerPai>
+  );
 }
-

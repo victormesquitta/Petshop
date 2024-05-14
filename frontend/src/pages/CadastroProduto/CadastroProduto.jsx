@@ -5,6 +5,9 @@ import ImgPerfilDog from '../../assets/images/ImgPerfilDog.png';
 import * as S from './styles';
 import { useState } from 'react';
 import { produtoService } from '../../services/produto.service';
+import { toast, ToastContainer } from 'react-toastify'; // Importe o toast
+import 'react-toastify/dist/ReactToastify.css'; // Importe o CSS do toast
+
 
 export function CadastroProduto() {
     const [produtos, setProdutos] = useState([]);
@@ -18,38 +21,30 @@ export function CadastroProduto() {
     const [descProduto, setDescProduto] = useState('');
     const [marcaProd, setMarcaProd] = useState('');
     const [nomeProd, setNomeProd] = useState('');
-    const [mensagem, setMensagem] = useState(null);
+    const [codCategoria, setCodCategoria] = useState('');
+    const [codProduto, setCodProduto] = useState('');
 
 
     async function atualizarProduto(id) {
+
+        // 1. Validação de campos
+        if (!id || !nomeProd || !marcaProd || !descProduto || !codCategoria || !precoProduto || !quantEstoque || !promocao || disponivel === null) {
+            toast.error('Preencha todos os campos!');
+            return;
+        }
+
+        // 2. Validação adicional (se necessário)
+        if (parseInt(quantEstoque, 10) <= 0) {
+            toast.error('Quantidade em estoque deve ser maior que zero!');
+            return;
+        }
+        if (parseFloat(precoProduto) <= 0) {
+            toast.error('Preço do produto deve ser maior que zero!');
+            return;
+        }
+
         const produtoAtualizado = {
             codProduto: id,
-            dtCriacao: dataCriacao,
-            disponivel: disponivel ? "true" : "false",  // Converte para "true" ou "false" (string)
-            promocao: promocao,
-            qtdEstoque: parseInt(quantEstoque, 10), // Converte para número
-            preco: parseFloat(precoProduto), // Converte para número
-            descricao: descProduto,
-            marca: marcaProd,
-            nome: nomeProd
-        };
-
-        try {
-            await produtoService.update(id, produtoAtualizado);
-            console.log('Produto atualizado com sucesso!');
-            setMensagem('Produto atualizado com sucesso!'); // Define a mensagem de sucesso
-
-            buscarProdutos(); // Atualiza a lista
-        } catch (error) {
-            console.error('Erro ao atualizar produto:', error);
-            setMensagem('Erro ao atualizar produto!'); // Define a mensagem de sucesso
-
-        }
-    }
-
-    async function criarProduto() {
-        const novoProduto = {
-            codProduto: 0, // ou outro valor inicial apropriado
             dtCriacao: dataCriacao,
             disponivel: disponivel ? "true" : "false",
             promocao: promocao,
@@ -61,16 +56,63 @@ export function CadastroProduto() {
         };
 
         try {
+            await produtoService.update(id, produtoAtualizado);
+            console.log(`Produto com ID ${id} atualizado com sucesso!`);
+            toast.success(`Produto com ID ${id} atualizado com sucesso!`);
+            buscarProdutos();
+        } catch (error) {
+            console.error(`Erro ao atualizar produto com ID ${id}:`, error);
+            toast.error(`Erro ao atualizar produto com ID ${id}:`, error);
+        }
+    }
+
+    async function criarProduto() {
+        if (!nomeProd || !marcaProd || !descProduto || !codCategoria || !precoProduto || !quantEstoque || !promocao || disponivel === null) {
+            toast.error('Preencha todos os campos!');
+            return;
+        }
+
+        if (parseInt(quantEstoque, 10) <= 0) {
+            toast.error('Quantidade em estoque deve ser maior que zero!');
+            return;
+        }
+
+        if (parseFloat(precoProduto) <= 0) {
+            toast.error('Preço do produto deve ser maior que zero!');
+            return;
+        }
+        const novoProduto = {
+            codProduto: codProduto,
+            dtCriacao: dataCriacao,
+            disponivel: disponivel ? "true" : "false",
+            promocao: promocao,
+            qtdEstoque: parseInt(quantEstoque, 10),
+            preco: parseFloat(precoProduto),
+            descricao: descProduto,
+            marca: marcaProd,
+            nome: nomeProd,
+            codCategoria: codCategoria
+        };
+
+        try {
             await produtoService.create(novoProduto);
-            setMensagem('Produto criado com sucesso!');
+            toast.success('Produto criado com sucesso!');
             // Limpe os campos do formulário
             setDataCriacao('');
             setDisponivel(null);
-            // ... limpe outros estados ...
+            setPromocao('');
+            setQuantEstoque('');
+            setPrecoProduto('');
+            setDescProduto('');
+            setMarcaProd('');
+            setNomeProd('');
+            setCodCategoria('');
+            setCodProduto(''); // Limpa também o código do produto
             buscarProdutos(); // Atualiza a lista
+
         } catch (error) {
             console.error('Erro ao criar produto:', error);
-            setMensagem('Erro ao criar produto.');
+            toast.error('Erro ao criar produto.', error);
         }
     }
 
@@ -81,25 +123,31 @@ export function CadastroProduto() {
             setExibirProdutos(true); // Exibe os produtos
         } catch (error) {
             console.error('Erro ao buscar produtos:', error);
+            toast.error('Erro ao buscar produtos:', error);
         }
     };
 
     async function deletarProdutoPorId(id) {
+        if (!id) {
+            toast.error('Digite um ID para deletar!');
+            return;
+        }
+
         try {
             await produtoService.deleteById(id);
             console.log(`Produto com ID ${id} deletado com sucesso.`);
-            // Atualize a lista de produtos ou faça outra ação necessária
+            toast.success(`Produto com ID ${id} deletado com sucesso.`);
+            buscarProdutos();
         } catch (error) {
             console.error(`Erro ao deletar produto com ID ${id}:`, error);
-            // Trate o erro adequadamente
+            toast.error(`Erro ao deletar produto com ID ${id}:`, error);
         }
-
-        buscarProdutos();
     }
 
     return (
         <>
             <S.ContainerPai>
+                <ToastContainer className='toastContainer' />
                 <div className='divDashBoard'>
                     <img src={ImgLogo} />
 
@@ -119,12 +167,7 @@ export function CadastroProduto() {
                         <img src={ImgPerfilDog} />
                     </section>
 
-                    {mensagem && (
-                        <div className="mensagem"> {/* Adicione uma classe para estilizar a mensagem */}
-                            {mensagem}
-                        </div>
-                    )}
-                    <div>
+                    <div className='divSections'>
                         <section className='section2'>
                             <h1>Novo Produto</h1>
 
@@ -136,6 +179,9 @@ export function CadastroProduto() {
 
                             <label htmlFor="descricao" >Descrição do Produto</label>
                             <textarea id="descricao" name="descricao" className='InputDescriProd' value={descProduto} onChange={e => setDescProduto(e.target.value)} />
+
+                            <label htmlFor="CodCategoria">Codigo da Categoria</label>
+                            <input className='InputCodCategoria' type='text' value={codCategoria} onChange={e => setCodCategoria(e.target.value)} />
                         </section>
 
 
@@ -155,23 +201,25 @@ export function CadastroProduto() {
 
 
                         <section className='section2'>
-
                             <label className='LabelPrecoProd'>Disponivel</label>
                             <input className='InputDisponivel' type='text' value={disponivel} onChange={e => setDisponivel(e.target.value)} />
 
                             <label htmlFor="InputDataCriacao">Data de Criação</label>
                             <input className='InputDataCriacao' type='date' value={dataCriacao} onChange={e => setDataCriacao(e.target.value)} />
 
-                        </section>
+                            <label htmlFor="InputCodProduto">Codigo do Produto</label>
+                            <input className='InputCodProduto' type='text' value={codProduto} onChange={e => setCodProduto(e.target.value)} />
 
+                        </section>
+                    </div>
+
+                    <section className='section3'>
                         <input type='number' placeholder='ID do Produto' value={idProduto} onChange={e => setIdProduto(e.target.value)} />
 
                         <button type='button' onClick={() => deletarProdutoPorId(idProduto)} >Deletar por ID</button>
                         <button type='button' onClick={() => atualizarProduto(idProduto)} >Atualizar por ID</button>
                         <button type='button' onClick={criarProduto}>Criar Produto</button>
-
-
-                    </div>
+                    </section>
                 </div>
             </S.ContainerPai>
         </>
