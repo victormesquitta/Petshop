@@ -122,7 +122,7 @@ export const NaoTemConta = styled.div`
   width: 100%;
 
   div {
-    width: 59%;
+    width: 60%;
     padding-bottom: 1.6rem;
     display: flex;
     flex-direction: column;
@@ -205,7 +205,7 @@ export const ImgsLogos = styled.div`
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 
-    width: 12%;
+    width: 20%;
     height: 2.5rem;
 
     border-radius: 20px;

@@ -45,6 +45,9 @@ export function NavBarLogado(props: HomePageProps) {
         navigate('/carrinho');
     }
 
+    const cadastroProduto = () => {
+        navigate('/cadastroProduto')
+    }
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -72,7 +75,7 @@ export function NavBarLogado(props: HomePageProps) {
                     ) :
                         (
                             <>
-                                <button className="BotaoFimTela"><FaUserAstronaut className="IconAdmin" />{currentUser && extractNameFromEmail(currentUser.email)} </button>
+                                <button onClick={cadastroProduto} className="BotaoFimTela"><FaUserAstronaut className="IconAdmin" />{currentUser && extractNameFromEmail(currentUser.email)} </button>
                                 <button className="BotaoLogout" onClick={logout} >Sair</button>
                             </>
 

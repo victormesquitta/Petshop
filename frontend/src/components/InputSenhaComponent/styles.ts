@@ -9,7 +9,7 @@ export const InputSenha = styled.form`
 
   input {
     width: 55%;
-    height: 5vh;
+    height: 6vh;
 
     border-radius: 15px;
     border: 1.5px solid;
@@ -36,7 +36,7 @@ export const InputSenha = styled.form`
       position: relative;
 
       right: 3rem;
-      top: 0.7rem;
+      top: .5rem;
     }
   }
 
@@ -53,21 +53,18 @@ export const InputSenha = styled.form`
 
       border: none;
       border-radius: 15px;
-      margin-top: 2.5rem;
 
-      width: 30%;
-      height: 3.5rem;
+      width: 25%;
+      height: 2rem;
     }
   }
 
   .Links {
     margin-top: 0.5rem;
-    margin-bottom: 1rem;
-    allign-items: center;
-
-    
+    margin-bottom: 1rem;    
 
     text-decoration: none;
+    
 
     &:hover{
       text-decoration: underline;
@@ -93,9 +90,10 @@ export const InputSenha = styled.form`
       font-size: 2.3vw;
     }
 
-    .divButton {
+    .divButton {      
       button {
         font-size: 2.2vw;
+        
       }
     }
     @media (max-width: 1032px) {

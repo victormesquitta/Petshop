@@ -54,7 +54,7 @@ export function App(props) {
             <Route path="/registrarconta" element={<RegistrarConta />} />
 
             <Route path="/cadastroproduto" element={<CadastroProduto />} />
-            <Route path="/cadastrafuncionario" element={<CadastraFuncionario />} />
+            <Route path="/cadastrofuncionario" element={<CadastraFuncionario />} />
 
           </Routes>
         </BrowserRouter>

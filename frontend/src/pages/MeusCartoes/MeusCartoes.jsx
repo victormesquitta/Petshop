@@ -7,55 +7,47 @@ import { InformacoesComponent } from '../../components/InformacoesComponent/Info
 
 
 export function MeusCartoes(props) {
- 
+
     return (
         <>
             <S.ContainerPai>
                 <NavBarLogado authService={props.authService} />
-                
-            <S.ContainerMain>
-            
-                <InformacoesComponent />
-                    <div className="DivTitle">
-                        <h1 className = 'MeusCartoes'>Meus Cartões</h1>
-                        <h4 className = 'NovoCartao'>Adicione seu novo cartão</h4>
-                    </div>
-                    
-                    <div className="DivCadastroCartao">
 
-                        <img src={cartao} className="FotoCartao"></img>
-                        <h1 className="Titulo">Cadastre Seu Cartão</h1>
-                        <h3 className="Subtitulo">Insira os dados do seu cartão</h3>
+                <S.ContainerMain>
 
-                        <section className='section'>
+                    <InformacoesComponent />
+                    <div>
+                        <div className="DivTitle">
+                            <h1 className='MeusCartoes'>Meus Cartões</h1>
+                            <h4 className='NovoCartao'>Adicione seu novo cartão</h4>
+                        </div>
 
-                            <label className='LabelNumCad'>Numero do Cartão</label>
-                            <input className='InputNumCad' type="" placeholder="Numero do Cartão"/>
-                            <label>Data</label>
-                            <input className='InputCvc' type="month" placeholder="CVC" />
+                        <div className="DivCadastroCartao">
 
-                            <label>CVC</label>
-                            <input className='InputCvc' placeholder="CVC" />
+                            <img src={cartao} className="FotoCartao"></img>
+                            <h1 className="Titulo">Cadastre Seu Cartão</h1>
+                            <h3 className="Subtitulo">Insira os dados do seu cartão</h3>
 
-                            <label >Nome Completo</label>
-                            <input className='InputNome' placeholder="Nome Completo"/>
+                            <section className='section'>
 
-                        </section>
-                            
+                                <label className='LabelNumCad'>Numero do Cartão</label>
+                                <input className='InputNumCad' type="" placeholder="Numero do Cartão" />
+                                <label>Data</label>
+                                <input className='InputCvc' type="month" placeholder="CVC" />
+
+                                <label>CVC</label>
+                                <input className='InputCvc' placeholder="CVC" />
+
+                                <label >Nome Completo</label>
+                                <input className='InputNome' placeholder="Nome Completo" />
+
+                            </section>
 
                             <button className="Cadastro">Cadastrar</button>
-
-                        
-
-
-
-
-                    
-
+                        </div>
                     </div>
 
-
-            </S.ContainerMain>            
+                </S.ContainerMain>
                 <RodapeComponent />
             </S.ContainerPai>
         </>

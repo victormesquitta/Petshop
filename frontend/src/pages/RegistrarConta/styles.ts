@@ -121,16 +121,30 @@ export const Inputs = styled.form`
     display: flex;
     justify-content: center;
 
-    &:last-child {
+    input{
+      margin-left: 1.5rem;
+    }
+
+    .OlhoAbertoOuFechado {
       position: relative;
 
-      .OlhoAbertoOuFechado {
-        position: absolute;
-        top: 50%;
-        left: 70%;
-        transform: translate(-50%, -50%);
-      }
+      align-self: center;
+      right: 8%;
     }
+  }
+
+  .buttonRegistrar {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+
+    background-color: #1976d2;
+    color: white;
+
+    border: none;
+    border-radius: 15px;
+
+    width: 25%;
+    height: 2rem;
   }
 
   @media (max-width: 1024px) {

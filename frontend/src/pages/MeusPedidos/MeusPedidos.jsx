@@ -14,6 +14,7 @@ export function MeusPedidos(props) {
 
     const inner = useRef<HTMLDivElement>(null);
     const [width, setWidth] = useState(0);
+    const dragRef = useRef(null); // Crie a referência para o motion.div filho
 
     useEffect(() => {
         if (inner.current) {
@@ -32,7 +33,7 @@ export function MeusPedidos(props) {
                         <h3 className='ConfiraPedidos'>Confira todos seus pedidos aqui</h3>
 
                         <motion.div className='divMeusPedidos' whileTap={{ cursor: "grabbing" }}>
-                            <motion.div drag='y' ref={inner} dragConstraints={{ left: -width, right: 0 }}
+                            <motion.div ref={dragRef} drag="y" dragConstraints={{ left: -width, right: 0 }}
                                 initial={{ x: 100 }} animate={{ x: 0 }} transition={{ duration: 0.8 }}>
                                 {images.map(image => (
                                     <motion.div className='item' key={image}>

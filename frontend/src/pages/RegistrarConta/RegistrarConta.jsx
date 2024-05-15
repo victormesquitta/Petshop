@@ -51,7 +51,7 @@ export function RegistrarConta() {
                                 {showPassword ? <FaEye size={20} color="gray" /> : <FaEyeSlash size={20} color="white" />}
                             </div>
                         </div>
-                        <button type="submit">Registrar</button>
+                        <button className="buttonRegistrar" type="submit">Registrar</button>
                     </S.Inputs>
 
                     <S.NaoTemConta>
