@@ -5,9 +5,11 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import javax.mail.internet.AddressException;
 import java.util.stream.Collectors;
@@ -59,4 +61,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(mensagemErro, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<String> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e){
+        String mensagemErro = "Método de requisição não suportado: " + e.getMessage();
+        return new ResponseEntity<>(mensagemErro, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<String> handleNoResourceFoundException(NoResourceFoundException e){
+        String mensagemErro = "Recurso não encontrado: " + e.getMessage();
+        return new ResponseEntity<>(mensagemErro, HttpStatus.NOT_FOUND);
+    }
 }
