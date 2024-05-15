@@ -1,18 +1,19 @@
 package br.senac.tads.petshop.services;
 
+import br.senac.tads.petshop.dtos.ProdutoDTO;
+import br.senac.tads.petshop.mappers.ProdutoDTOMapper;
+import br.senac.tads.petshop.models.Produto;
+import br.senac.tads.petshop.repositories.ProdutoRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import br.senac.tads.petshop.models.Produto;
-import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import br.senac.tads.petshop.dtos.ProdutoDTO;
-import br.senac.tads.petshop.mappers.ProdutoDTOMapper;
-import br.senac.tads.petshop.repositories.ProdutoRepository;
 
 @Service
 public class ProdutoService {
@@ -51,11 +52,15 @@ public class ProdutoService {
         return produtoOptional.map(produtosDTOMapper::toDTO).orElse(null);
     }
 
+    @Transactional
     public Produto criarProduto(ProdutoDTO produtoDTO){
         Produto produto = produtosDTOMapper.toEntity(produtoDTO);
         produto.setDtCriacao(LocalDate.now());
-        produtosRepository.save(produto);
-        return produto;
+        if(!produtosRepository.existsByNome(produtoDTO.getNome())){
+            return produtosRepository.save(produto);
+        } else{
+            throw new DataIntegrityViolationException("Nome de produto já em uso: " + produtoDTO.getNome());
+        }
     }
 
     public void atualizarProduto(Integer id, ProdutoDTO produtoDTO){
