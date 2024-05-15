@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "t_produto", uniqueConstraints = {@UniqueConstraint(columnNames = "nome", name = "uk_nome_veiculo")})
+@Table(name = "t_produto", uniqueConstraints = {@UniqueConstraint(columnNames = "nome", name = "uk_nome_produto")})
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
