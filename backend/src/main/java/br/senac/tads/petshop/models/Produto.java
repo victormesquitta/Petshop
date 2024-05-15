@@ -13,9 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "t_produto")
+@Table(name = "t_produto", uniqueConstraints = {@UniqueConstraint(columnNames = "nome", name = "uk_nome_veiculo")})
 public class Produto {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codproduto")

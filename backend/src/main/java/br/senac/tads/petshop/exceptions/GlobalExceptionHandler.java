@@ -23,7 +23,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handleDataIntegratityException(DataIntegrityViolationException e) {
         String mensagemErro = "Erro de integridade de dados: " + e.getMessage();
-        return new ResponseEntity<>(mensagemErro, HttpStatus.INTERNAL_SERVER_ERROR);
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+
+        /* Validando possíveis erros de integridade de dados*/
+        if (e.getMessage().contains("uk_nome_produto")) {
+            mensagemErro += "Nome de produto já em uso.";
+            status = HttpStatus.CONFLICT; // Código 409 - Conflito
+        }
+        else {
+            mensagemErro += e.getMessage();
+        }
+        return new ResponseEntity<>(mensagemErro, status);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
@@ -47,7 +57,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleAddressException(AddressException e){
         String mensagemErro = "Email inválido: " + e.getMessage();
         return new ResponseEntity<>(mensagemErro, HttpStatus.BAD_REQUEST);
-
     }
 
 }
