@@ -13,7 +13,7 @@ export class ProdutoService {
     })
   }
 
-  async findById(id) { // Método para buscar por ID
+  async findProductById(id) { // Método para buscar por ID
     try {
       const response = await backend.get(`${'http://localhost:8080/api'}/produtos/${id}`);
       return response.data;
