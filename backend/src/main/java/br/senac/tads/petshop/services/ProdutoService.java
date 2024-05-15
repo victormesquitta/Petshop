@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import br.senac.tads.petshop.models.Produto;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +20,12 @@ public class ProdutoService {
     private final ProdutoRepository produtosRepository;
     
 
-    private final ProdutoDTOMapper produtosMapper;
+    private final ProdutoDTOMapper produtosDTOMapper;
 
     @Autowired
-    public ProdutoService(ProdutoRepository produtosRepository, ProdutoDTOMapper produtosMapper){
+    public ProdutoService(ProdutoRepository produtosRepository, ProdutoDTOMapper produtosDTOMapper){
         this.produtosRepository = produtosRepository;
-        this.produtosMapper = produtosMapper;
+        this.produtosDTOMapper = produtosDTOMapper;
     }
 
     public List<Produto> listarProdutos(){
@@ -35,44 +36,56 @@ public class ProdutoService {
     public List<ProdutoDTO> listarProdutosDTOs(){
         List<Produto> produtos = produtosRepository.findAll();
         return produtos.stream()
-                    .map(produtosMapper::toDTO)
+                    .map(produtosDTOMapper::toDTO)
                     .collect(Collectors.toList());        
     }
 
-    public Produto obterProdutoPorId(Integer id){
+    public ProdutoDTO obterProdutoPorId(Integer id){
         Optional<Produto> produtoOptional = produtosRepository.findById(id);
-
-        if (produtoOptional.isEmpty()) {
-            throw new IllegalArgumentException("O produto não existe");
-        }
-
-        return produtoOptional.get();
+        produtoExiste(produtoOptional);
+        return produtoOptional.map(produtosDTOMapper::toDTO).orElse(null);
     }
 
     public ProdutoDTO obterProdutoDTOPorId(Integer id){
         Optional<Produto> produtoOptional = produtosRepository.findById(id);
-        return produtoOptional.map(produtosMapper::toDTO).orElse(null);
+        return produtoOptional.map(produtosDTOMapper::toDTO).orElse(null);
     }
 
     public Produto criarProduto(ProdutoDTO produtoDTO){
-        Produto produto = produtosMapper.toEntity(produtoDTO);
+        Produto produto = produtosDTOMapper.toEntity(produtoDTO);
         produto.setDtCriacao(LocalDate.now());
         produtosRepository.save(produto);
         return produto;
     }
 
     public void atualizarProduto(Integer id, ProdutoDTO produtoDTO){
-        Produto produto = produtosMapper.toEntity(produtoDTO, id);
+        produtoExiste(id);
+        Produto produto = produtosDTOMapper.toEntity(produtoDTO, id);
         produto.setDtCriacao(produto.getDtCriacao());
+        produto.setCodProduto(id);
         produtosRepository.save(produto);
     }
 
     public void excluirProduto(Integer id){
+        produtoExiste(id);
         produtosRepository.deleteById(id);
     }
 
-    /* 
-    falta verificar se existe 
+    // para métodos update/delete -> a consulta vai ser feita no método, junto com a validaçaõ
+
+    public void produtoExiste(Integer id){
+        Optional<Produto> optionalProduto = produtosRepository.findById(id);
+        if(optionalProduto.isEmpty()){
+            throw new EntityNotFoundException("Nenhum produto encontrado para o ID fornecido.");
+        }
+    }
+    // para métodos get -> a consulta já foi feita acima e o método vai apenas validar a existência
+    public void produtoExiste(Optional<Produto> optionalProduto){
+        if(optionalProduto.isEmpty()){
+            throw new EntityNotFoundException("Nenhum produto encontrado para o ID fornecido.");
+        }
+    }
+    /*
     falta obter por categoria
     falta criar as categorias
     etc etc
