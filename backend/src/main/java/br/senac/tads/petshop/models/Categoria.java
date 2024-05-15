@@ -37,9 +37,6 @@ public class Categoria {
     private LocalDate dtCriacao;
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
-    private List<Produto> produtos = new ArrayList<>();
-
-
-
+    private List<Subcategoria> subcategorias = new ArrayList<>();
 
 }

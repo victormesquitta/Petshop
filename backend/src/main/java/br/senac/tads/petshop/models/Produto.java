@@ -55,9 +55,9 @@ public class Produto {
 //    private int numeroAvaliacao;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "codcategoria", referencedColumnName = "codcategoria",
-            foreignKey = @ForeignKey(name = "fk_t_produto_t_categoria1"))
-    private Categoria categoria;
+    @JoinColumn(name = "codsubcategoria", referencedColumnName = "codsubcategoria",
+            foreignKey = @ForeignKey(name = "fk_t_produto_t_subcategoria1"))
+    private Subcategoria subcategoria;
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<Avaliacao> avaliacoes = new ArrayList<>();

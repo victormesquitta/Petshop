@@ -2,6 +2,7 @@ package br.senac.tads.petshop.restcontrollers;
 
 import br.senac.tads.petshop.dtos.CategoriaDTO;
 import br.senac.tads.petshop.services.CategoriaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/categoria")
+@RequestMapping("/api/categorias")
 public class CategoriaController {
 
     @Autowired
@@ -30,7 +31,7 @@ public class CategoriaController {
     }
 
     @PostMapping()
-    public ResponseEntity<Object> criarCategoria(@RequestBody CategoriaDTO CategoriaDTO) {
+    public ResponseEntity<Object> criarCategoria(@RequestBody @Valid CategoriaDTO CategoriaDTO) {
         categoriaService.criarCategoria(CategoriaDTO);
         return new ResponseEntity<>("Categoria criada com sucesso.", HttpStatus.CREATED);
     }

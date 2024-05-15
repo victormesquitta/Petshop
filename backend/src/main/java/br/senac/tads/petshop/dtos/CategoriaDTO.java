@@ -13,6 +13,9 @@ import lombok.*;
 @NoArgsConstructor
 public class CategoriaDTO {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Integer codCategoria;
+
     private String nome;
 
     private String descricao;
@@ -23,6 +26,4 @@ public class CategoriaDTO {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate dtCriacao;
-
-    private List<Integer> Codprodutos = new ArrayList<>();
 }
