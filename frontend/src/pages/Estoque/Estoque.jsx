@@ -1,30 +1,39 @@
 import * as S from './styles';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { produtoService } from '../../services/produto.service';
-import { toast, ToastContainer } from 'react-toastify'; // Importe o toast
-import 'react-toastify/dist/ReactToastify.css'; // Importe o CSS do toast
-function Estoque() {
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+export function Estoque() {
   const [produtos, setProdutos] = useState([]);
   const [exibirProdutos, setExibirProdutos] = useState(false);
   const [idProduto, setIdProduto] = useState('');
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
 
-  const buscarProdutos = async () => {
-    // Lógica para buscar todos os produtos (substitua com sua implementação)
-    const produtos = await fetch('https://api.example.com/produtos').then(res => res.json());
-    setProdutos(produtos);
-    setExibirProdutos(true);
-    setShowModal(true); 
+  async function buscarProdutos() {
+    try {
+      const data = await produtoService.findAllProducts();
+      setProdutos(data);
+      setExibirProdutos(true);
+      setShowModal(true); // Exiba o modal ao buscar todos os produtos
+    } catch (error) {
+      console.error('Erro ao buscar produtos:', error);
+      toast.error('Erro ao buscar produtos:', error);
+    }
   };
 
-  const buscarProdutoPorId = async () => {
-    // Lógica para buscar um produto por ID (substitua com sua implementação)
-    const produto = await fetch(`https://api.example.com/produtos/${idProduto}`).then(res => res.json());
-    setProdutos([produto]); // Define um array com o produto encontrado
-    setExibirProdutos(true);
-    setShowModal(true); 
-  };
-
+  async function buscarProdutoPorId() {
+    try {
+      const produto = await produtoService.findProductById(idProduto);
+      setProdutos([produto]); // Define um array com o produto encontrado
+      setExibirProdutos(true); // Exibe os produtos
+      setShowModal(true); // Exibe o modal
+    } catch (error) {
+      console.error('Erro ao buscar produto por ID:', error);
+      toast.error('Erro ao buscar produto por ID:', error);
+    }
+  }
+  
   const closeModal = () => {
     setShowModal(false);
   };
@@ -34,20 +43,20 @@ function Estoque() {
       <ToastContainer />
       <h1>Produtos</h1>
 
-      <S.Botoes>
-        <S.Botao type="button" onClick={buscarProdutos} >Buscar Todos</S.Botao>
-        <S.Input type="number" placeholder="ID do Produto" value={idProduto} onChange={e => setIdProduto(e.target.value)} />
-        <S.Botao type="button" onClick={() => buscarProdutoPorId(idProduto)} >Buscar por ID</S.Botao>
-      </S.Botoes>
+      <section className='sectionButtons'>
+        <button type="button" onClick={buscarProdutos} >Buscar Todos</button>
+        <input type="number" placeholder="Código do Produto" value={idProduto} onChange={e => setIdProduto(e.target.value)} />
+        <button type="button" onClick={buscarProdutoPorId} >Buscar por ID</button>
+      </section>
 
       {showModal && (
-        <S.Modal className={showModal ? 'show' : ''}>
-          <S.ModalContent>
-            <S.CloseButton onClick={closeModal}>×</S.CloseButton>
+        <div className={showModal ? 'show' : ''}>
+          <div>
+            <button onClick={closeModal}>×</button>
             {exibirProdutos && (
-              <S.Tabela>
-                <S.CabecalhoTabela>
-                  <S.LinhaTabela>
+              <table>
+                <thead>
+                  <tr>
                     <th>Código do Produto</th>
                     <th>Nome do Produto</th>
                     <th>Descrição</th>
@@ -57,11 +66,11 @@ function Estoque() {
                     <th>Disponível</th>
                     <th>Código da Categoria</th>
                     <th>Promoção</th>
-                  </S.LinhaTabela>
-                </S.CabecalhoTabela>
+                  </tr>
+                </thead>
                 <tbody>
                   {Array.isArray(produtos) && produtos.map((produto) => (
-                    <S.LinhaTabela key={produto.id}>
+                    <tr key={produto.id}>
                       <td>{produto.codProduto}</td>
                       <td>{produto.nome}</td>
                       <td>{produto.descricao}</td>
@@ -69,15 +78,15 @@ function Estoque() {
                       <td>{produto.qtdEstoque}</td>
                       <td>{produto.marca}</td>
                       <td>{produto.disponivel ? 'Sim' : 'Não'}</td>
-                      <td>{produto.cod}</td>
+                      <td>{produto.dtCriacao}</td>
                       <td>{produto.promocao ? 'Sim' : 'Não'}</td>
-                    </S.LinhaTabela>
+                    </tr>
                   ))}
                 </tbody>
-              </S.Tabela>
+              </table>
             )}
-          </S.ModalContent>
-        </S.Modal>
+          </div>
+        </div>
       )}
     </S.ContainerPai>
   );
