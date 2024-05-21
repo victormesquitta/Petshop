@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -109,6 +113,10 @@ public class ClienteService {
     public Cliente criarCliente(ClienteDTO clienteDTO){
         isValidEmailAddress(clienteDTO.getEmail());
         validarDadosDuplicados(clienteDTO);
+
+        String encryptedSenha = encryptPasswordMD5(clienteDTO.getSenha());
+        clienteDTO.setSenha(encryptedSenha);
+
         Cliente cliente = clienteDTOMapper.toEntity(clienteDTO);
         // sobreescreve a data passada no json
         cliente.setDtCadastro(LocalDate.now());
@@ -133,12 +141,13 @@ public class ClienteService {
     public void trocarSenha(Integer id, ClienteDTO clienteDTO){
         Cliente cliente = obterClientePorId(id);
 
+        String novaSenhaCriptografada = encryptPasswordMD5(clienteDTO.getSenha());
         // valida se a senha é igual a anterior
-        if(clienteDTO.getSenha().equals(cliente.getSenha())){
+        if(novaSenhaCriptografada.equals(cliente.getSenha())){
             throw new RuntimeException("A senha não pode ser igual a anterior.");
         }
 
-        cliente.setSenha(cliente.getSenha());
+        cliente.setSenha(novaSenhaCriptografada);
         clienteRepository.save(cliente);
     }
 
@@ -183,6 +192,22 @@ public class ClienteService {
 //        else if(clienteRepository.existsByCelular(clienteDTO.getCelular())){
 //            throw new DataIntegrityViolationException("Número de celular já cadastrado.");
 //        }
+    }
+
+    private static String encryptPasswordMD5(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] hashInBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
+            
+            // bytes to hex
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashInBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 //    private void validarDadosDuplicados(ClienteDTO clienteDTO){
