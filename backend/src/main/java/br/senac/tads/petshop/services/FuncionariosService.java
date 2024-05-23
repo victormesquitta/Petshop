@@ -4,55 +4,57 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.senac.tads.petshop.dtos.FuncionarioDTO;
+import br.senac.tads.petshop.mappers.FuncionarioDTOMapper;
+import br.senac.tads.petshop.models.Funcionario;
+import br.senac.tads.petshop.repositories.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.senac.tads.petshop.dtos.FuncionariosDTO;
-import br.senac.tads.petshop.mappers.FuncionariosDTOMapper;
 import br.senac.tads.petshop.models.Funcionarios;
-import br.senac.tads.petshop.repositories.FuncionariosRepository;
 
 @Service
 public class FuncionariosService {
     
     @Autowired
-    private FuncionariosRepository funcionariosRepository;
+    private final FuncionarioRepository funcionarioRepository;
 
     @Autowired
-    private FuncionariosDTOMapper funcionariosMapper;
+    private final FuncionarioDTOMapper funcionarioDTOMapper;
 
-    public FuncionariosService(FuncionariosRepository funcionariosRepository, FuncionariosDTOMapper funcionariosMapper){
-        this.funcionariosRepository = funcionariosRepository;
-        this.funcionariosMapper = funcionariosMapper;
+    public FuncionariosService(FuncionarioRepository funcionarioRepository, FuncionarioDTOMapper funcionarioDTOMapper) {
+        this.funcionarioRepository = funcionarioRepository;
+        this.funcionarioDTOMapper = funcionarioDTOMapper;
     }
 
-    public List<Funcionarios> listarFuncionarioss(){
-        List<Funcionarios> funcionarios = funcionariosRepository.findAll();
+
+    public List<Funcionario> listarFuncionarioss(){
+        List<Funcionario> funcionarios = funcionarioRepository.findAll();
         return funcionarios;
     }
 
-    public List<FuncionariosDTO> listarFuncionariossDTOs(){
-        List<Funcionarios> funcionarios = funcionariosRepository.findAll();
+    public List<FuncionarioDTO> listarFuncionariossDTOs(){
+        List<Funcionario> funcionarios = funcionarioRepository.findAll();
         return funcionarios.stream()
-                    .map(funcionariosMapper::toDTO)
+                    .map(funcionarioDTOMapper::toDTO)
                     .collect(Collectors.toList());        
     }
 
-    public void criarFuncionarios(FuncionariosDTO funcionariosDTO){
-        Funcionarios funcionarios = funcionariosMapper.toEntity(funcionariosDTO);
+    public void criarFuncionario(FuncionarioDTO funcionarioDTO){
+        Funcionario funcionario = funcionarioDTOMapper.toEntity(funcionarioDTO);
 
-        funcionarios.setDtCriacao(LocalDate.now());
-        funcionarios.setDtModificacao(null);
-        funcionariosRepository.save(funcionarios);
+        funcionario.setDtCriacao(LocalDate.now());
+        funcionario.setDtModificacao(null);
+        funcionarioRepository.save(funcionario);
     }
 
-    public void atualizarFuncionarios(Integer id, FuncionariosDTO funcionariosDTO){
-        Funcionarios funcionarios = funcionariosMapper.toEntity(funcionariosDTO, id);
-        funcionarios.setDtModificacao(LocalDate.now());
-        funcionariosRepository.save(funcionarios);
+    public void atualizarFuncionario(Integer id, FuncionarioDTO funcionarioDTO){
+        Funcionario funcionario = funcionarioDTOMapper.toEntity(funcionarioDTO, id);
+        funcionario.setDtModificacao(LocalDate.now());
+        funcionarioRepository.save(funcionario);
     }
 
-    public void excluirFuncionarios(Integer id, FuncionariosDTO funcionariosDTO){
-        funcionariosRepository.deleteById(id);
+    public void excluirFuncionario(Integer id, FuncionarioDTO funcionarioDTO){
+        funcionarioRepository.deleteById(id);
     }
 }

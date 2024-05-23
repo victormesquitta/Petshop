@@ -14,21 +14,21 @@ public class FuncionarioDTOMapper {
     public FuncionarioDTOMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
+
     // usado para post -> não precisa de id porque ainda não foi criado
-    public Funcionario toEntity(FuncionarioDTO funcionariosDTO) {
-        Funcionario funcionarios = modelMapper.map(funcionariosDTO, Funcionario.class);
-        return funcionarios;
+    public Funcionario toEntity(FuncionarioDTO funcionarioDTO) {
+        return modelMapper.map(funcionarioDTO, Funcionario.class);
     }
 
     // usado para put -> o id foi criado e deve ser mantido
-    public Funcionario toEntity(FuncionarioDTO FuncionariosDTO, Integer id) {
-        Funcionario funcionarios = modelMapper.map(FuncionariosDTO, Funcionario.class);
-        funcionarios.setCodFuncionario(id);
-        return funcionarios;
+    public Funcionario toEntity(FuncionarioDTO funcionarioDTO, Integer id) {
+        Funcionario funcionario = modelMapper.map(funcionarioDTO, Funcionario.class);
+        funcionario.setCodFuncionario(id);
+        return funcionario;
     }
 
-    public FuncionarioDTO toDTO(Funcionario Funcionarios) {
-        return modelMapper.map(Funcionarios, FuncionarioDTO.class);
+    public FuncionarioDTO toDTO(Funcionario funcionario) {
+        return modelMapper.map(funcionario, FuncionarioDTO.class);
     }
 
 }
