@@ -48,6 +48,7 @@ public class Cliente {
     private LocalDate dtNascimento;
 
     // conta ativa, inativa ou suspensa
+    @Enumerated(EnumType.STRING)
     @Column(name="status", nullable = false)
     private Status status;
 

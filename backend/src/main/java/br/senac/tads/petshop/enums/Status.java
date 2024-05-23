@@ -3,7 +3,7 @@ package br.senac.tads.petshop.enums;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 public enum Status {
-    ATIVADO, DESATIVADO, SUSPENSA;
+    ATIVO, DESATIVADO, SUSPENSO;
 
     /*
      *  Método estático que valida valores passados nos JSONs que não correspondam

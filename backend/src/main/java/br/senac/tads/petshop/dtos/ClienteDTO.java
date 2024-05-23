@@ -2,6 +2,8 @@ package br.senac.tads.petshop.dtos;
 
 import br.senac.tads.petshop.enums.Status;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,7 +48,6 @@ public class ClienteDTO {
     @NotBlank(message = "O celular não pode estar em branco.")
     private String celular;
 
-    @NotBlank(message = "O celular 2 não pode estar em branco.")
     private String celular2;
 
     @Past(message = "A data não pode ser posterior à atual.")
@@ -59,7 +60,7 @@ public class ClienteDTO {
 
     // permite apenas a leitura do atributo
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @NotBlank(message = "O status não pode estar em branco.")
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     // ver a necessidade desse campo no projeto

@@ -120,6 +120,10 @@ public class ClienteService {
         Cliente cliente = clienteDTOMapper.toEntity(clienteDTO);
         // sobreescreve a data passada no json
         cliente.setDtCadastro(LocalDate.now());
+
+        // todo usuário criado entra como ativo
+        cliente.setStatus(Status.ATIVO);
+
         clienteRepository.save(cliente);
         return cliente;
     }
@@ -162,7 +166,7 @@ public class ClienteService {
 
     public void desativarConta(Integer id){
         Cliente cliente = obterClientePorId(id);
-        if (cliente.getStatus() == Status.ATIVADO) {
+        if (cliente.getStatus() == Status.ATIVO) {
             cliente.setStatus(Status.DESATIVADO);
         } else {
             throw new RuntimeException("A conta já está DESATIVADA.");
@@ -172,7 +176,7 @@ public class ClienteService {
     public void ativarConta(Integer id){
         Cliente cliente = obterClientePorId(id);
         if (cliente.getStatus() == Status.DESATIVADO) {
-            cliente.setStatus(Status.ATIVADO);
+            cliente.setStatus(Status.ATIVO);
         } else {
             throw new RuntimeException("A conta já está ATIVADA.");
         }
