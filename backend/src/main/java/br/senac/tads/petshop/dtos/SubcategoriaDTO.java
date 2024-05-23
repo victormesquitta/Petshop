@@ -4,15 +4,19 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubcategoriaDTO {
-    
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Integer codcategorias;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Integer codSubcategoria;
+
+    @NotNull(message = "A categoria é obrigatória.")
+    private Integer codCategoria;
 
     private String nome;
 

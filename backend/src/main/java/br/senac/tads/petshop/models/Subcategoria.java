@@ -11,16 +11,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="t_subcategoria")
+@Table(name="t_subcategoria", uniqueConstraints = {@UniqueConstraint(columnNames = "nome", name = "uk_nome_subcategoria")})
 public class Subcategoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="codsubcategoria")
-    private Integer codsubCategoria;
+    private Integer codsubcategoria;
 
-    @Column (name = "imagem")
-    private byte[] imagem;
+//    @Column (name = "imagem")
+//    private byte[] imagem;
 
     @Column(name="nome")
     private String nome;

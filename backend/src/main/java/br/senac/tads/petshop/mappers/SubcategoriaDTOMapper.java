@@ -22,7 +22,7 @@ public class SubcategoriaDTOMapper {
 
     public Subcategoria toEntity(SubcategoriaDTO SubcategoriaDTO, Integer id) {
         Subcategoria Subcategoria = modelMapper.map(SubcategoriaDTO, Subcategoria.class);
-        Subcategoria.setCodsubCategoria(id);
+        Subcategoria.setCodsubcategoria(id);
         return Subcategoria;
     }
 

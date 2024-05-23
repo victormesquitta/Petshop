@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="t_categoria")
+@Table(name="t_categoria", uniqueConstraints = {@UniqueConstraint(columnNames = "nome", name = "uk_nome_categoria")})
 public class Categoria {
 
     @Id

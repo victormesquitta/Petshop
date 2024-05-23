@@ -5,23 +5,25 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.senac.tads.petshop.dtos.CategoriaDTO;
 import br.senac.tads.petshop.mappers.CategoriaDTOMapper;
 import br.senac.tads.petshop.models.Categoria;
 import br.senac.tads.petshop.repositories.CategoriaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CategoriaService {
-    
-    @Autowired
-    private CategoriaRepository categoriaRepository;
+
+    private final CategoriaRepository categoriaRepository;
+
+    private final CategoriaDTOMapper categoriaDTOMapper;
 
     @Autowired
-    private CategoriaDTOMapper categoriaDTOMapper;
-
     public CategoriaService(CategoriaRepository categoriaRepository, CategoriaDTOMapper categoriaDTOMapper){
         this.categoriaRepository = categoriaRepository;
         this.categoriaDTOMapper = categoriaDTOMapper;
@@ -44,18 +46,47 @@ public class CategoriaService {
         return categoriaOptional.map(categoriaDTOMapper::toDTO).orElse(null);
     }
 
-    public void criarCategoria(CategoriaDTO CategoriaDTO){
-        Categoria Categoria = categoriaDTOMapper.toEntity(CategoriaDTO);
-        Categoria.setDtCriacao(LocalDate.now());
-        categoriaRepository.save(Categoria);
+    @Transactional
+    public Categoria cadastrarCategoria(CategoriaDTO categoriaDTO){
+        Categoria categoria = categoriaDTOMapper.toEntity(categoriaDTO);
+        categoria.setDtCriacao(LocalDate.now());
+        if(!categoriaRepository.existsByNome(categoriaDTO.getNome())){
+            return categoriaRepository.save(categoria);
+        } else{
+            throw new DataIntegrityViolationException("Nome de categoria já em uso: " + categoriaDTO.getNome());
+        }
     }
 
-    public void atualizarCategoria(Integer id, CategoriaDTO CategoriaDTO){
-        Categoria Categoria = categoriaDTOMapper.toEntity(CategoriaDTO, id);
-        categoriaRepository.save(Categoria);
+    @Transactional
+    public void atualizarCategoria(Integer id, CategoriaDTO categoriaDTO){
+        categoriaExiste(id);
+        Categoria categoria = categoriaDTOMapper.toEntity(categoriaDTO, id);
+        LocalDate dataCriacao = obterCategoriaDTOPorId(id).getDtCriacao();
+        categoria.setDtCriacao(dataCriacao);
+        categoria.setCodCategoria(id);
+        categoriaRepository.save(categoria);
     }
 
+    @Transactional
     public void excluirCategoria(Integer id){
+        categoriaExiste(id);
         categoriaRepository.deleteById(id);
+    }
+
+
+    // para métodos update/delete -> a consulta vai ser feita no método, junto com a validaçaõ
+    public boolean categoriaExiste(Integer id){
+        Optional<Categoria> optionalCategoria = categoriaRepository.findById(id);
+        if(optionalCategoria.isEmpty()){
+            throw new EntityNotFoundException("Nenhuma categoria encontrada para o ID fornecido.");
+        }
+        return true;
+    }
+    // para métodos get -> a consulta já foi feita acima e o método vai apenas validar a existência
+    public boolean categoriaExiste(Optional<Categoria> optionalCategoria){
+        if(optionalCategoria.isEmpty()){
+            throw new EntityNotFoundException("Nenhuma categoria encontrada para o ID fornecido.");
+        }
+        return true;
     }
 }

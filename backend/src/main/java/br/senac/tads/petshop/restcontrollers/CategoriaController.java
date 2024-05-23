@@ -32,7 +32,7 @@ public class CategoriaController {
 
     @PostMapping()
     public ResponseEntity<Object> criarCategoria(@RequestBody @Valid CategoriaDTO CategoriaDTO) {
-        categoriaService.criarCategoria(CategoriaDTO);
+        categoriaService.cadastrarCategoria(CategoriaDTO);
         return new ResponseEntity<>("Categoria criada com sucesso.", HttpStatus.CREATED);
     }
 

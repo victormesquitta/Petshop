@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/subcategoria")
+@RequestMapping("/api/subcategorias")
 public class SubcategoriaController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class SubcategoriaController {
 
     @PostMapping()
     public ResponseEntity<Object> criarSubcategoria(@RequestBody SubcategoriaDTO subcategoriaDTO) {
-        subcategoriaService.criarSubcategoria(subcategoriaDTO);
+        subcategoriaService.cadastrarSubcategoria(subcategoriaDTO);
         return new ResponseEntity<>("Subcategoria criada com sucesso.", HttpStatus.CREATED);
     }
 
