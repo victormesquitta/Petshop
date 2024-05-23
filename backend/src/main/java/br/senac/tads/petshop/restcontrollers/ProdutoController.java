@@ -20,7 +20,7 @@ public class ProdutoController {
 
     @GetMapping()
     public ResponseEntity<Object> listarProdutos() {
-        List<ProdutoDTO> listarProdutoDTO = produtoService.listarProdutosDTOs();
+        List<ProdutoDTO> listarProdutoDTO = produtoService.listarProdutosDTO();
         return ResponseEntity.ok(listarProdutoDTO);
     }
 
@@ -32,8 +32,8 @@ public class ProdutoController {
 
     @PostMapping()
     public ResponseEntity<Object> cadastrarProduto(@RequestBody @Valid ProdutoDTO produtoDTO) {
-        produtoService.criarProduto(produtoDTO);
-        return new ResponseEntity<>("Produto criado com sucesso.", HttpStatus.CREATED);
+        produtoService.cadastrarProduto(produtoDTO);
+        return new ResponseEntity<>("Produto cadastrado com sucesso.", HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

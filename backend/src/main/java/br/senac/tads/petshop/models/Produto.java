@@ -15,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "t_produto", uniqueConstraints = {@UniqueConstraint(columnNames = "nome", name = "uk_nome_produto")})
 public class Produto {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codproduto")
