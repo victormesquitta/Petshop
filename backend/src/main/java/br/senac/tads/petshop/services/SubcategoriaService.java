@@ -45,8 +45,17 @@ public class SubcategoriaService {
     public SubcategoriaDTO obterSubcategoriaDTOPorId(Integer id){
         Optional<Subcategoria> subcategoriaOptional = subcategoriaRepository.findById(id);
         subcategoriaExiste(subcategoriaOptional);
-        return subcategoriaOptional.map(subcategoriaMapper::toDTO).orElse(null);
+        SubcategoriaDTO subcategoriaDTO = subcategoriaOptional.map(subcategoriaMapper::toDTO).orElse(null);
+        System.out.println(subcategoriaDTO);
+        return subcategoriaDTO;
     }
+
+    public Subcategoria obterSubcategoriaPorId(Integer id){
+        Optional<Subcategoria> subcategoriaOptional = subcategoriaRepository.findById(id);
+        subcategoriaExiste(subcategoriaOptional);
+        return subcategoriaOptional.get();
+    }
+
 
     @Transactional
     public Subcategoria cadastrarSubcategoria(SubcategoriaDTO subcategoriaDTO){
@@ -73,7 +82,7 @@ public class SubcategoriaService {
         Subcategoria subcategoria = subcategoriaMapper.toEntity(subcategoriaDTO, id);
         LocalDate dataCriacao = obterSubcategoriaDTOPorId(id).getDtCriacao();
         subcategoria.setDtCriacao(dataCriacao);
-        subcategoria.setCodsubcategoria(id);
+        subcategoria.setCodSubcategoria(id);
         subcategoriaRepository.save(subcategoria);
     }
 

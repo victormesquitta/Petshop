@@ -41,8 +41,15 @@ public class CategoriaService {
                     .collect(Collectors.toList());        
     }
 
+    public Categoria obterCategoriaPorId(Integer id){
+        Optional<Categoria> categoriaOptional = categoriaRepository.findById(id);
+        categoriaExiste(categoriaOptional);
+        return categoriaOptional.get();
+    }
+
     public CategoriaDTO obterCategoriaDTOPorId(Integer id){
         Optional<Categoria> categoriaOptional = categoriaRepository.findById(id);
+        categoriaExiste(categoriaOptional);
         return categoriaOptional.map(categoriaDTOMapper::toDTO).orElse(null);
     }
 

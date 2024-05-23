@@ -17,7 +17,7 @@ public class Subcategoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="codsubcategoria")
-    private Integer codsubcategoria;
+    private Integer codSubcategoria;
 
 //    @Column (name = "imagem")
 //    private byte[] imagem;

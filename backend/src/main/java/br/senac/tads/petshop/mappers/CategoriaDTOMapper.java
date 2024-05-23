@@ -17,17 +17,17 @@ public class CategoriaDTOMapper {
         this.modelMapper = modelMapper;
     }
 
-    public Categoria toEntity(CategoriaDTO CategoriaDTO) {
-        return modelMapper.map(CategoriaDTO, Categoria.class);
+    public Categoria toEntity(CategoriaDTO categoriaDTO) {
+        return modelMapper.map(categoriaDTO, Categoria.class);
     }
 
-    public Categoria toEntity(CategoriaDTO CategoriaDTO, Integer id) {
-        Categoria Categoria = modelMapper.map(CategoriaDTO, Categoria.class);
-        Categoria.setCodCategoria(id);
-        return Categoria;
+    public Categoria toEntity(CategoriaDTO categoriaDTO, Integer id) {
+        Categoria categoria = modelMapper.map(categoriaDTO, Categoria.class);
+        categoria.setCodCategoria(id);
+        return categoria;
     }
 
-    public CategoriaDTO toDTO(Categoria Categoria) {
-        return modelMapper.map(Categoria, CategoriaDTO.class);
+    public CategoriaDTO toDTO(Categoria categoria) {
+        return modelMapper.map(categoria, CategoriaDTO.class);
     }
 }

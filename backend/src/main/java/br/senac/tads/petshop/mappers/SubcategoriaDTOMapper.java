@@ -2,6 +2,7 @@ package br.senac.tads.petshop.mappers;
 
 import br.senac.tads.petshop.dtos.SubcategoriaDTO;
 import br.senac.tads.petshop.models.Subcategoria;
+import br.senac.tads.petshop.services.CategoriaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,23 +11,30 @@ import org.springframework.stereotype.Component;
 public class SubcategoriaDTOMapper {
     
     private final ModelMapper modelMapper;
+    private final CategoriaService categoriaService;
 
     @Autowired
-    public SubcategoriaDTOMapper(ModelMapper modelMapper) {
+    public SubcategoriaDTOMapper(ModelMapper modelMapper, CategoriaService categoriaService) {
         this.modelMapper = modelMapper;
+        this.categoriaService = categoriaService;
     }
 
-    public Subcategoria toEntity(SubcategoriaDTO SubcategoriaDTO) {
-        return modelMapper.map(SubcategoriaDTO, Subcategoria.class);
+    public Subcategoria toEntity(SubcategoriaDTO subcategoriaDTO) {
+        Subcategoria subcategoria = modelMapper.map(subcategoriaDTO, Subcategoria.class);
+        subcategoria.setCategoria(categoriaService.obterCategoriaPorId(subcategoriaDTO.getCodCategoria()));
+        return subcategoria;
     }
 
-    public Subcategoria toEntity(SubcategoriaDTO SubcategoriaDTO, Integer id) {
-        Subcategoria Subcategoria = modelMapper.map(SubcategoriaDTO, Subcategoria.class);
-        Subcategoria.setCodsubcategoria(id);
-        return Subcategoria;
+    public Subcategoria toEntity(SubcategoriaDTO subcategoriaDTO, Integer id) {
+        Subcategoria subcategoria = modelMapper.map(subcategoriaDTO, Subcategoria.class);
+        subcategoria.setCategoria(categoriaService.obterCategoriaPorId(subcategoriaDTO.getCodCategoria()));
+        return subcategoria;
     }
 
-    public SubcategoriaDTO toDTO(Subcategoria Subcategoria) {
-        return modelMapper.map(Subcategoria, SubcategoriaDTO.class);
+    public SubcategoriaDTO toDTO(Subcategoria subcategoria) {
+        SubcategoriaDTO subcategoriaDTO = modelMapper.map(subcategoria, SubcategoriaDTO.class);
+        System.out.println(subcategoriaDTO);
+        subcategoriaDTO.setCodCategoria(subcategoria.getCategoria().getCodCategoria());
+        return subcategoriaDTO;
     }
 }
