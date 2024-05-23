@@ -130,10 +130,15 @@ public class ClienteService {
 
     public void atualizarCliente(Integer id, ClienteDTO clienteDTO){
         validarDadosDuplicados(clienteDTO);
-        clienteExiste(id);
+
+        // pega status e já validade se o cliente existe
+        Status status = obterClientePorId(id).getStatus();
+
         Cliente cliente = clienteDTOMapper.toEntity(clienteDTO, id);
+
         // não atualiza a senha junto, apenas o resto das outras infos
         clienteDTO.setSenha(clienteDTO.getSenha());
+        clienteDTO.setStatus(status);
         clienteRepository.save(cliente);
     }
 
