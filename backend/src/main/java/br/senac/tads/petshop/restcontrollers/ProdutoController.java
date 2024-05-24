@@ -4,11 +4,11 @@ import br.senac.tads.petshop.dtos.ProdutoDTO;
 import br.senac.tads.petshop.services.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -19,8 +19,8 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @GetMapping()
-    public ResponseEntity<Object> listarProdutos() {
-        List<ProdutoDTO> listarProdutoDTO = produtoService.listarProdutosDTO();
+    public ResponseEntity<Page<ProdutoDTO>> listarProdutos(Pageable pageable) {
+        Page<ProdutoDTO> listarProdutoDTO = produtoService.listarProdutosDTO(pageable);
         return ResponseEntity.ok(listarProdutoDTO);
     }
 

@@ -7,6 +7,9 @@ import br.senac.tads.petshop.repositories.ProdutoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,22 +32,22 @@ public class ProdutoService {
         this.produtosDTOMapper = produtosDTOMapper;
     }
 
-    public List<Produto> listarProdutos(){
-        List<Produto> produtos = produtosRepository.findAll();
-        return produtos;
+    public Page<Produto> listarProdutos(Pageable pageable){
+        return produtosRepository.findAll(pageable);
     }
 
-    public List<ProdutoDTO> listarProdutosDTO(){
-        List<Produto> produtos = produtosRepository.findAll();
-        return produtos.stream()
+    public Page<ProdutoDTO> listarProdutosDTO(Pageable pageable){
+        Page<Produto> produtosPage = listarProdutos(pageable);
+        List<ProdutoDTO> produtosDTO = produtosPage.stream()
                     .map(produtosDTOMapper::toDTO)
-                    .collect(Collectors.toList());        
+                    .collect(Collectors.toList());
+        return new PageImpl<>(produtosDTO, pageable, produtosPage.getTotalElements());
     }
 
-    public ProdutoDTO obterProdutoPorId(Integer id){
+    public Produto obterProdutoPorId(Integer id){
         Optional<Produto> produtoOptional = produtosRepository.findById(id);
         produtoExiste(produtoOptional);
-        return produtoOptional.map(produtosDTOMapper::toDTO).orElse(null);
+        return produtoOptional.get();
     }
 
     public ProdutoDTO obterProdutoDTOPorId(Integer id){
@@ -56,7 +59,7 @@ public class ProdutoService {
     @Transactional
     public Produto cadastrarProduto(ProdutoDTO produtoDTO){
         // valida se a categoria passada existe
-        if(!subcategoriaService.subcategoriaExiste(produtoDTO.getCodProduto())){
+        if(!subcategoriaService.subcategoriaExiste(produtoDTO.getCodSubcategoria())){
             throw new DataIntegrityViolationException("Não é possível adicionar um produto a uma subcategoria que não existe.");
         }
         Produto produto = produtosDTOMapper.toEntity(produtoDTO);

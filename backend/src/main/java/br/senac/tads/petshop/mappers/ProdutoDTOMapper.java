@@ -2,6 +2,7 @@ package br.senac.tads.petshop.mappers;
 
 import br.senac.tads.petshop.dtos.ProdutoDTO;
 import br.senac.tads.petshop.models.Produto;
+import br.senac.tads.petshop.services.SubcategoriaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,26 +10,30 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProdutoDTOMapper {
 
-    @Autowired
     private final ModelMapper modelMapper;
+    private final SubcategoriaService subcategoriaService;
 
-    public ProdutoDTOMapper(ModelMapper modelMapper) {
+    @Autowired
+    public ProdutoDTOMapper(ModelMapper modelMapper, SubcategoriaService subcategoriaService) {
         this.modelMapper = modelMapper;
+        this.subcategoriaService = subcategoriaService;
     }
 
-    public Produto toEntity(ProdutoDTO ProdutoDTO) {
-        return modelMapper.map(ProdutoDTO, Produto.class);
+    public Produto toEntity(ProdutoDTO produtoDTO) {
+        Produto produto = modelMapper.map(produtoDTO, Produto.class);
+        produto.setSubcategoria(subcategoriaService.obterSubcategoriaPorId(produtoDTO.getCodSubcategoria()));
+        return produto;
     }
 
-    public Produto toEntity(ProdutoDTO ProdutoDTO, Integer id) {
-        Produto Produto = modelMapper.map(ProdutoDTO, Produto.class);
-        Produto.setCodProduto(id);
-        return Produto;
+    public Produto toEntity(ProdutoDTO produtoDTO, Integer id) {
+        Produto produto = modelMapper.map(produtoDTO, Produto.class);
+        produto.setSubcategoria(subcategoriaService.obterSubcategoriaPorId(id));
+        return produto;
     }
 
 
-    public ProdutoDTO toDTO(Produto Produto) {
-        return modelMapper.map(Produto, ProdutoDTO.class);
+    public ProdutoDTO toDTO(Produto produto) {
+        return modelMapper.map(produto, ProdutoDTO.class);
     }
 
 }

@@ -16,7 +16,7 @@ public class ProdutoDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer codProduto;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @NotNull(message = "O codSubcategoria não pode ser nulo.")
     private Integer codSubcategoria;
 
     @NotBlank(message = "O nome do produto não pode estar em branco.")
