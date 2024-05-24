@@ -27,13 +27,12 @@ public class SubcategoriaDTOMapper {
 
     public Subcategoria toEntity(SubcategoriaDTO subcategoriaDTO, Integer id) {
         Subcategoria subcategoria = modelMapper.map(subcategoriaDTO, Subcategoria.class);
-        subcategoria.setCategoria(categoriaService.obterCategoriaPorId(subcategoriaDTO.getCodCategoria()));
+        subcategoria.setCategoria(categoriaService.obterCategoriaPorId(id));
         return subcategoria;
     }
 
     public SubcategoriaDTO toDTO(Subcategoria subcategoria) {
         SubcategoriaDTO subcategoriaDTO = modelMapper.map(subcategoria, SubcategoriaDTO.class);
-        System.out.println(subcategoriaDTO);
         subcategoriaDTO.setCodCategoria(subcategoria.getCategoria().getCodCategoria());
         return subcategoriaDTO;
     }
