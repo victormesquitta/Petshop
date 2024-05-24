@@ -1,6 +1,7 @@
 package br.senac.tads.petshop.services;
 
 import br.senac.tads.petshop.dtos.ClienteDTO;
+import br.senac.tads.petshop.enums.Role;
 import br.senac.tads.petshop.enums.Status;
 import br.senac.tads.petshop.mappers.ClienteDTOMapper;
 import br.senac.tads.petshop.models.Cliente;
@@ -8,6 +9,7 @@ import br.senac.tads.petshop.repositories.ClienteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.AddressException;
@@ -114,7 +116,7 @@ public class ClienteService {
         isValidEmailAddress(clienteDTO.getEmail());
         validarDadosDuplicados(clienteDTO);
 
-        String encryptedSenha = encryptPasswordMD5(clienteDTO.getSenha());
+        String encryptedSenha = new BCryptPasswordEncoder().encode(clienteDTO.getSenha());
         clienteDTO.setSenha(encryptedSenha);
 
         Cliente cliente = clienteDTOMapper.toEntity(clienteDTO);
@@ -123,6 +125,8 @@ public class ClienteService {
 
         // todo usuário criado entra como ativo
         cliente.setStatus(Status.ATIVO);
+
+        cliente.setRole(Role.USER);
 
         clienteRepository.save(cliente);
         return cliente;
@@ -150,7 +154,7 @@ public class ClienteService {
     public void trocarSenha(Integer id, ClienteDTO clienteDTO){
         Cliente cliente = obterClientePorId(id);
 
-        String novaSenhaCriptografada = encryptPasswordMD5(clienteDTO.getSenha());
+        String novaSenhaCriptografada = new BCryptPasswordEncoder().encode(clienteDTO.getSenha());
         // valida se a senha é igual a anterior
         if(novaSenhaCriptografada.equals(cliente.getSenha())){
             throw new RuntimeException("A senha não pode ser igual a anterior.");
