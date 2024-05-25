@@ -37,6 +37,7 @@ public class Subcategoria {
     @Column(name="dtcriacao")
     private LocalDate dtCriacao;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "subcategoria", cascade = CascadeType.ALL)
     private List<Produto> produtos = new ArrayList<>();
 

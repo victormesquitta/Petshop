@@ -28,6 +28,7 @@ public class SubcategoriaDTOMapper {
     public Subcategoria toEntity(SubcategoriaDTO subcategoriaDTO, Integer id) {
         Subcategoria subcategoria = modelMapper.map(subcategoriaDTO, Subcategoria.class);
         subcategoria.setCategoria(categoriaService.obterCategoriaPorId(id));
+        subcategoria.setCodSubcategoria(id);
         return subcategoria;
     }
 
