@@ -14,7 +14,7 @@ import { Favoritos } from "./pages/Favoritos/Favoritos";
 import { MeusPedidos } from "./pages/MeusPedidos/MeusPedidos";
 import { CadastroProduto } from "./pages/CadastroProduto/CadastroProduto";
 import { MeusPets } from "./pages/MeusPets/MeusPets";
-import { Estoque } from "./pages/Estoque/Estoque";
+import { DashBoardProduto } from "./pages/DashBoardProduto/DashBoardProduto";
 import { MeusCartoes } from "./pages/MeusCartoes/MeusCartoes";
 
 
@@ -45,14 +45,15 @@ export function App(props) {
             <Route path="/login" element={<Login />} />
             <Route path='/adminlogin' element={<AdminLogin />} />
             <Route path="/carrinho" element={<Carrinho authService={props.authService} />} />
-            <Route path="/estoque" element={<Estoque authService={props.authService} />} />
+            <Route path="/dashboardProduto" element={<DashBoardProduto authService={props.authService} />} />
             <Route path="/favoritos" element={<Favoritos authService={props.authService} />} />
             <Route path="/meuspedidos" element={<MeusPedidos authService={props.authService} />} />
-            <Route path="/meuscartoes" element={<MeusCartoes authService={props.authService}/>} />
-            <Route path="/meuspets" element={<MeusPets authService={props.authService}/>} />
+            <Route path="/meuscartoes" element={<MeusCartoes authService={props.authService} />} />
+            <Route path="/meuspets" element={<MeusPets authService={props.authService} />} />
             <Route path="/produto" element={<Produto authService={props.authService} />} />
             <Route path="/registrarconta" element={<RegistrarConta />} />
 
+            {'parte de admin.'}
             <Route path="/cadastroproduto" element={<CadastroProduto />} />
             <Route path="/cadastrofuncionario" element={<CadastraFuncionario />} />
 
@@ -61,8 +62,8 @@ export function App(props) {
       }
 
       {isLoadingLoggedUser && <Loading />}
-    </>
 
+    </>
   );
 }
 

@@ -21,7 +21,7 @@ export function CadastroProduto() {
     const [descProduto, setDescProduto] = useState('');
     const [marcaProd, setMarcaProd] = useState('');
     const [nomeProd, setNomeProd] = useState('');
-    const [codCategoria, setCodCategoria] = useState('');
+    const [codSubcategoria, setCodSubcategoria] = useState('');
     const [codProduto, setCodProduto] = useState('');
 
 
@@ -52,7 +52,8 @@ export function CadastroProduto() {
             preco: parseFloat(precoProduto),
             descricao: descProduto,
             marca: marcaProd,
-            nome: nomeProd
+            nome: nomeProd,
+            codSubcategoria: codSubcategoria
         };
 
         try {
@@ -67,7 +68,7 @@ export function CadastroProduto() {
     }
 
     async function criarProduto() {
-        if (!nomeProd || !marcaProd || !descProduto || !codCategoria || !precoProduto || !quantEstoque || !promocao || disponivel === null) {
+        if (!nomeProd || !marcaProd || !descProduto || !codSubcategoria || !precoProduto || !quantEstoque || !promocao || disponivel === null) {
             toast.error('Preencha todos os campos!');
             return;
         }
@@ -91,7 +92,7 @@ export function CadastroProduto() {
             descricao: descProduto,
             marca: marcaProd,
             nome: nomeProd,
-            codCategoria: codCategoria
+            codSubcategoria: codSubcategoria
         };
 
         try {
@@ -106,7 +107,7 @@ export function CadastroProduto() {
             setDescProduto('');
             setMarcaProd('');
             setNomeProd('');
-            setCodCategoria('');
+            setCodSubcategoria('');
             setCodProduto(''); // Limpa também o código do produto
             buscarProdutos(); // Atualiza a lista
 
@@ -171,24 +172,22 @@ export function CadastroProduto() {
                         <section className='section2'>
                             <h1>Novo Produto</h1>
 
-                            <label>Nome do Produto</label>
+                            <label>Nome</label>
                             <input className='InputNomeProd' type='text' value={nomeProd} onChange={e => setNomeProd(e.target.value)} />
 
-                            <label>Marca do Produto</label>
+                            <label>Marca</label>
                             <input className='InputMarcaProd' type='text' value={marcaProd} onChange={e => setMarcaProd(e.target.value)} />
 
-                            <label htmlFor="descricao" >Descrição do Produto</label>
+                            <label htmlFor="descricao" >Descrição</label>
                             <textarea id="descricao" name="descricao" className='InputDescriProd' value={descProduto} onChange={e => setDescProduto(e.target.value)} />
 
-                            <label htmlFor="CodCategoria">Codigo da Categoria</label>
-                            <input className='InputCodCategoria' type='text' value={codCategoria} onChange={e => setCodCategoria(e.target.value)} />
+                            <label htmlFor="CodCategoria">Codigo Sub-Categoria</label>
+                            <input className='InputCodCategoria' type='text' value={codSubcategoria} onChange={e => setCodSubcategoria(e.target.value)} />
                         </section>
-
-
 
                         <section className='section2'>
 
-                            <label className='LabelPrecoProd'>Preço do Produto</label>
+                            <label className='LabelPrecoProd'>Preço</label>
                             <input className='InputPrecoProd' type='number' value={precoProduto} onChange={e => setPrecoProduto(e.target.value)} />
 
                             <label>Quantidade em Estoque</label>
@@ -207,7 +206,7 @@ export function CadastroProduto() {
                             <label htmlFor="InputDataCriacao">Data de Criação</label>
                             <input className='InputDataCriacao' type='date' value={dataCriacao} onChange={e => setDataCriacao(e.target.value)} />
 
-                            <label htmlFor="InputCodProduto">Codigo do Produto</label>
+                            <label htmlFor="InputCodProduto">Codigo Produto</label>
                             <input className='InputCodProduto' type='text' value={codProduto} onChange={e => setCodProduto(e.target.value)} />
 
                         </section>

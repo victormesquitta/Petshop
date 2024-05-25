@@ -19,28 +19,33 @@ export function MeusCartoes(props) {
                     <div>
                         <div className="DivTitle">
                             <h1 className='MeusCartoes'>Meus Cartões</h1>
-                            <h4 className='NovoCartao'>Adicione seu novo cartão</h4>
+                            <h2 className='NovoCartao'>Adicione seu novo cartão</h2>
                         </div>
 
                         <div className="DivCadastroCartao">
+                            <div>
+                                <img src={cartao} className="FotoCartao"></img>
+                                <h2 className="Titulo">Cadastre Seu Cartão</h2>
+                                <h3 className="Subtitulo">Insira os dados do seu cartão</h3>
+                            </div>
 
-                            <img src={cartao} className="FotoCartao"></img>
-                            <h1 className="Titulo">Cadastre Seu Cartão</h1>
-                            <h3 className="Subtitulo">Insira os dados do seu cartão</h3>
 
                             <section className='section'>
+                                <section>
+                                    <label className='LabelNumCad'>Numero do Cartão</label>
+                                    <input className='InputNumCad' type="" placeholder="Numero do Cartão" />
 
-                                <label className='LabelNumCad'>Numero do Cartão</label>
-                                <input className='InputNumCad' type="" placeholder="Numero do Cartão" />
-                                <label>Data</label>
-                                <input className='InputCvc' type="month" placeholder="CVC" />
+                                    <label>Data</label>
+                                    <input className='InputCvc' type="month" placeholder="CVC" />
+                                </section>
 
-                                <label>CVC</label>
-                                <input className='InputCvc' placeholder="CVC" />
+                                <section>
+                                    <label>CVC</label>
+                                    <input className='InputCvc' placeholder="CVC" />
 
-                                <label >Nome Completo</label>
-                                <input className='InputNome' placeholder="Nome Completo" />
-
+                                    <label >Nome Completo</label>
+                                    <input className='InputNome' placeholder="Nome Completo" />
+                                </section>
                             </section>
 
                             <button className="Cadastro">Cadastrar</button>
