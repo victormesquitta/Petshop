@@ -20,30 +20,30 @@ public class ProdutoController {
 
     @GetMapping()
     public ResponseEntity<Page<ProdutoDTO>> listarProdutos(Pageable pageable) {
-        Page<ProdutoDTO> listarProdutoDTO = produtoService.listarProdutosDTO(pageable);
-        return ResponseEntity.ok(listarProdutoDTO);
+        Page<ProdutoDTO> listaProdutosDTO = produtoService.listarProdutosDTO(pageable);
+        return ResponseEntity.ok(listaProdutosDTO);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<Object> obterProdutoPeloId(@PathVariable Integer id) {
+    public ResponseEntity<ProdutoDTO> obterProdutoPeloId(@PathVariable Integer id) {
         ProdutoDTO produtoDTO = produtoService.obterProdutoDTOPorId(id);
         return ResponseEntity.ok(produtoDTO);
     }
 
     @PostMapping()
-    public ResponseEntity<Object> cadastrarProduto(@RequestBody @Valid ProdutoDTO produtoDTO) {
+    public ResponseEntity<String> cadastrarProduto(@RequestBody @Valid ProdutoDTO produtoDTO) {
         produtoService.cadastrarProduto(produtoDTO);
         return new ResponseEntity<>("Produto cadastrado com sucesso.", HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> atualizarProduto(@PathVariable Integer id, @RequestBody ProdutoDTO produtoDTO) {
+    public ResponseEntity<String> atualizarProduto(@PathVariable Integer id, @RequestBody @Valid ProdutoDTO produtoDTO) {
         produtoService.atualizarProduto(id, produtoDTO);
         return new ResponseEntity<>("Produto atualizado com sucesso.", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> excluirProduto(@PathVariable Integer id) {
+    public ResponseEntity<String> excluirProduto(@PathVariable Integer id) {
         produtoService.excluirProduto(id);
         return new ResponseEntity<>("Produto excluído com sucesso.", HttpStatus.OK);
     }

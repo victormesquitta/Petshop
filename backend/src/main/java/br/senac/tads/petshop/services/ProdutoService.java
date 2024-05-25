@@ -58,7 +58,7 @@ public class ProdutoService {
 
     @Transactional
     public Produto cadastrarProduto(ProdutoDTO produtoDTO){
-        // valida se a categoria passada existe
+        // valida se a subcategoria passada existe
         if(!subcategoriaService.subcategoriaExiste(produtoDTO.getCodSubcategoria())){
             throw new DataIntegrityViolationException("Não é possível adicionar um produto a uma subcategoria que não existe.");
         }
@@ -71,30 +71,42 @@ public class ProdutoService {
         }
     }
 
+    @Transactional
     public void atualizarProduto(Integer id, ProdutoDTO produtoDTO){
-        produtoExiste(id);
+        // valida a existência do produto
+        Produto produtoExistente = obterProdutoPorId(id);
+
+        // valida se a subcategoria passada existe
+        if(!subcategoriaService.subcategoriaExiste(produtoDTO.getCodSubcategoria())){
+            throw new DataIntegrityViolationException("Não é possível adicionar um produto a uma subcategoria que não existe.");
+        }
+        LocalDate dataCriacao = produtoExistente.getDtCriacao();
         Produto produto = produtosDTOMapper.toEntity(produtoDTO, id);
-        produto.setDtCriacao(produto.getDtCriacao());
-        produto.setCodProduto(id);
+        produto.setDtCriacao(dataCriacao);
+        System.out.println(produto.getSubcategoria().toString());
+        System.out.println(produtoDTO.getCodSubcategoria());
         produtosRepository.save(produto);
     }
 
+    @Transactional
     public void excluirProduto(Integer id){
         produtoExiste(id);
         produtosRepository.deleteById(id);
     }
 
-    // para métodos update/delete -> a consulta vai ser feita no método, junto com a validaçaõ
-    public void produtoExiste(Integer id){
+    // para métodos update/delete -> a consulta vai ser feita no método, junto com a validação
+    public boolean produtoExiste(Integer id){
         Optional<Produto> optionalProduto = produtosRepository.findById(id);
         if(optionalProduto.isEmpty()){
             throw new EntityNotFoundException("Nenhum produto encontrado para o ID fornecido.");
         }
+        return true;
     }
     // para métodos get -> a consulta já foi feita acima e o método vai apenas validar a existência
-    public void produtoExiste(Optional<Produto> optionalProduto){
+    public boolean produtoExiste(Optional<Produto> optionalProduto){
         if(optionalProduto.isEmpty()){
             throw new EntityNotFoundException("Nenhum produto encontrado para o ID fornecido.");
         }
+        return true;
     }
 }

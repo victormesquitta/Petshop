@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -60,6 +61,7 @@ public class Produto {
             foreignKey = @ForeignKey(name = "fk_t_produto_t_subcategoria1"))
     private Subcategoria subcategoria;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<Avaliacao> avaliacoes = new ArrayList<>();
 
