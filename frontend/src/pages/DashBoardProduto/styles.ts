@@ -68,14 +68,12 @@ export const ContainerPai = styled.div`
 
     table {
       margin-top: 2rem;
-      border: 1px solid gray;
 
       width: 90%;
 
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-evenly;
 
       thead {
         width: 100%;
@@ -83,22 +81,27 @@ export const ContainerPai = styled.div`
 
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: start;
 
         tr {
-          width: 100%;
+          width: 90%;
           height: 100%;
 
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: start;
 
           th {
-            font-size: 1.2vw;
+            font-size: .9vw;
             
             border: 1px solid lightgray;
+            padding: .5rem;
 
-            width: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 25%;
             height: 100%;
             
           }
@@ -115,12 +118,12 @@ export const ContainerPai = styled.div`
       tr{
         display: flex;
         align-items: center;
-        justify-content: space-between;
 
         width: 100%;
         
         td{
-          width: 100%;
+          width: 10%;
+          height: 100%;
           padding: .5rem;
 
           display: flex;
@@ -129,6 +132,25 @@ export const ContainerPai = styled.div`
 
           border: 1px solid lightgray;
 
+        }
+
+        .tdLixeira{
+          width: 3%;
+          margin-left: .5rem;
+          
+          border: none;
+          
+          button{
+            border: none;
+
+            .iconLixeira{
+              color: #CC2B2B;
+
+              width: 100%;
+              height: 1rem;
+              
+          }
+          }
         }
       }
     }

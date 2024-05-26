@@ -2,9 +2,16 @@ import { backend } from "./api.axios";
 
 export class ProdutoService {
 
-  async findAllProducts() {
+  async findAllProducts(paginaAtual, tamanhoPagina, sortBy, sortOrder) {
     return new Promise((resolve, reject) => {
-      backend.get(`${'http://localhost:8080/api'}/produtos`)
+      backend.get(`${'http://localhost:8080/api'}/produtos`,{
+        params: {
+          page: paginaAtual,
+          size: tamanhoPagina,
+          sortBy: sortBy, // Passar o campo de ordenação
+          sortOrder: sortOrder // Passar a ordem de ordenação
+        }
+      })
         .then(data => {
           console.log("Dados do backend:", data.data); // Adicione este console.log
           resolve(data.data);

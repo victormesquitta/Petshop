@@ -17,6 +17,7 @@ export function CadastroCategoria() {
                     <Link to={''} className='Link'><FaObjectGroup className='icons' /> Produtos</Link>
                     <Link to={''} className='Link'><FaList className='icons' /> Categoria</Link>
                     <Link to={''} className='Link'><FaList className='icons' /> SubCategoria</Link>
+                    <Link to={'/adminpedidos'} className='Link'><FaShippingFast className='icons'/>Pedidos</Link>
 
                 </div>
 

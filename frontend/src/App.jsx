@@ -16,6 +16,7 @@ import { CadastroProduto } from "./pages/CadastroProduto/CadastroProduto";
 import { MeusPets } from "./pages/MeusPets/MeusPets";
 import { DashBoardProduto } from "./pages/DashBoardProduto/DashBoardProduto";
 import { MeusCartoes } from "./pages/MeusCartoes/MeusCartoes";
+import { AdminProdutos } from "./pages/AdminPedidos/AdminPedidos";
 
 
 export function App(props) {
@@ -56,6 +57,7 @@ export function App(props) {
             {'parte de admin.'}
             <Route path="/cadastroproduto" element={<CadastroProduto />} />
             <Route path="/cadastrofuncionario" element={<CadastraFuncionario />} />
+            <Route path="/adminpedidos" element={<AdminProdutos />} />
 
           </Routes>
         </BrowserRouter>

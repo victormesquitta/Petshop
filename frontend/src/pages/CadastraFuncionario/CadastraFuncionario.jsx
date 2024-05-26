@@ -46,6 +46,8 @@ export function CadastraFuncionario() {
                     <Link to={'/cadastrafuncionario'} className='Link' ><FaUserAlt className='icons' />Funcionario</Link>
                     <Link to={'/cadastroproduto'} className='Link' ><FaObjectGroup className='icons' /> Produtos</Link>
                     <Link to={''} className='Link'><FaList className='icons' /> Categoria</Link>
+                    <Link to={'/adminpedidos'} className='Link'><FaShippingFast className='icons'/>Pedidos</Link>
+
                 </div>
                 <div className='divPrincipal'>
                     <section className='section1'>

@@ -1,4 +1,4 @@
-import { FaUserAlt, FaObjectGroup, FaList, FaSearch } from 'react-icons/fa';
+import { FaUserAlt, FaObjectGroup, FaList, FaSearch, FaShippingFast } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import ImgLogo from '../../assets/images/ImgLogo.svg';
 import ImgPerfilDog from '../../assets/images/ImgPerfilDog.png';
@@ -10,11 +10,9 @@ import 'react-toastify/dist/ReactToastify.css'; // Importe o CSS do toast
 
 
 export function CadastroProduto() {
-    const [produtos, setProdutos] = useState([]);
     const [idProduto, setIdProduto] = useState('');
-    const [exibirProdutos, setExibirProdutos] = useState(false); // Estado para controlar a exibição
     const [dataCriacao, setDataCriacao] = useState('');
-    const [disponivel, setDisponivel] = useState(null);
+    const [disponivel, setDisponivel] = useState(false);
     const [promocao, setPromocao] = useState('');
     const [quantEstoque, setQuantEstoque] = useState('');
     const [precoProduto, setPrecoProduto] = useState('');
@@ -28,7 +26,7 @@ export function CadastroProduto() {
     async function atualizarProduto(id) {
 
         // 1. Validação de campos
-        if (!id || !nomeProd || !marcaProd || !descProduto || !codCategoria || !precoProduto || !quantEstoque || !promocao || disponivel === null) {
+        if (!id || !nomeProd || !marcaProd || !descProduto || !codSubcategoria || !precoProduto || !quantEstoque || !promocao || disponivel === null) {
             toast.error('Preencha todos os campos!');
             return;
         }
@@ -112,8 +110,12 @@ export function CadastroProduto() {
             buscarProdutos(); // Atualiza a lista
 
         } catch (error) {
-            console.error('Erro ao criar produto:', error);
-            toast.error('Erro ao criar produto.', error);
+            if (error.response && error.response.status === 409) {
+                toast.error(error.response.data.message); // Exibe a mensagem de erro do backend
+            } else {
+                console.error('Erro ao criar produto:', error);
+                toast.error('Erro ao criar produto.', error);
+            }
         }
     }
 
@@ -121,7 +123,6 @@ export function CadastroProduto() {
         try {
             const data = await produtoService.findAllProducts();
             setProdutos(data);
-            setExibirProdutos(true); // Exibe os produtos
         } catch (error) {
             console.error('Erro ao buscar produtos:', error);
             toast.error('Erro ao buscar produtos:', error);
@@ -157,6 +158,7 @@ export function CadastroProduto() {
                     <Link to={'/cadastrafuncionario'} className='Link'><FaUserAlt className='icons' />Funcionario</Link>
                     <Link to={'/cadastroproduto'} className='Link'><FaObjectGroup className='icons' /> Produtos</Link>
                     <Link to={''} className='Link'><FaList className='icons' /> Categoria</Link>
+                    <Link to={'/adminpedidos'} className='Link'><FaShippingFast className='icons' />Pedidos</Link>
 
                 </div>
 
@@ -201,10 +203,17 @@ export function CadastroProduto() {
 
                         <section className='section2'>
                             <label className='LabelPrecoProd'>Disponivel</label>
-                            <input className='InputDisponivel' type='text' value={disponivel} onChange={e => setDisponivel(e.target.value)} />
+                            <input className='InputDisponivel' type='text' value={disponivel} onChange={e => setDisponivel(e.target.checked)} />
 
                             <label htmlFor="InputDataCriacao">Data de Criação</label>
-                            <input className='InputDataCriacao' type='date' value={dataCriacao} onChange={e => setDataCriacao(e.target.value)} />
+                            <input className='InputDataCriacao' type='date' value={dataCriacao} onChange={e => {
+                                if (e.target.value === '') {
+                                    setDataCriacao('');
+                                } else {
+                                    setDataCriacao(e.target.value)
+                                }
+                            }
+                            } />
 
                             <label htmlFor="InputCodProduto">Codigo Produto</label>
                             <input className='InputCodProduto' type='text' value={codProduto} onChange={e => setCodProduto(e.target.value)} />
