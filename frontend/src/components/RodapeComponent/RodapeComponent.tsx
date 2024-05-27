@@ -71,7 +71,9 @@ export function RodapeComponent() {
                         <h3>Redes Sociais</h3>
                         <div className="RedesSociais">
                             <FaWhatsapp className="ImgWhatsapp" />
-                            <FaInstagram className="ImgInstagram" />
+                            {/* <a href="https://www.instagram.com/mimuus_pet10?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="ImgInstagramLink"> */}
+                                <FaInstagram className="ImgInstagram" />
+                            {/* </a> */}
                             <FaFacebookSquare className="ImgFacebook" />
                         </div>
                     </div>

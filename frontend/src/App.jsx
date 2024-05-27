@@ -17,6 +17,7 @@ import { MeusPets } from "./pages/MeusPets/MeusPets";
 import { DashBoardProduto } from "./pages/DashBoardProduto/DashBoardProduto";
 import { MeusCartoes } from "./pages/MeusCartoes/MeusCartoes";
 import { AdminProdutos } from "./pages/AdminPedidos/AdminPedidos";
+import { Adocao } from "./pages/Adocao/adocao";
 
 
 export function App(props) {
@@ -53,6 +54,8 @@ export function App(props) {
             <Route path="/meuspets" element={<MeusPets authService={props.authService} />} />
             <Route path="/produto" element={<Produto authService={props.authService} />} />
             <Route path="/registrarconta" element={<RegistrarConta />} />
+            <Route path="/adocao" element={<Adocao />} />
+
 
             {'parte de admin.'}
             <Route path="/cadastroproduto" element={<CadastroProduto />} />
