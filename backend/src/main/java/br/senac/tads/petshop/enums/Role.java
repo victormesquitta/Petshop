@@ -1,6 +1,7 @@
 package br.senac.tads.petshop.enums;
 
 public enum Role {
+    MASTER("master"),
     ADMIN("admin"),
     USER("user");
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.senac.tads.petshop.dtos.FuncionarioDTO;
+import br.senac.tads.petshop.enums.Role;
 import br.senac.tads.petshop.mappers.FuncionarioDTOMapper;
 import br.senac.tads.petshop.models.Funcionario;
 import br.senac.tads.petshop.repositories.FuncionarioRepository;
@@ -48,13 +49,12 @@ public class FuncionarioService {
         Funcionario funcionario = funcionarioMapper.toEntity(funcionarioDTO);
 
         funcionario.setDtCriacao(LocalDate.now());
-        funcionario.setDtModificacao(null);
+        funcionario.setRole(Role.ADMIN);
         funcionarioRepository.save(funcionario);
     }
 
     public void atualizarFuncionario(Integer id, FuncionarioDTO funcionarioDTO){
         Funcionario funcionario = funcionarioMapper.toEntity(funcionarioDTO, id);
-        funcionario.setDtModificacao(LocalDate.now());
         funcionarioRepository.save(funcionario);
     }
 
