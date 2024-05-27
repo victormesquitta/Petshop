@@ -83,8 +83,6 @@ public class ProdutoService {
         LocalDate dataCriacao = produtoExistente.getDtCriacao();
         Produto produto = produtosDTOMapper.toEntity(produtoDTO, id);
         produto.setDtCriacao(dataCriacao);
-        System.out.println(produto.getSubcategoria().toString());
-        System.out.println(produtoDTO.getCodSubcategoria());
         produtosRepository.save(produto);
     }
 

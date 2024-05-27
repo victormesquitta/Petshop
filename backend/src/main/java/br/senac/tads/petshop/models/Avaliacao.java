@@ -19,7 +19,10 @@ public class Avaliacao {
     private Integer codAvaliacao;
 
     @Column(name="qtdestrelas")
-    private int qtdEstrelas;
+    private double qtdEstrelas;
+
+    @Column(name="titulo")
+    private String titulo;
 
     @Column(name="comentario")
     private String comentario;
