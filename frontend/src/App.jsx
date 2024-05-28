@@ -1,8 +1,7 @@
 import { GlobalStyle } from "./styles/global";
 import { useEffect, useState } from "react";
 import { Loading } from "./components/Loading/Loading";
-import { AuthService } from "./services/AuthService";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AdminLogin } from "./pages/AdminLogin/AdminLogin";
 import { Home } from "./pages/Home/Home";
 import { CadastraFuncionario } from "./pages/CadastraFuncionario/CadastraFuncionario";
@@ -16,8 +15,9 @@ import { CadastroProduto } from "./pages/CadastroProduto/CadastroProduto";
 import { MeusPets } from "./pages/MeusPets/MeusPets";
 import { DashBoardProduto } from "./pages/DashBoardProduto/DashBoardProduto";
 import { MeusCartoes } from "./pages/MeusCartoes/MeusCartoes";
-import { AdminProdutos } from "./pages/AdminPedidos/AdminPedidos";
+import { AdminPedidos } from "./pages/AdminPedidos/AdminPedidos";
 import { Adocao } from "./pages/Adocao/adocao";
+import { CadastroCategoria } from "./pages/CadastroCategoria/CadastroCategoria";
 
 
 export function App(props) {
@@ -45,9 +45,7 @@ export function App(props) {
           <Routes>
             <Route path="/" element={<Home authService={props.authService} />} />
             <Route path="/login" element={<Login />} />
-            <Route path='/adminlogin' element={<AdminLogin />} />
             <Route path="/carrinho" element={<Carrinho authService={props.authService} />} />
-            <Route path="/dashboardProduto" element={<DashBoardProduto authService={props.authService} />} />
             <Route path="/favoritos" element={<Favoritos authService={props.authService} />} />
             <Route path="/meuspedidos" element={<MeusPedidos authService={props.authService} />} />
             <Route path="/meuscartoes" element={<MeusCartoes authService={props.authService} />} />
@@ -60,7 +58,10 @@ export function App(props) {
             {'parte de admin.'}
             <Route path="/cadastroproduto" element={<CadastroProduto />} />
             <Route path="/cadastrofuncionario" element={<CadastraFuncionario />} />
-            <Route path="/adminpedidos" element={<AdminProdutos />} />
+            <Route path="/adminpedidos" element={<AdminPedidos />} />
+            <Route path="/dashboardproduto" element={<DashBoardProduto authService={props.authService} />} />
+            <Route path='/adminlogin' element={<AdminLogin />} />
+            <Route path='/admincategoria' element={<CadastroCategoria/>}/>
 
           </Routes>
         </BrowserRouter>

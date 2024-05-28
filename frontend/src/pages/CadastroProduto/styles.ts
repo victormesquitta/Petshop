@@ -52,7 +52,7 @@ export const ContainerPai = styled.main`
       width: 100%;
       height: 10%;
 
-      padding-left: 3rem;
+      padding-left: 2rem;
 
       &:hover {
         box-shadow: inset 0 0 10px white;

@@ -1,7 +1,7 @@
 import * as S from './styles';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { produtoService } from '../../services/produto.service';
+import { produtoService } from '../../../../services/produto.service';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaUserAlt, FaObjectGroup, FaList, FaSearch, FaShippingFast, FaTrashAlt } from 'react-icons/fa';
@@ -41,7 +41,6 @@ export function DashBoardProduto() {
       const data = await produtoService.findAllProducts(paginaAtual, tamanhoPagina, 'codProduto', 'asc');
       setProdutos(data.content);
       setTotalPaginas(data.totalPages);
-      toast.success('Produtos buscados com sucesso!!');
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
       toast.error('Erro ao buscar produtos. Tente novamente mais tarde.');

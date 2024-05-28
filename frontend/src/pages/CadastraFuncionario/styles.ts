@@ -50,7 +50,6 @@ export const ContainerPai = styled.main`
 
       &:hover {
         box-shadow: inset 0 0 10px white;
-
       }
       .icons {
         margin-right: 1rem;
@@ -66,7 +65,7 @@ export const ContainerPai = styled.main`
     flex-direction: column;
     align-items: center;
 
-    gap: 6rem;
+    gap: 2.5rem;
 
     .section1 {
       width: 85%;
@@ -123,28 +122,62 @@ export const ContainerPai = styled.main`
 
       h1 {
         font-size: 2.2vw;
+
+        margin-bottom: 1.5rem;
       }
 
-      label {
-        margin-top: 2rem;
+      div {
+        width: 100%;
+        margin-top: 1.5rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        button{
+          border-radius: 10px;
+          border: 1px solid lightgray;
+
+          height: 1.5rem;
+          width: 15%;
+        }
       }
 
-      input {
-        border-radius: 10px;
-        border: 1px solid;
-        border-color: lightgray;
+      .section3 {
+        display: flex;
 
-        width: 30%;
-        height: 15%;
+        width: 100%;
 
-        margin-top: 0.4rem;
-        padding-left: 1rem;
-        padding-right: 2rem;
+        section {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-between;
 
-        &:focus {
-          background: #f5f5f5;
-          border: 0.1px solid lightgray;
-          outline: none !important;
+          width: 100%;
+
+          label {
+            margin-top: 2rem;
+          }
+
+          input {
+            border-radius: 10px;
+            border: 1px solid;
+            border-color: lightgray;
+
+            width: 55%;
+            height: 1.8rem;
+
+            margin-top: 0.4rem;
+            padding-left: 1rem;
+            padding-right: 2rem;
+
+            &:focus {
+              background: #f5f5f5;
+              border: 0.1px solid lightgray;
+              outline: none !important;
+            }
+          }
         }
       }
     }

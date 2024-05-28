@@ -1,4 +1,4 @@
-import { FaUserAlt, FaObjectGroup, FaList, FaSearch, FaShippingFast } from 'react-icons/fa';
+import { FaArrowLeft, FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import ImgLogo from '../../assets/images/ImgLogo.svg';
 import ImgPerfilDog from '../../assets/images/ImgPerfilDog.png';
@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { produtoService } from '../../services/produto.service';
 import { toast, ToastContainer } from 'react-toastify'; // Importe o toast
 import 'react-toastify/dist/ReactToastify.css'; // Importe o CSS do toast
-
 
 export function CadastroProduto() {
     const [idProduto, setIdProduto] = useState('');
@@ -107,7 +106,6 @@ export function CadastroProduto() {
             setNomeProd('');
             setCodSubcategoria('');
             setCodProduto(''); // Limpa também o código do produto
-            buscarProdutos(); // Atualiza a lista
 
         } catch (error) {
             if (error.response && error.response.status === 409) {
@@ -122,7 +120,6 @@ export function CadastroProduto() {
     async function buscarProdutos() {
         try {
             const data = await produtoService.findAllProducts();
-            setProdutos(data);
         } catch (error) {
             console.error('Erro ao buscar produtos:', error);
             toast.error('Erro ao buscar produtos:', error);
@@ -155,10 +152,7 @@ export function CadastroProduto() {
 
                     <h1>DashBoard</h1>
 
-                    <Link to={'/cadastrafuncionario'} className='Link'><FaUserAlt className='icons' />Funcionario</Link>
-                    <Link to={'/cadastroproduto'} className='Link'><FaObjectGroup className='icons' /> Produtos</Link>
-                    <Link to={''} className='Link'><FaList className='icons' /> Categoria</Link>
-                    <Link to={'/adminpedidos'} className='Link'><FaShippingFast className='icons' />Pedidos</Link>
+                    <Link to={'/dashboardproduto'} className='Link'><FaArrowLeft className='icons' /> Pagina Anterior</Link>
 
                 </div>
 
