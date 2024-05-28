@@ -35,7 +35,9 @@ public class CarrinhoComprasDTOMapper {
     }
 
     public CarrinhoComprasDTO toDTO(CarrinhoCompras carrinho) {
-        return modelMapper.map(carrinho, CarrinhoComprasDTO.class);
+        CarrinhoComprasDTO carrinhoComprasDTO =  modelMapper.map(carrinho, CarrinhoComprasDTO.class);
+        carrinhoComprasDTO.setCodCliente(carrinho.getCliente().getCodCliente());
+        return carrinhoComprasDTO;
     }
 
 
