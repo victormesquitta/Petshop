@@ -4,19 +4,26 @@ import { Loading } from "./components/Loading/Loading";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AdminLogin } from "./pages/AdminLogin/AdminLogin";
 import { Home } from "./pages/Home/Home";
-import { CadastraFuncionario } from "./pages/CadastraFuncionario/CadastraFuncionario";
+import { AdminFuncionario } from "./pages/AdminFuncionario/AdminFuncionario";
 import { Carrinho } from "./pages/Carrinho/Carrinho";
 import { Produto } from "./pages/Produto/Produto";
 import { RegistrarConta } from "./pages/RegistrarConta/RegistrarConta";
 import { Login } from "./pages/Login/Login";
 import { Favoritos } from "./pages/Favoritos/Favoritos";
 import { MeusPedidos } from "./pages/MeusPedidos/MeusPedidos";
-import { CadastroProduto } from "./pages/CadastroProduto/CadastroProduto";
+import { AdminProduto } from "./pages/AdminProduto/AdminProduto";
 import { MeusPets } from "./pages/MeusPets/MeusPets";
 import { DashBoardProduto } from "./pages/DashBoardProduto/DashBoardProduto";
 import { MeusCartoes } from "./pages/MeusCartoes/MeusCartoes";
 import { AdminPedidos } from "./pages/AdminPedidos/AdminPedidos";
 import { Adocao } from "./pages/Adocao/adocao";
+import { Erro404 } from "./pages/Erro404/Erro404";
+import { Erro403 } from "./pages/Erro403/Erro403";
+import { AdminCategoria } from "./pages/AdminCategoria/AdminCategoria";
+import { DashBoardFuncionario } from "./pages/DashBoardFuncionario/DashBoardFuncionario";
+import { DashBoardCategoria } from "./pages/DashBoardCategoria/DashBoardCategoria";
+import { DashBoardPedidos } from "./pages/DashBoardPedidos/DashBoardPedidos";
+import { DashBoardSubCategoria } from "./pages/DashBoardSubcategoria/DashBoardSubCategoria";
 
 
 export function App(props) {
@@ -55,14 +62,19 @@ export function App(props) {
             <Route path="/registrarconta" element={<RegistrarConta />} />
             <Route path="/adocao" element={<Adocao />} />
 
-
             {'parte de admin.'}
-            <Route path="/cadastroproduto" element={<CadastroProduto />} />
-            <Route path="/cadastrofuncionario" element={<CadastraFuncionario />} />
-            <Route path="/adminpedidos" element={<AdminPedidos />} />
-            <Route path="/dashboardproduto" element={<DashBoardProduto authService={props.authService} />} />
+            <Route path='/admincategoria' element={<AdminCategoria/>}/>
+            <Route path="/adminfuncionario" element={<AdminFuncionario />} />
             <Route path='/adminlogin' element={<AdminLogin />} />
-            <Route path='/admincategoria' element={<CadastroCategoria/>}/>
+            <Route path="/adminpedidos" element={<AdminPedidos />} />
+            <Route path="/adminproduto" element={<AdminProduto />} />
+            <Route path='/adminsubcategoria' element={<AdminSubCategoria/>}/>
+            
+            <Route path="/dashboardcategoria" element={<DashBoardCategoria />} />
+            <Route path='/dashboardfuncionario' element={<DashBoardFuncionario />}/>
+            <Route path="/dashboardpedidos" element={<DashBoardPedidos />} />
+            <Route path="/dashboardproduto" element={<DashBoardProduto />} />
+            <Route path="/dashboardsubcategoria" element={<DashBoardSubCategoria />} />
 
           </Routes>
         </BrowserRouter>

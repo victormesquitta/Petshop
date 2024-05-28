@@ -1,15 +1,15 @@
 import * as S from './styles';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { funcionarioService } from '../../services/funcionario.service'; // Importe o serviço do funcionário
+import { pedidoService } from '../../services/pedido.service'; // Importe o serviço de pedido
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaUserAlt, FaObjectGroup, FaList, FaSearch, FaShippingFast, FaTrashAlt } from 'react-icons/fa';
 
 
-export function DashBoardFuncionario() {
-  const [funcionarios, setFuncionarios] = useState([]);
-  const [idFuncionario, setIdFuncionario] = useState('');
+export function DashBoardPedidos() {
+  const [pedidos, setPedidos] = useState([]);
+  const [idPedido, setIdPedido] = useState('');
   const navigate = useNavigate();
 
   // Estado da paginação
@@ -21,7 +21,7 @@ export function DashBoardFuncionario() {
   const proximaPagina = () => {
     if (paginaAtual < totalPaginas - 1) {
       setPaginaAtual(paginaAtual + 1);
-      buscarFuncionarios(); // Busca os dados da próxima página
+      buscarPedidos(); // Busca os dados da próxima página
     }
   };
 
@@ -31,47 +31,47 @@ export function DashBoardFuncionario() {
     }
   };
 
-  const cadastroFuncionario = () => {
-    navigate('/cadastroFuncionario')
+  const cadastroPedido = () => {
+    navigate('/cadastroPedido')
   };
 
-  async function buscarFuncionarios() {
+  async function buscarPedidos() {
     try {
-      const data = await funcionarioService.findAllFuncionarios(paginaAtual, tamanhoPagina, 'codFuncionario', 'asc'); // Adapte para o serviço de funcionários
-      setFuncionarios(data.content);
+      const data = await pedidoService.findAllPedidos(paginaAtual, tamanhoPagina, 'codPedido', 'asc'); // Adapte para o serviço de pedidos
+      setPedidos(data.content);
       setTotalPaginas(data.totalPages);
     } catch (error) {
-      console.error('Erro ao buscar funcionários:', error);
-      toast.error('Erro ao buscar funcionários. Tente novamente mais tarde.');
+      console.error('Erro ao buscar pedidos:', error);
+      toast.error('Erro ao buscar pedidos. Tente novamente mais tarde.');
     }
   };
 
-  async function buscarFuncionarioPorId() {
+  async function buscarPedidoPorId() {
     try {
-      const funcionario = await funcionarioService.findFuncionarioById(idFuncionario); // Adapte para o serviço de funcionários
-      // Adicione o funcionário encontrado à lista atual
-      setFuncionarios([funcionario]);
+      const pedido = await pedidoService.findPedidoById(idPedido); // Adapte para o serviço de pedidos
+      // Adicione o pedido encontrado à lista atual
+      setPedidos([pedido]);
     } catch (error) {
-      console.error('Erro ao buscar funcionário por ID:', error);
-      toast.error('Erro ao buscar funcionário por ID:', error);
+      console.error('Erro ao buscar pedido por ID:', error);
+      toast.error('Erro ao buscar pedido por ID:', error);
     }
   }
 
-  async function deletarFuncionario(id) {
-    if (window.confirm("Tem certeza que deseja deletar este funcionário?")) { // Confirmação antes de deletar
+  async function deletarPedido(id) {
+    if (window.confirm("Tem certeza que deseja deletar este pedido?")) { // Confirmação antes de deletar
       try {
-        await funcionarioService.deleteById(id); // Adapte para o serviço de funcionários
-        toast.success('Funcionário deletado com sucesso.');
-        buscarFuncionarios(); // Atualiza a lista de funcionários
+        await pedidoService.deleteById(id); // Adapte para o serviço de pedidos
+        toast.success('Pedido deletado com sucesso.');
+        buscarPedidos(); // Atualiza a lista de pedidos
       } catch (error) {
-        console.error(`Erro ao deletar funcionário com ID ${id}:`, error);
-        toast.error('Erro ao deletar funcionário.');
+        console.error(`Erro ao deletar pedido com ID ${id}:`, error);
+        toast.error('Erro ao deletar pedido.');
       }
     }
   }
 
   useEffect(() => {
-    buscarFuncionarios();
+    buscarPedidos();
   }, [paginaAtual]);
 
   return (
@@ -94,44 +94,40 @@ export function DashBoardFuncionario() {
         </section>
 
         <section className='sectionButtons'>
-          <button type="button" onClick={buscarFuncionarios}>Buscar Todos</button>
+          <button type="button" onClick={buscarPedidos}>Buscar Todos</button>
           <input
             type="number"
-            placeholder="Código do Funcionário" // Altere o placeholder
-            value={idFuncionario}
-            onChange={e => setIdFuncionario(e.target.value)}
+            placeholder="Código do Pedido" // Altere o placeholder
+            value={idPedido}
+            onChange={e => setIdPedido(e.target.value)}
           />
-          <button type="button" onClick={buscarFuncionarioPorId}>Buscar por ID</button>
-          <button type="button" onClick={cadastroFuncionario}>Cadastrar Funcionários</button>
+          <button type="button" onClick={buscarPedidoPorId}>Buscar por ID</button>
+          <button type="button" onClick={cadastroPedido}>Cadastrar Pedidos</button>
         </section>
 
-        {/* Tabela de Funcionários */}
+        {/* Tabela de Pedidos */}
         <table>
           <thead>
             <tr>
               <th>Código</th>
-              <th>Nome</th>
-              <th>CPF</th>
-              <th>Cargo</th>
-              <th>Salário</th>
-              <th>Data de Admissão</th>
-              <th>Ativo</th>
+              <th>Data do Pedido</th>
+              <th>Cliente</th>
+              <th>Valor Total</th>
+              <th>Status</th>
             </tr>
           </thead>
 
           <tbody>
-            {Array.isArray(funcionarios) && funcionarios.map((funcionario) => (
-              <tr key={funcionario.codFuncionario}>
-                <td>{funcionario.codFuncionario}</td>
-                <td>{funcionario.nome}</td>
-                <td>{funcionario.cpf}</td>
-                <td>{funcionario.cargo}</td>
-                <td>{funcionario.salario}</td>
-                <td>{funcionario.dataAdmissao}</td>
-                <td>{funcionario.ativo ? 'Sim' : 'Não'}</td>
+            {Array.isArray(pedidos) && pedidos.map((pedido) => (
+              <tr key={pedido.codPedido}>
+                <td>{pedido.codPedido}</td>
+                <td>{pedido.dataPedido}</td>
+                <td>{pedido.cliente}</td>
+                <td>{pedido.valorTotal}</td>
+                <td>{pedido.status}</td>
                 <td className='tdLixeira'>
                   {/* Botão de Deletar */}
-                  <button type="button" onClick={() => deletarFuncionario(funcionario.codFuncionario)}>
+                  <button type="button" onClick={() => deletarPedido(pedido.codPedido)}>
                     <FaTrashAlt className='iconLixeira' /> {/* Ícone de lixeira */}
                   </button>
                 </td>

@@ -203,9 +203,6 @@ export const ContainerPai = styled.div`
         height: 1.5rem;
       }
     }
-    .paginacao{
-      margin-top: 1.5rem;
-    }
   }
 
   li {

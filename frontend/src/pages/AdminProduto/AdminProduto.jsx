@@ -8,7 +8,7 @@ import { produtoService } from '../../services/produto.service';
 import { toast, ToastContainer } from 'react-toastify'; // Importe o toast
 import 'react-toastify/dist/ReactToastify.css'; // Importe o CSS do toast
 
-export function CadastroProduto() {
+export function AdminProduto() {
     const [idProduto, setIdProduto] = useState('');
     const [dataCriacao, setDataCriacao] = useState('');
     const [disponivel, setDisponivel] = useState(false);
