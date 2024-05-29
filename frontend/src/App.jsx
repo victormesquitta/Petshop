@@ -24,6 +24,7 @@ import { DashBoardFuncionario } from "./pages/DashBoardFuncionario/DashBoardFunc
 import { DashBoardCategoria } from "./pages/DashBoardCategoria/DashBoardCategoria";
 import { DashBoardPedidos } from "./pages/DashBoardPedidos/DashBoardPedidos";
 import { DashBoardSubCategoria } from "./pages/DashBoardSubcategoria/DashBoardSubCategoria";
+import { AdminSubCategoria } from "./pages/AdminSubCategoria/AdminSubCategoria";
 
 
 export function App(props) {
@@ -50,17 +51,17 @@ export function App(props) {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home authService={props.authService} />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/adocao" element={<Adocao />} />
             <Route path="/carrinho" element={<Carrinho authService={props.authService} />} />
+            <Route path="/erro403" element={<Erro403 authService={props.authService} />} />
+            <Route path="/erro404" element={<Erro404 authService={props.authService} />} />
             <Route path="/favoritos" element={<Favoritos authService={props.authService} />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/meuspedidos" element={<MeusPedidos authService={props.authService} />} />
             <Route path="/meuscartoes" element={<MeusCartoes authService={props.authService} />} />
             <Route path="/meuspets" element={<MeusPets authService={props.authService} />} />
             <Route path="/produto" element={<Produto authService={props.authService} />} />
-            <Route path="/erro403" element={<Erro403 authService={props.authService} />} />
-            <Route path="/erro404" element={<Erro404 authService={props.authService} />} />
             <Route path="/registrarconta" element={<RegistrarConta />} />
-            <Route path="/adocao" element={<Adocao />} />
 
             {'parte de admin.'}
             <Route path='/admincategoria' element={<AdminCategoria/>}/>
@@ -69,13 +70,12 @@ export function App(props) {
             <Route path="/adminpedidos" element={<AdminPedidos />} />
             <Route path="/adminproduto" element={<AdminProduto />} />
             <Route path='/adminsubcategoria' element={<AdminSubCategoria/>}/>
-            
+                       
             <Route path="/dashboardcategoria" element={<DashBoardCategoria />} />
             <Route path='/dashboardfuncionario' element={<DashBoardFuncionario />}/>
             <Route path="/dashboardpedidos" element={<DashBoardPedidos />} />
             <Route path="/dashboardproduto" element={<DashBoardProduto />} />
             <Route path="/dashboardsubcategoria" element={<DashBoardSubCategoria />} />
-
           </Routes>
         </BrowserRouter>
       }

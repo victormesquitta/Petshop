@@ -10,6 +10,7 @@ import { FaUserAlt, FaObjectGroup, FaList, FaSearch, FaShippingFast, FaTrashAlt 
 export function DashBoardSubCategoria() {
   const [subCategorias, setSubCategorias] = useState([]);
   const [idSubCategoria, setIdSubCategoria] = useState('');
+  const [termoBusca, setTermoBusca] = useState(''); // Estado para o termo de busca
   const navigate = useNavigate();
 
   // Estado da paginação
@@ -32,13 +33,14 @@ export function DashBoardSubCategoria() {
   };
 
   const cadastroSubCategoria = () => {
-    navigate('/cadastroSubCategoria')
+    navigate('/adminsubcategoria')
   };
 
   async function buscarSubCategorias() {
     try {
-      const data = await subcategoriaService.findAllSubCategorias(paginaAtual, tamanhoPagina, 'codSubCategoria', 'asc'); 
-      setSubCategorias(data.content);
+      const data = await subcategoriaService.findAllSubCategorias(paginaAtual, tamanhoPagina, 'codSubCategoria', 'asc', termoBusca); // Adicione termoBusca
+      setSubCategorias(data);
+      console.log(data);
       setTotalPaginas(data.totalPages);
     } catch (error) {
       console.error('Erro ao buscar subcategorias:', error);
@@ -48,21 +50,24 @@ export function DashBoardSubCategoria() {
 
   async function buscarSubCategoriaPorId() {
     try {
-      const subCategoria = await subcategoriaService.findSubCategoriaById(idSubCategoria); 
-      // Adicione a subcategoria encontrada à lista atual
+      const subCategoria = await subcategoriaService.findSubCategoriaById(idSubCategoria);
       setSubCategorias([subCategoria]);
+
+      // Atualiza o estado subCategorias com todas as subcategorias, incluindo a encontrada por ID
     } catch (error) {
       console.error('Erro ao buscar subcategoria por ID:', error);
-      toast.error('Erro ao buscar subcategoria por ID:', error);
+      toast.error('Erro ao buscar subcategoria por ID.');
     }
   }
 
   async function deletarSubCategoria(id) {
-    if (window.confirm("Tem certeza que deseja deletar esta subcategoria?")) { 
+    if (window.confirm("Tem certeza que deseja deletar esta subcategoria?")) {
       try {
-        await subcategoriaService.deleteById(id); 
+        console.log(`ID da Subcategoria a ser deletada: ${id}`); // Use console.log para verificar o ID
+
+        await subcategoriaService.deleteById(id);
         toast.success('Subcategoria deletada com sucesso.');
-        buscarSubCategorias(); 
+        buscarSubCategorias();
       } catch (error) {
         console.error(`Erro ao deletar subcategoria com ID ${id}:`, error);
         toast.error('Erro ao deletar subcategoria.');
@@ -72,7 +77,7 @@ export function DashBoardSubCategoria() {
 
   useEffect(() => {
     buscarSubCategorias();
-  }, [paginaAtual]);
+  }, [paginaAtual, termoBusca]);
 
   return (
     <S.ContainerPai>
@@ -97,7 +102,7 @@ export function DashBoardSubCategoria() {
           <button type="button" onClick={buscarSubCategorias}>Buscar Todos</button>
           <input
             type="number"
-            placeholder="Código da Sub-Categoria" 
+            placeholder="Código da Sub-Categoria"
             value={idSubCategoria}
             onChange={e => setIdSubCategoria(e.target.value)}
           />
@@ -121,8 +126,8 @@ export function DashBoardSubCategoria() {
 
           <tbody>
             {Array.isArray(subCategorias) && subCategorias.map((subCategoria) => (
-              <tr key={subCategoria.codSubCategoria}>
-                <td>{subCategoria.codSubCategoria}</td>
+              <tr key={subCategoria.codSubcategoria}>
+                <td>{subCategoria.codSubcategoria}</td>
                 <td>{subCategoria.codCategoria}</td>
                 <td>{subCategoria.nome}</td>
                 <td>{subCategoria.descricao}</td>
@@ -131,8 +136,8 @@ export function DashBoardSubCategoria() {
                 <td>{subCategoria.dtCriacao}</td>
                 <td className='tdLixeira'>
                   {/* Botão de Deletar */}
-                  <button type="button" onClick={() => deletarSubCategoria(subCategoria.codSubCategoria)}>
-                    <FaTrashAlt className='iconLixeira' /> 
+                  <button type="button" onClick={() => deletarSubCategoria(subCategoria.codSubcategoria)}>
+                    <FaTrashAlt className='iconLixeira' />
                   </button>
                 </td>
               </tr>

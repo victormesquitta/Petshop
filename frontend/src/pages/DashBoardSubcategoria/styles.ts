@@ -122,7 +122,7 @@ export const ContainerPai = styled.div`
         width: 100%;
         
         td{
-          width: 10%;
+          width: 12.85%;
           height: 100%;
           padding: .5rem;
 
@@ -131,7 +131,6 @@ export const ContainerPai = styled.div`
           justify-content: center;
 
           border: 1px solid lightgray;
-
         }
 
         .tdLixeira{

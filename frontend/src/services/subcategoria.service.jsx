@@ -3,21 +3,25 @@ import { backend } from "./api.axios";
 export class SubCategoriaService {
 
   async findAllSubCategorias(paginaAtual, tamanhoPagina, sortBy, sortOrder) {
-    return new Promise((resolve, reject) => {
-      backend.get(`${'http://localhost:8080/api'}/subcategorias`, {
+    try {
+      const response = await backend.get(`${'http://localhost:8080/api'}/subcategorias`, {
         params: {
           page: paginaAtual,
           size: tamanhoPagina,
-          sortBy: sortBy, // Passar o campo de ordenação
-          sortOrder: sortOrder // Passar a ordem de ordenação
+          sortBy: sortBy,
+          sortOrder: sortOrder
         }
-      })
-        .then(data => {
-          console.log("Dados do backend:", data.data); // Adicione este console.log
-          resolve(data.data);
-        })
-        .catch(error => reject(error));
-    })
+      });
+
+      // Validar a resposta da API 
+      if (response.data) {
+        return response.data;
+      } else {
+        throw new Error('Resposta inválida da API.');
+      }
+    } catch (error) {
+      throw new Error(`Erro ao buscar subcategorias: ${error.message}`); 
+    }
   }
 
   async findSubCategoriaById(id) { // Método para buscar por ID
@@ -31,6 +35,8 @@ export class SubCategoriaService {
   }
 
   async deleteById(id) {
+    console.log("ID a ser deletado:", id); // Verifique o valor do ID aqui
+
     try {
       const response = await backend.delete(`${'http://localhost:8080/api'}/subcategorias/${id}`);
       return response.data; // Pode retornar dados ou apenas uma confirmação
