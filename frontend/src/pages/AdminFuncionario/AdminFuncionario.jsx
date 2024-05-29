@@ -6,7 +6,7 @@ import { FaList, FaObjectGroup, FaSearch, FaShippingFast, FaUserAlt } from 'reac
 import { useState } from 'react';
 import { funcionarioService } from '../../services/funcionario.service';
 
-export function CadastraFuncionario() {
+export function AdminFuncionario() {
     const [nomeFun, setNomeFun] = useState('');
     const [senhaFun, setSenhaFun] = useState('');
     const [ativoFun, setAtivoFun] = useState('');

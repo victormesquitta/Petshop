@@ -1,15 +1,15 @@
 import * as S from './styles';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { produtoService } from '../../services/produto.service';
+import { subcategoriaService } from '../../services/subcategoria.service'; // Importe o serviço de subcategoria
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaUserAlt, FaObjectGroup, FaList, FaSearch, FaShippingFast, FaTrashAlt } from 'react-icons/fa';
 
 
-export function DashBoardProduto() {
-  const [produtos, setProdutos] = useState([]);
-  const [idProduto, setIdProduto] = useState('');
+export function DashBoardSubCategoria() {
+  const [subCategorias, setSubCategorias] = useState([]);
+  const [idSubCategoria, setIdSubCategoria] = useState('');
   const navigate = useNavigate();
 
   // Estado da paginação
@@ -21,60 +21,57 @@ export function DashBoardProduto() {
   const proximaPagina = () => {
     if (paginaAtual < totalPaginas - 1) {
       setPaginaAtual(paginaAtual + 1);
-      buscarProdutos(); // Busca os dados da próxima página
+      buscarSubCategorias(); // Busca os dados da próxima página
     }
   };
 
   const paginaAnterior = () => {
     if (paginaAtual > 0) {
       setPaginaAtual(paginaAtual - 1);
-      buscarProdutos();
     }
   };
 
-  const cadastroProduto = () => {
-    navigate('/cadastroProduto')
+  const cadastroSubCategoria = () => {
+    navigate('/cadastroSubCategoria')
   };
 
-
-  async function buscarProdutos() {
+  async function buscarSubCategorias() {
     try {
-      const data = await produtoService.findAllProducts(paginaAtual, tamanhoPagina, 'codProduto', 'asc');
-      setProdutos(data.content);
+      const data = await subcategoriaService.findAllSubCategorias(paginaAtual, tamanhoPagina, 'codSubCategoria', 'asc'); 
+      setSubCategorias(data.content);
       setTotalPaginas(data.totalPages);
-      
     } catch (error) {
-      console.error('Erro ao buscar produtos:', error);
-      toast.error('Erro ao buscar produtos. Tente novamente mais tarde.');
+      console.error('Erro ao buscar subcategorias:', error);
+      toast.error('Erro ao buscar subcategorias. Tente novamente mais tarde.');
     }
   };
 
-  async function buscarProdutoPorId() {
+  async function buscarSubCategoriaPorId() {
     try {
-      const produto = await produtoService.findProductById(idProduto);
-      // Adicione o produto encontrado à lista atual
-      setProdutos([produto]);
+      const subCategoria = await subcategoriaService.findSubCategoriaById(idSubCategoria); 
+      // Adicione a subcategoria encontrada à lista atual
+      setSubCategorias([subCategoria]);
     } catch (error) {
-      console.error('Erro ao buscar produto por ID:', error);
-      toast.error('Erro ao buscar produto por ID:', error);
+      console.error('Erro ao buscar subcategoria por ID:', error);
+      toast.error('Erro ao buscar subcategoria por ID:', error);
     }
   }
 
-  async function deletarProduto(id) {
-    if (window.confirm("Tem certeza que deseja deletar este produto?")) { // Confirmação antes de deletar
+  async function deletarSubCategoria(id) {
+    if (window.confirm("Tem certeza que deseja deletar esta subcategoria?")) { 
       try {
-        await produtoService.deleteById(id);
-        toast.success('Produto deletado com sucesso.');
-        buscarProdutos(); // Atualiza a lista de produtos
+        await subcategoriaService.deleteById(id); 
+        toast.success('Subcategoria deletada com sucesso.');
+        buscarSubCategorias(); 
       } catch (error) {
-        console.error(`Erro ao deletar produto com ID ${id}:`, error);
-        toast.error('Erro ao deletar produto.');
+        console.error(`Erro ao deletar subcategoria com ID ${id}:`, error);
+        toast.error('Erro ao deletar subcategoria.');
       }
     }
   }
 
   useEffect(() => {
-    buscarProdutos();
+    buscarSubCategorias();
   }, [paginaAtual]);
 
   return (
@@ -82,7 +79,7 @@ export function DashBoardProduto() {
       <ToastContainer className='toastContainer' />
       <div className='divDashBoard'>
         <h1>DashBoard</h1>
-        
+
         <Link to={'/dashboardfuncionario'} className='Link'><FaUserAlt className='icons' />Funcionario</Link>
         <Link to={'/dashboardproduto'} className='Link'><FaObjectGroup className='icons' /> Produtos</Link>
         <Link to={'/dashboardcategoria'} className='Link'><FaList className='icons' /> Categoria</Link>
@@ -97,49 +94,45 @@ export function DashBoardProduto() {
         </section>
 
         <section className='sectionButtons'>
-          <button type="button" onClick={buscarProdutos}>Buscar Todos</button>
+          <button type="button" onClick={buscarSubCategorias}>Buscar Todos</button>
           <input
             type="number"
-            placeholder="Código do Produto"
-            value={idProduto}
-            onChange={e => setIdProduto(e.target.value)}
+            placeholder="Código da Sub-Categoria" 
+            value={idSubCategoria}
+            onChange={e => setIdSubCategoria(e.target.value)}
           />
-          <button type="button" onClick={buscarProdutoPorId}>Buscar por ID</button>
-          <button type="button" onClick={cadastroProduto}>Cadastrar Produtos</button>
+          <button type="button" onClick={buscarSubCategoriaPorId}>Buscar por ID</button>
+          <button type="button" onClick={cadastroSubCategoria}>Cadastrar Sub-Categorias</button>
         </section>
 
-        {/* Tabela de Produtos */}
+        {/* Tabela de Sub-Categorias */}
         <table>
           <thead>
             <tr>
               <th>Código</th>
-              <th>Código da Sub-Categoria</th>
+              <th>Código Categoria</th>
               <th>Nome</th>
               <th>Descrição</th>
-              <th>Preço</th>
-              <th>Quantidade em Estoque</th>
-              <th>Marca</th>
-              <th>Disponível</th>
-              <th>Promoção</th>
+              <th>Destaque</th>
+              <th>Ativa</th>
+              <th>Data de Criação</th>
             </tr>
           </thead>
 
           <tbody>
-            {Array.isArray(produtos) && produtos.map((produto) => (
-              <tr key={produto.codProduto}>
-                <td>{produto.codProduto}</td>
-                <td>{produto.codSubcategoria}</td>
-                <td>{produto.nome}</td>
-                <td>{produto.descricao}</td>
-                <td>{produto.preco}</td>
-                <td>{produto.qtdEstoque}</td>
-                <td>{produto.marca}</td>
-                <td>{produto.disponivel ? 'Sim' : 'Não'}</td>
-                <td>{produto.promocao ? 'Sim' : 'Não'}</td>
+            {Array.isArray(subCategorias) && subCategorias.map((subCategoria) => (
+              <tr key={subCategoria.codSubCategoria}>
+                <td>{subCategoria.codSubCategoria}</td>
+                <td>{subCategoria.codCategoria}</td>
+                <td>{subCategoria.nome}</td>
+                <td>{subCategoria.descricao}</td>
+                <td>{subCategoria.destaque ? 'Sim' : 'Não'}</td>
+                <td>{subCategoria.ativa ? 'Sim' : 'Não'}</td>
+                <td>{subCategoria.dtCriacao}</td>
                 <td className='tdLixeira'>
                   {/* Botão de Deletar */}
-                  <button type="button" onClick={() => deletarProduto(produto.codProduto)}>
-                    <FaTrashAlt className='iconLixeira' /> {/* Ícone de lixeira */}
+                  <button type="button" onClick={() => deletarSubCategoria(subCategoria.codSubCategoria)}>
+                    <FaTrashAlt className='iconLixeira' /> 
                   </button>
                 </td>
               </tr>

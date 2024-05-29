@@ -1,10 +1,10 @@
-import { FaUserAlt, FaObjectGroup, FaList, FaSearch, FaShippingFast } from 'react-icons/fa';
+import { FaUserAlt, FaObjectGroup, FaList, FaSearch, FaShippingFast, FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import ImgLogo from '../../assets/images/ImgLogo.svg';
 import * as S from './styles';
 
 
-export function CadastroCategoria() {
+export function AdminCategoria() {
     return (
         <>
             <S.ContainerPai>
@@ -13,10 +13,7 @@ export function CadastroCategoria() {
 
                     <h1>DashBoard</h1>
 
-                    <Link to={'/cadastrofuncionario'} className='Link'><FaUserAlt className='icons' />Funcionario</Link>
-                    <Link to={'/dashboardproduto'} className='Link'><FaObjectGroup className='icons' /> Produtos</Link>
-                    <Link to={'/admincategoria'} className='Link'><FaList className='icons' /> Categoria</Link>
-                    <Link to={'/adminpedidos'} className='Link'><FaShippingFast className='icons' />Pedidos</Link>
+                    <Link to={'/'} className='Link'><FaArrowLeft className='icons' />Voltar</Link>
 
                 </div>
 
