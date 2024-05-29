@@ -6,6 +6,7 @@ import { FaTicket } from "react-icons/fa6";
 import { CarouselComponent } from "../../components/CarouselComponent/CarouselComponent";
 import { AuthService } from "../../services/AuthService";
 import { auth } from "../../FirebaseConfig";
+import { NavBarLogado } from "../../components/NavBarLogado/NavBarLogadoComponent";
     
 export function Carrinho(props) {
     const currentUser = auth.currentUser;
@@ -13,13 +14,9 @@ export function Carrinho(props) {
     return (
         <>
             <S.ContainerPai>
-                <S.NavBar>
-                    <div>
-                        <img src={ImgLogo} />
-
-                        <button className="BotaoFimTela"><FaUserAstronaut className="IconAdmin" />{currentUser && extractNameFromEmail(currentUser.email)}</button>
-                    </div>
-                </S.NavBar>
+            <NavBarLogado authService={props.authService} />
+                    
+               
 
                 <S.ContainerMain>
                     <h1>Carrinho de compras</h1>

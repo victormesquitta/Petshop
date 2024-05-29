@@ -17,6 +17,8 @@ import { DashBoardProduto } from "./pages/DashBoardProduto/DashBoardProduto";
 import { MeusCartoes } from "./pages/MeusCartoes/MeusCartoes";
 import { AdminPedidos } from "./pages/AdminPedidos/AdminPedidos";
 import { Adocao } from "./pages/Adocao/adocao";
+import { Erro403 } from "./pages/Erro403/Erro403"
+import { Erro404 } from "./pages/Erro404/Erro404"
 
 
 export function App(props) {
@@ -62,7 +64,7 @@ export function App(props) {
             <Route path="/adminpedidos" element={<AdminPedidos />} />
             <Route path="/dashboardproduto" element={<DashBoardProduto authService={props.authService} />} />
             <Route path='/adminlogin' element={<AdminLogin />} />
-            <Route path='/admincategoria' element={<CadastroCategoria/>}/>
+            {/* <Route path='/admincategoria' element={<CadastroCategoria />} />  */}
 
           </Routes>
         </BrowserRouter>

@@ -13,22 +13,24 @@ export const ContainerPai = styled.div`
 export const Promotion = styled.section`
   display: flex;
   flex-direction: column;
-  align-items: center;  // Alinha os itens ao centro horizontalmente
-  justify-content: center;  // Alinha os itens ao centro verticalmente
-  text-align: center;  // Garante que o texto também fique centralizado
+  align-items: center; 
+  justify-content: center; 
+  text-align: center;  
+
 
   .promotion {
-    width: 100%;  // Ocupa toda a largura do container pai
+    width: 100%;  
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     gap: 10em;
     margin-bottom:2.5rem;
+   
 
     img {
-      max-width: 100%;  // Assegura que a imagem não exceda a largura do container
-      height: 50vh;  // Mantém a proporção da imagem
+      max-width: 100%;  
+      height: 50vh;  
     }
   }
 `;
