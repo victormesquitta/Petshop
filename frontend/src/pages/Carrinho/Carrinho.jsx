@@ -7,6 +7,7 @@ import { CarouselComponent } from "../../components/CarouselComponent/CarouselCo
 import { AuthService } from "../../services/AuthService";
 import { auth } from "../../FirebaseConfig";
 import { NavBarLogado } from "../../components/NavBarLogado/NavBarLogadoComponent";
+import { Link } from "react-router-dom";
     
 export function Carrinho(props) {
     const currentUser = auth.currentUser;
@@ -14,7 +15,13 @@ export function Carrinho(props) {
     return (
         <>
             <S.ContainerPai>
-            <NavBarLogado authService={props.authService} />
+            <S.NavBar>
+            <Link to="/">
+                <div className="div">
+                    <img src={ImgLogo} alt="Logo" />
+                </div>
+                </Link>
+            </S.NavBar>
                     
                
 

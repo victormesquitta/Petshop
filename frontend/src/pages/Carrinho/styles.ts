@@ -8,10 +8,10 @@ export const NavBar = styled.nav`
   width: 100%;
   height: 19%;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  // justify-content: space-between;
 
   font-size: 1vw;
   font-family: "Roboto", sans-serif;
@@ -26,7 +26,7 @@ export const NavBar = styled.nav`
     align-items: center;
     justify-content: space-between;
 
-    height: 4.1rem;
+    height: 5.5rem;
     background-color: #88ce08;
 
     img {
