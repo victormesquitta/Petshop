@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../Loading/Loading";
 import { auth } from "../../FirebaseConfig";
+import { Link } from 'react-router-dom';
 
 type HomePageProps = {
     authService: AuthService;
@@ -58,7 +59,9 @@ export function NavBarLogado(props: HomePageProps) {
         <>
             <S.NavBarLogado>
                 <div>
-                    <img src={ImgLogo} />
+                    <Link to="/">
+                        <img src={ImgLogo} alt="Logo" />
+                    </Link>
 
                     <section className="SectionBarraDePesquisa">
                         <input type="text" placeholder="O que deseja pesquisar?" />
@@ -85,18 +88,24 @@ export function NavBarLogado(props: HomePageProps) {
 
                 <div className="DivBotoesDepartamentos">
                     <div className="Dropdown">
-                        <button onClick={toggleDropdown} className="ButtonDepartamentos"><FaBars className="iconDepartamento" /> Departamentos</button>
-                        {isOpen && (
-                            <ul className="dropdown-menu">
-                                <button> <img src={ImgCachorro} /> Cachorro</button>
-                                <button> <img src={ImgGato} /> Gato</button>
-                                <button> <img src={ImgPassaro} /> Pássaro</button>
-                                <button> <img src={ImgPeixe} /> Peixe</button>
-                                <button> <img src={ImgOutros} /> Outros Pets</button>
-                            </ul>
-                        )}
+                        <button onClick={toggleDropdown} className="ButtonDepartamentos"><span className="iconDepartamento">☰</span> Departamentos</button>
+                        <ul id="dropdown-menu" className="dropdown-menu">
+                            <button> <img src="ImgCachorro" alt="Cachorro" /> Cachorro</button>
+                            <button> <img src="ImgGato.png" alt="Gato" /> Gato</button>
+                            <button> <img src="ImgPassaro.png" alt="Pássaro" /> Pássaro</button>
+                            <button> <img src="ImgPeixe.png" alt="Peixe" /> Peixe</button>
+                            <button> <img src="ImgOutros.png" alt="Outros Pets" /> Outros Pets</button>
+                        </ul>
                     </div>
+                <div className="menu">
+                    <button className="menu-button">🐶 Cachorro</button>
+                    <button className="menu-button">🐱 Gato</button>
+                    <button className="menu-button">🐦 Pássaros</button>
+                    <button className="menu-button">🐟 Peixe</button>
+                    <button className="menu-button">🐰 Outros Pets</button>
                 </div>
+                </div>
+
             </S.NavBarLogado >
             {isFakeLoggingOut && <Loading />}
         </>

@@ -37,7 +37,6 @@ export function Login() {
     return (
         <>
             <S.ContainerPai>
-                <img src={ImgLogo} className="ImgLogo" />
                 <S.FormularioLogin>
 
                     <S.Inputs>

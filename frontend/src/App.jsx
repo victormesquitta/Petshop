@@ -4,14 +4,14 @@ import { Loading } from "./components/Loading/Loading";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AdminLogin } from "./pages/AdminLogin/AdminLogin";
 import { Home } from "./pages/Home/Home";
-import { AdminFuncionario } from "./pages/AdminFuncionario/AdminFuncionario";
+// import { CadastraFuncionario } from "./pages/CadastraFuncionario/CadastraFuncionario";
 import { Carrinho } from "./pages/Carrinho/Carrinho";
 import { Produto } from "./pages/Produto/Produto";
 import { RegistrarConta } from "./pages/RegistrarConta/RegistrarConta";
 import { Login } from "./pages/Login/Login";
 import { Favoritos } from "./pages/Favoritos/Favoritos";
 import { MeusPedidos } from "./pages/MeusPedidos/MeusPedidos";
-import { AdminProduto } from "./pages/AdminProduto/AdminProduto";
+// import { CadastroProduto } from "./pages/CadastroProduto/CadastroProduto";
 import { MeusPets } from "./pages/MeusPets/MeusPets";
 import { DashBoardProduto } from "./pages/DashBoardProduto/DashBoardProduto";
 import { MeusCartoes } from "./pages/MeusCartoes/MeusCartoes";
@@ -63,10 +63,10 @@ export function App(props) {
             <Route path="/produto" element={<Produto authService={props.authService} />} />
             <Route path="/registrarconta" element={<RegistrarConta />} />
 
+
             {'parte de admin.'}
-            <Route path='/admincategoria' element={<AdminCategoria/>}/>
-            <Route path="/adminfuncionario" element={<AdminFuncionario />} />
-            <Route path='/adminlogin' element={<AdminLogin />} />
+            {/* <Route path="/cadastroproduto" element={<CadastroProduto />} /> */}
+            {/* <Route path="/cadastrofuncionario" element={<CadastraFuncionario />} /> */}
             <Route path="/adminpedidos" element={<AdminPedidos />} />
             <Route path="/adminproduto" element={<AdminProduto />} />
             <Route path='/adminsubcategoria' element={<AdminSubCategoria/>}/>
