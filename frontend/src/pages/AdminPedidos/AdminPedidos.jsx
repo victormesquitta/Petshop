@@ -1,6 +1,7 @@
-import { FaUserAlt, FaObjectGroup, FaList, FaSearch, FaShippingFast } from 'react-icons/fa';
+import { FaArrowLeft, FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import ImgLogo from '../../assets/images/ImgLogo.svg';
+import ImgPerfilDog from '../../assets/images/ImgPerfilDog.png'
 import * as S from './styles';
 import { useState } from 'react';
 import { produtoService } from '../../services/produto.service';
@@ -152,11 +153,8 @@ export function AdminPedidos() {
 
                     <h1>DashBoard</h1>
 
-                    <Link to={'/cadastrofuncionario'} className='Link'><FaUserAlt className='icons' />Funcionario</Link>
-                    <Link to={'/dashboardproduto'} className='Link'><FaObjectGroup className='icons' /> Produtos</Link>
-                    <Link to={'/admincategoria'} className='Link'><FaList className='icons' /> Categoria</Link>
-                    <Link to={'/adminpedidos'} className='Link'><FaShippingFast className='icons' />Pedidos</Link>
-
+                    <Link to={'/dashboardpedidos'} className='Link'><FaArrowLeft className='icons' /> Voltar</Link>
+                    
                 </div>
 
                 <div className='divPrincipal'>

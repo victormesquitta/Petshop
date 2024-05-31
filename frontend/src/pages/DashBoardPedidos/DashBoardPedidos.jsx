@@ -32,7 +32,7 @@ export function DashBoardPedidos() {
   };
 
   const cadastroPedido = () => {
-    navigate('/cadastroPedido')
+    navigate('/adminpedidos')
   };
 
   async function buscarPedidos() {

@@ -32,8 +32,8 @@ export function DashBoardProduto() {
     }
   };
 
-  const cadastroProduto = () => {
-    navigate('/cadastroProduto')
+  const adminProduto = () => {
+    navigate('/adminproduto')
   };
 
 
@@ -105,7 +105,7 @@ export function DashBoardProduto() {
             onChange={e => setIdProduto(e.target.value)}
           />
           <button type="button" onClick={buscarProdutoPorId}>Buscar por ID</button>
-          <button type="button" onClick={cadastroProduto}>Cadastrar Produtos</button>
+          <button type="button" onClick={adminProduto}>Cadastrar Produtos</button>
         </section>
 
         {/* Tabela de Produtos */}

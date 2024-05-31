@@ -1,123 +1,183 @@
-import { FaSearch, FaArrowLeft, FaPlusCircle } from 'react-icons/fa';
+import { FaSearch, FaArrowLeft } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import ImgLogo from '../../assets/images/ImgLogo.svg';
 import * as S from './styles';
-import { useState, useEffect } from 'react';
-import { categoriaService } from '../../services/categoria.service';
+import { useState } from 'react';
 import { subcategoriaService } from '../../services/subcategoria.service';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify'; // Importe o toast
+import 'react-toastify/dist/ReactToastify.css'; // Importe o CSS do toast
 
 export function AdminSubCategoria() {
   const navigate = useNavigate();
-  const [categorias, setCategorias] = useState([]);
-  const [novaSubCategoria, setNovaSubCategoria] = useState({
-    nome: '',
-    descricao: '',
-    codCategoria: '' // Valor inicial vazio para o select
-  });
+  const [idSubcategoria, setIdSubcategoria] = useState('');
+  const [codCategoria, setCodCategoria] = useState('');
+  const [nomeSubCategoria, setNomeSubCategoria] = useState('');
+  const [destaque, setDestaque] = useState(false);
+  const [descricao, setDescricao] = useState('');
+  const [ativa, setAtiva] = useState(false);
 
-  useEffect(() => {
-    // Buscar todas as categorias ao carregar o componente
-    const carregarCategorias = async () => {
-      try {
-        const data = await categoriaService.findAllCategorias(); // Corrigido para findAllCategorias
-        setCategorias(data.content);
-      } catch (error) {
-        console.error("Erro ao buscar categorias:", error);
-        toast.error('Erro ao carregar categorias. Por favor, tente novamente.');
-      }
+  async function atualizarSubcategoria(id) {
+    if (!id || !nomeSubCategoria || !descricao || ativa === null) {
+      toast.error('Preencha todos os campos!');
+      return;
+    }
+
+    const subcategoriaAtualizada = {
+      codCategoria: codCategoria,
+      nome: nomeSubCategoria,
+      destaque: destaque,
+      descricao: descricao,
+      ativa: ativa
     };
 
-    carregarCategorias();
-  }, []);
+    try {
+      await subcategoriaService.update(id, subcategoriaAtualizada);
+      console.log(`Subcategoria com ID ${id} atualizada com sucesso!`);
+      toast.success(`Subcategoria com ID ${id} atualizada com sucesso!`);
+      // Lógica para atualizar a lista de subcategorias (se necessário)
+    } catch (error) {
+      console.error(`Erro ao atualizar subcategoria com ID ${id}:`, error);
+      toast.error(`Erro ao atualizar subcategoria com ID ${id}:`, error);
+    }
+  }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNovaSubCategoria({ ...novaSubCategoria, [name]: value });
+  const novaSubcategoria = {
+    codCategoria: codCategoria,
+    nome: nomeSubCategoria,
+    destaque: destaque,
+    descricao: descricao,
+    ativa: ativa
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  async function criarSubcategoria() {
+    if (!novaSubcategoria || !descricao || ativa === null) {
+      toast.error('Preencha todos os campos!');
+      return;
+    }
 
     try {
-      // Adicione a categoria ao objeto novaSubCategoria antes de criar
-      const subcategoriaCriar = {
-        ...novaSubCategoria,
-        codCategoria: parseInt(novaSubCategoria.codCategoria, 10) // Converte para inteiro
-      };
-      await subcategoriaService.create(subcategoriaCriar); // Use o serviço para criar a subcategoria
-      toast.success('Subcategoria cadastrada com sucesso!');
-      // Limpar os campos após o cadastro
-      setNovaSubCategoria({
-        nome: '',
-        descricao: '',
-        codCategoria: '' // Limpar o select
-      });
+      await subcategoriaService.create(novaSubcategoria);
+      toast.success('Subcategoria criada com sucesso!');
+
+      setCodCategoria('');
+      setNomeSubCategoria('');
+      setDestaque(false);
+      setDescricao('');
+      setAtiva(false);
+
     } catch (error) {
-      console.error("Erro ao cadastrar subcategoria:", error);
-      toast.error('Erro ao cadastrar subcategoria. Por favor, tente novamente.');
+      console.error('Erro ao criar subcategoria:', error);
+      toast.error('Erro ao criar subcategoria.', error);
     }
-  };
+  }
+
+  async function deletarSubcategoriaPorId(id) {
+    if (!id) {
+      toast.error('Digite um ID para deletar!');
+      return;
+    }
+
+    try {
+      await subcategoriaService.deleteById(id);
+      console.log(`Subcategoria com ID ${id} deletada com sucesso.`);
+      toast.success(`Subcategoria com ID ${id} deletada com sucesso.`);
+      // Lógica para atualizar a lista de subcategorias (se necessário)
+    } catch (error) {
+      console.error(`Erro ao deletar subcategoria com ID ${id}:`, error);
+      toast.error(`Erro ao deletar subcategoria com ID ${id}:`, error);
+    }
+  }
 
   return (
     <>
-      <ToastContainer />
       <S.ContainerPai>
+      <ToastContainer className='toastContainer' />
         <div className='divDashBoard'>
-          <img src={ImgLogo} alt="Logo" />
-          <h1>DashBoard</h1>
-          <Link to={'/'} className='Link'><FaArrowLeft className='icons' />Voltar</Link>
+          <img src={ImgLogo} />
+
+          <h1>Nova Sub-Categoria</h1>
+
+          <Link to={'/dashboardsubcategoria'} className='Link'><FaArrowLeft className='icons' />Voltar</Link>
+
         </div>
 
         <div className='divPrincipal'>
           <section className='section1'>
             <input placeholder='Pesquisar' className='InputPesquisar' />
             <FaSearch className="IconLupa" />
+
+
           </section>
 
           <div>
             <section className='section2'>
-              <h1>Nova Subcategoria</h1>
+              <h1>Nova Categoria</h1>
 
-              <label htmlFor="nome">Nome da Subcategoria:</label>
+              <label htmlFor="codigoCategoria">Código Categoria:</label>
+              <input
+                type="text"
+                id="codigoCategoria"
+                className='InputCodCategoria'
+                value={codCategoria}
+                onChange={e => setCodCategoria(e.target.value)}
+                required
+              />
+
+              <label htmlFor="nome">Nome:</label>
               <input
                 type="text"
                 id="nome"
-                name="nome"
-                value={novaSubCategoria.nome}
-                onChange={handleChange}
                 className='InputNomeCat'
+                value={nomeSubCategoria}
+                onChange={e => setNomeSubCategoria(e.target.value)}
+                required
               />
 
-              <label htmlFor="descricao">Descrição da Subcategoria:</label>
+              <label htmlFor="destaque">Destaque:</label>
+              <input
+                type="checkbox"
+                id="destaque"
+                checked={destaque}
+                onChange={e => setDestaque(e.target.checked)}
+              />
+
+              <label htmlFor="descricao">Descrição:</label>
               <textarea
                 id="descricao"
-                name="descricao"
-                value={novaSubCategoria.descricao}
-                onChange={handleChange}
                 className='InputDescriCat'
+                value={descricao}
+                onChange={e => setDescricao(e.target.value)}
               />
 
-              <label htmlFor="categoria">Categoria:</label>
-              <select
-                id="categoria"
-                name="codCategoria"
-                value={novaSubCategoria.codCategoria} 
-                onChange={handleChange}
-                className='InputDescriCat'
-              >
-                <option value="">Selecione uma categoria</option> 
-                {categorias.map((categoria) => (
-                  <option key={categoria.codCategoria} value={categoria.codCategoria}>
-                    {categoria.nome}
-                  </option>
-                ))}
-              </select>
+              <label htmlFor="ativa">Ativa:</label>
+              <input
+                type="checkbox"
+                id="ativa"
+                checked={ativa}
+                onChange={e => setAtiva(e.target.checked)}
+              />
 
-              <button onClick={handleSubmit} className='CadastrarCategoria'>
-                <FaPlusCircle /> Cadastrar Subcategoria
-              </button>
             </section>
+
+            <section className='section3'>
+              <input
+                type='number'
+                placeholder='ID da Subcategoria'
+                value={idSubcategoria}
+                onChange={e => setIdSubcategoria(e.target.value)}
+              />
+
+              <button type='button' onClick={() => deletarSubcategoriaPorId(idSubcategoria)}>
+                Deletar por ID
+              </button>
+              <button type='button' onClick={() => atualizarSubcategoria(idSubcategoria)}>
+                Atualizar por ID
+              </button>
+
+              <button type="button" className='CadastrarCategoria' onClick={criarSubcategoria}>Criar Sub-Categoria</button>
+
+            </section>
+
           </div>
         </div>
       </S.ContainerPai>

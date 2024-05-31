@@ -1,65 +1,65 @@
 import { backend } from "./api.axios";
 
-export class CategoriaService {
+const API_BASE = "http://localhost:8080/api"; 
 
-  async findAllProducts(paginaAtual, tamanhoPagina, sortBy, sortOrder) {
-    return new Promise((resolve, reject) => {
-      backend.get(`${'http://localhost:8080/api'}/produtos`,{
+export class CategoriaService { 
+  async findAllCategorias(paginaAtual = 0, tamanhoPagina = 10, sortBy = "id", sortOrder = "asc") {
+    try {
+      const response = await backend.get(`${API_BASE}/categorias`, { 
         params: {
           page: paginaAtual,
           size: tamanhoPagina,
-          sortBy: sortBy, // Passar o campo de ordenação
-          sortOrder: sortOrder // Passar a ordem de ordenação
-        }
-      })
-        .then(data => {
-          console.log("Dados do backend:", data.data); // Adicione este console.log
-          resolve(data.data);
-        })
-        .catch(error => reject(error));
-    })
-  }
-
-  async findProductById(id) { // Método para buscar por ID
-    try {
-      const response = await backend.get(`${'http://localhost:8080/api'}/produtos/${id}`);
+          sortBy,
+          sortOrder,
+        },
+      });
       return response.data;
     } catch (error) {
-      console.error(`Erro ao buscar produto com ID ${id}:`, error);
-      throw error;
+      console.error("Erro ao buscar categorias:", error); 
+      throw error; 
     }
   }
 
-  async deleteById(id) {
+  async findCategoriaById(id) { 
     try {
-      const response = await backend.delete(`${'http://localhost:8080/api'}/produtos/${id}`);
-      return response.data; // Pode retornar dados ou apenas uma confirmação
+      const response = await backend.get(`${API_BASE}/categorias/${id}`); 
+      return response.data;
     } catch (error) {
-      console.error(`Erro ao deletar produto com ID ${id}:`, error);
-      throw error;
+      console.error(`Erro ao buscar categoria com ID ${id}:`, error);
+      throw error; 
     }
   }
 
-  async update(id, produto) {
+  async deleteCategoriaById(id) { 
     try {
-      const response = await backend.put(`${'http://localhost:8080/api'}/produtos/${id}`, produto);
-      return response.data;
+      const response = await backend.delete(`${API_BASE}/categorias/${id}`); 
+      return response.data; 
     } catch (error) {
-      console.error(`Erro ao atualizar produto com ID ${id}:`, error);
-      throw error;
+      console.error(`Erro ao deletar categoria com ID ${id}:`, error);
+      throw error; 
     }
   }
 
-  async create(produto) {
+  async updateCategoria(id, categoria) { 
     try {
-      const response = await backend.post(`${'http://localhost:8080/api'}/produtos`, produto);
-      return response.data;
+      const response = await backend.put(`${API_BASE}/categorias/${id}`, categoria); 
+      return response.data; 
     } catch (error) {
-      console.error('Erro ao criar produto:', error);
-      throw error;
+      console.error(`Erro ao atualizar categoria com ID ${id}:`, error);
+      throw error; 
+    }
+  }
+
+  async createCategoria(categoria) { 
+    try {
+      const response = await backend.post(`${API_BASE}/categorias`, categoria); 
+      return response.data; 
+    } catch (error) {
+      console.error("Erro ao criar categoria:", error);
+      throw error; 
     }
   }
 }
 
-const categoriaService = new CategoriaService();
-export { categoriaService };
+const categoriaService = new CategoriaService(); 
+export { categoriaService }; 

@@ -190,6 +190,7 @@ export const ContainerPai = styled.main`
             
             
             }
-            
+          }
+        }
   }
 `;

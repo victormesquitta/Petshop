@@ -12,7 +12,7 @@ export function AdminProduto() {
     const [idProduto, setIdProduto] = useState('');
     const [dataCriacao, setDataCriacao] = useState('');
     const [disponivel, setDisponivel] = useState(false);
-    const [promocao, setPromocao] = useState('');
+    const [promocao, setPromocao] = useState(false);
     const [quantEstoque, setQuantEstoque] = useState('');
     const [precoProduto, setPrecoProduto] = useState('');
     const [descProduto, setDescProduto] = useState('');
@@ -152,7 +152,7 @@ export function AdminProduto() {
 
                     <h1>DashBoard</h1>
 
-                    <Link to={'/dashboardproduto'} className='Link'><FaArrowLeft className='icons' /> Pagina Anterior</Link>
+                    <Link to={'/dashboardproduto'} className='Link'><FaArrowLeft className='icons' /> Voltar</Link>
 
                 </div>
 
@@ -190,14 +190,14 @@ export function AdminProduto() {
                             <input className='InputQuantEsto' type='number' value={quantEstoque} onChange={e => setQuantEstoque(e.target.value)} />
 
                             <label >Em Promoção</label>
-                            <input className='InputPromocao' type='text' value={promocao} onChange={e => setPromocao(e.target.value)} />
+                            <input className='InputPromocao' type='checkbox' value={promocao} onChange={e => setPromocao(e.target.checked)} />
 
                         </section>
 
 
                         <section className='section2'>
                             <label className='LabelPrecoProd'>Disponivel</label>
-                            <input className='InputDisponivel' type='text' value={disponivel} onChange={e => setDisponivel(e.target.checked)} />
+                            <input className='InputDisponivel' type='checkbox' value={disponivel} onChange={e => setDisponivel(e.target.checked)} />
 
                             <label htmlFor="InputDataCriacao">Data de Criação</label>
                             <input className='InputDataCriacao' type='date' value={dataCriacao} onChange={e => {

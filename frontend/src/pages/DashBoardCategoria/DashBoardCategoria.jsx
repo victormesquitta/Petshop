@@ -1,27 +1,31 @@
 import * as S from './styles';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { categoriaService } from '../../services/categoria.service'; // Importe o serviço de categoria
+import { categoriaService } from '../../services/categoria.service';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaUserAlt, FaObjectGroup, FaList, FaSearch, FaShippingFast, FaTrashAlt } from 'react-icons/fa';
-
+import { 
+  FaUserAlt, 
+  FaSearch, 
+  FaTrashAlt,
+  FaObjectGroup,
+  FaList,
+  FaShippingFast,
+} from 'react-icons/fa';
 
 export function DashBoardCategoria() {
   const [categorias, setCategorias] = useState([]);
   const [idCategoria, setIdCategoria] = useState('');
+  const [termoBusca, setTermoBusca] = useState('');
   const navigate = useNavigate();
 
-  // Estado da paginação
-  const [paginaAtual, setPaginaAtual] = useState(0); // Começa na página 0
-  const [tamanhoPagina, setTamanhoPagina] = useState(10); // Tamanho da página
-  const [totalPaginas, setTotalPaginas] = useState(1); // Total de páginas
+  const [paginaAtual, setPaginaAtual] = useState(0);
+  const [tamanhoPagina, setTamanhoPagina] = useState(10);
+  const [totalPaginas, setTotalPaginas] = useState(1);
 
-  // Funções para controlar a navegação
   const proximaPagina = () => {
     if (paginaAtual < totalPaginas - 1) {
       setPaginaAtual(paginaAtual + 1);
-      buscarCategorias(); // Busca os dados da próxima página
     }
   };
 
@@ -32,14 +36,21 @@ export function DashBoardCategoria() {
   };
 
   const cadastroCategoria = () => {
-    navigate('/cadastroCategoria')
+    navigate('/admincategoria'); 
   };
 
   async function buscarCategorias() {
     try {
-      const data = await categoriaService.findAllCategorias(paginaAtual, tamanhoPagina, 'codCategoria', 'asc'); // Adapte para o serviço de categorias
-      setCategorias(data.content);
-      setTotalPaginas(data.totalPages);
+      const data = await categoriaService.findAllCategorias(
+        paginaAtual, 
+        tamanhoPagina, 
+        'codCategoria',
+        'asc', 
+        termoBusca 
+      );
+      setCategorias(data); 
+      console.log(data);
+      setTotalPaginas(data.totalPages); 
     } catch (error) {
       console.error('Erro ao buscar categorias:', error);
       toast.error('Erro ao buscar categorias. Tente novamente mais tarde.');
@@ -48,21 +59,20 @@ export function DashBoardCategoria() {
 
   async function buscarCategoriaPorId() {
     try {
-      const categoria = await categoriaService.findCategoriaById(idCategoria); // Adapte para o serviço de categorias
-      // Adicione a categoria encontrada à lista atual
-      setCategorias([categoria]);
+      const categoria = await categoriaService.findCategoriaById(idCategoria);
+      setCategorias([categoria]); // Display the fetched category
     } catch (error) {
       console.error('Erro ao buscar categoria por ID:', error);
-      toast.error('Erro ao buscar categoria por ID:', error);
+      toast.error('Erro ao buscar categoria por ID.');
     }
   }
 
   async function deletarCategoria(id) {
-    if (window.confirm("Tem certeza que deseja deletar esta categoria?")) { // Confirmação antes de deletar
+    if (window.confirm("Tem certeza que deseja deletar esta categoria?")) {
       try {
-        await categoriaService.deleteById(id); // Adapte para o serviço de categorias
+        await categoriaService.deleteCategoriaById(id);
         toast.success('Categoria deletada com sucesso.');
-        buscarCategorias(); // Atualiza a lista de categorias
+        buscarCategorias(); // Refresh category list after deletion
       } catch (error) {
         console.error(`Erro ao deletar categoria com ID ${id}:`, error);
         toast.error('Erro ao deletar categoria.');
@@ -71,13 +81,13 @@ export function DashBoardCategoria() {
   }
 
   useEffect(() => {
-    buscarCategorias();
-  }, [paginaAtual]);
+    buscarCategorias(); // Fetch categories on component mount and page change
+  }, [paginaAtual, tamanhoPagina, termoBusca]); 
 
   return (
     <S.ContainerPai>
-      <ToastContainer className='toastContainer' />
-      <div className='divDashBoard'>
+      <ToastContainer className="toastContainer" />
+      <div className="divDashBoard">
         <h1>DashBoard</h1>
 
         <Link to={'/dashboardfuncionario'} className='Link'><FaUserAlt className='icons' />Funcionario</Link>
@@ -87,55 +97,81 @@ export function DashBoardCategoria() {
         <Link to={'/dashboardsubcategoria'} className='Link'><FaList className='icons' /> Sub-Categoria</Link>
       </div>
 
-      <div className='divPrincipal'>
-        <section className='section1'>
-          <input placeholder='Pesquisar' className='InputPesquisar' />
+      <div className="divPrincipal">
+        <section className="section1">
+          <input
+            type="text"
+            placeholder="Pesquisar Categorias..."
+            className="InputPesquisar"
+            value={termoBusca}
+            onChange={(e) => setTermoBusca(e.target.value)}
+          />
           <FaSearch className="IconLupa" />
         </section>
 
-        <section className='sectionButtons'>
-          <button type="button" onClick={buscarCategorias}>Buscar Todos</button>
+        <section className="sectionButtons">
+          <button type="button" onClick={buscarCategorias}>
+            Buscar Todos
+          </button>
           <input
             type="number"
-            placeholder="Código da Categoria" // Altere o placeholder
+            placeholder="Código da Categoria"
             value={idCategoria}
-            onChange={e => setIdCategoria(e.target.value)}
+            onChange={(e) => setIdCategoria(e.target.value)}
           />
-          <button type="button" onClick={buscarCategoriaPorId}>Buscar por ID</button>
-          <button type="button" onClick={cadastroCategoria}>Cadastrar Categorias</button>
+          <button type="button" onClick={buscarCategoriaPorId}>
+            Buscar por ID
+          </button>
+          <button type="button" onClick={cadastroCategoria}> 
+             Cadastrar Categoria 
+          </button>
         </section>
 
-        {/* Tabela de Categorias */}
+        {/* Table for displaying categories */}
         <table>
           <thead>
             <tr>
               <th>Código</th>
               <th>Nome</th>
               <th>Descrição</th>
+              <th>Destaque</th>
+              <th>Ativa</th>
+              <th>Data de Criação</th>
             </tr>
           </thead>
-
           <tbody>
-            {Array.isArray(categorias) && categorias.map((categoria) => (
+          {Array.isArray(categorias) && categorias.map((categoria) => (
               <tr key={categoria.codCategoria}>
                 <td>{categoria.codCategoria}</td>
                 <td>{categoria.nome}</td>
                 <td>{categoria.descricao}</td>
-                <td className='tdLixeira'>
-                  {/* Botão de Deletar */}
+                <td>{categoria.destaque ? 'Sim' : 'Não'}</td> 
+                <td>{categoria.ativa ? 'Sim' : 'Não'}</td> 
+                <td>{categoria.dtCriacao}</td> 
+                <td className="tdLixeira">
                   <button type="button" onClick={() => deletarCategoria(categoria.codCategoria)}>
-                    <FaTrashAlt className='iconLixeira' /> {/* Ícone de lixeira */}
+                    <FaTrashAlt className="iconLixeira" />
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        {/* Botões de paginação */}
-        <div className='paginacao'>
-          <button disabled={paginaAtual === 0} onClick={paginaAnterior}>Anterior</button>
-          <span>Página {paginaAtual + 1} de {totalPaginas}</span>
-          <button disabled={paginaAtual === totalPaginas - 1} onClick={proximaPagina}>Próxima</button>
+
+        {/* Pagination controls */}
+        <div className="paginacao">
+          <button disabled={paginaAtual === 0} onClick={paginaAnterior}>
+            Anterior
+          </button>
+          <span>
+            Página {paginaAtual + 1} de {totalPaginas}
+          </span>
+          <button
+            disabled={paginaAtual === totalPaginas - 1}
+            onClick={proximaPagina}
+          >
+            Próxima
+          </button>
         </div>
       </div>
     </S.ContainerPai>
