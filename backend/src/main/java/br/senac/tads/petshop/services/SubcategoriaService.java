@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.senac.tads.petshop.dtos.SubcategoriaDTO;
@@ -30,16 +33,16 @@ public class SubcategoriaService {
         this.subcategoriaMapper = subcategoriaMapper;
     }
 
-    public List<Subcategoria> listarSubcategorias(){
-        List<Subcategoria> subcategorias = subcategoriaRepository.findAll();
-        return subcategorias;
+    public Page<Subcategoria> listarSubcategorias(Pageable pageable){
+        return subcategoriaRepository.findAll(pageable);
     }
 
-    public List<SubcategoriaDTO> listarSubcategoriasDTOs(){
-        List<Subcategoria> subcategorias = subcategoriaRepository.findAll();
-        return subcategorias.stream()
+    public Page<SubcategoriaDTO> listarSubcategoriasDTOs(Pageable pageable){
+        Page<Subcategoria> subcategoriasPage = listarSubcategorias(pageable);
+        List<SubcategoriaDTO> subcategoriasDTO = subcategoriasPage.stream()
                     .map(subcategoriaMapper::toDTO)
-                    .collect(Collectors.toList());        
+                    .collect(Collectors.toList());
+        return new PageImpl<>(subcategoriasDTO, pageable, subcategoriasPage.getTotalElements());
     }
 
     public SubcategoriaDTO obterSubcategoriaDTOPorId(Integer id){

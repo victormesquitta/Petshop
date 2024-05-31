@@ -4,6 +4,8 @@ import br.senac.tads.petshop.dtos.SubcategoriaDTO;
 import br.senac.tads.petshop.services.SubcategoriaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +21,8 @@ public class SubcategoriaController {
     private SubcategoriaService subcategoriaService;
 
     @GetMapping()
-    public ResponseEntity<Object> listarSubcategoria() {
-        List<SubcategoriaDTO> listarSubcategoriaDTO = subcategoriaService.listarSubcategoriasDTOs();
+    public ResponseEntity<Page<SubcategoriaDTO>> listarSubcategoria(Pageable pageable) {
+        Page<SubcategoriaDTO> listarSubcategoriaDTO = subcategoriaService.listarSubcategoriasDTOs(pageable);
         return ResponseEntity.ok(listarSubcategoriaDTO);
     }
 

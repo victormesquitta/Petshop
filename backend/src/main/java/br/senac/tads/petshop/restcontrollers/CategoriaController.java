@@ -4,6 +4,8 @@ import br.senac.tads.petshop.dtos.CategoriaDTO;
 import br.senac.tads.petshop.services.CategoriaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +21,8 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping()
-    public ResponseEntity<Object> listarCategoria() {
-        List<CategoriaDTO> listarCategoriaDTO = categoriaService.listarCategoriasDTOs();
+    public ResponseEntity<Page<CategoriaDTO>> listarCategoria(Pageable pageable) {
+        Page<CategoriaDTO> listarCategoriaDTO = categoriaService.listarCategoriasDTOs(pageable);
         return ResponseEntity.ok(listarCategoriaDTO);
     }
 
