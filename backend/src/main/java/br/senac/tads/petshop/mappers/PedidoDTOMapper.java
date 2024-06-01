@@ -1,6 +1,7 @@
 package br.senac.tads.petshop.mappers;
 
 import br.senac.tads.petshop.dtos.PedidoDTO;
+import br.senac.tads.petshop.models.Cliente;
 import br.senac.tads.petshop.models.Pedido;
 import br.senac.tads.petshop.services.ClienteService;
 import org.modelmapper.ModelMapper;
@@ -26,10 +27,11 @@ public class PedidoDTOMapper {
     }
 
     // Usado para put -> o id foi criado e deve ser mantido
-    public Pedido toEntity(PedidoDTO pedidoDTO, Integer id) {
+    // o pedido não pode ser transferido pra outro cliente
+    public Pedido toEntity(PedidoDTO pedidoDTO, Integer id, Cliente cliente) {
         Pedido pedido = modelMapper.map(pedidoDTO, Pedido.class);
-        pedido.setCliente(clienteService.obterClientePorId(pedidoDTO.getCodCliente()));
         pedido.setCodPedido(id);
+        pedido.setCliente(cliente);
         return pedido;
     }
 

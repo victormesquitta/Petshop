@@ -24,11 +24,11 @@ public class PedidoDTO {
     private LocalDate dtPedido;
 
     // a data é atribuída na service
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate dtEnvio;
 
     // a data é atribuída na service
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate dtEntrega;
 
     // o status é atribuído na service

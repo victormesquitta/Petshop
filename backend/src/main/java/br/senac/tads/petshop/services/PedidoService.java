@@ -110,18 +110,19 @@ public class PedidoService {
         if(!clienteService.clienteExiste(pedidoDTO.getCodCliente())){
             throw new EntityNotFoundException("Não é possível adicionar um pedido a um cliente que não existe.");
         }
-        LocalDate dtPedido = pedidoExistente.getDtPedido(),
-                dtEnvio = pedidoExistente.getDtEnvio(),
-                dtEntrega = pedidoExistente.getDtEntrega();
+        LocalDate dtPedido = pedidoExistente.getDtPedido();
+//                dtEnvio = pedidoExistente.getDtEnvio(),
+//                dtEntrega = pedidoExistente.getDtEntrega();
         String status = pedidoExistente.getStatus(),
                 mtdPagamento = pedidoExistente.getMtdPagamento(),
                 codigoRastremento = pedidoExistente.getCodigoRastreamento();
         Double subtotal = pedidoExistente.getSubtotal(),
                 taxaEnvio = pedidoExistente.getTaxaEnvio();
-        Pedido pedido = pedidoDTOMapper.toEntity(pedidoDTO, id);
+        Pedido pedido = pedidoDTOMapper.toEntity(pedidoDTO, id, pedidoExistente.getCliente());
+        pedido.setCliente(pedidoExistente.getCliente());
         pedido.setDtPedido(dtPedido);
-        pedido.setDtEnvio(dtEnvio);
-        pedido.setDtEntrega(dtEntrega);
+//        pedido.setDtEnvio(dtEnvio);
+//        pedido.setDtEntrega(dtEntrega);
         pedido.setStatus(status);
         pedido.setMtdPagamento(mtdPagamento);
         pedido.setSubtotal(subtotal);
