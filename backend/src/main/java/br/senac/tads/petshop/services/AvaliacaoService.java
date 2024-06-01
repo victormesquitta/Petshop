@@ -79,11 +79,9 @@ public class AvaliacaoService {
             throw new DataIntegrityViolationException("Não é possível adicionar uma avaliação a um produto que não existe.");
         }
         LocalDate dataCriacao = avaliacaoExistente.getDtAvaliacao();
-        Avaliacao avaliacao = avaliacaoDTOMapper.toEntity(avaliacaoDTO, id);
+        Avaliacao avaliacao = avaliacaoDTOMapper.toEntity(avaliacaoDTO, id, avaliacaoExistente.getProduto());
         avaliacao.setDtAvaliacao(dataCriacao);
 
-        // não tem como transferir a avaliação pra outro produto
-        avaliacao.setProduto(avaliacaoExistente.getProduto());
         avaliacaoRepository.save(avaliacao);
     }
 
