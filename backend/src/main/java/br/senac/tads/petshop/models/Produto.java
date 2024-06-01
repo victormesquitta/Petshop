@@ -65,5 +65,9 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<Avaliacao> avaliacoes = new ArrayList<>();
 
+    @ToString.Exclude
+    @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)
+    private ItemCarrinho itemCarrinho;
+
 
 }
