@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -72,14 +73,16 @@ public class Cliente {
 
     // evita problemas de recursividade no relacionamento
 
-//    @ToString.Exclude
     // pra permitir a remoção dos pais e apagar os filhos em cascata
+    @ToString.Exclude
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Pedido> pedidos = new ArrayList<>();
 
+    @ToString.Exclude
     @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
     private CarrinhoCompras carrinhoCompras;
 
