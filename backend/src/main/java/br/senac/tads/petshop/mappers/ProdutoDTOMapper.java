@@ -27,6 +27,7 @@ public class ProdutoDTOMapper {
 
     public Produto toEntity(ProdutoDTO produtoDTO, Integer id) {
         Produto produto = modelMapper.map(produtoDTO, Produto.class);
+        produto.setSubcategoria(subcategoriaService.obterSubcategoriaPorId(produtoDTO.getCodSubcategoria()));
         produto.setCodProduto(id);
         return produto;
     }
