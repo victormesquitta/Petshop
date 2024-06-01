@@ -9,8 +9,11 @@ select * from t_carrinhocompras;
 select * from t_itemcarrinho;
 
 /* Selects do Farhat */
-select * from t_produto;
+select * from t_categoria;
 select * from t_subcategoria;
+select * from t_produto;
+select * from t_avaliacao;
+
 select * from t_funcionarios
 
 /*
