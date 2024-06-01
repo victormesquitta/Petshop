@@ -8,6 +8,9 @@ import br.senac.tads.petshop.repositories.ClienteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.AddressException;
@@ -45,16 +48,16 @@ public class ClienteService {
         return result;
     }
 
-    public List<Cliente> listarClientes(){
-        List<Cliente> clientes = clienteRepository.findAll();
-        return clientes;
+    public Page<Cliente> listarClientes(Pageable pageable){
+        return clienteRepository.findAll(pageable);
     }
 
-    public List<ClienteDTO> listarClientesDTO(){
-        List<Cliente> clientes = clienteRepository.findAll();
-        return clientes.stream()
+    public Page<ClienteDTO> listarClientesDTO(Pageable pageable){
+        Page<Cliente> clientesPage = listarClientes(pageable);
+        List<ClienteDTO> clientesDTO = clientesPage.stream()
                 .map(clienteDTOMapper::toDTO)
                 .collect(Collectors.toList());
+        return new PageImpl<>(clientesDTO, pageable, clientesPage.getTotalElements());
     }
 
     // para métodos update/delete -> a consulta vai ser feita no método, junto com a validação

@@ -64,14 +64,14 @@ public class SubcategoriaService {
     public Subcategoria cadastrarSubcategoria(SubcategoriaDTO subcategoriaDTO){
         // valida se a categoria passada existe
         if(!categoriaService.categoriaExiste(subcategoriaDTO.getCodCategoria())){
-            throw new DataIntegrityViolationException("Não é possível adicionar uma subcategoria a uma categoria que não existe.");
+            throw new EntityNotFoundException("Não é possível adicionar uma subcategoria a uma categoria que não existe.");
         }
         Subcategoria subcategoria = subcategoriaMapper.toEntity(subcategoriaDTO);
         subcategoria.setDtCriacao(LocalDate.now());
         if(!subcategoriaRepository.existsByNome(subcategoriaDTO.getNome())){
             return subcategoriaRepository.save(subcategoria);
         } else{
-            throw new DataIntegrityViolationException("Nome de categoria já em uso: " + subcategoriaDTO.getNome());
+            throw new EntityNotFoundException("Nome de categoria já em uso: " + subcategoriaDTO.getNome());
         }
     }
 
@@ -80,7 +80,7 @@ public class SubcategoriaService {
         subcategoriaExiste(id);
         // valida se a categoria passada existe
         if(!categoriaService.categoriaExiste(subcategoriaDTO.getCodCategoria())){
-            throw new DataIntegrityViolationException("Não é possível adicionar uma subcategoria a uma categoria que não existe.");
+            throw new EntityNotFoundException("Não é possível adicionar uma subcategoria a uma categoria que não existe.");
         }
         Subcategoria subcategoria = subcategoriaMapper.toEntity(subcategoriaDTO, id);
         LocalDate dataCriacao = obterSubcategoriaDTOPorId(id).getDtCriacao();

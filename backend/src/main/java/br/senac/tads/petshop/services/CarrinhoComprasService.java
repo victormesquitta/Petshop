@@ -7,6 +7,9 @@ import br.senac.tads.petshop.models.Cliente;
 import br.senac.tads.petshop.repositories.CarrinhoComprasRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,15 +31,16 @@ public class CarrinhoComprasService {
         this.clienteService = clienteService;
     }
 
-    public List<CarrinhoCompras> listarCarrinhosCompras() {
-        return carrinhoComprasRepository.findAll();
+    public Page<CarrinhoCompras> listarCarrinhosCompras(Pageable pageable) {
+        return carrinhoComprasRepository.findAll(pageable);
     }
 
-    public List<CarrinhoComprasDTO> listarCarrinhosComprasDTO() {
-        List<CarrinhoCompras> carrinhosCompras = carrinhoComprasRepository.findAll();
-        return carrinhosCompras.stream()
+    public Page<CarrinhoComprasDTO> listarCarrinhosComprasDTO(Pageable pageable) {
+        Page<CarrinhoCompras> carrinhosCompraPage = listarCarrinhosCompras(pageable);
+        List<CarrinhoComprasDTO> carrinhosCompraDTO = carrinhosCompraPage.stream()
                 .map(carrinhoComprasDTOMapper::toDTO)
                 .collect(Collectors.toList());
+        return new PageImpl<>(carrinhosCompraDTO, pageable, carrinhosCompraPage.getTotalElements());
     }
 
     public CarrinhoCompras obterCarrinhoComprasPorId(Integer id) {
