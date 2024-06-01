@@ -60,7 +60,7 @@ public class ProdutoService {
     public Produto cadastrarProduto(ProdutoDTO produtoDTO){
         // valida se a subcategoria passada existe
         if(!subcategoriaService.subcategoriaExiste(produtoDTO.getCodSubcategoria())){
-            throw new DataIntegrityViolationException("Não é possível adicionar um produto a uma subcategoria que não existe.");
+            throw new EntityNotFoundException("Não é possível adicionar um produto a uma subcategoria que não existe.");
         }
         Produto produto = produtosDTOMapper.toEntity(produtoDTO);
         produto.setDtCriacao(LocalDate.now());
@@ -78,7 +78,7 @@ public class ProdutoService {
 
         // valida se a subcategoria passada existe
         if(!subcategoriaService.subcategoriaExiste(produtoDTO.getCodSubcategoria())){
-            throw new DataIntegrityViolationException("Não é possível adicionar um produto a uma subcategoria que não existe.");
+            throw new EntityNotFoundException("Não é possível adicionar um produto a uma subcategoria que não existe.");
         }
         LocalDate dataCriacao = produtoExistente.getDtCriacao();
         Produto produto = produtosDTOMapper.toEntity(produtoDTO, id);

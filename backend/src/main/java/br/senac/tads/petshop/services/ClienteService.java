@@ -57,19 +57,21 @@ public class ClienteService {
                 .collect(Collectors.toList());
     }
 
-    // utilizado nos métodos de get
-    public void clienteExiste(Optional<Cliente> clienteOptional){
-        if(!clienteOptional.isPresent()){
-            throw new EntityNotFoundException("Nenhum usuário encontrado para o ID fornecido.");
-        }
-    }
-
-    // utilizado nos métodos de post/put/delete
-    public void clienteExiste(Integer id){
+    // para métodos update/delete -> a consulta vai ser feita no método, junto com a validação
+    public boolean clienteExiste(Integer id){
         Optional<Cliente> clienteOptional = clienteRepository.findById(id);
         if(clienteOptional.isEmpty()){
             throw new EntityNotFoundException("Nenhum usuário encontrado para o ID fornecido.");
         }
+        return true;
+    }
+
+    // para métodos get -> a consulta já foi feita acima e o método vai apenas validar a existência
+    public boolean clienteExiste(Optional<Cliente> clienteOptional){
+        if(!clienteOptional.isPresent()){
+            throw new EntityNotFoundException("Nenhum usuário encontrado para o ID fornecido.");
+        }
+        return true;
     }
 
     public Cliente obterClientePorId(Integer id){
