@@ -6,7 +6,6 @@ import br.senac.tads.petshop.models.Pedido;
 import br.senac.tads.petshop.repositories.PedidoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +16,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,7 +63,7 @@ public class PedidoService {
             throw new EntityNotFoundException("Não é possível adicionar um pedido a um cliente que não existe.");
         }
         Pedido pedido = pedidoDTOMapper.toEntity(pedidoDTO);
-
+        System.out.println(pedido.toString());
         /*
         *  Valida a questão dos úteis para envio e entrega.
         *  Dt do pedido: dia atual no qual se fez o pedido.
@@ -83,7 +83,7 @@ public class PedidoService {
         while(dtEntrega.getDayOfWeek() == DayOfWeek.SATURDAY || dtEntrega.getDayOfWeek() == DayOfWeek.SUNDAY){
             dtEntrega = dtEntrega.plusDays(1);
         }
-        pedido.setDtEntrega(LocalDate.now().plusDays(7));
+        pedido.setDtEntrega(dtEntrega);
 
         pedido.setStatus("Pendente");
 
@@ -97,7 +97,7 @@ public class PedidoService {
         pedido.setTaxaEnvio(0.0);
 
 
-        pedido.setCodigoRastreamento("codigo123");
+        pedido.setCodigoRastreamento(gerarCodigoRastreamento());
 
         pedidoRepository.save(pedido);
     }
@@ -114,7 +114,8 @@ public class PedidoService {
                 dtEnvio = pedidoExistente.getDtEnvio(),
                 dtEntrega = pedidoExistente.getDtEntrega();
         String status = pedidoExistente.getStatus(),
-                mtdPagamento = pedidoExistente.getMtdPagamento();
+                mtdPagamento = pedidoExistente.getMtdPagamento(),
+                codigoRastremento = pedidoExistente.getCodigoRastreamento();
         Double subtotal = pedidoExistente.getSubtotal(),
                 taxaEnvio = pedidoExistente.getTaxaEnvio();
         Pedido pedido = pedidoDTOMapper.toEntity(pedidoDTO, id);
@@ -125,6 +126,7 @@ public class PedidoService {
         pedido.setMtdPagamento(mtdPagamento);
         pedido.setSubtotal(subtotal);
         pedido.setTaxaEnvio(taxaEnvio);
+        pedido.setCodigoRastreamento(codigoRastremento);
         pedidoRepository.save(pedido);
     }
 
@@ -151,5 +153,7 @@ public class PedidoService {
         return true;
     }
 
-
+    public String gerarCodigoRastreamento(){
+        return UUID.randomUUID().toString().replace("-", "").substring(0, 12).toUpperCase();
+    }
 }
