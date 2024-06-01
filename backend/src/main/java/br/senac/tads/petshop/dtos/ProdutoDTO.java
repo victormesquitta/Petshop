@@ -44,7 +44,7 @@ public class ProdutoDTO {
 //    @PastOrPresent(message = "A data de criação não pode ser posterior à atual.")
     private LocalDate dtCriacao;
 
-    private boolean promocao;
+//    private boolean promocao;
 
     //
 //    @DecimalMin(value = "0.01", message = "A avaliação deve ser maior que 0.01.")

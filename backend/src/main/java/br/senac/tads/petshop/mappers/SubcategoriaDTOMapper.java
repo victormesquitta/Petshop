@@ -19,12 +19,14 @@ public class SubcategoriaDTOMapper {
         this.categoriaService = categoriaService;
     }
 
+    // usado para post -> não precisa de id porque ainda não foi criado
     public Subcategoria toEntity(SubcategoriaDTO subcategoriaDTO) {
         Subcategoria subcategoria = modelMapper.map(subcategoriaDTO, Subcategoria.class);
         subcategoria.setCategoria(categoriaService.obterCategoriaPorId(subcategoriaDTO.getCodCategoria()));
         return subcategoria;
     }
 
+    // usado para put -> o id foi criado e deve ser mantido
     public Subcategoria toEntity(SubcategoriaDTO subcategoriaDTO, Integer id) {
         Subcategoria subcategoria = modelMapper.map(subcategoriaDTO, Subcategoria.class);
         subcategoria.setCategoria(categoriaService.obterCategoriaPorId(id));
