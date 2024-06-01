@@ -28,11 +28,14 @@ public class PedidoDTOMapper {
     // Usado para put -> o id foi criado e deve ser mantido
     public Pedido toEntity(PedidoDTO pedidoDTO, Integer id) {
         Pedido pedido = modelMapper.map(pedidoDTO, Pedido.class);
+        pedido.setCliente(clienteService.obterClientePorId(pedidoDTO.getCodCliente()));
         pedido.setCodPedido(id);
         return pedido;
     }
 
     public PedidoDTO toDTO(Pedido pedido) {
-        return modelMapper.map(pedido, PedidoDTO.class);
+        PedidoDTO pedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
+        pedidoDTO.setCodCliente(pedido.getCliente().getCodCliente());
+        return pedidoDTO;
     }
 }

@@ -25,11 +25,8 @@ public class PedidoController {
 
     @GetMapping()
     public ResponseEntity<Object> listarPedidos(@RequestParam(defaultValue = "0") int page,
-                                                @RequestParam(defaultValue = "20") int size,
-                                                @RequestParam(defaultValue = "nome") String sortBy,
-                                                @RequestParam(defaultValue = "ASC") String sortDirection){
-        Sort.Direction direction = Sort.Direction.fromString(sortDirection);
-        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+                                                @RequestParam(defaultValue = "20") int size){
+        Pageable pageable = PageRequest.of(page, size);
 
         Page<PedidoDTO> listaPedidoDTO = pedidoService.listarPedidosDTO(pageable);
         return ResponseEntity.ok(listaPedidoDTO);
