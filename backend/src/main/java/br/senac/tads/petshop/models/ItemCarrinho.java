@@ -20,6 +20,9 @@ public class ItemCarrinho {
     @Column(name = "unidades")
     private Integer unidades;
 
+    @Column(name="subtotal")
+    private Double subtotal;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "codcarrinho", referencedColumnName = "codcarrinho",
             foreignKey = @ForeignKey(name = "fk_t_itemcarrinho_t_carrinhocompras1"))
