@@ -104,8 +104,27 @@ public class PedidoService {
 
     @Transactional
     public void atualizarPedido(Integer id, PedidoDTO pedidoDTO) {
-        pedidoExiste(id);
+        // valida a existência do produto
+        Pedido pedidoExistente = obterPedidoPorId(id);
+
+        if(!clienteService.clienteExiste(pedidoDTO.getCodCliente())){
+            throw new EntityNotFoundException("Não é possível adicionar um pedido a um cliente que não existe.");
+        }
+        LocalDate dtPedido = pedidoExistente.getDtPedido(),
+                dtEnvio = pedidoExistente.getDtEnvio(),
+                dtEntrega = pedidoExistente.getDtEntrega();
+        String status = pedidoExistente.getStatus(),
+                mtdPagamento = pedidoExistente.getMtdPagamento();
+        Double subtotal = pedidoExistente.getSubtotal(),
+                taxaEnvio = pedidoExistente.getTaxaEnvio();
         Pedido pedido = pedidoDTOMapper.toEntity(pedidoDTO, id);
+        pedido.setDtPedido(dtPedido);
+        pedido.setDtEnvio(dtEnvio);
+        pedido.setDtEntrega(dtEntrega);
+        pedido.setStatus(status);
+        pedido.setMtdPagamento(mtdPagamento);
+        pedido.setSubtotal(subtotal);
+        pedido.setTaxaEnvio(taxaEnvio);
         pedidoRepository.save(pedido);
     }
 

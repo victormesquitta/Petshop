@@ -49,7 +49,6 @@ public class PedidoDTO {
 
 //    private String cupomDesconto;
 
-
     // o codigo de rastreamento é atribuído na service
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String codigoRastreamento;
