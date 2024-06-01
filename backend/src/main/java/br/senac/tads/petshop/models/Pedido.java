@@ -22,6 +22,9 @@ public class Pedido {
     @Column(name = "dtpedido")
     private LocalDate dtPedido;
 
+    @Column(name = "dtenvio")
+    private LocalDate dtEnvio;
+
     @Column(name = "dtentrega")
     private LocalDate dtEntrega;
 
@@ -37,11 +40,8 @@ public class Pedido {
     @Column(name = "taxaenvio")
     private Double taxaEnvio;
 
-    @Column(name = "cupomdesconto")
-    private String cupomDesconto;
-
-    @Column(name = "dtenvio")
-    private LocalDate dtEnvio;
+//    @Column(name = "cupomdesconto")
+//    private String cupomDesconto;
 
     @Column(name = "codigorastreamento")
     private String codigoRastreamento;
