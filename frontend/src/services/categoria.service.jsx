@@ -3,6 +3,7 @@ import { backend } from "./api.axios";
 const API_BASE = "http://localhost:8080/api"; 
 
 export class CategoriaService { 
+
   async findAllCategorias(paginaAtual = 0, tamanhoPagina = 10, sortBy = "id", sortOrder = "asc") {
     try {
       const response = await backend.get(`${API_BASE}/categorias`, { 
@@ -13,7 +14,7 @@ export class CategoriaService {
           sortOrder,
         },
       });
-      return response.data;
+      return response.data.content;
     } catch (error) {
       console.error("Erro ao buscar categorias:", error); 
       throw error; 

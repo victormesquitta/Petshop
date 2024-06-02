@@ -12,15 +12,15 @@ export class SubCategoriaService {
           sortOrder: sortOrder
         }
       });
-
-      // Validar a resposta da API 
-      if (response.data) {
-        return response.data;
+  
+      // Validar a resposta da API
+      if (response.data && response.data.content) { // Verifica se 'content' existe
+        return response.data.content; // Retorna a lista de subcategorias da página atual
       } else {
         throw new Error('Resposta inválida da API.');
       }
     } catch (error) {
-      throw new Error(`Erro ao buscar subcategorias: ${error.message}`); 
+      throw new Error(`Erro ao buscar subcategorias: ${error.message}`);
     }
   }
 

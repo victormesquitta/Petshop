@@ -1,46 +1,49 @@
 import * as S from './styles';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { subcategoriaService } from '../../services/subcategoria.service'; // Importe o serviço de subcategoria
+import { subcategoriaService } from '../../services/subcategoria.service'; 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaUserAlt, FaObjectGroup, FaList, FaSearch, FaShippingFast, FaTrashAlt } from 'react-icons/fa';
 
-
 export function DashBoardSubCategoria() {
   const [subCategorias, setSubCategorias] = useState([]);
   const [idSubCategoria, setIdSubCategoria] = useState('');
-  const [termoBusca, setTermoBusca] = useState(''); // Estado para o termo de busca
   const navigate = useNavigate();
 
   // Estado da paginação
-  const [paginaAtual, setPaginaAtual] = useState(0); // Começa na página 0
-  const [tamanhoPagina, setTamanhoPagina] = useState(10); // Tamanho da página
-  const [totalPaginas, setTotalPaginas] = useState(1); // Total de páginas
+  const [paginaAtual, setPaginaAtual] = useState(0); 
+  const [tamanhoPagina, setTamanhoPagina] = useState(10); 
+  const [totalPaginas, setTotalPaginas] = useState(1); 
 
   // Funções para controlar a navegação
   const proximaPagina = () => {
     if (paginaAtual < totalPaginas - 1) {
       setPaginaAtual(paginaAtual + 1);
-      buscarSubCategorias(); // Busca os dados da próxima página
+      buscarSubCategorias(); 
     }
   };
 
   const paginaAnterior = () => {
     if (paginaAtual > 0) {
       setPaginaAtual(paginaAtual - 1);
+      buscarSubCategorias();
     }
   };
 
   const cadastroSubCategoria = () => {
-    navigate('/adminsubcategoria')
+    navigate('/adminsubcategoria');
   };
 
   async function buscarSubCategorias() {
     try {
-      const data = await subcategoriaService.findAllSubCategorias(paginaAtual, tamanhoPagina, 'codSubCategoria', 'asc', termoBusca); // Adicione termoBusca
+      const data = await subcategoriaService.findAllSubCategorias(
+        paginaAtual, 
+        tamanhoPagina, 
+        'codSubcategoria', // Campo de ordenação
+        'asc'
+      );
       setSubCategorias(data);
-      console.log(data);
       setTotalPaginas(data.totalPages);
     } catch (error) {
       console.error('Erro ao buscar subcategorias:', error);
@@ -51,23 +54,19 @@ export function DashBoardSubCategoria() {
   async function buscarSubCategoriaPorId() {
     try {
       const subCategoria = await subcategoriaService.findSubCategoriaById(idSubCategoria);
-      setSubCategorias([subCategoria]);
-
-      // Atualiza o estado subCategorias com todas as subcategorias, incluindo a encontrada por ID
+      setSubCategorias([subCategoria]); 
     } catch (error) {
       console.error('Erro ao buscar subcategoria por ID:', error);
-      toast.error('Erro ao buscar subcategoria por ID.');
+      toast.error('Erro ao buscar subcategoria por ID:', error);
     }
   }
 
   async function deletarSubCategoria(id) {
     if (window.confirm("Tem certeza que deseja deletar esta subcategoria?")) {
       try {
-        console.log(`ID da Subcategoria a ser deletada: ${id}`); // Use console.log para verificar o ID
-
-        await subcategoriaService.deleteById(id);
+        await subcategoriaService.deleteById(id); 
         toast.success('Subcategoria deletada com sucesso.');
-        buscarSubCategorias();
+        buscarSubCategorias(); 
       } catch (error) {
         console.error(`Erro ao deletar subcategoria com ID ${id}:`, error);
         toast.error('Erro ao deletar subcategoria.');
@@ -77,7 +76,7 @@ export function DashBoardSubCategoria() {
 
   useEffect(() => {
     buscarSubCategorias();
-  }, [paginaAtual, termoBusca]);
+  }, [paginaAtual]);
 
   return (
     <S.ContainerPai>
@@ -137,7 +136,7 @@ export function DashBoardSubCategoria() {
                 <td className='tdLixeira'>
                   {/* Botão de Deletar */}
                   <button type="button" onClick={() => deletarSubCategoria(subCategoria.codSubcategoria)}>
-                    <FaTrashAlt className='iconLixeira' />
+                    <FaTrashAlt className='iconLixeira' /> 
                   </button>
                 </td>
               </tr>

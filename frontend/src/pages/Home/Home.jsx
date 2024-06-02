@@ -22,13 +22,33 @@ import ImageSlider from "../../components/ImageSlider/ImageSlider";
 import Imgflyer from "../../assets/images/Imgflyer.jpg";
 import ImgflyerTwo from "../../assets/images/ImgflyerTwo.jpg";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { produtoService } from "../../services/produto.service";
 
 
 export function Home(props) {
+    const [produtos, setProdutos] = useState([]);
 
+    useEffect(() => {
+        // Buscar os produtos do banco de dados
+        fetchProdutos();
+    }, []);
+
+    const fetchProdutos = async () => {
+        try {
+            const produtosData = await produtoService.findAllProducts(); // Obter os produtos do serviço
+            setProdutos(produtosData.content.slice(0, 4));
+        } catch (error) {
+            console.error('Erro ao buscar produtos:', error);
+            toast.error('Erro ao buscar produtos. Tente novamente mais tarde.');
+        }
+    };
     return (
         <>
             <S.ContainerPai>
+                <ToastContainer/>
                 < NavBarLogado authService={props.authService} />
 
                 <S.DivMain>
@@ -39,51 +59,17 @@ export function Home(props) {
                     </div>
 
                     <div className="DivCards">
-                        <section>
-                            <img src={Card} />
-                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao" /></p>
-                            <h3>DOG CHOW SACHÊ FRANGO MINI 100G</h3>
-                            <p className="PrecoRiscado">R$ 2,99</p>
-                            <p className="PrecoNormal">R$ 2,49</p>
-
-                            <p className="MimuPoints"><FaMedal /> Ganhe 200 Mimu points com essa compra</p>
-                            <button>Adicionar ao Carrinho</button>
-
-                        </section>
-                        <section>
-                            <img src={Card} />
-                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao" /></p>
-                            <h3>DOG CHOW SACHÊ FRANGO MINI 100G</h3>
-                            <p className="PrecoRiscado">R$ 2,99</p>
-                            <p className="PrecoNormal">R$ 2,49</p>
-
-                            <p className="MimuPoints"><FaMedal /> Ganhe 200 Mimu points com essa compra</p>
-                            <button>Adicionar ao Carrinho</button>
-
-                        </section>
-                        <section>
-                            <img src={Card} />
-                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao" /></p>
-                            <h3>DOG CHOW SACHÊ FRANGO MINI 100G </h3>
-                            <p className="PrecoRiscado">R$ 2,99</p>
-                            <p className="PrecoNormal">R$ 2,49</p>
-
-                            <p className="MimuPoints"><FaMedal /> Ganhe 200 Mimu points com essa compra</p>
-                            <button>Adicionar ao Carrinho</button>
-
-                        </section>
-                        <section>
-                            <img src={Card} />
-                            <p className="Pedigree">Pedigre <FaHeart className="IconCoracao" /></p>
-                            <h3>DOG CHOW SACHÊ FRANGO MINI 100G </h3>
-                            <p className="PrecoRiscado">R$ 2,99</p>
-                            <p className="PrecoNormal">R$ 2,49</p>
-
-                            <p className="MimuPoints"><FaMedal /> Ganhe 200 Mimu points com essa compra</p>
-                            <button>Adicionar ao Carrinho</button>
-
-                        </section>
-
+                        {Array.isArray(produtos) && produtos.map((produto, index) => ( // Renderizar cards dos produtos
+                            <section key={index}>
+                                <img src={Card} /> 
+                                <p className="Pedigree">Pedigre <FaHeart className="IconCoracao" /></p> 
+                                <h3>{produto.nome}</h3> 
+                                <p className="PrecoRiscado">R$ {produto.preco}</p>
+                                <p className="PrecoNormal">R$ {produto.preco}</p> 
+                                <p className="MimuPoints"><FaMedal /> Ganhe 200 Mimu points com essa compra</p>
+                                <button>Adicionar ao Carrinho</button> 
+                            </section>
+                        ))}
                     </div>
                     <p className="linha ParaPrincipaisMarcas"><strong className="PrincipaisMarcasTitulo">PRINCIPAIS MARCAS</strong></p>
 

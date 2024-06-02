@@ -97,7 +97,7 @@ export function DashBoardFuncionario() {
           <button type="button" onClick={buscarFuncionarios}>Buscar Todos</button>
           <input
             type="number"
-            placeholder="Código do Funcionário" // Altere o placeholder
+            placeholder="ID do Funcionário" 
             value={idFuncionario}
             onChange={e => setIdFuncionario(e.target.value)}
           />
