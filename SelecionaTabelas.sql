@@ -1,3 +1,6 @@
+use petshop;
+
+
 select * from t_cliente;
 select * from t_endereco;
 select * from t_listadesejos;

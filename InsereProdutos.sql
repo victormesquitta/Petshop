@@ -1,3 +1,11 @@
+/* Pra startar com uma categoria */
+INSERT INTO t_categoria (nome, descricao, destaque, ativa, dtcriacao)
+VALUES ('Alimentação', 'Produtos relacionados à alimentação de animais.', TRUE, TRUE, '2024-01-01');
+
+/* Pra startar com uma subcategoria */
+INSERT INTO t_subcategoria (codcategoria, nome, descricao, destaque, ativa, dtcriacao)
+VALUES (1, 'Ração Seca', 'Ração seca para cães e gatos.', TRUE, TRUE, '2024-01-01');
+
 INSERT INTO t_produto (codsubcategoria, nome, descricao, preco, qtdestoque, marca, disponivel, dtcriacao, destaque)
 VALUES (1, 'Ração Premium', 'Ração de alta qualidade para cães adultos.', 49.99, 100, 'PetFood', TRUE, '2024-01-01', TRUE);
 
