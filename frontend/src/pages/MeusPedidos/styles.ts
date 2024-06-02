@@ -50,6 +50,14 @@ export const ContainerMain = styled.main`
 
       overflow: hidden;
 
+      .carousel{
+        display: flex;
+
+        .inner{
+          display: flex;
+        }
+      }
+
       section {
         display: flex;
         align-items: center;

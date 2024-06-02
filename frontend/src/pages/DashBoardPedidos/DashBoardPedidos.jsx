@@ -1,43 +1,42 @@
 import * as S from './styles';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { pedidoService } from '../../services/pedido.service'; // Importe o serviço de pedido
+import { pedidoService } from '../../services/pedido.service';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaUserAlt, FaObjectGroup, FaList, FaSearch, FaShippingFast, FaTrashAlt } from 'react-icons/fa';
-
+import moment from 'moment';
 
 export function DashBoardPedidos() {
   const [pedidos, setPedidos] = useState([]);
   const [idPedido, setIdPedido] = useState('');
   const navigate = useNavigate();
 
-  // Estado da paginação
-  const [paginaAtual, setPaginaAtual] = useState(0); // Começa na página 0
-  const [tamanhoPagina, setTamanhoPagina] = useState(10); // Tamanho da página
-  const [totalPaginas, setTotalPaginas] = useState(1); // Total de páginas
+  const [paginaAtual, setPaginaAtual] = useState(0);
+  const [tamanhoPagina, setTamanhoPagina] = useState(10);
+  const [totalPaginas, setTotalPaginas] = useState(1);
 
-  // Funções para controlar a navegação
   const proximaPagina = () => {
     if (paginaAtual < totalPaginas - 1) {
       setPaginaAtual(paginaAtual + 1);
-      buscarPedidos(); // Busca os dados da próxima página
+      buscarPedidos();
     }
   };
 
   const paginaAnterior = () => {
     if (paginaAtual > 0) {
       setPaginaAtual(paginaAtual - 1);
+      buscarPedidos();
     }
   };
 
   const cadastroPedido = () => {
-    navigate('/adminpedidos')
+    navigate('/adminpedidos'); // Ajuste a rota se necessário
   };
 
   async function buscarPedidos() {
     try {
-      const data = await pedidoService.findAllPedidos(paginaAtual, tamanhoPagina, 'codPedido', 'asc'); // Adapte para o serviço de pedidos
+      const data = await pedidoService.findAllPedidos(paginaAtual, tamanhoPagina, 'codPedido', 'asc');
       setPedidos(data.content);
       setTotalPaginas(data.totalPages);
     } catch (error) {
@@ -48,21 +47,20 @@ export function DashBoardPedidos() {
 
   async function buscarPedidoPorId() {
     try {
-      const pedido = await pedidoService.findPedidoById(idPedido); // Adapte para o serviço de pedidos
-      // Adicione o pedido encontrado à lista atual
+      const pedido = await pedidoService.findPedidoById(idPedido);
       setPedidos([pedido]);
     } catch (error) {
       console.error('Erro ao buscar pedido por ID:', error);
-      toast.error('Erro ao buscar pedido por ID:', error);
+      toast.error('Erro ao buscar pedido por ID. Verifique o código informado.');
     }
   }
 
   async function deletarPedido(id) {
-    if (window.confirm("Tem certeza que deseja deletar este pedido?")) { // Confirmação antes de deletar
+    if (window.confirm("Tem certeza que deseja deletar este pedido?")) {
       try {
-        await pedidoService.deleteById(id); // Adapte para o serviço de pedidos
+        await pedidoService.deleteById(id);
         toast.success('Pedido deletado com sucesso.');
-        buscarPedidos(); // Atualiza a lista de pedidos
+        buscarPedidos();
       } catch (error) {
         console.error(`Erro ao deletar pedido com ID ${id}:`, error);
         toast.error('Erro ao deletar pedido.');
@@ -72,7 +70,7 @@ export function DashBoardPedidos() {
 
   useEffect(() => {
     buscarPedidos();
-  }, [paginaAtual]);
+  }, [paginaAtual]); // Buscar ao mudar a página
 
   return (
     <S.ContainerPai>
@@ -97,7 +95,7 @@ export function DashBoardPedidos() {
           <button type="button" onClick={buscarPedidos}>Buscar Todos</button>
           <input
             type="number"
-            placeholder="Código do Pedido" // Altere o placeholder
+            placeholder="Código do Pedido"
             value={idPedido}
             onChange={e => setIdPedido(e.target.value)}
           />
@@ -110,10 +108,16 @@ export function DashBoardPedidos() {
           <thead>
             <tr>
               <th>Código</th>
+              <th>Código do Cliente</th>
               <th>Data do Pedido</th>
-              <th>Cliente</th>
-              <th>Valor Total</th>
+              <th>Data de Envio</th>
+              <th>Data de Entrega</th>
               <th>Status</th>
+              <th>Método de Pagamento</th>
+              <th>Sub Total</th>
+              <th>Taxa de Envio</th>
+              <th>Código de Rastreamento</th>
+              <th>Ações</th>
             </tr>
           </thead>
 
@@ -121,20 +125,25 @@ export function DashBoardPedidos() {
             {Array.isArray(pedidos) && pedidos.map((pedido) => (
               <tr key={pedido.codPedido}>
                 <td>{pedido.codPedido}</td>
-                <td>{pedido.dataPedido}</td>
-                <td>{pedido.cliente}</td>
-                <td>{pedido.valorTotal}</td>
+                <td>{pedido.codCliente}</td>
+                <td>{moment(pedido.dtPedido).format('DD/MM/YYYY')}</td>
+                <td>{pedido.dtEnvio ? moment(pedido.dtEnvio).format('DD/MM/YYYY') : '-'}</td>
+                <td>{pedido.dtEntrega ? moment(pedido.dtEntrega).format('DD/MM/YYYY') : '-'}</td>
                 <td>{pedido.status}</td>
+                <td>{pedido.mtdPagamento}</td>
+                <td>{pedido.subtotal}</td>
+                <td>{pedido.taxaEnvio}</td>
+                <td>{pedido.codigoRastreamento || '-'}</td>
                 <td className='tdLixeira'>
-                  {/* Botão de Deletar */}
                   <button type="button" onClick={() => deletarPedido(pedido.codPedido)}>
-                    <FaTrashAlt className='iconLixeira' /> {/* Ícone de lixeira */}
+                    <FaTrashAlt className='iconLixeira' />
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+
         {/* Botões de paginação */}
         <div className='paginacao'>
           <button disabled={paginaAtual === 0} onClick={paginaAnterior}>Anterior</button>

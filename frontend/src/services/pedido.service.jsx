@@ -2,61 +2,61 @@ import { backend } from "./api.axios";
 
 export class PedidoService {
 
-  async findAllProducts(paginaAtual, tamanhoPagina, sortBy, sortOrder) {
+  async findAllPedidos(paginaAtual, tamanhoPagina, sortBy, sortOrder) { 
     return new Promise((resolve, reject) => {
-      backend.get(`${'http://localhost:8080/api'}/produtos`,{
+      backend.get(`${'http://localhost:8080/api'}/pedidos`, { // Corrigido para /pedidos
         params: {
           page: paginaAtual,
           size: tamanhoPagina,
-          sortBy: sortBy, // Passar o campo de ordenação
-          sortOrder: sortOrder // Passar a ordem de ordenação
+          sortBy: sortBy, 
+          sortOrder: sortOrder 
         }
       })
         .then(data => {
-          console.log("Dados do backend:", data.data); // Adicione este console.log
+          console.log("Dados do backend:", data.data); 
           resolve(data.data);
         })
         .catch(error => reject(error));
-    })
+    });
   }
 
-  async findProductById(id) { // Método para buscar por ID
+  async findPedidoById(id) {  
     try {
-      const response = await backend.get(`${'http://localhost:8080/api'}/produtos/${id}`);
+      const response = await backend.get(`${'http://localhost:8080/api'}/pedidos/${id}`); // Corrigido para /pedidos
       return response.data;
     } catch (error) {
-      console.error(`Erro ao buscar produto com ID ${id}:`, error);
+      console.error(`Erro ao buscar pedido com ID ${id}:`, error);
       throw error;
     }
   }
 
   async deleteById(id) {
     try {
-      const response = await backend.delete(`${'http://localhost:8080/api'}/produtos/${id}`);
-      return response.data; // Pode retornar dados ou apenas uma confirmação
+      const response = await backend.delete(`${'http://localhost:8080/api'}/pedidos/${id}`); // Corrigido para /pedidos
+      return response.data; 
     } catch (error) {
-      console.error(`Erro ao deletar produto com ID ${id}:`, error);
+      console.error(`Erro ao deletar pedido com ID ${id}:`, error);
       throw error;
     }
   }
 
-  async update(id, produto) {
+  async update(id, pedido) { // Corrigido o nome do parâmetro para 'pedido'
     try {
-      const response = await backend.put(`${'http://localhost:8080/api'}/produtos/${id}`, produto);
+      const response = await backend.put(`${'http://localhost:8080/api'}/pedidos/${id}`, pedido);
       return response.data;
     } catch (error) {
-      console.error(`Erro ao atualizar produto com ID ${id}:`, error);
-      throw error;
+      console.error(`Erro ao atualizar pedido com ID ${id}:`, error);
+      throw error; 
     }
   }
 
-  async create(produto) {
+  async create(pedido) { // Corrigido o nome do parâmetro para 'pedido'
     try {
-      const response = await backend.post(`${'http://localhost:8080/api'}/produtos`, produto);
+      const response = await backend.post(`${'http://localhost:8080/api'}/pedidos`, pedido);
       return response.data;
     } catch (error) {
-      console.error('Erro ao criar produto:', error);
-      throw error;
+      console.error('Erro ao criar pedido:', error); 
+      throw error; 
     }
   }
 }
