@@ -32,13 +32,13 @@ export function DashBoardFuncionario() {
   };
 
   const cadastroFuncionario = () => {
-    navigate('/cadastroFuncionario')
+    navigate('/adminfuncionario')
   };
 
   async function buscarFuncionarios() {
     try {
       const data = await funcionarioService.findAllFuncionarios(paginaAtual, tamanhoPagina, 'codFuncionario', 'asc'); // Adapte para o serviço de funcionários
-      setFuncionarios(data.content);
+      setFuncionarios(data);
       setTotalPaginas(data.totalPages);
     } catch (error) {
       console.error('Erro ao buscar funcionários:', error);
@@ -48,7 +48,7 @@ export function DashBoardFuncionario() {
 
   async function buscarFuncionarioPorId() {
     try {
-      const funcionario = await funcionarioService.findFuncionarioById(idFuncionario); // Adapte para o serviço de funcionários
+      const funcionario = await funcionarioService.findByFuncionarioId(idFuncionario); // Adapte para o serviço de funcionários
       // Adicione o funcionário encontrado à lista atual
       setFuncionarios([funcionario]);
     } catch (error) {
@@ -111,11 +111,12 @@ export function DashBoardFuncionario() {
             <tr>
               <th>Código</th>
               <th>Nome</th>
-              <th>CPF</th>
+              <th>Email</th>
               <th>Cargo</th>
-              <th>Salário</th>
-              <th>Data de Admissão</th>
+              <th>Nivel de Acesso</th>
               <th>Ativo</th>
+              <th>Data de Modificação</th>
+              <th>Data de Criação</th>
             </tr>
           </thead>
 
@@ -124,11 +125,12 @@ export function DashBoardFuncionario() {
               <tr key={funcionario.codFuncionario}>
                 <td>{funcionario.codFuncionario}</td>
                 <td>{funcionario.nome}</td>
-                <td>{funcionario.cpf}</td>
+                <td>{funcionario.email}</td>
                 <td>{funcionario.cargo}</td>
-                <td>{funcionario.salario}</td>
-                <td>{funcionario.dataAdmissao}</td>
+                <td>{funcionario.nvlacesso}</td>
                 <td>{funcionario.ativo ? 'Sim' : 'Não'}</td>
+                <td>{funcionario.dtModificacao}</td>
+                <td>{funcionario.dtCriacao}</td>
                 <td className='tdLixeira'>
                   {/* Botão de Deletar */}
                   <button type="button" onClick={() => deletarFuncionario(funcionario.codFuncionario)}>

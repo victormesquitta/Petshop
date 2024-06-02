@@ -111,7 +111,7 @@ export function AdminSubCategoria() {
 
           <div>
             <section className='section2'>
-              <h1>Nova Categoria</h1>
+              <h1>Nova Sub-Categoria</h1>
 
               <label htmlFor="codigoCategoria">Código Categoria:</label>
               <input

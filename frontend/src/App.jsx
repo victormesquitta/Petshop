@@ -24,6 +24,7 @@ import { DashBoardPedidos } from "./pages/DashBoardPedidos/DashBoardPedidos";
 import { DashBoardSubCategoria } from "./pages/DashBoardSubcategoria/DashBoardSubCategoria";
 import { AdminSubCategoria } from "./pages/AdminSubCategoria/AdminSubCategoria";
 import { AdminProduto } from "./pages/AdminProduto/AdminProduto";
+import { AdminFuncionario } from "./pages/AdminFuncionario/AdminFuncionario";
 
 
 export function App(props) {
@@ -69,7 +70,8 @@ export function App(props) {
             <Route path="/adminpedidos" element={<AdminPedidos />} />
             <Route path="/adminproduto" element={<AdminProduto />} />
             <Route path='/adminsubcategoria' element={<AdminSubCategoria/>}/>
-                       
+            <Route path='/adminfuncionario' element={<AdminFuncionario/>}/>
+
             <Route path="/dashboardcategoria" element={<DashBoardCategoria />} />
             <Route path='/dashboardfuncionario' element={<DashBoardFuncionario />}/>
             <Route path="/dashboardpedidos" element={<DashBoardPedidos />} />

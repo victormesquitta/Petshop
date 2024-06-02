@@ -119,10 +119,10 @@ export const ContainerPai = styled.div`
         display: flex;
         align-items: center;
 
-        width: 100%;
+        width: 99.6%;
         
         td{
-          width: 10%;
+          width: 11.3%;
           height: 100%;
           padding: .5rem;
 
@@ -135,11 +135,9 @@ export const ContainerPai = styled.div`
         }
 
         .tdLixeira{
-          width: 3%;
-          margin-left: .5rem;
-          
           border: none;
-          
+          width: 4%;
+
           button{
             border: none;
 
@@ -150,7 +148,7 @@ export const ContainerPai = styled.div`
               height: 1rem;
               
           }
-          }
+        }
         }
       }
     }

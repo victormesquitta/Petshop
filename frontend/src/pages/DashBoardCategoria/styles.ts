@@ -84,7 +84,7 @@ export const ContainerPai = styled.div`
         justify-content: start;
 
         tr {
-          width: 90%;
+          width: 96%;
           height: 100%;
 
           display: flex;
@@ -122,7 +122,7 @@ export const ContainerPai = styled.div`
         width: 100%;
         
         td{
-          width: 15%;
+          width: 16%;
           height: 100%;
           padding: .5rem;
 
@@ -132,25 +132,21 @@ export const ContainerPai = styled.div`
 
           border: 1px solid lightgray;
         }
-
-        .tdLixeira{
-          width: 3%;
-          margin-left: .5rem;
-          
-          border: none;
           
           button{
             border: none;
+            background-color: white;
 
             .iconLixeira{
               color: #CC2B2B;
 
               width: 100%;
-              height: 1rem;
+              height: 1.3rem;
               
+              margin-left: 1rem;
           }
           }
-        }
+        
       }
     }
 

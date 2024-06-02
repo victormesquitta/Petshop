@@ -148,11 +148,9 @@ export function DashBoardCategoria() {
                 <td>{categoria.destaque ? 'Sim' : 'Não'}</td> 
                 <td>{categoria.ativa ? 'Sim' : 'Não'}</td> 
                 <td>{categoria.dtCriacao}</td> 
-                <td className="tdLixeira">
                   <button type="button" onClick={() => deletarCategoria(categoria.codCategoria)}>
                     <FaTrashAlt className="iconLixeira" />
                   </button>
-                </td>
               </tr>
             ))}
           </tbody>

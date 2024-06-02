@@ -21,7 +21,6 @@ export function AdminProduto() {
     const [codSubcategoria, setCodSubcategoria] = useState('');
     const [codProduto, setCodProduto] = useState('');
 
-
     async function atualizarProduto(id) {
 
         // 1. Validação de campos
@@ -79,22 +78,24 @@ export function AdminProduto() {
             toast.error('Preço do produto deve ser maior que zero!');
             return;
         }
+        
         const novoProduto = {
-            codProduto: codProduto,
+            nome: nomeProd,
+            marca: marcaProd,
             dtCriacao: dataCriacao,
             disponivel: disponivel ? "true" : "false",
             promocao: promocao,
             qtdEstoque: parseInt(quantEstoque, 10),
             preco: parseFloat(precoProduto),
             descricao: descProduto,
-            marca: marcaProd,
-            nome: nomeProd,
             codSubcategoria: codSubcategoria
         };
 
         try {
+            // Envie o novoProduto para o backend
             await produtoService.create(novoProduto);
             toast.success('Produto criado com sucesso!');
+
             // Limpe os campos do formulário
             setDataCriacao('');
             setDisponivel(null);
@@ -105,11 +106,11 @@ export function AdminProduto() {
             setMarcaProd('');
             setNomeProd('');
             setCodSubcategoria('');
-            setCodProduto(''); // Limpa também o código do produto
-
+            setCodProduto(''); 
         } catch (error) {
             if (error.response && error.response.status === 409) {
-                toast.error(error.response.data.message); // Exibe a mensagem de erro do backend
+                toast.error(error.response.data.message); 
+                console.log(novoProduto)
             } else {
                 console.error('Erro ao criar produto:', error);
                 toast.error('Erro ao criar produto.', error);

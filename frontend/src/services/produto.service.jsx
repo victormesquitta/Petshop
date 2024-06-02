@@ -4,7 +4,7 @@ export class ProdutoService {
 
   async findAllProducts(paginaAtual, tamanhoPagina, sortBy, sortOrder) {
     return new Promise((resolve, reject) => {
-      backend.get(`${'http://localhost:8080/api'}/produtos`,{
+      backend.get(`${'http://localhost:8080/api'}/produtos`, {
         params: {
           page: paginaAtual,
           size: tamanhoPagina,
@@ -52,7 +52,11 @@ export class ProdutoService {
 
   async create(produto) {
     try {
-      const response = await backend.post(`${'http://localhost:8080/api'}/produtos`, produto);
+      const response = await backend.post(`${'http://localhost:8080/api'}/produtos`, produto, { // Envia 'produto' diretamente
+        headers: {
+          'Content-Type': 'application/json' // Define o Content-Type como JSON
+        }
+      });
       return response.data;
     } catch (error) {
       console.error('Erro ao criar produto:', error);

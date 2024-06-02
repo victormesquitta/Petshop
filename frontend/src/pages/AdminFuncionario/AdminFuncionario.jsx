@@ -1,91 +1,124 @@
 import * as S from './styles';
+import React, { useState } from 'react';
 import ImgLogo from '../../assets/images/ImgLogo.svg';
-import ImgPerfilFuncionario from '../../assets/images/ImgPerfilFuncionario.png';
+import ImgPerfilFuncionario from '../../assets/images/ImgPerfilFuncionario.png'
 import { Link } from 'react-router-dom';
-import { FaList, FaObjectGroup, FaSearch, FaShippingFast, FaUserAlt } from 'react-icons/fa';
-import { useState } from 'react';
 import { funcionarioService } from '../../services/funcionario.service';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { FaArrowLeft, FaList, FaObjectGroup, FaSearch, FaShippingFast, FaUserAlt } from 'react-icons/fa';
 
 export function AdminFuncionario() {
     const [nomeFun, setNomeFun] = useState('');
     const [senhaFun, setSenhaFun] = useState('');
-    const [ativoFun, setAtivoFun] = useState('');
+    const [ativoFun, setAtivoFun] = useState(false); // Use boolean para ativo/inativo
     const [emailFun, setEmailFun] = useState('');
     const [nivelAcessoFun, setNivelAcessoFun] = useState('');
     const [cargoFun, setCargoFun] = useState('');
-    const [idFuncionario, setIdFuncionario] = useState(null); // Adicione um estado para o ID do funcionário
+    const [idFuncionario, setIdFuncionario] = useState('');
+    const [carregando, setCarregando] = useState(false);
 
-    const novoFuncionario = {
-        nome: nomeFun,
-        senha: senhaFun,
-        ativo: ativoFun,
-        email: emailFun,
-        nivelAcesso: nivelAcessoFun,
-        cargo: cargoFun
-    };
+    async function atualizarFuncionario(id) {
+        setCarregando(true);
 
-    async function criarFuncionario() {
+        if (!id || !nomeFun || !senhaFun || !emailFun || !nivelAcessoFun || !cargoFun || ativoFun === null) {
+            toast.error('Preencha todos os campos!');
+            setCarregando(false);
+            return;
+        }
+
+        const funcionarioAtualizado = {
+            nome: nomeFun,
+            senha: senhaFun,
+            ativo: ativoFun,
+            email: emailFun,
+            nvlacesso: nivelAcessoFun,
+            cargo: cargoFun,
+        };
+
         try {
-            const response = await funcionarioService.createFuncionario(novoFuncionario);
-            console.log('Funcionário criado com sucesso:', response.data);
-
-            // Limpe o formulário após a criação
+            await funcionarioService.updateFuncionario(id, funcionarioAtualizado);
+            console.log(`Funcionário com ID ${id} atualizado com sucesso!`);
+            toast.success(`Funcionário com ID ${id} atualizado com sucesso!`);
+            // Limpe o formulário após a atualização
             setNomeFun('');
             setSenhaFun('');
-            setAtivoFun('');
+            setAtivoFun(false);
             setEmailFun('');
             setNivelAcessoFun('');
             setCargoFun('');
+            setIdFuncionario(null);
+        } catch (error) {
+            console.error(`Erro ao atualizar funcionário com ID ${id}:`, error);
+            toast.error(`Erro ao atualizar funcionário: ${error.message}`);
+        } finally {
+            setCarregando(false);
+        }
+    }
 
+    async function criarFuncionario() {
+        setCarregando(true);
+
+        if (!nomeFun || !senhaFun || !emailFun || !nivelAcessoFun || !cargoFun || ativoFun === null) {
+            toast.error('Preencha todos os campos!');
+            setCarregando(false);
+            return;
+        }
+
+        const novoFuncionario = {
+            nome: nomeFun,
+            senha: senhaFun,
+            email: emailFun,
+            cargo: cargoFun,
+            nvlacesso: nivelAcessoFun,
+            ativo: ativoFun,
+        };
+
+        try {
+            await funcionarioService.createFuncionario(novoFuncionario);
+            toast.success('Funcionário criado com sucesso!');
+            // Limpe o formulário após a criação
+            setNomeFun('');
+            setSenhaFun('');
+            setAtivoFun(false);
+            setEmailFun('');
+            setNivelAcessoFun('');
+            setCargoFun('');
         } catch (error) {
             console.error('Erro ao criar funcionário:', error);
-            // Exiba uma mensagem de erro ao usuário
+            toast.error(`Erro ao criar funcionário: ${error.message}`);
+        } finally {
+            setCarregando(false);
         }
     }
-    
+
     async function deletarFuncionarioPorId(id) {
-        try {
-            await funcionarioService.deleteFuncionario(id);
-            console.log('Funcionário com ID ' + id + ' deletado com sucesso');
-            // Adicione lógica para atualizar a lista de funcionários, se necessário
-        } catch (error) {
-            console.error('Erro ao deletar funcionário:', error);
-            // Exiba uma mensagem de erro ao usuário
+        if (!id) {
+            toast.error('Digite um ID para deletar!');
+            return;
+        }
+
+        if (window.confirm('Tem certeza que deseja deletar este funcionário?')) {
+            try {
+                await funcionarioService.deleteById(id);
+                console.log(`Funcionário com ID ${id} deletado com sucesso.`);
+                toast.success(`Funcionário com ID ${id} deletado com sucesso.`);
+            } catch (error) {
+                console.error(`Erro ao deletar funcionário com ID ${id}:`, error);
+                toast.error(`Erro ao deletar funcionário com ID ${id}:`, error);
+            }
         }
     }
-
-    async function atualizarFuncionario(id) {
-        try {
-            const funcionarioAtualizado = {
-                nome: nomeFun,
-                senha: senhaFun,
-                ativo: ativoFun,
-                email: emailFun,
-                nivelAcesso: nivelAcessoFun,
-                cargo: cargoFun
-            };
-
-            await funcionarioService.updateFuncionario(id, funcionarioAtualizado);
-            console.log('Funcionário com ID ' + id + ' atualizado com sucesso');
-            // Adicione lógica para atualizar a lista de funcionários, se necessário
-        } catch (error) {
-            console.error('Erro ao atualizar funcionário:', error);
-            // Exiba uma mensagem de erro ao usuário
-        }
-    }
-
 
     return (
         <>
             <S.ContainerPai>
+                <ToastContainer />
                 <div className='divDashBoard'>
                     <img src={ImgLogo} alt="Logo" />
                     <h1>DashBoard</h1>
 
-                    <Link to={'/cadastrofuncionario'} className='Link'><FaUserAlt className='icons' />Funcionario</Link>
-                    <Link to={'/dashboardproduto'} className='Link'><FaObjectGroup className='icons' /> Produtos</Link>
-                    <Link to={'/admincategoria'} className='Link'><FaList className='icons' /> Categoria</Link>
-                    <Link to={'/adminpedidos'} className='Link'><FaShippingFast className='icons' />Pedidos</Link>
+                    <Link to={'/dashboardfuncionario'} className='Link'><FaArrowLeft className='icons' />Voltar</Link>
 
                 </div>
                 <div className='divPrincipal'>
@@ -140,8 +173,9 @@ export function AdminFuncionario() {
                                 <input
                                     id="ativo"
                                     className='InputAtivo'
-                                    value={ativoFun}
-                                    onChange={e => setAtivoFun(e.target.value)}
+                                    type="checkbox" // Use um checkbox para ativo/inativo
+                                    checked={ativoFun}
+                                    onChange={e => setAtivoFun(e.target.checked)}
                                 />
 
                                 <label htmlFor="cargo">Cargo Funcionário</label>
@@ -158,7 +192,7 @@ export function AdminFuncionario() {
                                 type='number'
                                 placeholder='ID do Funcionario'
                                 value={idFuncionario}
-                                onChange={e => setIdFuncionario(parseInt(e.target.value, 10) || null)} // Converte para número ou null
+                                onChange={e => setIdFuncionario(e.target.value === '' ? '' : parseInt(e.target.value, 10) || null)}
                             />
                             <button type='button' onClick={() => deletarFuncionarioPorId(idFuncionario)} >Deletar por ID</button>
                             <button type='button' onClick={() => atualizarFuncionario(idFuncionario)} >Atualizar por ID</button>
