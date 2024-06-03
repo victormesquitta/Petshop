@@ -140,7 +140,8 @@ export const ContainerNav = styled.section`
         cursor: pointer;
 
         &:hover {
-          box-shadow: inset 0 0 5px #88ce08;
+          background:#88ce08;
+          color: #ffffff;
         }
       
       }
@@ -233,8 +234,6 @@ export const ContainerInformacoesSite = styled.section`
 
     .ImgLogo {
       border-radius: 80px;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
       height: 20vh;
     }
   }

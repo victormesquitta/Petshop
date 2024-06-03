@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.senac.tads.petshop.dtos.CategoriaDTO;
@@ -29,16 +32,16 @@ public class CategoriaService {
         this.categoriaDTOMapper = categoriaDTOMapper;
     }
 
-    public List<Categoria> listarCategorias(){
-        List<Categoria> categorias = categoriaRepository.findAll();
-        return categorias;
+    public Page<Categoria> listarCategorias(Pageable pageable){
+        return categoriaRepository.findAll(pageable);
     }
 
-    public List<CategoriaDTO> listarCategoriasDTOs(){
-        List<Categoria> categorias = categoriaRepository.findAll();
-        return categorias.stream()
+    public Page<CategoriaDTO> listarCategoriasDTOs(Pageable pageable){
+        Page<Categoria> categoriasPage = listarCategorias(pageable);
+        List<CategoriaDTO>  categoriasDTO = categoriasPage.stream()
                     .map(categoriaDTOMapper::toDTO)
-                    .collect(Collectors.toList());        
+                    .collect(Collectors.toList());
+        return new PageImpl<>(categoriasDTO, pageable, categoriasPage.getTotalElements());
     }
 
     public Categoria obterCategoriaPorId(Integer id){

@@ -9,6 +9,32 @@ export const ContainerPai = styled.div`
   width: 100%;
   height: 100%;
 `;
+
+export const Promotion = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  text-align: center;  
+
+
+  .promotion {
+    width: 100%;  
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10em;
+    margin-bottom:2.5rem;
+   
+
+    img {
+      max-width: 100%;  
+      height: 50vh;  
+    }
+  }
+`;
+
 export const DivMain = styled.div`
   display: flex;
   align-items: center;
@@ -16,13 +42,10 @@ export const DivMain = styled.div`
 
   .DivImgTransition {
     margin-top: 3rem;
-
     width: 50%;
-
     display: flex;
     flex-direction: column;
     align-items: center;
-
     gap: 3.5rem;
 
     img {
@@ -38,9 +61,7 @@ export const DivMain = styled.div`
 
   .DivCards {
     width: 90%;
-
     margin-bottom: 2rem;
-
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -50,20 +71,15 @@ export const DivMain = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-evenly;
-
-      border: 1.5px solid;
-      border-color: lightgray;
+      border: 1.5px solid lightgray;
       border-radius: 25px;
-
       width: 22%;
       height: 30rem;
-
       padding: 2rem;
       margin-top: 3.5rem;
-
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-      p:hover{
+      p:hover {
         text-decoration: underline;
       }
 
@@ -75,10 +91,9 @@ export const DivMain = styled.div`
       h3 {
         margin-top: 0.5rem;
         padding-left: 0.7rem;
-
         font-size: 1vw;
 
-        &:hover{
+        &:hover {
           text-decoration: underline;
         }
       }
@@ -86,32 +101,23 @@ export const DivMain = styled.div`
       .IconCoracao {
         position: relative;
         left: 7rem;
-
         color: red;
-
         width: 20%;
         height: 1.3rem;
-
         cursor: pointer;
       }
       .Pedigree {
         font-size: 0.9vw;
         color: lightslategray;
-
         width: 100%;
-
         align-items: start;
-
         margin-top: 0.7rem;
       }
       .PrecoRiscado {
         text-decoration: line-through;
-
         font-size: 0.8vw;
         color: lightslategray;
-
         margin-top: 1rem;
-
         position: relative;
         right: 2rem;
       }
@@ -122,28 +128,37 @@ export const DivMain = styled.div`
       .MimuPoints {
         color: gold;
         font-size: 0.9vw;
-
         margin-top: 1rem;
       }
 
       button {
         margin-top: 1rem;
-
         align-items: center;
         justify-content: center;
-
         font-weight: 600;
-
         border: none;
         border-radius: 15px;
         border-color: #073950;
-
         width: 80%;
         height: 2.2rem;
-
         background-color: #073950;
         color: white;
       }
+    }
+  }
+  .linha {
+    font-size: 1.4vw;
+    text-align: center;
+    color: black;  // Cor do texto
+
+    &::after {
+      content: "";
+      display: block;
+      width: 50%;  
+      height: 0.3em;
+      background-color: #88ce08;  
+      margin: 0 auto;
+      margin-top: .5em;  
     }
   }
   .ParaPrincipaisMarcas {
@@ -157,47 +172,42 @@ export const DivMain = styled.div`
   }
 
   @media (max-width: 1024px) {
-    .DivImgTransition {
-      h2 {
-        font-size: 2.5vw;
-      }
+    .DivImgTransition h2 {
+      font-size: 2.5vw;
     }
 
-    .DivCards {
-      section {
-        height: 20rem;
+    .DivCards section {
+      height: 20rem;
 
-        img {
-          width: 60%;
-        }
+      img {
+        width: 60%;
+      }
 
-        h3 {
-          font-size: 1.3vw;
-        }
+      h3 {
+        font-size: 1.3vw;
+      }
 
-        .IconCoracao {
-          left: 5.5rem;
-        }
+      .IconCoracao {
+        left: 5.5rem;
+      }
 
-        p {
-          font-size: 1vw;
-        }
+      p {
+        font-size: 1vw;
       }
     }
   }
 `;
+
 export const ContainerMarcas = styled.section`
   flex-direction: column;
-
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-  background-color: #073950;
+  background-color: #88ce08;
 
   section {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-
     width: 100%;
 
     img {
@@ -211,8 +221,8 @@ export const ContainerMarcas = styled.section`
 
     .ImgElano {
       background-color: white;
-
       height: 8.4rem;
     }
   }
 `;
+

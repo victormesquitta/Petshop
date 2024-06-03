@@ -2,9 +2,16 @@ import { backend } from "./api.axios";
 
 export class ProdutoService {
 
-  async findAllProducts() {
+  async findAllProducts(paginaAtual, tamanhoPagina, sortBy, sortOrder) {
     return new Promise((resolve, reject) => {
-      backend.get(`${'http://localhost:8080/api'}/produtos`)
+      backend.get(`${'http://localhost:8080/api'}/produtos`, {
+        params: {
+          page: paginaAtual,
+          size: tamanhoPagina,
+          sortBy: sortBy, // Passar o campo de ordenação
+          sortOrder: sortOrder // Passar a ordem de ordenação
+        }
+      })
         .then(data => {
           console.log("Dados do backend:", data.data); // Adicione este console.log
           resolve(data.data);
@@ -45,7 +52,11 @@ export class ProdutoService {
 
   async create(produto) {
     try {
-      const response = await backend.post(`${'http://localhost:8080/api'}/produtos`, produto);
+      const response = await backend.post(`${'http://localhost:8080/api'}/produtos`, produto, { // Envia 'produto' diretamente
+        headers: {
+          'Content-Type': 'application/json' // Define o Content-Type como JSON
+        }
+      });
       return response.data;
     } catch (error) {
       console.error('Erro ao criar produto:', error);

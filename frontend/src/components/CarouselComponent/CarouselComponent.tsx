@@ -3,14 +3,27 @@ import ImgCard from "../../assets/images/Card.png";
 import * as S from './styles';
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from 'react';
-import { FaHeart, FaMedal } from "react-icons/fa";
-
-const images = [ImgLogo, ImgCard, ImgLogo, ImgCard, ImgLogo, ImgCard, ImgLogo, ImgCard];
+import { FaHeart } from "react-icons/fa";
+import { produtoService } from '../../services/produto.service'; 
 
 export function CarouselComponent() {
     const carousel = useRef<HTMLDivElement>(null);
     const [width, setWidth] = useState(0);
     const inner = useRef<HTMLDivElement>(null);
+    const [produtos, setProdutos] = useState([]); // Estado para os produtos
+
+    useEffect(() => {
+        fetchProdutos();
+    }, []);
+    
+    const fetchProdutos = async () => {
+        try {
+            const produtosData = await produtoService.findAllProducts(); // Busca do backend
+            setProdutos(produtosData.content); 
+        } catch (error) {
+            console.error('Erro ao buscar produtos:', error);
+        }
+    };
 
     useEffect(() => {
         if (inner.current) {
@@ -25,15 +38,14 @@ export function CarouselComponent() {
                     dragConstraints={{ left: -width, right: 0 }}
                     initial={{ x: 100 }} animate={{ x: 0 }} transition={{ duration: 0.8 }}>
 
-                    {images.map(image => (
-                        <motion.div className='item' key={image}>
-                            <img src={image} alt='Img não carregou' />
+                    {produtos.slice(0, 10).map((produto, index) => (
+                        <motion.div className='item' key={index}>
+                            <img src={ImgCard} alt='Img não carregou' /> {/* Use 'ImgCard' como placeholder */}
                             <p className="Pedigree">Pedigree <FaHeart className="IconCoracao" /></p>
-                            <h3>DOG CHOW SACHÊ FRANGO MINI 100G</h3>
-                            <p className="PrecoRiscado">R$ 2,99</p>
-                            <p className="PrecoNormal">R$ 2,49</p>
+                            <h3>{produto.nome}</h3>
+                            <p className="PrecoRiscado">R$ {produto.preco}</p>
+                            <p className="PrecoNormal">R$ {produto.preco}</p>
 
-                            {/*<p className="MimuPoints"><FaMedal /> Ganhe 200 Mimu points com essa compra</p>*/}
                             <button>Adicionar ao Carrinho</button>
                         </motion.div>
                     ))}

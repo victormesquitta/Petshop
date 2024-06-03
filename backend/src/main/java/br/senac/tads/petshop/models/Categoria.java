@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
@@ -36,6 +37,7 @@ public class Categoria {
     @Column(name="dtcriacao")
     private LocalDate dtCriacao;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     private List<Subcategoria> subcategorias = new ArrayList<>();
 

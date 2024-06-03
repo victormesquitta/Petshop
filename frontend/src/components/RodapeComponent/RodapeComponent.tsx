@@ -1,5 +1,5 @@
-import { useState } from "react";
 import * as S from "./styles";
+import React, { useState } from 'react';
 import { FaFacebookSquare, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import ImgLogo from "../../assets/images/ImgLogo.svg";
 import GoogleNavegacaoSegura from "../../assets/images/GoogleNavegacaoSegura.png";
@@ -64,14 +64,18 @@ export function RodapeComponent() {
                         </div>
 
                         <img src={PremioEpoca} className="ImgPremioEpoca" />
-                        <img src={ImgLogo} className="ImgLogo" />
+                        <Link to="/">
+                            <img src={ImgLogo} alt="Logo" />
+                        </Link>
                     </div>
 
                     <div className="DivRedesSociais">
                         <h3>Redes Sociais</h3>
                         <div className="RedesSociais">
                             <FaWhatsapp className="ImgWhatsapp" />
+                            {/* <a href="https://www.instagram.com/mimuus_pet10?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="ImgInstagramLink"> */}
                             <FaInstagram className="ImgInstagram" />
+                            {/* </a> */}
                             <FaFacebookSquare className="ImgFacebook" />
                         </div>
                     </div>

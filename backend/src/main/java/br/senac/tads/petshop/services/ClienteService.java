@@ -10,7 +10,11 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -47,31 +51,33 @@ public class ClienteService {
         return result;
     }
 
-    public List<Cliente> listarClientes(){
-        List<Cliente> clientes = clienteRepository.findAll();
-        return clientes;
+    public Page<Cliente> listarClientes(Pageable pageable){
+        return clienteRepository.findAll(pageable);
     }
 
-    public List<ClienteDTO> listarClientesDTO(){
-        List<Cliente> clientes = clienteRepository.findAll();
-        return clientes.stream()
+    public Page<ClienteDTO> listarClientesDTO(Pageable pageable){
+        Page<Cliente> clientesPage = listarClientes(pageable);
+        List<ClienteDTO> clientesDTO = clientesPage.stream()
                 .map(clienteDTOMapper::toDTO)
                 .collect(Collectors.toList());
+        return new PageImpl<>(clientesDTO, pageable, clientesPage.getTotalElements());
     }
 
-    // utilizado nos métodos de get
-    public void clienteExiste(Optional<Cliente> clienteOptional){
-        if(!clienteOptional.isPresent()){
-            throw new EntityNotFoundException("Nenhum usuário encontrado para o ID fornecido.");
-        }
-    }
-
-    // utilizado nos métodos de post/put/delete
-    public void clienteExiste(Integer id){
+    // para métodos update/delete -> a consulta vai ser feita no método, junto com a validação
+    public boolean clienteExiste(Integer id){
         Optional<Cliente> clienteOptional = clienteRepository.findById(id);
         if(clienteOptional.isEmpty()){
             throw new EntityNotFoundException("Nenhum usuário encontrado para o ID fornecido.");
         }
+        return true;
+    }
+
+    // para métodos get -> a consulta já foi feita acima e o método vai apenas validar a existência
+    public boolean clienteExiste(Optional<Cliente> clienteOptional){
+        if(!clienteOptional.isPresent()){
+            throw new EntityNotFoundException("Nenhum usuário encontrado para o ID fornecido.");
+        }
+        return true;
     }
 
     public Cliente obterClientePorId(Integer id){
@@ -112,6 +118,7 @@ public class ClienteService {
     }
 
     // retorna cliente para vincular o carrinho de compras logo em seguida
+    @Transactional
     public Cliente criarCliente(ClienteDTO clienteDTO){
         isValidEmailAddress(clienteDTO.getEmail());
         validarDadosDuplicados(clienteDTO);
@@ -132,6 +139,7 @@ public class ClienteService {
         return cliente;
     }
 
+    @Transactional
     public void atualizarCliente(Integer id, ClienteDTO clienteDTO){
         validarDadosDuplicados(clienteDTO);
 

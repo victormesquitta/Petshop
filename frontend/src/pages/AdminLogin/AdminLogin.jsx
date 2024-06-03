@@ -1,7 +1,7 @@
 import * as S from "./styles";
-import { InputSenhaComponent } from "../../components/InputSenhaComponent/InputSenhaComponent";
-import ImgLogo from "../../assets/images/ImgLogo.svg";
-import { AuthService } from "../../services/AuthService";
+import { InputSenhaComponent } from '../../components/InputSenhaComponent/InputSenhaComponent';
+import ImgLogo from '../../assets/images/ImgLogo.svg';
+import { AuthService } from '../../services/AuthService';
 
 
 export function AdminLogin() {

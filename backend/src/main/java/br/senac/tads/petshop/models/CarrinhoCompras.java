@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +27,12 @@ public class CarrinhoCompras {
     @Column(name = "subtotal")
     private Double subtotal;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codcliente", referencedColumnName = "codcliente",
             foreignKey = @ForeignKey(name = "fk_t_carrinhocompras_t_cliente1"))
     private Cliente cliente;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "carrinhoCompras", cascade = CascadeType.ALL)
     private List<ItemCarrinho> itensCarrinho = new ArrayList<>();
 }
