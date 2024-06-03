@@ -5,7 +5,7 @@ import { pedidoService } from '../../services/pedido.service';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaUserAlt, FaObjectGroup, FaList, FaSearch, FaShippingFast, FaTrashAlt } from 'react-icons/fa';
-import moment from 'moment';
+// import moment from 'moment';
 
 export function DashBoardPedidos() {
   const [pedidos, setPedidos] = useState([]);

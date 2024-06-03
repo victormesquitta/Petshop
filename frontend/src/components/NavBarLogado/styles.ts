@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface DivBotoesDepartamentosProps {
+  isOpen: boolean;
+}
+
 export const NavBarLogado = styled.nav`
   * {
     font-size: 1vw;
@@ -119,76 +123,103 @@ export const NavBarLogado = styled.nav`
     }
   }
 
-  .DivBotoesDepartamentos {
-    width: 100%;
-    height: 3rem;
-    display: flex;
-    // flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #4caf50;
+  
 
-    .Dropdown {
-      width: 25%;
-      height: 2.7rem;
-      padding-top: 0.4rem;
-      display: block;
-      flex-direction: column;
-      justify-content: flex-start;
+  @media (max-width: 1024px) {
+    .SectionBarraDePesquisa input {
+      font-size: 2vw;
+    }
 
-      .ButtonDepartamentos {
-        display: block;
-        border: none;
-        border-radius: 12px;
-        width: 80%;
-        height: 2rem;
-        padding-bottom: 0.2rem;
-        background-color: #073950;
-        color: white;
-        z-index: 1;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        cursor: pointer;
+    .SectionIcons .IconFavoritos, .SectionIcons .IconCarrinho {
+      width: 20%;
+    }
 
-        .iconDepartamento {
-          margin-right: 0.3rem;
-          margin-top: 0.3rem;
-        }
-      }
+    .DivBotoesDepartamentos button {
+      width: 12.5%;
+      height: 2rem;
+      font-size: 1.6vw;
 
-      .dropdown-menu {
+      img {
         display: none;
-        flex-direction: column;
-        width: 80%;
-        position: relative;
-        top: 0rem;
-        color: #073950;
+      }
+    }
+
+    .ButtonDepartamentos {
+      padding: 0.5rem;
+    }
+  }
+`;
+
+export const DivBotoesDepartamentos = styled.div<DivBotoesDepartamentosProps>`
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4caf50;
+
+  .Dropdown {
+    width: 25%;
+    height: 2.7rem;
+    padding-top: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .ButtonDepartamentos {
+      display: block;
+      border: none;
+      border-radius: 12px;
+      width: 80%;
+      height: 2rem;
+      padding-bottom: 0.2rem;
+      background-color: #073950;
+      color: white;
+      z-index: 1;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+
+      .iconDepartamento {
+        margin-right: 0.3rem;
+        margin-top: 0.3rem;
+      }
+    }
+
+    .dropdown-menu {
+      display: ${props => (props.isOpen ? 'flex' : 'none')};
+      flex-direction: column;
+      // width: 80%;
+      // position: absolute;
+      // top: 2.7rem;
+      color: #073950;
+      background-color: white;
+      border: none;
+      border-radius: 15px;
+      z-index: 0;
+      cursor: pointer;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      list-style: none;
+
+      button {
         background-color: white;
+        color: #073950;
+        width: 100%;
+        height: 3rem;
+        display: flex;
+        align-items: center;
         border: none;
-        border-radius: 15px;
-        z-index: 0;
+        border-radius: 5px;
         cursor: pointer;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-        button {
-          background-color: white;
-          color: #073950;
-          width: 100%;
-          height: 3rem;
-          display: flex;
-          align-items: center;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
+        &:hover {
+          background-color:#88ce08 ;
+          color: #ffffff;
+        }
 
-          &:hover {
-            box-shadow: inset 0 0 5px #073950;
-          }
-
-          img {
-            width: 22%;
-            height: 70%;
-            margin: 0 0.5rem;
-          }
+        img {
+          width: 22%;
+          height: 70%;
+          margin: 0 0.5rem;
         }
       }
     }
@@ -212,35 +243,11 @@ export const NavBarLogado = styled.nav`
       align-items: center;
       gap: 10px;
       font-weight: bolder;
-      color:#073950;
+      color: #073950;
 
       &:hover {
         background-color: #e0e0e0;
       }
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .SectionBarraDePesquisa input {
-      font-size: 2vw;
-    }
-
-    .SectionIcons .IconFavoritos, .SectionIcons .IconCarrinho {
-      width: 20%;
-    }
-
-    .DivBotoesDepartamentos button {
-      width: 12.5%;
-      height: 2rem;
-      font-size: 1.6vw;
-
-      img {
-        display: none;
-      }
-    }
-
-    .ButtonDepartamentos {
-      padding: 0.5rem;
     }
   }
 `;

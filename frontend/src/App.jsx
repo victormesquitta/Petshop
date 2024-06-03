@@ -25,6 +25,7 @@ import { DashBoardSubCategoria } from "./pages/DashBoardSubcategoria/DashBoardSu
 import { AdminSubCategoria } from "./pages/AdminSubCategoria/AdminSubCategoria";
 import { AdminProduto } from "./pages/AdminProduto/AdminProduto";
 import { AdminFuncionario } from "./pages/AdminFuncionario/AdminFuncionario";
+import { MeusDados } from "./pages/MeusDados/MeusDados";
 
 
 export function App(props) {
@@ -62,6 +63,7 @@ export function App(props) {
             <Route path="/meuspets" element={<MeusPets authService={props.authService} />} />
             <Route path="/produto" element={<Produto authService={props.authService} />} />
             <Route path="/registrarconta" element={<RegistrarConta />} />
+            <Route path="/meusDados" element={<MeusDados />} />
 
 
             {'parte de admin.'}

@@ -7,10 +7,10 @@ export function InformacoesComponent() {
             <section className='SectionInformacoes'>
                 <h1>Olá Victor</h1>
 
-                <p>Dados Pessoais</p>
+                <Link className="Links" to="/meusdados">Dados Pessoais</Link>
                 <Link className="Links" to="/meuspedidos">Meus Pedidos</Link>
                 <Link className="Links" to={"/favoritos"}>Favoritos</Link>
-                <p>Meus Cartões</p>
+                <Link className="Links" to={"/meuscartoes"}>Meus Cartões</Link>
                 <Link className="Links" to={"/meuspets"}>Meus pets</Link>
             </section>
         </S.ContainerPai>

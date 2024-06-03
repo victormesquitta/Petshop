@@ -2,11 +2,11 @@ import * as S from "./styles";
 import ImgLogo from "../../assets/images/ImgLogo.svg";
 import { FaHeart, FaSearch } from "react-icons/fa";
 import { FaBars, FaCartShopping, FaUserAstronaut } from "react-icons/fa6";
-import ImgCachorro from "../../assets/images/ImgCachorro.png"
+import ImgCachorro from "../../assets/images/ImgCachorro.png";
 import ImgGato from "../../assets/images/ImgGato.png";
 import ImgPassaro from "../../assets/images/ImgPassaro.png";
 import ImgOutros from "../../assets/images/ImgOutros.png";
-import ImgPeixe from "../../assets/images/ImgPeixe.png"
+import ImgPeixe from "../../assets/images/ImgPeixe.png";
 import { AuthService } from "../../services/AuthService";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,6 @@ type HomePageProps = {
 }
 
 export function NavBarLogado(props: HomePageProps) {
-
     const navigate = useNavigate();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     const [isFakeLoggingOut, setIsFakeLoggingOut] = useState(false);
@@ -49,6 +48,7 @@ export function NavBarLogado(props: HomePageProps) {
     const dashBoardProduto = () => {
         navigate('/dashboardproduto')
     }
+
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -75,49 +75,51 @@ export function NavBarLogado(props: HomePageProps) {
 
                     {!currentUser ? (
                         <button className="BotaoLogin" onClick={login}>Logar</button>
-                    ) :
-                        (
-                            <>
-                                <button onClick={dashBoardProduto} className="BotaoFimTela"><FaUserAstronaut className="IconAdmin" />{currentUser && extractNameFromEmail(currentUser.email)} </button>
-                                <button className="BotaoLogout" onClick={logout} >Sair</button>
-                            </>
+                    ) : (
+                        <>
+                            <button onClick={dashBoardProduto} className="BotaoFimTela">
+                                <FaUserAstronaut className="IconAdmin" />
+                                {currentUser?.email && extractNameFromEmail(currentUser.email)}
+                            </button>
 
-                        )
-                    }
+                            <button className="BotaoLogout" onClick={logout}>Sair</button>
+                        </>
+                    )}
                 </div>
 
-                <div className="DivBotoesDepartamentos">
+                <S.DivBotoesDepartamentos isOpen={isOpen}>
                     <div className="Dropdown">
-                        <button onClick={toggleDropdown} className="ButtonDepartamentos"><span className="iconDepartamento">☰</span> Departamentos</button>
-                        <ul id="dropdown-menu" className="dropdown-menu">
-                            <button> <img src="ImgCachorro" alt="Cachorro" /> Cachorro</button>
-                            <button> <img src="ImgGato.png" alt="Gato" /> Gato</button>
-                            <button> <img src="ImgPassaro.png" alt="Pássaro" /> Pássaro</button>
-                            <button> <img src="ImgPeixe.png" alt="Peixe" /> Peixe</button>
-                            <button> <img src="ImgOutros.png" alt="Outros Pets" /> Outros Pets</button>
-                        </ul>
+                        <button onClick={toggleDropdown} className="ButtonDepartamentos">
+                            <span className="iconDepartamento">☰</span> Departamentos
+                            {isOpen && (
+                                <ul id="dropdown-menu" className="dropdown-menu">
+                                    <li><button> <img src={ImgCachorro} alt="Cachorro" /> Cachorro</button></li>
+                                    <li><button> <img src={ImgGato} alt="Gato" /> Gato</button></li>
+                                    <li><button> <img src={ImgPassaro} alt="Pássaro" /> Pássaro</button></li>
+                                    <li><button> <img src={ImgPeixe} alt="Peixe" /> Peixe</button></li>
+                                    <li><button> <img src={ImgOutros} alt="Outros Pets" /> Outros Pets</button></li>
+                                </ul>
+                            )}
+                        </button>
                     </div>
-                <div className="menu">
-                    <button className="menu-button">🐶 Cachorro</button>
-                    <button className="menu-button">🐱 Gato</button>
-                    <button className="menu-button">🐦 Pássaros</button>
-                    <button className="menu-button">🐟 Peixe</button>
-                    <button className="menu-button">🐰 Outros Pets</button>
-                </div>
-                </div>
-
-            </S.NavBarLogado >
+                    <div className="menu">
+                        <button className="menu-button">🐶 Cachorro</button>
+                        <button className="menu-button">🐱 Gato</button>
+                        <button className="menu-button">🐦 Pássaros</button>
+                        <button className="menu-button">🐟 Peixe</button>
+                        <button className="menu-button">🐰 Outros Pets</button>
+                    </div>
+                </S.DivBotoesDepartamentos>
+            </S.NavBarLogado>
             {isFakeLoggingOut && <Loading />}
         </>
     );
 }
 
 function extractNameFromEmail(email: string): string | null {
-    // Regular expression to extract name from email
-    email = email!.trim();
+    email = email.trim();
     const nameRegex = /^(?<name>[^\s]+)\@[\w\d.-]+\.[a-z]{2,}$/;
     const match = email.match(nameRegex);
 
-    // Return extracted name or empty string if no match
     return match ? match.groups!.name : "";
 }
