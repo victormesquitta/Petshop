@@ -20,7 +20,7 @@ export function MeusPets(props) {
                         <div className='meusPets'>
                             <h1>Meus Pets</h1>
 
-                            <button>Cadastrar novo pet</button>
+                            <button className='cadastrar'>Cadastrar novo pet</button>
                         </div>
 
                         <div className='divInformacoes'>
@@ -37,7 +37,7 @@ export function MeusPets(props) {
 
                             </section>
 
-                            <FaPlusCircle className='CirculoMais'/>
+                            {/* <FaPlusCircle className='CirculoMais'/> */}
                         </div>
                     </div>
 
