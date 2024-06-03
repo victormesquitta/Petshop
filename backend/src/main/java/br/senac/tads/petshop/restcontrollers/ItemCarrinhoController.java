@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/itenscarrinho")
+@RequestMapping("/api/itenscarrinhos")
 public class ItemCarrinhoController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class ItemCarrinhoController {
     }
 
     @PostMapping()
-    public ResponseEntity<String> criarItemCarrinho(@RequestBody @Valid ItemCarrinhoDTO itemCarrinhoDTO) {
+    public ResponseEntity<String> adicionarItemCarrinho(@RequestBody @Valid ItemCarrinhoDTO itemCarrinhoDTO) {
         itemCarrinhoService.criarItemCarrinho(itemCarrinhoDTO);
         return new ResponseEntity<>("Item de carrinho criado com sucesso.", HttpStatus.CREATED);
     }

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +30,8 @@ public class Produto {
     @Column(name = "descricao")
     private String descricao;
 
-    @Column(name = "preco")
-    private double preco;
+    @Column(name = "preco", precision = 10, scale = 2)
+    private BigDecimal preco;
 
     @Column(name = "qtdestoque")
     private int qtdEstoque;
@@ -69,5 +71,10 @@ public class Produto {
     @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)
     private ItemCarrinho itemCarrinho;
 
-
+    // garantir o arredondamento correto antes de persistir ou atualizar a entidade no banco de dados
+    @PrePersist
+    @PreUpdate
+    private void prePersistOrUpdate() {
+        this.preco = this.preco.setScale(2, RoundingMode.HALF_UP);
+    }
 }
