@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +25,8 @@ public class CarrinhoCompras {
     @Column(name = "qtdprodutos")
     private Integer qtdProdutos;
 
-    @Column(name = "subtotal")
-    private Double subtotal;
+    @Column(name = "subtotal", precision = 10, scale = 2)
+    private BigDecimal subtotal;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codcliente", referencedColumnName = "codcliente",
@@ -35,4 +36,16 @@ public class CarrinhoCompras {
     @ToString.Exclude
     @OneToMany(mappedBy = "carrinhoCompras", cascade = CascadeType.ALL)
     private List<ItemCarrinho> itensCarrinho = new ArrayList<>();
+
+    public void calcularSubtotal() {
+        this.subtotal = itensCarrinho.stream()
+                .map(ItemCarrinho::getSubtotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void prePersistOrUpdate() {
+        calcularSubtotal();
+    }
 }

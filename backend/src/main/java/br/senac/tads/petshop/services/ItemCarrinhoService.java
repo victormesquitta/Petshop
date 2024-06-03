@@ -1,10 +1,12 @@
 package br.senac.tads.petshop.services;
 
+import br.senac.tads.petshop.dtos.CarrinhoComprasDTO;
 import br.senac.tads.petshop.dtos.ItemCarrinhoDTO;
 import br.senac.tads.petshop.mappers.ItemCarrinhoDTOMapper;
 import br.senac.tads.petshop.models.CarrinhoCompras;
 import br.senac.tads.petshop.models.ItemCarrinho;
 import br.senac.tads.petshop.models.Produto;
+import br.senac.tads.petshop.repositories.CarrinhoComprasRepository;
 import br.senac.tads.petshop.repositories.ItemCarrinhoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +27,22 @@ public class ItemCarrinhoService {
     private final CarrinhoComprasService carrinhoComprasService;
     private final ProdutoService produtoService;
     private final ItemCarrinhoRepository itemCarrinhoRepository;
+    private final CarrinhoComprasRepository carrinhoComprasRepository;
     private final ItemCarrinhoDTOMapper itemCarrinhoDTOMapper;
 
     @Autowired
-    public ItemCarrinhoService(CarrinhoComprasService carrinhoComprasService, ProdutoService produtoService, ItemCarrinhoRepository itemCarrinhoRepository, ItemCarrinhoDTOMapper itemCarrinhoDTOMapper) {
+    public ItemCarrinhoService(CarrinhoComprasService carrinhoComprasService, ProdutoService produtoService, ItemCarrinhoRepository itemCarrinhoRepository, CarrinhoComprasRepository carrinhoComprasRepository, ItemCarrinhoDTOMapper itemCarrinhoDTOMapper) {
         this.carrinhoComprasService = carrinhoComprasService;
         this.produtoService = produtoService;
         this.itemCarrinhoRepository = itemCarrinhoRepository;
+        this.carrinhoComprasRepository = carrinhoComprasRepository;
         this.itemCarrinhoDTOMapper = itemCarrinhoDTOMapper;
     }
 
+    public List<ItemCarrinho> obterItensPorCodCarrinho(Integer codCarrinho) {
+        carrinhoComprasService.carrinhoComprasExiste(codCarrinho);
+        return itemCarrinhoRepository.findByCarrinhoComprasCodCarrinho(codCarrinho);
+    }
     public Page<ItemCarrinho> listarItensCarrinho(Pageable pageable) {
         return itemCarrinhoRepository.findAll(pageable);
     }
@@ -93,6 +101,15 @@ public class ItemCarrinhoService {
         ItemCarrinho itemCarrinho = itemCarrinhoDTOMapper.toEntity(itemCarrinhoDTO, carrinhoCompras, produto);
 //        itemCarrinho.setSubtotal(0.0);
         itemCarrinhoRepository.save(itemCarrinho);
+
+        // atualizando o carrinho
+        System.out.println("Pegando itens carrinho certinho: " + obterItensPorCodCarrinho(codCarrinho));
+//        for(ItemCarrinho item : obterItensPorCodCarrinho(codCarrinho)){
+//
+//        }
+//        System.out.println(soma);
+
+        carrinhoCompras.calcularSubtotal();
     }
 
     @Transactional
@@ -118,17 +135,35 @@ public class ItemCarrinhoService {
 //        itemCarrinhoDTO.setSubtotal(precoUnitario * unidades);
 
         Produto produto = produtoService.obterProdutoPorId(itemCarrinhoDTO.getCodProduto());
-        ItemCarrinho itemCarrinho = itemCarrinhoDTOMapper.toEntity(itemCarrinhoDTO, id, itemCarrinhoExistente.getCarrinhoCompras(), produto);
+        Integer codCarrinho = itemCarrinhoExistente.getCodItemCarrinho();
+        CarrinhoCompras carrinhoCompras = carrinhoComprasService.obterCarrinhoComprasPorId(codCarrinho);
+        ItemCarrinho itemCarrinho = itemCarrinhoDTOMapper.toEntity(itemCarrinhoDTO, id, carrinhoCompras, produto);
+        itemCarrinho.prePersistOrUpdate();
         itemCarrinhoRepository.save(itemCarrinho);
+
+        // atualizando o carrinho
+        carrinhoCompras.calcularSubtotal();
     }
 
     @Transactional
     public void excluirItemCarrinho(Integer id) {
-//        ItemCarrinho itemCarrinho = obterItemCarrinhoPorId(id);
-//        itemCarrinhoRepository.delete(itemCarrinho);
-        itemCarrinhoExiste(id);
+        // Obtém o item do carrinho pelo ID
+        ItemCarrinho itemCarrinho = obterItemCarrinhoPorId(id);
+
+        // Obtém o carrinho ao qual o item pertence
+        CarrinhoCompras carrinhoCompras = itemCarrinho.getCarrinhoCompras();
+
+        // Exclui o item do carrinho
         itemCarrinhoRepository.deleteById(id);
+
+        // Remove o item da lista de itens do carrinho para garantir que a referência seja atualizada corretamente
+        carrinhoCompras.getItensCarrinho().removeIf(item -> item.getCodItemCarrinho().equals(id));
+
+        // Recalcula e atualiza o subtotal do carrinho
+        carrinhoCompras.calcularSubtotal();
+        carrinhoComprasRepository.save(carrinhoCompras);
     }
+
 
     // para métodos update/delete -> a consulta vai ser feita no método, junto com a validaçaõ
     public boolean itemCarrinhoExiste(Integer id) {
