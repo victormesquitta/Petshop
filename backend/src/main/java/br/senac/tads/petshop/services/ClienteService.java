@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -115,6 +116,7 @@ public class ClienteService {
     }
 
     // retorna cliente para vincular o carrinho de compras logo em seguida
+    @Transactional
     public Cliente criarCliente(ClienteDTO clienteDTO){
         isValidEmailAddress(clienteDTO.getEmail());
         validarDadosDuplicados(clienteDTO);
@@ -133,6 +135,7 @@ public class ClienteService {
         return cliente;
     }
 
+    @Transactional
     public void atualizarCliente(Integer id, ClienteDTO clienteDTO){
         validarDadosDuplicados(clienteDTO);
 
