@@ -34,7 +34,6 @@ public class ProdutoDTOMapper {
         return produto;
     }
 
-
     public ProdutoDTO toDTO(Produto produto) {
         ProdutoDTO produtoDTO =  modelMapper.map(produto, ProdutoDTO.class);
         produtoDTO.setCodSubcategoria(produto.getSubcategoria().getCodSubcategoria());

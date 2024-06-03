@@ -21,8 +21,7 @@ public class ClienteDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer codCliente;
 
-
-    //@NotBlank(message = "O usuario não pode estar em branco.")
+    @NotBlank(message = "O usuario não pode estar em branco.")
     @Size(max = 50, message = "O campo 'usuario' deve ter no máximo 50 caracteres.")
     private String usuario;
 
