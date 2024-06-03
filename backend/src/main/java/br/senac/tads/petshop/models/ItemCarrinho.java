@@ -31,7 +31,7 @@ public class ItemCarrinho {
             foreignKey = @ForeignKey(name = "fk_t_itemcarrinho_t_carrinhocompras1"))
     private CarrinhoCompras carrinhoCompras;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codproduto", referencedColumnName = "codproduto",
             foreignKey = @ForeignKey(name = "fk_t_itemcarrinho_t_produto1"))
     private Produto produto;
