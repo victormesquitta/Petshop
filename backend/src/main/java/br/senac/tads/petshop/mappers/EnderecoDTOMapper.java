@@ -17,6 +17,7 @@ public class EnderecoDTOMapper {
         this.modelMapper = modelMapper;
         this.clienteService = clienteService;
     }
+
     // usado para post -> não precisa de id porque ainda não foi criado
     public Endereco toEntity(EnderecoDTO enderecoDTO) {
         Endereco endereco = modelMapper.map(enderecoDTO, Endereco.class);
@@ -33,7 +34,9 @@ public class EnderecoDTOMapper {
     }
 
     public EnderecoDTO toDTO(Endereco endereco) {
-        return modelMapper.map(endereco, EnderecoDTO.class);
+        EnderecoDTO enderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
+        enderecoDTO.setCodCliente(endereco.getCliente().getCodCliente());
+        return enderecoDTO;
     }
 
 }
