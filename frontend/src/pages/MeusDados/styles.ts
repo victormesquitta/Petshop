@@ -24,7 +24,7 @@ export const DivMain = styled.div`
 
   h1 {
     font-size: 2vw;
-    color: #88ce08;
+    color: rgba(7, 57, 80, 1);;
     // margin: 20px 0;
     // grid-column: span 2; 
   }
@@ -44,6 +44,15 @@ export const DivMain = styled.div`
         margin-bottom: 5px;
         color: #333;
       }
+      select {
+        border: 2px solid #88ce08;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 15px;
+        font-size: 14px;
+        color: #333;
+        width: calc(100% - 22px);
+      }
 
       input {
         border: 2px solid #88ce08;
@@ -56,6 +65,11 @@ export const DivMain = styled.div`
       }
 
       input:focus {
+        outline: none;
+        border-color: #66bb6a;
+      }
+      
+      select:focus {
         outline: none;
         border-color: #66bb6a;
       }

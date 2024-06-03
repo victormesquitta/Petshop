@@ -22,8 +22,8 @@ export const NavBar = styled.nav`
 
     img {
       height: 10vh;
-      border-radius: 70px;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      // border-radius: 70px;
+      // box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
   }
   .BotaoFimTela {
