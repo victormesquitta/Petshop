@@ -15,22 +15,23 @@ export function Carrinho(props) {
     return (
         <>
             <S.ContainerPai>
-            <S.NavBar>
-            <Link to="/">
-                <div className="div">
-                    <img src={ImgLogo} alt="Logo" />
-                </div>
-                </Link>
-            </S.NavBar>
+                <S.NavBar>
+                    <Link to="/">
+                        <div className="div">
+                            <img src={ImgLogo} alt="Logo" />
+                        </div>
+                    </Link>
+                </S.NavBar>
                     
-               
-
                 <S.ContainerMain>
                     <h1>Carrinho de compras</h1>
 
                     <div className="DivCarrinhoLixo">
                         <h3>Produtos</h3>
-                        <h3> Limpar carrinho</h3>
+                        <div className="LimparCarrinho">
+                            <h3>Limpar carrinho</h3>
+                            <FaTrash className="IconLixo" />
+                        </div>
                     </div>
 
                     <div className="DivProdutos">
@@ -38,8 +39,7 @@ export function Carrinho(props) {
                             <img src={ImgCard} className="ImgCard" />
                             <p className="Titulo">Petisco Cookie Cães Origem Natural Fit com Banana 250g</p>
                             <input type="number" placeholder="0" />
-                            <p> <FaTrash className="IconLixo" />R$ 29,99</p>
-
+                            <p>R$ 29,99</p>
                         </section>
 
                         <section className="SecInfoPrecos">
