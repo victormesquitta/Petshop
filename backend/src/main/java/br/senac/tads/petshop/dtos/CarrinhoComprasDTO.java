@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -25,7 +26,7 @@ public class CarrinhoComprasDTO {
 
 //    @NotNull(message = "O subtotal não pode ser nulo.")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Double subtotal;
+    private BigDecimal subtotal;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<ItemCarrinhoDTO> itensCarrinho;

@@ -93,7 +93,7 @@ public class CarrinhoComprasService {
         // atribui valores iniciais zerados para o novo carrinho
         CarrinhoCompras carrinhoCompras = new CarrinhoCompras();
         carrinhoCompras.setCliente(cliente);
-        carrinhoCompras.setSubtotal(0.0);
+        carrinhoCompras.calcularSubtotal();
         carrinhoCompras.setQtdProdutos(0);
         carrinhoComprasRepository.save(carrinhoCompras);
     }
@@ -105,6 +105,7 @@ public class CarrinhoComprasService {
         CarrinhoCompras carrinhoExistente = obterCarrinhoComprasPorId(id);
 
         CarrinhoCompras carrinhoCompras = carrinhoComprasDTOMapper.toEntity(carrinhoComprasDTO, id);
+        carrinhoCompras.calcularSubtotal();
         carrinhoComprasRepository.save(carrinhoCompras);
     }
 
@@ -133,4 +134,6 @@ public class CarrinhoComprasService {
         }
         return true;
     }
+
+
 }
