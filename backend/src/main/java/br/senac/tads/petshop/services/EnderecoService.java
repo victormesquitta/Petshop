@@ -56,7 +56,7 @@ public class EnderecoService {
     }
 
     @Transactional
-    public void criarEndereco(EnderecoDTO enderecoDTO) {
+    public void cadastrarEndereco(EnderecoDTO enderecoDTO) {
         // valida se o cliente passado existe
         if(!clienteService.clienteExiste(enderecoDTO.getCodCliente())){
             throw new EntityNotFoundException("Não é possível adicionar um endereço a um cliente que não existe.");

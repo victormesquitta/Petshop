@@ -29,7 +29,7 @@ public class SubcategoriaDTOMapper {
     // usado para put -> o id foi criado e deve ser mantido
     public Subcategoria toEntity(SubcategoriaDTO subcategoriaDTO, Integer id) {
         Subcategoria subcategoria = modelMapper.map(subcategoriaDTO, Subcategoria.class);
-        subcategoria.setCategoria(categoriaService.obterCategoriaPorId(id));
+        subcategoria.setCategoria(categoriaService.obterCategoriaPorId(subcategoriaDTO.getCodCategoria()));
         subcategoria.setCodSubcategoria(id);
         return subcategoria;
     }

@@ -1,8 +1,6 @@
 package br.senac.tads.petshop.restcontrollers;
 
 import br.senac.tads.petshop.dtos.EnderecoDTO;
-import br.senac.tads.petshop.mappers.EnderecoDTOMapper;
-import br.senac.tads.petshop.models.Endereco;
 import br.senac.tads.petshop.services.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,8 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -45,7 +41,7 @@ public class EnderecoController {
 
     @PostMapping()
     public ResponseEntity<String> criarEndereco(@RequestBody EnderecoDTO enderecoDTO) {
-        enderecoService.criarEndereco(enderecoDTO);
+        enderecoService.cadastrarEndereco(enderecoDTO);
         return new ResponseEntity<>("Endereço criado com sucesso.", HttpStatus.CREATED);
     }
 
