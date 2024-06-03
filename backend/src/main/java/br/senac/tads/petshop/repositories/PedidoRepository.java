@@ -8,5 +8,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
-    List<Pedido> findByClienteId(Integer clienteId);
+    List<Pedido> findByClienteCodCliente(Integer codCliente);
 }

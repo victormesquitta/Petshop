@@ -7,5 +7,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CartaoRepository extends JpaRepository<Cartao, Integer> {
-    List<Cartao> findByClienteId(Integer clienteId);
+    List<Cartao> findByClienteCodCliente(Integer codCliente);
 }

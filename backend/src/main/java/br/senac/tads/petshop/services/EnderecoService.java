@@ -53,7 +53,7 @@ public class EnderecoService {
     }
 
     public List<EnderecoDTO> findEnderecosByClienteId(Integer clienteId) {
-        List<Endereco> enderecos = enderecoRepository.findByClienteId(clienteId);
+        List<Endereco> enderecos = enderecoRepository.findByClienteCodCliente(clienteId);
         List<EnderecoDTO> enderecoDTOs = new ArrayList<>();
         for (Endereco e : enderecos) {
             EnderecoDTO i = enderecoDTOMapper.toDTO(e);

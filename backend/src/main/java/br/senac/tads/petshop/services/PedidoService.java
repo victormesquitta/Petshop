@@ -57,7 +57,7 @@ public class PedidoService {
     }
 
     public List<Pedido> findPedidosByClienteId(Integer clienteId) {
-        return pedidoRepository.findByClienteId(clienteId);
+        return pedidoRepository.findByClienteCodCliente(clienteId);
     }
 
     @Transactional

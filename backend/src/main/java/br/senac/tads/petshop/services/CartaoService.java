@@ -52,7 +52,7 @@ public class CartaoService {
     }
 
     public List<CartaoDTO> findCartoesByClienteId(Integer clienteId) {
-        List<Cartao> cartoes = cartaoRepository.findByClienteId(clienteId);
+        List<Cartao> cartoes = cartaoRepository.findByClienteCodCliente(clienteId);
         List<CartaoDTO> cartaoDTOs = new ArrayList<>();
         
         for (Cartao c : cartoes) {
