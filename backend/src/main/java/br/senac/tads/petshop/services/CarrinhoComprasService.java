@@ -85,16 +85,16 @@ public class CarrinhoComprasService {
         // valida a existência do carrinho
         CarrinhoCompras carrinhoExistente = obterCarrinhoComprasPorId(id);
 
-
-
-
         CarrinhoCompras carrinhoCompras = carrinhoComprasDTOMapper.toEntity(carrinhoComprasDTO, id);
         carrinhoComprasRepository.save(carrinhoCompras);
     }
 
+    @Transactional
     public void excluirCarrinhoCompras(Integer id) {
         carrinhoComprasExiste(id);
         carrinhoComprasRepository.deleteById(id);
+//        CarrinhoCompras carrinhoCompras = obterCarrinhoComprasPorId(id);
+//        carrinhoComprasRepository.delete(carrinhoCompras);
     }
 
     // para métodos update/delete -> a consulta vai ser feita no método, junto com a validação

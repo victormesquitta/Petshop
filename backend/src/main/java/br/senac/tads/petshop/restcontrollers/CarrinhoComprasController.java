@@ -64,9 +64,9 @@ public class CarrinhoComprasController {
 //    }
 
 
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<String> excluirCarrinhoCompras(@PathVariable Integer id) {
-//        carrinhoComprasService.excluirCarrinhoCompras(id);
-//        return new ResponseEntity<>("Carrinho de compras excluído com sucesso.", HttpStatus.OK);
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> excluirCarrinhoCompras(@PathVariable Integer id) {
+        carrinhoComprasService.excluirCarrinhoCompras(id);
+        return new ResponseEntity<>("Carrinho de compras excluído com sucesso.", HttpStatus.OK);
+    }
 }

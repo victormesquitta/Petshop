@@ -27,7 +27,7 @@ public class CarrinhoCompras {
     @Column(name = "subtotal")
     private Double subtotal;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codcliente", referencedColumnName = "codcliente",
             foreignKey = @ForeignKey(name = "fk_t_carrinhocompras_t_cliente1"))
     private Cliente cliente;
