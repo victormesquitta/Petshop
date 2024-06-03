@@ -22,12 +22,12 @@ public class ClienteDTO {
     private Integer codCliente;
 
 
-    @NotBlank(message = "O usuario não pode estar em branco.")
+    //@NotBlank(message = "O usuario não pode estar em branco.")
     @Size(max = 50, message = "O campo 'usuario' deve ter no máximo 50 caracteres.")
     private String usuario;
 
     // permite apenas a escrita do atributo
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(message = "A senha não pode estar em branco.")
     @Size(min = 8, max = 50)
     private String senha;
@@ -36,16 +36,16 @@ public class ClienteDTO {
     @Email(message = "O campo 'email' deve ser um endereço de e-mail válido")
     private String email;
 
-    @NotBlank(message = "O CPF não pode estar em branco.")
+    //@NotBlank(message = "O CPF não pode estar em branco.")
     @CPF(message = "CPF inválido")
     private String cpf;
 
-    @NotBlank(message = "O nome completo não pode estar em branco.")
+    //NotBlank(message = "O nome completo não pode estar em branco.")
     private String nomeCompleto;
 
     // só aceita números
+    //@NotBlank(message = "O celular não pode estar em branco.")
     @NumberFormat
-    @NotBlank(message = "O celular não pode estar em branco.")
     private String celular;
 
     private String celular2;
