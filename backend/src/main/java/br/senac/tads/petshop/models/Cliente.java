@@ -94,7 +94,11 @@ public class Cliente implements UserDetails{
     private List<Pedido> pedidos = new ArrayList<>();
 
     @ToString.Exclude
-    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Avaliacao> avaliacoes = new ArrayList<>();
+
+    @ToString.Exclude
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private CarrinhoCompras carrinhoCompras;
 
     public Cliente(String email, String senha, Role role) {
