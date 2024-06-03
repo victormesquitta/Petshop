@@ -51,6 +51,7 @@ public class CarrinhoCompras {
 
     @PrePersist
     @PreUpdate
+    @PreRemove
     public void prePersistOrUpdate() {
         atualizarQtdProdutos();
         calcularSubtotal();

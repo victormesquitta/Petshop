@@ -26,7 +26,7 @@ public class ItemCarrinho {
     @Column(name="subtotal", precision = 10, scale = 2)
     private BigDecimal subtotal;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "codcarrinho", referencedColumnName = "codcarrinho",
             foreignKey = @ForeignKey(name = "fk_t_itemcarrinho_t_carrinhocompras1"))
     private CarrinhoCompras carrinhoCompras;
@@ -39,6 +39,7 @@ public class ItemCarrinho {
     // garantir o arredondamento correto antes de persistir ou atualizar a entidade no banco de dados
     @PrePersist
     @PreUpdate
+    @PreRemove
     public void prePersistOrUpdate() {
         this.subtotal = produto.getPreco().multiply(new BigDecimal(unidades)).setScale(2, RoundingMode.HALF_UP);
     }

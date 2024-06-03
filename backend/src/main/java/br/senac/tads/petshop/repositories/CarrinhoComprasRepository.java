@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface CarrinhoComprasRepository extends JpaRepository<CarrinhoCompras, Integer> {
     Optional<CarrinhoCompras> findByCliente(Cliente cliente);
+
 }
