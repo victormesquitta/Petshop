@@ -1,8 +1,10 @@
 package br.senac.tads.petshop.services;
 
 import br.senac.tads.petshop.dtos.EnderecoDTO;
+import br.senac.tads.petshop.dtos.PedidoDTO;
 import br.senac.tads.petshop.mappers.EnderecoDTOMapper;
 import br.senac.tads.petshop.models.Endereco;
+import br.senac.tads.petshop.models.Pedido;
 import br.senac.tads.petshop.repositories.EnderecoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,6 +50,16 @@ public class EnderecoService {
         Optional<Endereco> enderecoOptional = enderecoRepository.findById(id);
         enderecoExiste(enderecoOptional);
         return enderecoOptional.map(enderecoDTOMapper::toDTO).orElse(null);
+    }
+
+    public List<EnderecoDTO> findEnderecosByClienteId(Integer clienteId) {
+        List<Endereco> enderecos = enderecoRepository.findByClienteId(clienteId);
+        List<EnderecoDTO> enderecoDTOs = new ArrayList<>();
+        for (Endereco e : enderecos) {
+            EnderecoDTO i = enderecoDTOMapper.toDTO(e);
+            enderecoDTOs.add(i);
+        }
+        return enderecoDTOs;
     }
 
     public Endereco obterEnderecoPorId(Integer id) {

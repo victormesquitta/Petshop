@@ -2,6 +2,9 @@ package br.senac.tads.petshop.restcontrollers;
 
 import br.senac.tads.petshop.dtos.CartaoDTO;
 import br.senac.tads.petshop.services.CartaoService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,6 +35,12 @@ public class CartaoController {
     public ResponseEntity<CartaoDTO> obterCartaoCreditoPeloId(@PathVariable Integer id) {
         CartaoDTO cartaoDTO = cartaoService.obterCartaoDTOPorId(id);
         return ResponseEntity.ok(cartaoDTO);
+    }
+
+    @GetMapping(value = "cliente/{clienteId}", produces = "application/json")
+    public ResponseEntity<List<CartaoDTO>> getCartoesByClienteId(@PathVariable Integer clienteId) {
+        List<CartaoDTO> cartoesDTO = cartaoService.findCartoesByClienteId(clienteId);
+        return ResponseEntity.ok(cartoesDTO);
     }
 
     @PostMapping()

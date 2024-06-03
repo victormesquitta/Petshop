@@ -56,6 +56,18 @@ public class ProdutoService {
         return produtoOptional.map(produtosDTOMapper::toDTO).orElse(null);
     }
 
+    public Produto obterProdutoPorNome(String nome){
+        try {
+            Produto produto = produtosRepository.findByNome(nome);
+            if (produto == null) {
+                throw new EntityNotFoundException("Produto não encontrado para o nome fornecido: " + nome);
+            }
+            return produto;
+        } catch (Exception e) {
+            throw new EntityNotFoundException("Erro ao buscar produto pelo nome: " + e.getMessage(), e);
+        }
+    }
+
     @Transactional
     public Produto cadastrarProduto(ProdutoDTO produtoDTO){
         // valida se a subcategoria passada existe

@@ -2,6 +2,9 @@ package br.senac.tads.petshop.restcontrollers;
 
 import br.senac.tads.petshop.dtos.EnderecoDTO;
 import br.senac.tads.petshop.services.EnderecoService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,6 +39,12 @@ public class EnderecoController {
     public ResponseEntity<EnderecoDTO> obterEnderecoPeloId(@PathVariable Integer id) {
         EnderecoDTO enderecoDTO = enderecoService.obterEnderecoDTOPorId(id);
         return ResponseEntity.ok(enderecoDTO);
+    }
+
+    @GetMapping(value = "/{clienteId}", produces = "application/json")
+    public ResponseEntity<List<EnderecoDTO>> getEnderecosByClienteId(@PathVariable Integer clienteId) {
+        List<EnderecoDTO> enderecos = enderecoService.findEnderecosByClienteId(clienteId);
+        return ResponseEntity.ok(enderecos);
     }
 
 

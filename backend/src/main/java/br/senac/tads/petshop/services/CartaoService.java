@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,6 +49,17 @@ public class CartaoService {
         Optional<Cartao> cartaoOptional = cartaoRepository.findById(id);
         cartaoExiste(cartaoOptional);
         return cartaoOptional.map(cartaoDTOMapper::toDTO).orElse(null);
+    }
+
+    public List<CartaoDTO> findCartoesByClienteId(Integer clienteId) {
+        List<Cartao> cartoes = cartaoRepository.findByClienteId(clienteId);
+        List<CartaoDTO> cartaoDTOs = new ArrayList<>();
+        
+        for (Cartao c : cartoes) {
+            CartaoDTO dto = cartaoDTOMapper.toDTO(c);
+            cartaoDTOs.add(dto);
+        }
+        return cartaoDTOs;
     }
 
     public Cartao obterCartaoPorId(Integer id) {

@@ -2,7 +2,12 @@ package br.senac.tads.petshop.restcontrollers;
 
 import br.senac.tads.petshop.dtos.PedidoDTO;
 import br.senac.tads.petshop.mappers.PedidoDTOMapper;
+import br.senac.tads.petshop.models.Pedido;
 import br.senac.tads.petshop.services.PedidoService;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +34,17 @@ public class PedidoController {
 
         Page<PedidoDTO> listaPedidoDTO = pedidoService.listarPedidosDTO(pageable);
         return ResponseEntity.ok(listaPedidoDTO);
+    }
+
+    @GetMapping(value = "/{clienteId}", produces = "application/json")
+    public ResponseEntity<List<PedidoDTO>> getPedidosByClienteId(@PathVariable Integer clienteId) {
+        List<Pedido> pedidos = pedidoService.findPedidosByClienteId(clienteId);
+        List<PedidoDTO> pedidoDTOs = new ArrayList<>();
+        for (Pedido p : pedidos) {
+            PedidoDTO i = pedidoDTOMapper.toDTO(p);
+            pedidoDTOs.add(i);
+        }
+        return ResponseEntity.ok(pedidoDTOs);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")

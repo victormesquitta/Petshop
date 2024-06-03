@@ -56,6 +56,10 @@ public class PedidoService {
         return pedidoOptional.map(pedidoDTOMapper::toDTO).orElse(null);
     }
 
+    public List<Pedido> findPedidosByClienteId(Integer clienteId) {
+        return pedidoRepository.findByClienteId(clienteId);
+    }
+
     @Transactional
     public void cadastrarPedido(PedidoDTO pedidoDTO) {
         // valida se o cliente passado existe
