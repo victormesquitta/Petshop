@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const ContainerPai = styled.section`
-height: 100%;
-width: 25%;
+height: auto;
+width: 20%;
 
 .SectionInformacoes {
     display: flex;

@@ -6,13 +6,11 @@ export const ContainerPai = styled.div`
 `;
 
 export const ContainerMain = styled.main`
-  display: flex;
-  align-items: center;
-
-  padding: 2rem;
-
-  height: 79%;
-  width: 100%;
+display: flex;
+align-items: flex-start;
+padding: 4rem;
+height: auto;
+width: 100%;
 
   .divMain {
     width: 100%;

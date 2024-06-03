@@ -6,12 +6,10 @@ export const ContainerPai = styled.div`
 `;
 
 export const ContainerMain = styled.main`
-  display: flex;
-  align-items: center;
-
+display: flex;
+  align-items: flex-start;
   padding: 4rem;
-
-  height: 100%;
+  height: auto;
   width: 100%;
 
   .DivFavoritos {

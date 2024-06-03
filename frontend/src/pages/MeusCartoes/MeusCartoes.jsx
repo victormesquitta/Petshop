@@ -40,7 +40,7 @@ export function MeusCartoes(props) {
                                 </section>
 
                                 <section>
-                                    <label>CVC</label>
+                                    <label>CVV</label>
                                     <input className='InputCvc' placeholder="CVC" />
 
                                     <label >Nome Completo</label>
