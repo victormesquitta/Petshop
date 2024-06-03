@@ -1,6 +1,5 @@
 package br.senac.tads.petshop.services;
 
-import br.senac.tads.petshop.dtos.CarrinhoComprasDTO;
 import br.senac.tads.petshop.dtos.ItemCarrinhoDTO;
 import br.senac.tads.petshop.mappers.ItemCarrinhoDTOMapper;
 import br.senac.tads.petshop.models.CarrinhoCompras;
@@ -9,6 +8,7 @@ import br.senac.tads.petshop.models.Produto;
 import br.senac.tads.petshop.repositories.CarrinhoComprasRepository;
 import br.senac.tads.petshop.repositories.ItemCarrinhoRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -67,6 +66,11 @@ public class ItemCarrinhoService {
         return itemCarrinhoOptional.map(itemCarrinhoDTOMapper::toDTO).orElse(null);
     }
 
+    public ItemCarrinho obterItemPorCarrinhoEProduto(CarrinhoCompras carrinhoCompras, Produto produto){
+        Optional<ItemCarrinho> itemCarrinhoOptional = itemCarrinhoRepository.findByCarrinhoComprasAndProduto(carrinhoCompras, produto);
+        return itemCarrinhoOptional.orElse(null);
+    }
+
     @Transactional
     public void criarItemCarrinho(ItemCarrinhoDTO itemCarrinhoDTO) {
         /*
@@ -92,24 +96,32 @@ public class ItemCarrinhoService {
         Produto produto = produtoService.obterProdutoPorId(codProduto);
         CarrinhoCompras carrinhoCompras = carrinhoComprasService.obterCarrinhoComprasPorId(codCarrinho);
 
+
+        // valida se já existe um item com esse produto nesse carrinho
+        // Verifica se o item já existe no carrinho
+        ItemCarrinho itemExistente = obterItemPorCarrinhoEProduto(carrinhoCompras, produto);
+        // se já tem esse produto no carrinho, ele incrementa em um a quantidade
+        if (itemExistente != null) {
+            Integer unidades = itemExistente.getUnidades();
+            itemExistente.setUnidades(++unidades);
+            itemExistente.prePersistOrUpdate();
+            itemCarrinhoRepository.save(itemExistente);
+            CarrinhoCompras carrinhoComprasExistente = itemExistente.getCarrinhoCompras();
+            carrinhoComprasExistente.prePersistOrUpdate();
+//            throw new IllegalArgumentException("O item com o produto especificado já existe no carrinho.");
+        }else {
+
 //        BigDecimal precoUnitario = produto.getPreco();
 //        Integer unidades = itemCarrinhoDTO.getUnidades();
 //
 //        itemCarrinhoDTO.setSubtotal(precoUnitario * unidades);
 //        System.out.println(carrinhoCompras.getItensCarrinho());
 
-        ItemCarrinho itemCarrinho = itemCarrinhoDTOMapper.toEntity(itemCarrinhoDTO, carrinhoCompras, produto);
+            ItemCarrinho itemCarrinho = itemCarrinhoDTOMapper.toEntity(itemCarrinhoDTO, carrinhoCompras, produto);
 //        itemCarrinho.setSubtotal(0.0);
-        itemCarrinhoRepository.save(itemCarrinho);
-
-        // atualizando o carrinho
-        System.out.println("Pegando itens carrinho certinho: " + obterItensPorCodCarrinho(codCarrinho));
-//        for(ItemCarrinho item : obterItensPorCodCarrinho(codCarrinho)){
-//
-//        }
-//        System.out.println(soma);
-
-        carrinhoCompras.calcularSubtotal();
+            itemCarrinhoRepository.save(itemCarrinho);
+            carrinhoCompras.prePersistOrUpdate();
+        }
     }
 
     @Transactional
@@ -123,6 +135,7 @@ public class ItemCarrinhoService {
         */
         if (!produtoService.produtoExiste(itemCarrinhoDTO.getCodProduto())) {
             throw new EntityNotFoundException("Não é possível vincular um item a um produto que não existe.");
+
         }
 
 //        Integer codProduto = itemCarrinhoDTO.getCodProduto();
@@ -142,7 +155,7 @@ public class ItemCarrinhoService {
         itemCarrinhoRepository.save(itemCarrinho);
 
         // atualizando o carrinho
-        carrinhoCompras.calcularSubtotal();
+        carrinhoCompras.prePersistOrUpdate();
     }
 
     @Transactional

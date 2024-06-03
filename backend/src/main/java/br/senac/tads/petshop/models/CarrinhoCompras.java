@@ -43,9 +43,16 @@ public class CarrinhoCompras {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    public void atualizarQtdProdutos(){
+        this.qtdProdutos = itensCarrinho.stream()
+                .mapToInt(ItemCarrinho::getUnidades)
+                .sum();
+    }
+
     @PrePersist
     @PreUpdate
     public void prePersistOrUpdate() {
+        atualizarQtdProdutos();
         calcularSubtotal();
     }
 }

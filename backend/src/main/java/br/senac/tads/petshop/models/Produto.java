@@ -68,8 +68,8 @@ public class Produto {
     private List<Avaliacao> avaliacoes = new ArrayList<>();
 
     @ToString.Exclude
-    @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)
-    private ItemCarrinho itemCarrinho;
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    private List<ItemCarrinho> itensCarrinhos = new ArrayList<>();
 
     // garantir o arredondamento correto antes de persistir ou atualizar a entidade no banco de dados
     @PrePersist
