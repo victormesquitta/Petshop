@@ -1,7 +1,9 @@
 package br.senac.tads.petshop.services;
 
 import br.senac.tads.petshop.dtos.CarrinhoComprasDTO;
+import br.senac.tads.petshop.dtos.ItemCarrinhoDTO;
 import br.senac.tads.petshop.mappers.CarrinhoComprasDTOMapper;
+import br.senac.tads.petshop.mappers.ItemCarrinhoDTOMapper;
 import br.senac.tads.petshop.models.CarrinhoCompras;
 import br.senac.tads.petshop.models.Cliente;
 import br.senac.tads.petshop.repositories.CarrinhoComprasRepository;
@@ -22,12 +24,14 @@ public class CarrinhoComprasService {
 
     private final CarrinhoComprasRepository carrinhoComprasRepository;
     private final CarrinhoComprasDTOMapper carrinhoComprasDTOMapper;
+    private final ItemCarrinhoDTOMapper itemCarrinhoDTOMapper;
     private final ClienteService clienteService;
 
     @Autowired
-    public CarrinhoComprasService(CarrinhoComprasRepository carrinhoComprasRepository, CarrinhoComprasDTOMapper carrinhoComprasDTOMapper, ClienteService clienteService) {
+    public CarrinhoComprasService(CarrinhoComprasRepository carrinhoComprasRepository, CarrinhoComprasDTOMapper carrinhoComprasDTOMapper, ItemCarrinhoDTOMapper itemCarrinhoDTOMapper, ClienteService clienteService) {
         this.carrinhoComprasRepository = carrinhoComprasRepository;
         this.carrinhoComprasDTOMapper = carrinhoComprasDTOMapper;
+        this.itemCarrinhoDTOMapper = itemCarrinhoDTOMapper;
         this.clienteService = clienteService;
     }
 
@@ -36,9 +40,24 @@ public class CarrinhoComprasService {
     }
 
     public Page<CarrinhoComprasDTO> listarCarrinhosComprasDTO(Pageable pageable) {
-        Page<CarrinhoCompras> carrinhosCompraPage = listarCarrinhosCompras(pageable);
-        List<CarrinhoComprasDTO> carrinhosCompraDTO = carrinhosCompraPage.stream()
-                .map(carrinhoComprasDTOMapper::toDTO)
+        Page<CarrinhoCompras> carrinhosCompraPage = carrinhoComprasRepository.findAll(pageable);
+        List<CarrinhoComprasDTO> carrinhosCompraDTO = carrinhosCompraPage.getContent().stream()
+                .map(carrinho -> {
+                    CarrinhoComprasDTO carrinhoDTO = new CarrinhoComprasDTO();
+                    // Mapear os campos diretos do carrinho
+                    carrinhoDTO.setCodCarrinho(carrinho.getCodCarrinho());
+                    carrinhoDTO.setCodCliente(carrinho.getCliente().getCodCliente());
+                    carrinhoDTO.setQtdProdutos(carrinho.getQtdProdutos());
+                    carrinhoDTO.setSubtotal(carrinho.getSubtotal());
+
+                    // Mapear os itens do carrinho
+                    List<ItemCarrinhoDTO> itensDTO = carrinho.getItensCarrinho().stream()
+                            .map(itemCarrinhoDTOMapper::toDTO)
+                            .collect(Collectors.toList());
+                    carrinhoDTO.setItensCarrinho(itensDTO);
+
+                    return carrinhoDTO;
+                })
                 .collect(Collectors.toList());
         return new PageImpl<>(carrinhosCompraDTO, pageable, carrinhosCompraPage.getTotalElements());
     }

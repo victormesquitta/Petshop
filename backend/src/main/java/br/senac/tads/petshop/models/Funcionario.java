@@ -1,7 +1,14 @@
 package br.senac.tads.petshop.models;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import br.senac.tads.petshop.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +17,7 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "t_funcionarios")
-public class Funcionario {
+public class Funcionario implements UserDetails{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,14 +30,45 @@ public class Funcionario {
 
     private String email;
 
-    /*bom fazer enum */
-    private String cargo;
-
-    private int nvlacesso;
+    private Role role;
 
     private boolean ativo;
 
     private LocalDate dtCriacao;
 
-    private LocalDate dtModificacao;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+      if(this.role == Role.MASTER) return List.of(new SimpleGrantedAuthority("ROLE_MASTER"));
+      else return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+    }
+
+    @Override
+    public String getPassword() {
+      return senha;
+    }
+
+    @Override
+    public String getUsername() {
+      return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+      return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+      return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+      return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+      return true;
+    }
 }

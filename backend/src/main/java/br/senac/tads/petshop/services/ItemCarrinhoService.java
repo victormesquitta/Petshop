@@ -90,7 +90,7 @@ public class ItemCarrinhoService {
 //        itemCarrinhoDTO.setSubtotal(precoUnitario * unidades);
 //        System.out.println(carrinhoCompras.getItensCarrinho());
 
-        ItemCarrinho itemCarrinho = itemCarrinhoDTOMapper.toEntity(itemCarrinhoDTO);
+        ItemCarrinho itemCarrinho = itemCarrinhoDTOMapper.toEntity(itemCarrinhoDTO, carrinhoCompras, produto);
 //        itemCarrinho.setSubtotal(0.0);
         itemCarrinhoRepository.save(itemCarrinho);
     }
@@ -117,12 +117,15 @@ public class ItemCarrinhoService {
 //
 //        itemCarrinhoDTO.setSubtotal(precoUnitario * unidades);
 
-        ItemCarrinho itemCarrinho = itemCarrinhoDTOMapper.toEntity(itemCarrinhoDTO, id, itemCarrinhoExistente.getCarrinhoCompras());
+        Produto produto = produtoService.obterProdutoPorId(itemCarrinhoDTO.getCodProduto());
+        ItemCarrinho itemCarrinho = itemCarrinhoDTOMapper.toEntity(itemCarrinhoDTO, id, itemCarrinhoExistente.getCarrinhoCompras(), produto);
         itemCarrinhoRepository.save(itemCarrinho);
     }
 
     @Transactional
     public void excluirItemCarrinho(Integer id) {
+//        ItemCarrinho itemCarrinho = obterItemCarrinhoPorId(id);
+//        itemCarrinhoRepository.delete(itemCarrinho);
         itemCarrinhoExiste(id);
         itemCarrinhoRepository.deleteById(id);
     }

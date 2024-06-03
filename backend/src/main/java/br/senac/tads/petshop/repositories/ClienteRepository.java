@@ -2,7 +2,9 @@ package br.senac.tads.petshop.repositories;
 
 import br.senac.tads.petshop.models.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
     boolean existsByCelular(String celular);
@@ -10,6 +12,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     boolean existsByEmail(String email);
     boolean existsByUsuario(String usuario);
     Cliente findByCpf(String cpf);
+    Cliente findByEmail(String email);
 
     // ver como isso será aplicado
 //    UserDetails findByUsuario(String usuario); //Metodo usado para consultar os usuarios

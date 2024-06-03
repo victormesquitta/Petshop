@@ -33,7 +33,7 @@ public class ItemPedidoDTOMapper {
         return itemPedido;
     }
 
-    public ItemPedidoDTO toDTO(ItemPedido entity) {
-        return modelMapper.map(entity, ItemPedidoDTO.class);
+    public ItemPedidoDTO toDTO(ItemPedido itemPedido) {
+        return modelMapper.map(itemPedido, ItemPedidoDTO.class);
     }
 }
