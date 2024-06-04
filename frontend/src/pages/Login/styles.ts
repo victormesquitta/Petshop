@@ -40,12 +40,13 @@ export const ContainerPai = styled.div`
 
 export const FormularioLogin = styled.form`
   background-color: white;
-  width: 40%;
+  width: 30%;
+  height: 60%;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 
   box-sizing: border-box;
 
@@ -56,6 +57,15 @@ export const FormularioLogin = styled.form`
 
   font-size: 1vw;
   font-family: "Roboto", sans-serif;
+
+  .divEmail{
+    margin-top: 1rem;
+    margin-right: ;-bottom: 1rem;
+  }
+
+  .divSenha{
+
+  }
 
   @media (max-width: 1024px) {
     height: 90%;
@@ -81,211 +91,3 @@ export const FormularioLogin = styled.form`
   }
 `;
 
-export const Inputs = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-
-  h1 {
-    margin-top: 2.5rem;
-    margin-bottom: 3.5rem;
-    font-size: 2.5vw;
-    font-family: "roboto-medium", sans-serif;
-  }
-
-  @media (max-width: 1024px) {
-    h1 {
-      font-size: 4vw;
-    }
-  }
-
-  @media (max-width: 768px) {
-    h1 {
-      font-size: 5vw;
-    }
-  }
-
-  @media (max-width: 480px) {
-    h1 {
-      font-size: 6.5vw;
-    }
-  }
-`;
-
-export const NaoTemConta = styled.div`
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-
-  width: 100%;
-
-  div {
-    width: 60%;
-    padding-bottom: 1.6rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    .NaoTemConta{
-      margin-left: 1rem;
-
-      .Links{
-        margin-left: .5rem;
-
-        text-decoration: none;
-
-        &:hover{
-          text-decoration: underline;
-        }
-      }
-    }
-  }
-
-  .LogarCom {
-    position: relative;
-    top: 0.3rem;
-
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
-  @media (max-width: 1024px) {
-    .Links {
-      font-size: 2vw;
-
-      margin-top: 0.5rem;
-    }
-
-    .LogarCom {
-      font-size: 2.5vw;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .Links {
-      font-size: 3vw;
-
-      margin-top: 1rem;
-    }
-
-    .LogarCom {
-      font-size: 3vw;
-    }
-  }
-
-  @media (max-width: 480px) {
-    div {
-      gap: 1.5rem;
-    }
-
-    .Links {
-      font-size: 4vw;
-    }
-
-    .LogarCom {
-      font-size: 5.5vw;
-    }
-  }
-`;
-
-export const ImgsLogos = styled.div`
-  width: 100%;
-
-  display: flex;
-  flex-direction: row;
-  position: relative;
-
-  justify-content: space-evenly;
-
-  padding: 1rem;
-
-  div {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-
-    width: 20%;
-    height: 2.5rem;
-
-    border-radius: 20px;
-
-    &.divFacebook {
-      background-color: #1976d2;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .ImgFacebook {
-        cursor: pointer;
-
-        color: white;
-
-        width: 2rem;
-        height: 1.7rem;
-      }
-    }
-
-    &.divGoogle {
-      background-color: white;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border: 2px solid;
-      border-color: rgba(200, 200, 200, 0.5);
-      .ImgGoogle {
-        cursor: pointer;
-
-        color: red;
-
-        width: 2rem;
-        height: 1.7rem;
-      }
-    }
-
-    &.divApple {
-      background-color: black;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .ImgApple {
-        cursor: pointer;
-
-        color: white;
-
-        width: 2rem;
-        height: 1.7rem;
-      }
-    }
-  }
-
-  @media (max-width: 1024px) {
-    div {
-      height: 3.3rem;
-      width: 28%;
-
-      margin-top: 1.5rem;
-    }
-  }
-
-  @media (max-width: 768px) {
-    div {
-      height: 3.3rem;
-      width: 28%;
-
-      margin-top: 1rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    div {
-      height: 2.8rem;
-      width: 28.5%;
-    }
-  }
-`;

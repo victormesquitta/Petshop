@@ -8,7 +8,6 @@ import br.senac.tads.petshop.models.Produto;
 import br.senac.tads.petshop.repositories.CarrinhoComprasRepository;
 import br.senac.tads.petshop.repositories.ItemCarrinhoRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

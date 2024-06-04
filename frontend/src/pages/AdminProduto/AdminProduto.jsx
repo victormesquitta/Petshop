@@ -5,8 +5,8 @@ import ImgPerfilDog from '../../assets/images/ImgPerfilDog.png';
 import * as S from './styles';
 import { useState } from 'react';
 import { produtoService } from '../../services/produto.service';
-import { toast, ToastContainer } from 'react-toastify'; // Importe o toast
-import 'react-toastify/dist/ReactToastify.css'; // Importe o CSS do toast
+import { toast, ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
 export function AdminProduto() {
     const [idProduto, setIdProduto] = useState('');
@@ -20,6 +20,11 @@ export function AdminProduto() {
     const [nomeProd, setNomeProd] = useState('');
     const [codSubcategoria, setCodSubcategoria] = useState('');
     const [codProduto, setCodProduto] = useState('');
+    const [selectedFile, setSelectedFile] = useState('');
+
+    function handleImage(e) {
+        selectedFile(e.target.files[0]);
+    }
 
     async function atualizarProduto(id) {
 
@@ -78,7 +83,7 @@ export function AdminProduto() {
             toast.error('Preço do produto deve ser maior que zero!');
             return;
         }
-        
+
         const novoProduto = {
             nome: nomeProd,
             marca: marcaProd,
@@ -106,16 +111,25 @@ export function AdminProduto() {
             setMarcaProd('');
             setNomeProd('');
             setCodSubcategoria('');
-            setCodProduto(''); 
+            setCodProduto('');
         } catch (error) {
             if (error.response && error.response.status === 409) {
-                toast.error(error.response.data.message); 
+                toast.error(error.response.data.message);
                 console.log(novoProduto)
             } else {
                 console.error('Erro ao criar produto:', error);
                 toast.error('Erro ao criar produto.', error);
             }
         }
+
+        let file = new FormData();
+        file.append('file', selectedFile);
+
+        await api.post(`api/uploadFile/${response.data}`, file, {
+            headers: {
+                'Authorization': 'Bearer' + token,
+            }
+        })
     }
 
     async function buscarProdutos() {
@@ -213,6 +227,11 @@ export function AdminProduto() {
                             <label htmlFor="InputCodProduto">Codigo Produto</label>
                             <input className='InputCodProduto' type='text' value={codProduto} onChange={e => setCodProduto(e.target.value)} />
 
+                            <input
+                                type='file'
+                                accept='image/*'
+                                onChange={handleImage}
+                            />
                         </section>
                     </div>
 
