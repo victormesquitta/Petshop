@@ -36,7 +36,7 @@ public class PedidoController {
         return ResponseEntity.ok(listaPedidoDTO);
     }
 
-    @GetMapping(value = "/{clienteId}", produces = "application/json")
+    @GetMapping(value = "cliente/{clienteId}", produces = "application/json")
     public ResponseEntity<List<PedidoDTO>> getPedidosByClienteId(@PathVariable Integer clienteId) {
         List<Pedido> pedidos = pedidoService.findPedidosByClienteId(clienteId);
         List<PedidoDTO> pedidoDTOs = new ArrayList<>();
