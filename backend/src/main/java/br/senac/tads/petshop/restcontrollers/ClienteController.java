@@ -1,7 +1,6 @@
 package br.senac.tads.petshop.restcontrollers;
 
 import br.senac.tads.petshop.dtos.ClienteDTO;
-import br.senac.tads.petshop.mappers.ClienteDTOMapper;
 import br.senac.tads.petshop.models.Cliente;
 import br.senac.tads.petshop.services.CarrinhoComprasService;
 import br.senac.tads.petshop.services.ClienteService;
@@ -13,8 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -51,7 +48,7 @@ public class ClienteController {
         // cria o cliente
         Cliente cliente = clienteService.criarCliente(clienteDTO);
         // vincula o novo carrinho com o cliente que acabamos de criar
-        carrinhoComprasService.criarCarrinhoCompras(cliente);
+        carrinhoComprasService.criarCarrinhoComprasComCliente(cliente);
         return new ResponseEntity<>("Cliente criado com sucesso.", HttpStatus.CREATED);
     }
 

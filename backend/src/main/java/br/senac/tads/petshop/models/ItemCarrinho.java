@@ -39,7 +39,6 @@ public class ItemCarrinho {
     // garantir o arredondamento correto antes de persistir ou atualizar a entidade no banco de dados
     @PrePersist
     @PreUpdate
-    @PreRemove
     public void prePersistOrUpdate() {
         this.subtotal = produto.getPreco().multiply(new BigDecimal(unidades)).setScale(2, RoundingMode.HALF_UP);
     }

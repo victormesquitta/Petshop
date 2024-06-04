@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 @Data
@@ -19,20 +21,14 @@ public class ItemPedido {
     @Column(name = "coditempedido")
     private Integer codItemPedido;
 
-    @Column(name = "qtd")
-    private Integer qtd;
+    @Column(name = "unidades")
+    private Integer unidades;
 
-    @Column(name = "precounit")
-    private Double precoUnit;
-
-    @Column(name = "desconto")
-    private Double desconto;
+//    @Column(name = "desconto")
+//    private BigDecimal desconto;
 
     @Column(name = "subtotal")
-    private Double subtotal;
-
-    @Column(name = "statusitem")
-    private String statusitem;
+    private BigDecimal subtotal;
 
     @Column(name = "observacao")
     private String observacao;
@@ -40,16 +36,21 @@ public class ItemPedido {
     @Column(name = "dtcriacao")
     private LocalDate dtCriacao;
 
-    @Column(name = "dtmodificacao")
-    private LocalDate dtModificacao;
-
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "codpedido", referencedColumnName = "codpedido",
             foreignKey = @ForeignKey(name = "fk_t_itempedido_t_pedido1"))
     private Pedido pedido;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codproduto", referencedColumnName = "codproduto",
             foreignKey = @ForeignKey(name = "fk_t_itempedido_t_produto1"))
     private Produto produto;
+
+    // garantir o arredondamento correto antes de persistir ou atualizar a entidade no banco de dados
+
+    @PrePersist
+    @PreUpdate
+    public void prePersistOrUpdate() {
+        this.subtotal = produto.getPreco().multiply(new BigDecimal(unidades)).setScale(2, RoundingMode.HALF_UP);
+    }
 }

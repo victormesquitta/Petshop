@@ -23,10 +23,10 @@ import java.util.stream.Collectors;
 @Service
 public class ItemCarrinhoService {
 
+    private final CarrinhoComprasRepository carrinhoComprasRepository;
     private final CarrinhoComprasService carrinhoComprasService;
     private final ProdutoService produtoService;
     private final ItemCarrinhoRepository itemCarrinhoRepository;
-    private final CarrinhoComprasRepository carrinhoComprasRepository;
     private final ItemCarrinhoDTOMapper itemCarrinhoDTOMapper;
 
     @Autowired
@@ -42,6 +42,7 @@ public class ItemCarrinhoService {
         carrinhoComprasService.carrinhoComprasExiste(codCarrinho);
         return itemCarrinhoRepository.findByCarrinhoComprasCodCarrinho(codCarrinho);
     }
+
     public Page<ItemCarrinho> listarItensCarrinho(Pageable pageable) {
         return itemCarrinhoRepository.findAll(pageable);
     }
@@ -148,7 +149,7 @@ public class ItemCarrinhoService {
 //        itemCarrinhoDTO.setSubtotal(precoUnitario * unidades);
 
         Produto produto = produtoService.obterProdutoPorId(itemCarrinhoDTO.getCodProduto());
-        Integer codCarrinho = itemCarrinhoExistente.getCodItemCarrinho();
+        Integer codCarrinho = itemCarrinhoExistente.getCarrinhoCompras().getCodCarrinho();
         CarrinhoCompras carrinhoCompras = carrinhoComprasService.obterCarrinhoComprasPorId(codCarrinho);
         ItemCarrinho itemCarrinho = itemCarrinhoDTOMapper.toEntity(itemCarrinhoDTO, id, carrinhoCompras, produto);
         itemCarrinho.prePersistOrUpdate();

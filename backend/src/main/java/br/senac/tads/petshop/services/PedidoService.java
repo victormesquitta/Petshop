@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
@@ -95,10 +96,10 @@ public class PedidoService {
         pedido.setMtdPagamento("Cartão de Crédito");
 
         // ver como vai ser esse cálculo
-        pedido.setSubtotal(0.0);
+        pedido.setSubtotal(BigDecimal.ZERO);
 
         // ver como vai ser esse cálculo
-        pedido.setTaxaEnvio(0.0);
+        pedido.setTaxaEnvio(BigDecimal.valueOf(15.0));
 
 
         pedido.setCodigoRastreamento(gerarCodigoRastreamento());
@@ -120,9 +121,9 @@ public class PedidoService {
         String status = pedidoExistente.getStatus(),
                 mtdPagamento = pedidoExistente.getMtdPagamento(),
                 codigoRastremento = pedidoExistente.getCodigoRastreamento();
-        Double subtotal = pedidoExistente.getSubtotal(),
+        BigDecimal subtotal = pedidoExistente.getSubtotal(),
                 taxaEnvio = pedidoExistente.getTaxaEnvio();
-        Pedido pedido = pedidoDTOMapper.toEntity(pedidoDTO, id, pedidoExistente.getCliente());
+        Pedido pedido = pedidoDTOMapper.toEntity(pedidoDTO, id);
         pedido.setCliente(pedidoExistente.getCliente());
         pedido.setDtPedido(dtPedido);
 //        pedido.setDtEnvio(dtEnvio);

@@ -6,7 +6,6 @@ import br.senac.tads.petshop.mappers.CarrinhoComprasDTOMapper;
 import br.senac.tads.petshop.mappers.ItemCarrinhoDTOMapper;
 import br.senac.tads.petshop.models.CarrinhoCompras;
 import br.senac.tads.petshop.models.Cliente;
-import br.senac.tads.petshop.models.ItemCarrinho;
 import br.senac.tads.petshop.repositories.CarrinhoComprasRepository;
 import br.senac.tads.petshop.repositories.ItemCarrinhoRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -87,7 +85,7 @@ public class CarrinhoComprasService {
     }
 
     @Transactional
-    public void criarCarrinhoCompras(Cliente cliente) {
+    public void criarCarrinhoComprasComCliente(Cliente cliente) {
 
         clienteService.clienteExiste(cliente.getCodCliente());
         CarrinhoCompras carrinhoExistente = obterCarrinhoPorCliente(cliente);
@@ -102,6 +100,7 @@ public class CarrinhoComprasService {
         carrinhoCompras.setQtdProdutos(0);
         carrinhoComprasRepository.save(carrinhoCompras);
     }
+
 
     @Transactional
     public void atualizarCarrinhoCompras(Integer id, CarrinhoComprasDTO carrinhoComprasDTO) {
@@ -123,17 +122,24 @@ public class CarrinhoComprasService {
     }
 
     @Transactional
-    public void limparCarrinho(Integer id) {
+    public Cliente limparCarrinho(Integer id) {
 
-        // valida a existência do carrinho de compras
         CarrinhoCompras carrinhoCompras = obterCarrinhoComprasPorId(id);
-        List<ItemCarrinho> itensCarrinho = itemCarrinhoRepository.findByCarrinhoComprasCodCarrinho(id);
-        System.out.println("Itens retornados: " + itensCarrinho.toString());
-        itemCarrinhoRepository.deleteAll(itensCarrinho);
-        carrinhoCompras.setQtdProdutos(0);
-        carrinhoCompras.setSubtotal(new BigDecimal("0.0"));
-        carrinhoComprasRepository.save(carrinhoCompras);
-        // Atualizar o carrinho após limpar os itens (se necessário)
+        Cliente cliente = carrinhoCompras.getCliente();
+        excluirCarrinhoCompras(id);
+        return cliente;
+
+
+
+
+//        // valida a existência do carrinho de compras
+//        CarrinhoCompras carrinhoCompras = obterCarrinhoComprasPorId(id);
+//        List<ItemCarrinho> itensCarrinho = itemCarrinhoRepository.findByCarrinhoComprasCodCarrinho(id);
+//        System.out.println("Itens retornados: " + itensCarrinho.toString());
+//        itemCarrinhoRepository.deleteAll(itensCarrinho);
+////        carrinhoCompras.prePersistOrUpdate();
+//        carrinhoComprasRepository.save(carrinhoCompras);
+//        // Atualizar o carrinho após limpar os itens (se necessário)
 
     }
 

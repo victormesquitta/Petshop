@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -41,11 +42,11 @@ public class PedidoDTO {
 
     // irá ser calculado com base nos itens do pedido, na taxa de envio, no cupom de desconto, mtd de pagamento, ...
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Double subtotal;
+    private BigDecimal subtotal;
 
     // a taxa de envio é atribuída na service
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Double taxaEnvio;
+    private BigDecimal taxaEnvio;
 
 //    private String cupomDesconto;
 

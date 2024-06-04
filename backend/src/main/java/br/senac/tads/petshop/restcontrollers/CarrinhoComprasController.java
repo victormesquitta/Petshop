@@ -1,7 +1,6 @@
 package br.senac.tads.petshop.restcontrollers;
 
 import br.senac.tads.petshop.dtos.CarrinhoComprasDTO;
-import br.senac.tads.petshop.mappers.CarrinhoComprasDTOMapper;
 import br.senac.tads.petshop.models.Cliente;
 import br.senac.tads.petshop.services.CarrinhoComprasService;
 import jakarta.validation.Valid;
@@ -9,12 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -40,7 +36,7 @@ public class CarrinhoComprasController {
 
     @PostMapping()
     public ResponseEntity<String> criarCarrinhoCompras(@RequestBody @Valid Cliente cliente) {
-        carrinhoComprasService.criarCarrinhoCompras(cliente);
+        carrinhoComprasService.criarCarrinhoComprasComCliente(cliente);
         return new ResponseEntity<>("Carrinho de compras criado com sucesso.", HttpStatus.CREATED);
     }
 
@@ -72,7 +68,8 @@ public class CarrinhoComprasController {
 
     @DeleteMapping("/limpar-carrinho/{id}")
     public ResponseEntity<String> limparCarrinhoCompras(@PathVariable Integer id) {
-        carrinhoComprasService.limparCarrinho(id);
+        Cliente cliente = carrinhoComprasService.limparCarrinho(id);
+        carrinhoComprasService.criarCarrinhoComprasComCliente(cliente);
         return new ResponseEntity<>("Carrinho de compras limpo com sucesso.", HttpStatus.OK);
     }
 }

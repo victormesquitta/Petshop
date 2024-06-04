@@ -26,3 +26,6 @@ select * from t_funcionarios
 	DESC t_cliente;
 	SHOW DATABASES;
 */
+SHOW FULL COLUMNS FROM t_endereco;
+	DESC t_cliente;
+	SHOW DATABASES;

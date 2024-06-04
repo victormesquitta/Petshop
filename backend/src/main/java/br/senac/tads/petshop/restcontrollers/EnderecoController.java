@@ -41,7 +41,7 @@ public class EnderecoController {
         return ResponseEntity.ok(enderecoDTO);
     }
 
-    @GetMapping(value = "/{clienteId}", produces = "application/json")
+    @GetMapping(value = "cliente/{clienteId}", produces = "application/json")
     public ResponseEntity<List<EnderecoDTO>> getEnderecosByClienteId(@PathVariable Integer clienteId) {
         List<EnderecoDTO> enderecos = enderecoService.findEnderecosByClienteId(clienteId);
         return ResponseEntity.ok(enderecos);
