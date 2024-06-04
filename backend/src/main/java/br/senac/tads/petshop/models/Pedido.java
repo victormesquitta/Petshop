@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -34,11 +35,11 @@ public class Pedido {
     @Column(name = "mtdpagamento")
     private String mtdPagamento;
 
-    @Column(name = "subtotal")
-    private Double subtotal;
+    @Column(name = "subtotal", precision = 10, scale = 2)
+    private BigDecimal subtotal;
 
-    @Column(name = "taxaenvio")
-    private Double taxaEnvio;
+    @Column(name = "taxaenvio", precision = 10, scale = 2)
+    private BigDecimal taxaEnvio;
 
 //    @Column(name = "cupomdesconto")
 //    private String cupomDesconto;

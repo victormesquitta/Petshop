@@ -38,16 +38,25 @@ public class CarrinhoCompras {
     private List<ItemCarrinho> itensCarrinho = new ArrayList<>();
 
     public void calcularSubtotal() {
-        this.subtotal = itensCarrinho.stream()
-                .map(ItemCarrinho::getSubtotal)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        if (itensCarrinho != null && !itensCarrinho.isEmpty()) {
+            this.subtotal = itensCarrinho.stream()
+                    .map(ItemCarrinho::getSubtotal)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        } else {
+            this.subtotal = BigDecimal.ZERO;
+        }
     }
 
-    public void atualizarQtdProdutos(){
-        this.qtdProdutos = itensCarrinho.stream()
-                .mapToInt(ItemCarrinho::getUnidades)
-                .sum();
+    public void atualizarQtdProdutos() {
+        if (itensCarrinho != null && !itensCarrinho.isEmpty()) {
+            this.qtdProdutos = itensCarrinho.stream()
+                    .mapToInt(ItemCarrinho::getUnidades)
+                    .sum();
+        } else {
+            this.qtdProdutos = 0;
+        }
     }
+
 
     @PrePersist
     @PreUpdate
