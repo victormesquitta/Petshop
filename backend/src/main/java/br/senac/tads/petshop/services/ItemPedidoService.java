@@ -89,8 +89,11 @@ public class ItemPedidoService {
             throw new IllegalArgumentException("O item com o produto especificado já existe no pedido.");
         }
         ItemPedido itemPedido = itemPedidoDTOMapper.toEntity(itemPedidoDTO, pedido, produto);
-        itemPedidoRepository.save(itemPedido);
         itemPedido.prePersistOrUpdate();
+        itemPedidoRepository.save(itemPedido);
+
+        //atualizando o pedido
+        pedido.prePersistOrUpdate();
     }
 
     @Transactional
@@ -99,21 +102,28 @@ public class ItemPedidoService {
         ItemPedido itemPedidoExistente = obterItemPedidoPorId(id);
         if (!produtoService.produtoExiste(itemPedidoDTO.getCodProduto())) {
             throw new EntityNotFoundException("Não é possível vincular um item a um produto que não existe.");
-
         }
+
         Produto produto = produtoService.obterProdutoPorId(itemPedidoDTO.getCodProduto());
         Integer codPedido = itemPedidoExistente.getPedido().getCodPedido();
         Pedido pedido = pedidoService.obterPedidoPorId(codPedido);
         ItemPedido itemPedido = itemPedidoDTOMapper.toEntity(itemPedidoDTO, id, pedido, produto);
         itemPedido.prePersistOrUpdate();
         itemPedidoRepository.save(itemPedido);
+
+        //atualizando o pedido
         pedido.prePersistOrUpdate();
     }
 
     @Transactional
     public void excluirItemPedido(Integer id) {
-        itemPedidoExiste(id);
+        ItemPedido itemPedido = obterItemPedidoPorId(id);
+        Pedido pedido = itemPedido.getPedido();
         itemPedidoRepository.deleteById(id);
+        pedido.getItensPedido().removeIf(item -> item.getCodItemPedido().equals(id));
+        pedido.prePersistOrUpdate();
+        pedidoRepository.save(pedido);
+
     }
 
     // para métodos update/delete -> a consulta vai ser feita no método, junto com a validaçaõ

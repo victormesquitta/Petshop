@@ -30,11 +30,6 @@ public class ItemPedido {
     @Column(name = "subtotal")
     private BigDecimal subtotal;
 
-    @Column(name = "observacao")
-    private String observacao;
-
-    @Column(name = "dtcriacao")
-    private LocalDate dtCriacao;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "codpedido", referencedColumnName = "codpedido",

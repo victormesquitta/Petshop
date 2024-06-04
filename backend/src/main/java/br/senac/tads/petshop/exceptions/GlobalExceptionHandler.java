@@ -71,4 +71,10 @@ public class GlobalExceptionHandler {
         String mensagemErro = "Recurso não encontrado: " + e.getMessage();
         return new ResponseEntity<>(mensagemErro, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e){
+        String mensagemErro = "Argumento ilegal: " + e.getMessage();
+        return new ResponseEntity<>(mensagemErro, HttpStatus.BAD_REQUEST    );
+    }
 }

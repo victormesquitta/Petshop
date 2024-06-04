@@ -11,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/itenspedidos")
@@ -36,7 +34,7 @@ public class ItemPedidoController {
     }
 
     @PostMapping()
-    public ResponseEntity<String> criarItemPedido(@RequestBody @Valid ItemPedidoDTO itemPedidoDTO) {
+    public ResponseEntity<String> cadastrarItemPedido(@RequestBody @Valid ItemPedidoDTO itemPedidoDTO) {
         itemPedidoService.criarItemPedido(itemPedidoDTO);
         return new ResponseEntity<>("Item de pedido criado com sucesso.", HttpStatus.CREATED);
     }

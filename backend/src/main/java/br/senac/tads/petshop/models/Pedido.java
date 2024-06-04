@@ -47,6 +47,9 @@ public class Pedido {
     @Column(name = "taxaenvio", precision = 10, scale = 2)
     private BigDecimal taxaEnvio;
 
+    @Column(name = "observacao")
+    private String observacao;
+
 //    @Column(name = "cupomdesconto")
 //    private String cupomDesconto;
 
@@ -64,11 +67,12 @@ public class Pedido {
 
     public void calcularSubtotal() {
         if (itensPedido != null && !itensPedido.isEmpty()) {
-            this.subtotal = taxaEnvio.add(itensPedido.stream()
+            this.subtotal = itensPedido.stream()
                     .map(ItemPedido::getSubtotal)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add));
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    .add(taxaEnvio);
         } else {
-            this.subtotal = BigDecimal.ZERO;
+            this.subtotal = taxaEnvio;
         }
     }
 
@@ -81,7 +85,6 @@ public class Pedido {
             this.qtdProdutos = 0;
         }
     }
-
 
     @PrePersist
     @PreUpdate

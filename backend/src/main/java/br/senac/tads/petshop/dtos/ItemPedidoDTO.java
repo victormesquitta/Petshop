@@ -31,10 +31,4 @@ public class ItemPedidoDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private BigDecimal subtotal;
 
-    private String observacao;
-
-    // a data é atribuída na service
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDate dtCriacao;
-
 }

@@ -1,6 +1,8 @@
 package br.senac.tads.petshop.services;
 
+import br.senac.tads.petshop.dtos.ItemPedidoDTO;
 import br.senac.tads.petshop.dtos.PedidoDTO;
+import br.senac.tads.petshop.mappers.ItemPedidoDTOMapper;
 import br.senac.tads.petshop.mappers.PedidoDTOMapper;
 import br.senac.tads.petshop.models.Pedido;
 import br.senac.tads.petshop.repositories.PedidoRepository;
@@ -22,15 +24,17 @@ import java.util.stream.Collectors;
 
 @Service
 public class PedidoService {
-    private final ClienteService clienteService;
     private final PedidoRepository pedidoRepository;
     private final PedidoDTOMapper pedidoDTOMapper;
+    private final ItemPedidoDTOMapper itemPedidoDTOMapper;
+    private final ClienteService clienteService;
 
     @Autowired
-    public PedidoService(ClienteService clienteService, PedidoRepository pedidoRepository, PedidoDTOMapper pedidoDTOMapper) {
+    public PedidoService(ClienteService clienteService, PedidoRepository pedidoRepository, PedidoDTOMapper pedidoDTOMapper, ItemPedidoDTOMapper itemPedidoDTOMapper) {
         this.clienteService = clienteService;
         this.pedidoRepository = pedidoRepository;
         this.pedidoDTOMapper = pedidoDTOMapper;
+        this.itemPedidoDTOMapper = itemPedidoDTOMapper;
     }
 
     public Page<Pedido> listarPedidos(Pageable pageable) {
@@ -39,8 +43,27 @@ public class PedidoService {
 
     public Page<PedidoDTO> listarPedidosDTO(Pageable pageable) {
         Page<Pedido> pedidosPage = listarPedidos(pageable);
-        List<PedidoDTO> pedidosDTO = pedidosPage.stream()
-                .map(pedidoDTOMapper::toDTO)
+        List<PedidoDTO> pedidosDTO = pedidosPage.getContent().stream()
+                .map(pedido -> {
+                    PedidoDTO pedidoDTO = new PedidoDTO();
+                    pedidoDTO.setCodPedido(pedido.getCodPedido());
+                    pedidoDTO.setCodCliente(pedido.getCliente().getCodCliente());
+                    pedidoDTO.setStatus(pedido.getStatus());
+                    pedidoDTO.setSubtotal(pedido.getSubtotal());
+                    pedidoDTO.setDtPedido(pedido.getDtPedido());
+                    pedidoDTO.setDtEnvio(pedido.getDtEnvio());
+                    pedidoDTO.setDtEntrega(pedido.getDtEntrega());
+                    pedidoDTO.setCodigoRastreamento(pedido.getCodigoRastreamento());
+                    pedidoDTO.setMtdPagamento(pedido.getMtdPagamento());
+                    pedidoDTO.setTaxaEnvio(pedido.getTaxaEnvio());
+                    pedidoDTO.setObservacao(pedido.getObservacao());
+
+                    List<ItemPedidoDTO> itensDTO = pedido.getItensPedido().stream()
+                            .map(itemPedidoDTOMapper::toDTO)
+                            .collect(Collectors.toList());
+                    pedidoDTO.setItensPedido(itensDTO);
+                    return pedidoDTO;
+                })
                 .collect(Collectors.toList());
         return new PageImpl<>(pedidosDTO, pageable, pedidosPage.getTotalElements());
     }
@@ -101,7 +124,6 @@ public class PedidoService {
         // ver como vai ser esse cálculo
         pedido.setTaxaEnvio(BigDecimal.valueOf(15.0));
 
-
         pedido.setCodigoRastreamento(gerarCodigoRastreamento());
 
         pedidoRepository.save(pedido);
@@ -115,24 +137,45 @@ public class PedidoService {
         if(!clienteService.clienteExiste(pedidoDTO.getCodCliente())){
             throw new EntityNotFoundException("Não é possível adicionar um pedido a um cliente que não existe.");
         }
-        LocalDate dtPedido = pedidoExistente.getDtPedido();
-//                dtEnvio = pedidoExistente.getDtEnvio(),
-//                dtEntrega = pedidoExistente.getDtEntrega();
-        String status = pedidoExistente.getStatus(),
+        // dados do pedido
+        LocalDate dtPedido = pedidoExistente.getDtPedido(),
+                dtEnvio = pedidoDTO.getDtEnvio(),
+                dtEntrega = pedidoDTO.getDtEntrega();
+        String status = pedidoDTO.getStatus(),
                 mtdPagamento = pedidoExistente.getMtdPagamento(),
-                codigoRastremento = pedidoExistente.getCodigoRastreamento();
-        BigDecimal subtotal = pedidoExistente.getSubtotal(),
+                codigoRastremento = pedidoExistente.getCodigoRastreamento(),
+                observacao = pedidoExistente.getObservacao();
+        BigDecimal subtotal = pedidoDTO.getSubtotal(),
                 taxaEnvio = pedidoExistente.getTaxaEnvio();
+
+        LocalDate dtHoje = LocalDate.now();
+        if(dtEnvio == null){
+            throw new IllegalArgumentException("A data de envio precisa ser inserida.");
+        } else if(dtEntrega == null){
+            throw new IllegalArgumentException("A data de entrega precisa ser inserida.");
+        } else if (taxaEnvio == null) {
+            throw new IllegalArgumentException("A taxa de envio precisa ser inserida.");
+        }
+
+        if(dtEnvio.isBefore(dtHoje)){
+            throw new IllegalArgumentException("A data de envio não pode ser inferior à data atual.");
+        } else if(dtEntrega.isBefore(dtHoje)){
+            throw new IllegalArgumentException("A data de entrega não pode ser inferior à data atual.");
+        }
         Pedido pedido = pedidoDTOMapper.toEntity(pedidoDTO, id);
         pedido.setCliente(pedidoExistente.getCliente());
         pedido.setDtPedido(dtPedido);
-//        pedido.setDtEnvio(dtEnvio);
-//        pedido.setDtEntrega(dtEntrega);
+        pedido.setDtEnvio(dtEnvio);
+        pedido.setDtEntrega(dtEntrega);
         pedido.setStatus(status);
         pedido.setMtdPagamento(mtdPagamento);
         pedido.setSubtotal(subtotal);
         pedido.setTaxaEnvio(taxaEnvio);
         pedido.setCodigoRastreamento(codigoRastremento);
+        pedido.setObservacao(observacao);
+
+        pedido.calcularSubtotal();
+
         pedidoRepository.save(pedido);
     }
 

@@ -26,15 +26,13 @@ public class CarrinhoComprasService {
     private final CarrinhoComprasRepository carrinhoComprasRepository;
     private final CarrinhoComprasDTOMapper carrinhoComprasDTOMapper;
     private final ItemCarrinhoDTOMapper itemCarrinhoDTOMapper;
-    private final ItemCarrinhoRepository itemCarrinhoRepository;
     private final ClienteService clienteService;
 
     @Autowired
-    public CarrinhoComprasService(CarrinhoComprasRepository carrinhoComprasRepository, CarrinhoComprasDTOMapper carrinhoComprasDTOMapper, ItemCarrinhoDTOMapper itemCarrinhoDTOMapper, ItemCarrinhoRepository itemCarrinhoRepository, ClienteService clienteService) {
+    public CarrinhoComprasService(CarrinhoComprasRepository carrinhoComprasRepository, CarrinhoComprasDTOMapper carrinhoComprasDTOMapper, ItemCarrinhoDTOMapper itemCarrinhoDTOMapper, ClienteService clienteService) {
         this.carrinhoComprasRepository = carrinhoComprasRepository;
         this.carrinhoComprasDTOMapper = carrinhoComprasDTOMapper;
         this.itemCarrinhoDTOMapper = itemCarrinhoDTOMapper;
-        this.itemCarrinhoRepository = itemCarrinhoRepository;
         this.clienteService = clienteService;
     }
 
@@ -43,7 +41,7 @@ public class CarrinhoComprasService {
     }
 
     public Page<CarrinhoComprasDTO> listarCarrinhosComprasDTO(Pageable pageable) {
-        Page<CarrinhoCompras> carrinhosCompraPage = carrinhoComprasRepository.findAll(pageable);
+        Page<CarrinhoCompras> carrinhosCompraPage = listarCarrinhosCompras(pageable);
         List<CarrinhoComprasDTO> carrinhosCompraDTO = carrinhosCompraPage.getContent().stream()
                 .map(carrinho -> {
                     CarrinhoComprasDTO carrinhoDTO = new CarrinhoComprasDTO();

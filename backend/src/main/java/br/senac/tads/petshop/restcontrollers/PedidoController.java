@@ -61,8 +61,8 @@ public class PedidoController {
     @PostMapping()
     public ResponseEntity<String> cadastrarPedido(@RequestBody @Valid PedidoDTO pedidoDTO) {
         pedidoService.cadastrarPedido(pedidoDTO);
-        Cliente cliente = carrinhoComprasService.limparCarrinho(pedidoDTO.getCodPedido());
-        carrinhoComprasService.criarCarrinhoComprasComCliente(cliente);
+//        Cliente cliente = carrinhoComprasService.limparCarrinho(pedidoDTO.getCodPedido());
+//        carrinhoComprasService.criarCarrinhoComprasComCliente(cliente);
         return new ResponseEntity<>("Pedido criado com sucesso.", HttpStatus.CREATED);
     }
 
