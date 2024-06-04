@@ -1,9 +1,12 @@
 package br.senac.tads.petshop.restcontrollers;
 
 import br.senac.tads.petshop.dtos.ItemPedidoDTO;
-import br.senac.tads.petshop.mappers.ItemPedidoDTOMapper;
 import br.senac.tads.petshop.services.ItemPedidoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,42 +17,38 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("/api/itenspedidos")
 public class ItemPedidoController {
-
-    private final ItemPedidoService itemPedidoService;
-    private final ItemPedidoDTOMapper itemPedidoDTOMapper;
-
     @Autowired
-    public ItemPedidoController(ItemPedidoService itemPedidoService, ItemPedidoDTOMapper itemPedidoDTOMapper) {
-        this.itemPedidoService = itemPedidoService;
-        this.itemPedidoDTOMapper = itemPedidoDTOMapper;
-    }
-
-    @PostMapping()
-    public ResponseEntity<Object> criarItemPedido(@RequestBody ItemPedidoDTO itemPedidoDTO) {
-        itemPedidoService.criarItemPedido(itemPedidoDTO);
-        return new ResponseEntity<>("Item de pedido criado com sucesso.", HttpStatus.CREATED);
-    }
+    private ItemPedidoService itemPedidoService;
 
     @GetMapping()
-    public ResponseEntity<Object> listarItensPedido() {
-        List<ItemPedidoDTO> itensPedidoDTO = itemPedidoService.listarItensPedidoDTO();
+    public ResponseEntity<Page<ItemPedidoDTO>> listarItensPedido(@RequestParam(defaultValue = "0") int page,
+                                                                 @RequestParam(defaultValue = "20") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ItemPedidoDTO> itensPedidoDTO = itemPedidoService.listarItensPedidoDTO(pageable);
         return ResponseEntity.ok(itensPedidoDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> obterItemPedidoPorId(@PathVariable Integer id) {
+    public ResponseEntity<ItemPedidoDTO> obterItemPedidoPorId(@PathVariable Integer id) {
         ItemPedidoDTO itemPedidoDTO = itemPedidoService.obterItemPedidoDTOPorId(id);
         return ResponseEntity.ok(itemPedidoDTO);
     }
 
+    @PostMapping()
+    public ResponseEntity<String> criarItemPedido(@RequestBody @Valid ItemPedidoDTO itemPedidoDTO) {
+        itemPedidoService.criarItemPedido(itemPedidoDTO);
+        return new ResponseEntity<>("Item de pedido criado com sucesso.", HttpStatus.CREATED);
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Object> atualizarItemPedido(@PathVariable Integer id, @RequestBody ItemPedidoDTO itemPedidoDTO) {
+    public ResponseEntity<String> atualizarItemPedido(@PathVariable Integer id, @RequestBody @Valid ItemPedidoDTO itemPedidoDTO) {
         itemPedidoService.atualizarItemPedido(id, itemPedidoDTO);
         return new ResponseEntity<>("Item de pedido atualizado com sucesso.", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> excluirItemPedido(@PathVariable Integer id) {
+    public ResponseEntity<String> excluirItemPedido(@PathVariable Integer id) {
         itemPedidoService.excluirItemPedido(id);
         return new ResponseEntity<>("Item de pedido excluído com sucesso.", HttpStatus.OK);
     }

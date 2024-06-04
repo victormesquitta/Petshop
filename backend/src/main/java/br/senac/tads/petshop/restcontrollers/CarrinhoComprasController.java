@@ -68,7 +68,7 @@ public class CarrinhoComprasController {
 
     @DeleteMapping("/limpar-carrinho/{id}")
     public ResponseEntity<String> limparCarrinhoCompras(@PathVariable Integer id) {
-       Cliente cliente = carrinhoComprasService.limparCarrinho(id);
+        Cliente cliente = carrinhoComprasService.limparCarrinho(id);
         carrinhoComprasService.criarCarrinhoComprasComCliente(cliente);
         return new ResponseEntity<>("Carrinho de compras limpo com sucesso.", HttpStatus.OK);
     }
