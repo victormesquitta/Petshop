@@ -17,7 +17,6 @@ import ImgPetSociety from "../../assets/images/ImgPetSociety.png";
 import ImgRoyalCanin from "../../assets/images/ImgRoyalCanin.png";
 import { RodapeComponent } from "../../components/RodapeComponent/RodapeComponent";
 import { FaHeart, FaMedal } from "react-icons/fa";
-import { AuthService } from "../../services/AuthService";
 import ImageSlider from "../../components/ImageSlider/ImageSlider";
 import Imgflyer from "../../assets/images/Imgflyer.jpg";
 import ImgflyerTwo from "../../assets/images/ImgflyerTwo.jpg";
@@ -26,6 +25,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { produtoService } from "../../services/produto.service";
+import { carrinhoService } from "../../services/itemCarrinho.service"; // Importar carrinhoService
 
 
 export function Home(props) {
@@ -45,6 +45,37 @@ export function Home(props) {
             toast.error('Erro ao buscar produtos. Tente novamente mais tarde.');
         }
     };
+
+    useEffect(() => {
+        fetchProdutos();
+        // Carregar o carrinho (se necessário)
+        const carregarCarrinho = async () => {
+          try {
+            const dadosCarrinho = await carrinhoService.obterCarrinho();
+            setCarrinho(dadosCarrinho); 
+          } catch (error) {
+            console.error('Erro ao carregar carrinho:', error);
+          }
+        };
+        carregarCarrinho(); 
+      }, []);
+    
+      const handleAdicionarAoCarrinho = async (produto) => {
+        try {
+          // 1. Adicionar o produto ao carrinho usando carrinhoService
+          const resultado = await carrinhoService.adicionarProduto(produto.id, 1); // Ajuste o nome do campo ID 
+    
+          // 2. Atualizar o estado do carrinho
+          setCarrinho(resultado); // Assumindo que o backend retorna o carrinho atualizado
+    
+          // 3. Exibir mensagem de sucesso (opcional)
+          toast.success('Produto adicionado ao carrinho!');
+        } catch (error) {
+          console.error('Erro ao adicionar ao carrinho:', error);
+          toast.error('Erro ao adicionar ao carrinho!');
+        }
+      };
+
     return (
         <>
             <S.ContainerPai>
@@ -67,7 +98,7 @@ export function Home(props) {
                                 <p className="PrecoRiscado">R$ {produto.preco}</p>
                                 <p className="PrecoNormal">R$ {produto.preco}</p> 
                                 <p className="MimuPoints"><FaMedal /> Ganhe 200 Mimu points com essa compra</p>
-                                <button>Adicionar ao Carrinho</button> 
+                                <button onClick={() => handleAdicionarAoCarrinho(produto)}>Adicionar ao Carrinho</button> 
                             </section>
                         ))}
                     </div>
