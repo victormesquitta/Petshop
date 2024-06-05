@@ -1,6 +1,7 @@
 package br.senac.tads.petshop.dtos;
 
 import br.senac.tads.petshop.enums.Status;
+import br.senac.tads.petshop.enums.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -61,6 +62,10 @@ public class ClienteDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     // ver a necessidade desse campo no projeto
 //    @NotBlank(message = "O gênero não pode estar em branco.")
