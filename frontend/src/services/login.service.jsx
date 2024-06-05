@@ -6,7 +6,7 @@ export class LoginService {
     const API_BASE_URL = 'http://localhost:8080';
 
     try {
-      const response = await backend.post(`${API_BASE_URL}/auth/login`, { 
+      const response = await backend.post(`${API_BASE_URL}/login`, { 
         email,
         senha 
       });
@@ -26,28 +26,37 @@ export class LoginService {
     }
   }
 
-  async register(email, senha, role) {
+  async registerCliente(clienteData) { // Assuming "clienteData" is an object containing all the form data
     const API_BASE_URL = 'http://localhost:8080';
+
     try {
-      const response = await backend.post(`${API_BASE_URL}/auth/cadastro`, { 
-        email,
-        senha,
-        role
+      const response = await backend.post(`${API_BASE_URL}/api/clientes`, clienteData, {
+        headers: {
+          'Content-Type': 'application/json' 
+        }
       });
 
-      if (response.status === 200) {
-        return true; // Registration successful
+      if (response.status === 201) { // Assuming 201 (Created) for successful registration
+        console.log('Cliente registered successfully!');
+        return true; 
       } else {
-        console.error("Registration failed:", response.status);
-        return false; 
+        console.error("Cliente registration failed:", response.status, response.data);
+
+        // Handle specific error codes from the backend (if any)
+        if (response.data && response.data.errors) {
+          // Example: Display validation errors from Spring Boot
+          const errorMessages = response.data.errors.map(error => error.defaultMessage);
+          console.error("Validation errors:", errorMessages);
+          // ... You could display these errors in your form UI
+        }
+
+        return false;
       }
     } catch (error) {
-      console.error("Registration error:", error);
+      console.error("Cliente registration error:", error);
       return false;
     }
   }
-
-  // ... other potential methods like logout, getUserInfo (if needed)
 }
 
 const loginService = new LoginService();
