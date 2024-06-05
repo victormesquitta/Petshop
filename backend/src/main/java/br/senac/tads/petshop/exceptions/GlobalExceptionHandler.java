@@ -5,6 +5,7 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -75,6 +76,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e){
         String mensagemErro = "Argumento ilegal: " + e.getMessage();
-        return new ResponseEntity<>(mensagemErro, HttpStatus.BAD_REQUEST    );
+        return new ResponseEntity<>(mensagemErro, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<String> handleAuthenticationException(AuthenticationException e){
+        String mensagemErro = "Falha na autenticação: " + e.getMessage();
+        return new ResponseEntity<>(mensagemErro, HttpStatus.UNAUTHORIZED);
     }
 }

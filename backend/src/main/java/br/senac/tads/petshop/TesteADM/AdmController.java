@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,23 +41,25 @@ public class AdmController {
     }
 
     @PostMapping("/cadastro")
-    public ResponseEntity<Void> register(@RequestBody @Valid ClienteDTO dto){
+    public ResponseEntity<String> register(@RequestBody @Valid ClienteDTO dto){
         if(this.usersRepository.findByEmail(dto.getEmail()) != null) {
             return ResponseEntity.badRequest().build();
         }
 
         clienteService.criarCliente(dto);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build(); // Use 201 Created
+        return new ResponseEntity<>("Cadastro feito com sucesso.", HttpStatus.CREATED); // Use 201 Created
     }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO dto) {
         UsernamePasswordAuthenticationToken userSenha = new UsernamePasswordAuthenticationToken(dto.email(), dto.senha());
-        Authentication auth = this.authenticationManager.authenticate(userSenha); // Authentication object
-
-        String token = tokenService.generateToken((Cliente) auth.getPrincipal());
-
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        try{
+            Authentication auth = this.authenticationManager.authenticate(userSenha); // Authentication object
+            String token = tokenService.generateToken((Cliente) auth.getPrincipal());
+            return ResponseEntity.ok(new LoginResponseDTO(token));
+        } catch (AuthenticationException e){
+            throw new AuthenticationException("Credenciais inválidas. Por favor, tente novamente."){};
+        }
     }
 }

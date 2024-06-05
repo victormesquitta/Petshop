@@ -1,9 +1,12 @@
 package br.senac.tads.petshop.services;
 
+import br.senac.tads.petshop.dtos.CarrinhoComprasDTO;
 import br.senac.tads.petshop.dtos.ItemPedidoDTO;
 import br.senac.tads.petshop.dtos.PedidoDTO;
 import br.senac.tads.petshop.mappers.ItemPedidoDTOMapper;
 import br.senac.tads.petshop.mappers.PedidoDTOMapper;
+import br.senac.tads.petshop.models.ItemCarrinho;
+import br.senac.tads.petshop.models.ItemPedido;
 import br.senac.tads.petshop.models.Pedido;
 import br.senac.tads.petshop.repositories.PedidoRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -50,6 +53,7 @@ public class PedidoService {
                     pedidoDTO.setCodCliente(pedido.getCliente().getCodCliente());
                     pedidoDTO.setStatus(pedido.getStatus());
                     pedidoDTO.setSubtotal(pedido.getSubtotal());
+                    pedidoDTO.setQtdProdutos(pedido.getQtdProdutos());
                     pedidoDTO.setDtPedido(pedido.getDtPedido());
                     pedidoDTO.setDtEnvio(pedido.getDtEnvio());
                     pedidoDTO.setDtEntrega(pedido.getDtEntrega());
@@ -85,13 +89,15 @@ public class PedidoService {
     }
 
     @Transactional
-    public void cadastrarPedido(PedidoDTO pedidoDTO) {
+    public Pedido cadastrarPedido(List<ItemCarrinho> itensCarrinho, Integer codCliente, PedidoDTO pedidoDTO) {
         // valida se o cliente passado existe
-        if(!clienteService.clienteExiste(pedidoDTO.getCodCliente())){
-            throw new EntityNotFoundException("Não é possível adicionar um pedido a um cliente que não existe.");
-        }
+
+
+        pedidoDTO.setCodCliente(codCliente);
+
+
         Pedido pedido = pedidoDTOMapper.toEntity(pedidoDTO);
-        System.out.println(pedido.toString());
+
         /*
         *  Valida a questão dos úteis para envio e entrega.
         *  Dt do pedido: dia atual no qual se fez o pedido.
@@ -126,7 +132,26 @@ public class PedidoService {
 
         pedido.setCodigoRastreamento(gerarCodigoRastreamento());
 
+        // Criar lista de itens do pedido a partir dos itens do carrinho
+        List<ItemPedido> itensPedido = itensCarrinho.stream().map(itemCarrinho -> {
+            ItemPedido itemPedido = new ItemPedido();
+            itemPedido.setPedido(pedido);
+            itemPedido.setProduto(itemCarrinho.getProduto());
+            itemPedido.setUnidades(itemCarrinho.getUnidades());
+            itemPedido.setSubtotal(itemCarrinho.getSubtotal());
+            return itemPedido;
+        }).collect(Collectors.toList());
+
+        // Atribuir os itens ao pedido
+        pedido.setItensPedido(itensPedido);
+
+        // Atualizar subtotal e qtdProdutos
+        pedido.prePersistOrUpdate();
+
         pedidoRepository.save(pedido);
+
+        return pedido;
+
     }
 
     @Transactional
@@ -155,6 +180,8 @@ public class PedidoService {
             throw new IllegalArgumentException("A data de entrega precisa ser inserida.");
         } else if (taxaEnvio == null) {
             throw new IllegalArgumentException("A taxa de envio precisa ser inserida.");
+        } else if (status == null) {
+            throw new IllegalArgumentException("O status precisa ser inserido.");
         }
 
         if(dtEnvio.isBefore(dtHoje)){

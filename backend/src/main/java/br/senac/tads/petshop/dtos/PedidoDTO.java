@@ -36,7 +36,7 @@ public class PedidoDTO {
 
     // o status é atribuído na service
 //    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @NotBlank(message = "O status precisa ser definido.")
+//    @NotBlank(message = "O status precisa ser definido.")
     private String status;
 
     // como no mvp vai ter apenas cartão de crédito como pagamento, não vamos deixar o usuário decidir isso
@@ -46,6 +46,9 @@ public class PedidoDTO {
     // irá ser calculado com base nos itens do pedido, na taxa de envio, no cupom de desconto, mtd de pagamento, ...
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private BigDecimal subtotal;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Integer qtdProdutos;
 
     // a taxa de envio é atribuída na service
 //    @JsonProperty(access = JsonProperty.Access.READ_ONLY)

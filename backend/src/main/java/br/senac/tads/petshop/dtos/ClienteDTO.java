@@ -29,7 +29,7 @@ public class ClienteDTO {
     // permite apenas a escrita do atributo
     //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(message = "A senha não pode estar em branco.")
-    @Size(min = 8, max = 50)
+    @Size(min = 4, max = 50, message = "O tamanho da senha precisa ser de 4 a 50 caracteres.")
     private String senha;
 
     @NotBlank(message = "O e-mail não pode estar em branco.")

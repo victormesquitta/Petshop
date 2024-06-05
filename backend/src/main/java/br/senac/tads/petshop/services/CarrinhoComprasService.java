@@ -120,24 +120,22 @@ public class CarrinhoComprasService {
     }
 
     @Transactional
-    public Cliente limparCarrinho(Integer id) {
-
-        CarrinhoCompras carrinhoCompras = obterCarrinhoComprasPorId(id);
-        Cliente cliente = carrinhoCompras.getCliente();
-        excluirCarrinhoCompras(id);
-        return cliente;
-
-
-
-
-//        // valida a existência do carrinho de compras
+    public void excluirCarrinhoCompras(CarrinhoCompras carrinhoCompras) {
+        carrinhoComprasExiste(carrinhoCompras.getCodCarrinho());
+        carrinhoComprasRepository.delete(carrinhoCompras);
 //        CarrinhoCompras carrinhoCompras = obterCarrinhoComprasPorId(id);
-//        List<ItemCarrinho> itensCarrinho = itemCarrinhoRepository.findByCarrinhoComprasCodCarrinho(id);
-//        System.out.println("Itens retornados: " + itensCarrinho.toString());
-//        itemCarrinhoRepository.deleteAll(itensCarrinho);
-////        carrinhoCompras.prePersistOrUpdate();
-//        carrinhoComprasRepository.save(carrinhoCompras);
-//        // Atualizar o carrinho após limpar os itens (se necessário)
+//        carrinhoComprasRepository.delete(carrinhoCompras);
+    }
+
+
+    // apaga e já retorna o cliente pra recriar o carrinho
+    @Transactional
+    public Cliente limparCarrinho(Integer codCarrinho) {
+
+        CarrinhoCompras carrinhoCompras = obterCarrinhoComprasPorId(codCarrinho);
+        Integer codCliente = carrinhoCompras.getCliente().getCodCliente();
+        excluirCarrinhoCompras(carrinhoCompras);
+        return clienteService.obterClientePorId(codCliente);
 
     }
 

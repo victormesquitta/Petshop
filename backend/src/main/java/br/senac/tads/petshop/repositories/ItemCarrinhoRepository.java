@@ -12,4 +12,5 @@ public interface ItemCarrinhoRepository extends JpaRepository<ItemCarrinho, Inte
     List<ItemCarrinho> findByCarrinhoComprasCodCarrinho(Integer codCarrinho);
     Optional<ItemCarrinho> findByCarrinhoComprasAndProduto(CarrinhoCompras carrinhoCompras, Produto produto);
     void deleteByCarrinhoComprasCodCarrinho(Integer codCarrinho);
+
 }

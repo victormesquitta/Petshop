@@ -14,14 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("*")
+//@CrossOrigin(origins = "http://localhost:8080", allowCredentials = "true")
 @RequestMapping("/api/clientes")
 public class ClienteController {
-
-
+    
     private final ClienteService clienteService;
     private final CarrinhoComprasService carrinhoComprasService;
-
 
     @Autowired
     public ClienteController(ClienteService clienteService, CarrinhoComprasService carrinhoComprasService) {

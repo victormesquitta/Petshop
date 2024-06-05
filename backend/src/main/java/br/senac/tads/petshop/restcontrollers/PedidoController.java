@@ -1,15 +1,15 @@
 package br.senac.tads.petshop.restcontrollers;
 
+import br.senac.tads.petshop.dtos.CarrinhoComprasDTO;
 import br.senac.tads.petshop.dtos.PedidoDTO;
 import br.senac.tads.petshop.mappers.PedidoDTOMapper;
 import br.senac.tads.petshop.models.Cliente;
+import br.senac.tads.petshop.models.ItemCarrinho;
 import br.senac.tads.petshop.models.Pedido;
 import br.senac.tads.petshop.services.CarrinhoComprasService;
+import br.senac.tads.petshop.services.ClienteService;
+import br.senac.tads.petshop.services.ItemCarrinhoService;
 import br.senac.tads.petshop.services.PedidoService;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,8 +19,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/api/pedidos")
 public class PedidoController {
 
@@ -32,6 +34,12 @@ public class PedidoController {
 
     @Autowired
     private CarrinhoComprasService carrinhoComprasService;
+
+    @Autowired
+    private ItemCarrinhoService itemCarrinhoService;
+
+    @Autowired
+    private ClienteService clienteService;
 
     @GetMapping()
     public ResponseEntity<Object> listarPedidos(@RequestParam(defaultValue = "0") int page,
@@ -58,11 +66,20 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoDTO);
     }
 
-    @PostMapping()
-    public ResponseEntity<String> cadastrarPedido(@RequestBody @Valid PedidoDTO pedidoDTO) {
-        pedidoService.cadastrarPedido(pedidoDTO);
-//        Cliente cliente = carrinhoComprasService.limparCarrinho(pedidoDTO.getCodPedido());
-//        carrinhoComprasService.criarCarrinhoComprasComCliente(cliente);
+    @PostMapping(value = "/{codCliente}", produces = "application/json")
+    public ResponseEntity<String> cadastrarPedido(@PathVariable Integer codCliente, @RequestBody @Valid PedidoDTO pedidoDTO) {
+
+        // pega os itens do carrinho de compras
+        List<ItemCarrinho> itensCarrinho = itemCarrinhoService.listarItensCarrinhoPorCodCliente(codCliente);
+
+        // começa a criar o pedido a partir dos itens que estavam no carrinho
+        Pedido pedido = pedidoService.cadastrarPedido(itensCarrinho, codCliente, pedidoDTO);
+
+        // pega o codigo do carrinho pra poder apagar e recriar o carrinho de compras do cliente
+        Integer codCarrinho = itensCarrinho.get(0).getCarrinhoCompras().getCodCarrinho();
+        Cliente cliente = clienteService.obterClientePorId(codCliente);
+        carrinhoComprasService.criarCarrinhoComprasComCliente(cliente);
+
         return new ResponseEntity<>("Pedido criado com sucesso.", HttpStatus.CREATED);
     }
 

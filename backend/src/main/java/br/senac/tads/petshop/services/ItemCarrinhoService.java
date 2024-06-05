@@ -1,8 +1,10 @@
 package br.senac.tads.petshop.services;
 
+import br.senac.tads.petshop.dtos.CarrinhoComprasDTO;
 import br.senac.tads.petshop.dtos.ItemCarrinhoDTO;
 import br.senac.tads.petshop.mappers.ItemCarrinhoDTOMapper;
 import br.senac.tads.petshop.models.CarrinhoCompras;
+import br.senac.tads.petshop.models.Cliente;
 import br.senac.tads.petshop.models.ItemCarrinho;
 import br.senac.tads.petshop.models.Produto;
 import br.senac.tads.petshop.repositories.CarrinhoComprasRepository;
@@ -27,14 +29,22 @@ public class ItemCarrinhoService {
     private final ProdutoService produtoService;
     private final ItemCarrinhoRepository itemCarrinhoRepository;
     private final ItemCarrinhoDTOMapper itemCarrinhoDTOMapper;
+    private final ClienteService clienteService;
 
     @Autowired
-    public ItemCarrinhoService(CarrinhoComprasService carrinhoComprasService, ProdutoService produtoService, ItemCarrinhoRepository itemCarrinhoRepository, CarrinhoComprasRepository carrinhoComprasRepository, ItemCarrinhoDTOMapper itemCarrinhoDTOMapper) {
+    public ItemCarrinhoService(CarrinhoComprasService carrinhoComprasService, ProdutoService produtoService, ItemCarrinhoRepository itemCarrinhoRepository, CarrinhoComprasRepository carrinhoComprasRepository, ItemCarrinhoDTOMapper itemCarrinhoDTOMapper, ClienteService clienteService) {
         this.carrinhoComprasService = carrinhoComprasService;
         this.produtoService = produtoService;
         this.itemCarrinhoRepository = itemCarrinhoRepository;
         this.carrinhoComprasRepository = carrinhoComprasRepository;
         this.itemCarrinhoDTOMapper = itemCarrinhoDTOMapper;
+        this.clienteService = clienteService;
+    }
+
+    public List<ItemCarrinho> listarItensCarrinhoPorCodCliente(Integer codCliente){
+        Cliente cliente = clienteService.obterClientePorId(codCliente);
+        CarrinhoCompras carrinhoCompras = carrinhoComprasService.obterCarrinhoPorCliente(cliente);
+        return carrinhoCompras.getItensCarrinho();
     }
 
     public List<ItemCarrinho> obterItensPorCodCarrinho(Integer codCarrinho) {
