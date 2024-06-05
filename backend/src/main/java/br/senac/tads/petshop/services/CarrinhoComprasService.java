@@ -133,9 +133,9 @@ public class CarrinhoComprasService {
     public Cliente limparCarrinho(Integer codCarrinho) {
 
         CarrinhoCompras carrinhoCompras = obterCarrinhoComprasPorId(codCarrinho);
-        Integer codCliente = carrinhoCompras.getCliente().getCodCliente();
-        excluirCarrinhoCompras(carrinhoCompras);
-        return clienteService.obterClientePorId(codCliente);
+        Cliente cliente = carrinhoCompras.getCliente();
+        excluirCarrinhoCompras(codCarrinho);
+        return cliente;
 
     }
 

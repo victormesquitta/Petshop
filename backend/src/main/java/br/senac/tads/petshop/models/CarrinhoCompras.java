@@ -32,7 +32,7 @@ public class CarrinhoCompras {
     private Cliente cliente;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "carrinhoCompras", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "carrinhoCompras", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemCarrinho> itensCarrinho = new ArrayList<>();
 
     public void calcularSubtotal() {
@@ -58,7 +58,6 @@ public class CarrinhoCompras {
 
     @PrePersist
     @PreUpdate
-    @PreRemove
     public void prePersistOrUpdate() {
         atualizarQtdProdutos();
         calcularSubtotal();

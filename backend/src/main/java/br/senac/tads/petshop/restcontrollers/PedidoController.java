@@ -69,15 +69,23 @@ public class PedidoController {
     @PostMapping(value = "/{codCliente}", produces = "application/json")
     public ResponseEntity<String> cadastrarPedido(@PathVariable Integer codCliente, @RequestBody @Valid PedidoDTO pedidoDTO) {
 
+
         // pega os itens do carrinho de compras
         List<ItemCarrinho> itensCarrinho = itemCarrinhoService.listarItensCarrinhoPorCodCliente(codCliente);
+//        List<ItemCarrinho> itensCarrinho = new ArrayList<>();
+//        ItemCarrinho itemCarrinho = itemCarrinhoService.obterItemCarrinhoPorId(1);
+//        itensCarrinho.add(itemCarrinho);
+
+//        if (itensCarrinho.isEmpty()) {
+//            return new ResponseEntity<>("O carrinho está vazio.", HttpStatus.BAD_REQUEST);
+//        }
 
         // começa a criar o pedido a partir dos itens que estavam no carrinho
         Pedido pedido = pedidoService.cadastrarPedido(itensCarrinho, codCliente, pedidoDTO);
 
         // pega o codigo do carrinho pra poder apagar e recriar o carrinho de compras do cliente
         Integer codCarrinho = itensCarrinho.get(0).getCarrinhoCompras().getCodCarrinho();
-        Cliente cliente = clienteService.obterClientePorId(codCliente);
+        Cliente cliente = carrinhoComprasService.limparCarrinho(codCarrinho);
         carrinhoComprasService.criarCarrinhoComprasComCliente(cliente);
 
         return new ResponseEntity<>("Pedido criado com sucesso.", HttpStatus.CREATED);
